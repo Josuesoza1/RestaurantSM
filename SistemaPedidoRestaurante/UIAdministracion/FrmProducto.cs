@@ -40,7 +40,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             FrmMenuAdministracion menu = new FrmMenuAdministracion();
             menu.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void FrmProducto_FormClosed(object sender, FormClosedEventArgs e)
@@ -51,6 +51,11 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private void FrmProducto_Load_1(object sender, EventArgs e)
         {
             CargarDatos();
+        }
+
+        private void cmbBuscar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

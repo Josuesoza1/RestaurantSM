@@ -22,6 +22,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 dgvRoles.AutoGenerateColumns = false;
                 dgvRoles.Columns[0].DataPropertyName = "IdRol";
                 dgvRoles.Columns[1].DataPropertyName = "Nombre";
+                dgvRoles.Columns[2].DataPropertyName = "Descripcion";
                 dgvRoles.DataSource = _rolBLL.ObtenerRoles();
             }
             catch (Exception ex)
@@ -34,7 +35,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             FrmMenuAdministracion menu = new FrmMenuAdministracion();
             menu.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void FrmRoles_Load(object sender, EventArgs e)

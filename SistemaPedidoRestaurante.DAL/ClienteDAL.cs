@@ -16,16 +16,18 @@ namespace SistemaPedidoRestaurante.DAL
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
+                    command.Parameters.AddWithValue("@Usuario", usuario.NombreUsuario);
+                    command.Parameters.AddWithValue("@Contrasena", usuario.Contrasena);
+
                     command.Parameters.AddWithValue("@PrimerNombre", cliente.PrimerNombre);
                     command.Parameters.AddWithValue("@SegundoNombre", string.IsNullOrEmpty(cliente.SegundoNombre) ? (object)DBNull.Value : cliente.SegundoNombre);
                     command.Parameters.AddWithValue("@PrimerApellido", cliente.PrimerApellido);
                     command.Parameters.AddWithValue("@SegundoApellido", string.IsNullOrEmpty(cliente.SegundoApellido) ? (object)DBNull.Value : cliente.SegundoApellido);
+                    command.Parameters.AddWithValue("@Genero", cliente.Genero);
                     command.Parameters.AddWithValue("@Telefono", cliente.Telefono);
                     command.Parameters.AddWithValue("@Email", cliente.Email);
                     command.Parameters.AddWithValue("@Cedula", cliente.Cedula);
 
-                    command.Parameters.AddWithValue("@Usuario", usuario.NombreUsuario);
-                    command.Parameters.AddWithValue("@Contrasena", usuario.Contrasena);
 
                     connection.Open();
                     command.ExecuteNonQuery();

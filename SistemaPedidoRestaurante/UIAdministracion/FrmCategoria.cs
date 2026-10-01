@@ -36,7 +36,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             FrmMenuAdministracion menu = new FrmMenuAdministracion();
             menu.Show();
-            this.Close();
+            this.Hide();
+            
         }
 
         private void FrmCategoria_FormClosed(object sender, FormClosedEventArgs e)
