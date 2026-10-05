@@ -90,6 +90,7 @@
     <Compile Include="UIAdministracion\FrmRoles.Designer.cs">
       <DependentUpon>FrmRoles.cs</DependentUpon>
     </Compile>
+    <Compile Include="UIAdministracion\ModoFormulario.cs" />
     <Compile Include="UICliente\FrmClientes.cs">
       <SubType>Form</SubType>
     </Compile>

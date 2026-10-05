@@ -1,6 +1,7 @@
+using SistemaPedidoRestaurante.Loggin;
+using SistemaPedidoRestaurante.UIAdministracion;
 using System;
 using System.Windows.Forms;
-using SistemaPedidoRestaurante.Loggin;
 
 namespace SistemaPedidoRestaurante
 {
