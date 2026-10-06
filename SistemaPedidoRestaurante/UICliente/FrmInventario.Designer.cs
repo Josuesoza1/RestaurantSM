@@ -1,0 +1,491 @@
+﻿namespace SistemaPedidoRestaurante.UICliente
+{
+    partial class FrmInventario
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.agregarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.volverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.grpAcciones = new System.Windows.Forms.GroupBox();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.lblBuscar = new System.Windows.Forms.Label();
+            this.btnGuardarProducto = new System.Windows.Forms.Button();
+            this.btnLimpiar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.grpListaProductos = new System.Windows.Forms.GroupBox();
+            this.dgvProductoInventario = new System.Windows.Forms.DataGridView();
+            this.grpAgregarProducto = new System.Windows.Forms.GroupBox();
+            this.cmbCategoriaInventario = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtPrecioVenta = new System.Windows.Forms.TextBox();
+            this.lblPrecioVenta = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lblStockMinimo = new System.Windows.Forms.Label();
+            this.txtUnidad = new System.Windows.Forms.TextBox();
+            this.lblUnidad = new System.Windows.Forms.Label();
+            this.lblStockActual = new System.Windows.Forms.Label();
+            this.txtStockActual = new System.Windows.Forms.TextBox();
+            this.txtProducto = new System.Windows.Forms.TextBox();
+            this.lblProducto = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblTitulo = new System.Windows.Forms.Label();
+            this.ColProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColUnidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColPrecioVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColStockActual = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColSrockMinimo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.menuStrip1.SuspendLayout();
+            this.grpAcciones.SuspendLayout();
+            this.grpListaProductos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProductoInventario)).BeginInit();
+            this.grpAgregarProducto.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.agregarToolStripMenuItem,
+            this.eliminarToolStripMenuItem,
+            this.editarToolStripMenuItem,
+            this.volverToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(769, 24);
+            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // agregarToolStripMenuItem
+            // 
+            this.agregarToolStripMenuItem.Name = "agregarToolStripMenuItem";
+            this.agregarToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.agregarToolStripMenuItem.Text = "Agregar";
+            // 
+            // eliminarToolStripMenuItem
+            // 
+            this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
+            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.eliminarToolStripMenuItem.Text = "Eliminar";
+            // 
+            // editarToolStripMenuItem
+            // 
+            this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
+            this.editarToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.editarToolStripMenuItem.Text = "Editar";
+            // 
+            // volverToolStripMenuItem
+            // 
+            this.volverToolStripMenuItem.Name = "volverToolStripMenuItem";
+            this.volverToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.volverToolStripMenuItem.Text = "Volver";
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // grpAcciones
+            // 
+            this.grpAcciones.Controls.Add(this.btnBuscar);
+            this.grpAcciones.Controls.Add(this.textBox2);
+            this.grpAcciones.Controls.Add(this.lblBuscar);
+            this.grpAcciones.Controls.Add(this.btnGuardarProducto);
+            this.grpAcciones.Controls.Add(this.btnLimpiar);
+            this.grpAcciones.Controls.Add(this.btnCancelar);
+            this.grpAcciones.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpAcciones.ForeColor = System.Drawing.Color.DarkSlateBlue;
+            this.grpAcciones.Location = new System.Drawing.Point(499, 120);
+            this.grpAcciones.Name = "grpAcciones";
+            this.grpAcciones.Size = new System.Drawing.Size(257, 178);
+            this.grpAcciones.TabIndex = 20;
+            this.grpAcciones.TabStop = false;
+            this.grpAcciones.Text = "Acciones";
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.BackColor = System.Drawing.Color.Cyan;
+            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuscar.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscar.ForeColor = System.Drawing.Color.Black;
+            this.btnBuscar.Location = new System.Drawing.Point(171, 127);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(67, 29);
+            this.btnBuscar.TabIndex = 12;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = false;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(63, 101);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(175, 21);
+            this.textBox2.TabIndex = 11;
+            // 
+            // lblBuscar
+            // 
+            this.lblBuscar.AutoSize = true;
+            this.lblBuscar.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBuscar.ForeColor = System.Drawing.Color.Black;
+            this.lblBuscar.Location = new System.Drawing.Point(6, 103);
+            this.lblBuscar.Name = "lblBuscar";
+            this.lblBuscar.Size = new System.Drawing.Size(51, 15);
+            this.lblBuscar.TabIndex = 10;
+            this.lblBuscar.Text = "Buscar:";
+            // 
+            // btnGuardarProducto
+            // 
+            this.btnGuardarProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnGuardarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGuardarProducto.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardarProducto.ForeColor = System.Drawing.Color.Black;
+            this.btnGuardarProducto.Location = new System.Drawing.Point(9, 20);
+            this.btnGuardarProducto.Name = "btnGuardarProducto";
+            this.btnGuardarProducto.Size = new System.Drawing.Size(75, 33);
+            this.btnGuardarProducto.TabIndex = 2;
+            this.btnGuardarProducto.Text = "Guardar";
+            this.btnGuardarProducto.UseVisualStyleBackColor = false;
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLimpiar.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLimpiar.ForeColor = System.Drawing.Color.Black;
+            this.btnLimpiar.Location = new System.Drawing.Point(90, 20);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(75, 33);
+            this.btnLimpiar.TabIndex = 4;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = false;
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.BackColor = System.Drawing.Color.Red;
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelar.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.ForeColor = System.Drawing.Color.Black;
+            this.btnCancelar.Location = new System.Drawing.Point(171, 20);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(77, 33);
+            this.btnCancelar.TabIndex = 5;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = false;
+            // 
+            // grpListaProductos
+            // 
+            this.grpListaProductos.Controls.Add(this.dgvProductoInventario);
+            this.grpListaProductos.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpListaProductos.ForeColor = System.Drawing.Color.DarkSlateBlue;
+            this.grpListaProductos.Location = new System.Drawing.Point(14, 304);
+            this.grpListaProductos.Name = "grpListaProductos";
+            this.grpListaProductos.Size = new System.Drawing.Size(742, 112);
+            this.grpListaProductos.TabIndex = 18;
+            this.grpListaProductos.TabStop = false;
+            this.grpListaProductos.Text = "Lista de productos";
+            // 
+            // dgvProductoInventario
+            // 
+            this.dgvProductoInventario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvProductoInventario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColProducto,
+            this.ColCategoria,
+            this.ColUnidad,
+            this.ColPrecioVenta,
+            this.ColStockActual,
+            this.ColSrockMinimo});
+            this.dgvProductoInventario.Location = new System.Drawing.Point(20, 20);
+            this.dgvProductoInventario.Name = "dgvProductoInventario";
+            this.dgvProductoInventario.Size = new System.Drawing.Size(708, 72);
+            this.dgvProductoInventario.TabIndex = 0;
+            // 
+            // grpAgregarProducto
+            // 
+            this.grpAgregarProducto.Controls.Add(this.cmbCategoriaInventario);
+            this.grpAgregarProducto.Controls.Add(this.label1);
+            this.grpAgregarProducto.Controls.Add(this.txtPrecioVenta);
+            this.grpAgregarProducto.Controls.Add(this.lblPrecioVenta);
+            this.grpAgregarProducto.Controls.Add(this.textBox1);
+            this.grpAgregarProducto.Controls.Add(this.lblStockMinimo);
+            this.grpAgregarProducto.Controls.Add(this.txtUnidad);
+            this.grpAgregarProducto.Controls.Add(this.lblUnidad);
+            this.grpAgregarProducto.Controls.Add(this.lblStockActual);
+            this.grpAgregarProducto.Controls.Add(this.txtStockActual);
+            this.grpAgregarProducto.Controls.Add(this.txtProducto);
+            this.grpAgregarProducto.Controls.Add(this.lblProducto);
+            this.grpAgregarProducto.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpAgregarProducto.ForeColor = System.Drawing.Color.DarkSlateBlue;
+            this.grpAgregarProducto.Location = new System.Drawing.Point(14, 120);
+            this.grpAgregarProducto.Name = "grpAgregarProducto";
+            this.grpAgregarProducto.Size = new System.Drawing.Size(470, 178);
+            this.grpAgregarProducto.TabIndex = 17;
+            this.grpAgregarProducto.TabStop = false;
+            this.grpAgregarProducto.Text = "Agregar Producto";
+            // 
+            // cmbCategoriaInventario
+            // 
+            this.cmbCategoriaInventario.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCategoriaInventario.FormattingEnabled = true;
+            this.cmbCategoriaInventario.Location = new System.Drawing.Point(121, 72);
+            this.cmbCategoriaInventario.Name = "cmbCategoriaInventario";
+            this.cmbCategoriaInventario.Size = new System.Drawing.Size(114, 23);
+            this.cmbCategoriaInventario.TabIndex = 14;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(14, 75);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 15);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Categoría:";
+            // 
+            // txtPrecioVenta
+            // 
+            this.txtPrecioVenta.Location = new System.Drawing.Point(121, 148);
+            this.txtPrecioVenta.Name = "txtPrecioVenta";
+            this.txtPrecioVenta.Size = new System.Drawing.Size(112, 21);
+            this.txtPrecioVenta.TabIndex = 12;
+            // 
+            // lblPrecioVenta
+            // 
+            this.lblPrecioVenta.AutoSize = true;
+            this.lblPrecioVenta.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPrecioVenta.ForeColor = System.Drawing.Color.Black;
+            this.lblPrecioVenta.Location = new System.Drawing.Point(17, 151);
+            this.lblPrecioVenta.Name = "lblPrecioVenta";
+            this.lblPrecioVenta.Size = new System.Drawing.Size(98, 15);
+            this.lblPrecioVenta.TabIndex = 11;
+            this.lblPrecioVenta.Text = "Precio de venta:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(343, 69);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(112, 21);
+            this.textBox1.TabIndex = 10;
+            // 
+            // lblStockMinimo
+            // 
+            this.lblStockMinimo.AutoSize = true;
+            this.lblStockMinimo.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStockMinimo.ForeColor = System.Drawing.Color.Black;
+            this.lblStockMinimo.Location = new System.Drawing.Point(250, 72);
+            this.lblStockMinimo.Name = "lblStockMinimo";
+            this.lblStockMinimo.Size = new System.Drawing.Size(87, 15);
+            this.lblStockMinimo.TabIndex = 9;
+            this.lblStockMinimo.Text = "Stock Mínimo:";
+            // 
+            // txtUnidad
+            // 
+            this.txtUnidad.Location = new System.Drawing.Point(119, 112);
+            this.txtUnidad.Name = "txtUnidad";
+            this.txtUnidad.Size = new System.Drawing.Size(114, 21);
+            this.txtUnidad.TabIndex = 8;
+            // 
+            // lblUnidad
+            // 
+            this.lblUnidad.AutoSize = true;
+            this.lblUnidad.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUnidad.ForeColor = System.Drawing.Color.Black;
+            this.lblUnidad.Location = new System.Drawing.Point(17, 115);
+            this.lblUnidad.Name = "lblUnidad";
+            this.lblUnidad.Size = new System.Drawing.Size(49, 15);
+            this.lblUnidad.TabIndex = 7;
+            this.lblUnidad.Text = "Unidad:";
+            // 
+            // lblStockActual
+            // 
+            this.lblStockActual.AutoSize = true;
+            this.lblStockActual.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStockActual.ForeColor = System.Drawing.Color.Black;
+            this.lblStockActual.Location = new System.Drawing.Point(250, 38);
+            this.lblStockActual.Name = "lblStockActual";
+            this.lblStockActual.Size = new System.Drawing.Size(82, 15);
+            this.lblStockActual.TabIndex = 6;
+            this.lblStockActual.Text = "Stock Actual:";
+            // 
+            // txtStockActual
+            // 
+            this.txtStockActual.Location = new System.Drawing.Point(343, 35);
+            this.txtStockActual.Name = "txtStockActual";
+            this.txtStockActual.Size = new System.Drawing.Size(112, 21);
+            this.txtStockActual.TabIndex = 5;
+            // 
+            // txtProducto
+            // 
+            this.txtProducto.Location = new System.Drawing.Point(116, 35);
+            this.txtProducto.Name = "txtProducto";
+            this.txtProducto.Size = new System.Drawing.Size(117, 21);
+            this.txtProducto.TabIndex = 4;
+            // 
+            // lblProducto
+            // 
+            this.lblProducto.AutoSize = true;
+            this.lblProducto.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProducto.ForeColor = System.Drawing.Color.Black;
+            this.lblProducto.Location = new System.Drawing.Point(17, 38);
+            this.lblProducto.Name = "lblProducto";
+            this.lblProducto.Size = new System.Drawing.Size(62, 15);
+            this.lblProducto.TabIndex = 2;
+            this.lblProducto.Text = "Producto:";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.DarkSlateBlue;
+            this.panel1.Controls.Add(this.lblTitulo);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 24);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(769, 89);
+            this.panel1.TabIndex = 16;
+            // 
+            // lblTitulo
+            // 
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblTitulo.Location = new System.Drawing.Point(60, 33);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(313, 29);
+            this.lblTitulo.TabIndex = 0;
+            this.lblTitulo.Text = "GESTION DE INVENTARIO";
+            // 
+            // ColProducto
+            // 
+            this.ColProducto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColProducto.HeaderText = "Producto";
+            this.ColProducto.Name = "ColProducto";
+            // 
+            // ColCategoria
+            // 
+            this.ColCategoria.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColCategoria.HeaderText = "Categoría";
+            this.ColCategoria.Name = "ColCategoria";
+            // 
+            // ColUnidad
+            // 
+            this.ColUnidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColUnidad.HeaderText = "Unidad";
+            this.ColUnidad.Name = "ColUnidad";
+            // 
+            // ColPrecioVenta
+            // 
+            this.ColPrecioVenta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColPrecioVenta.HeaderText = "Precio de venta";
+            this.ColPrecioVenta.Name = "ColPrecioVenta";
+            // 
+            // ColStockActual
+            // 
+            this.ColStockActual.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColStockActual.HeaderText = "Stock Actual";
+            this.ColStockActual.Name = "ColStockActual";
+            // 
+            // ColSrockMinimo
+            // 
+            this.ColSrockMinimo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColSrockMinimo.HeaderText = "Stock Mínimo";
+            this.ColSrockMinimo.Name = "ColSrockMinimo";
+            // 
+            // FrmInventario
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Silver;
+            this.ClientSize = new System.Drawing.Size(769, 425);
+            this.Controls.Add(this.grpListaProductos);
+            this.Controls.Add(this.grpAcciones);
+            this.Controls.Add(this.grpAgregarProducto);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
+            this.Name = "FrmInventario";
+            this.Text = "GESTION DE INVENTARIO";
+            this.Load += new System.EventHandler(this.FrmInventario_Load);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.grpAcciones.ResumeLayout(false);
+            this.grpAcciones.PerformLayout();
+            this.grpListaProductos.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProductoInventario)).EndInit();
+            this.grpAgregarProducto.ResumeLayout(false);
+            this.grpAgregarProducto.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem agregarToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.GroupBox grpAcciones;
+        private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label lblBuscar;
+        private System.Windows.Forms.Button btnGuardarProducto;
+        private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.GroupBox grpListaProductos;
+        private System.Windows.Forms.DataGridView dgvProductoInventario;
+        private System.Windows.Forms.GroupBox grpAgregarProducto;
+        private System.Windows.Forms.ComboBox cmbCategoriaInventario;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtPrecioVenta;
+        private System.Windows.Forms.Label lblPrecioVenta;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label lblStockMinimo;
+        private System.Windows.Forms.TextBox txtUnidad;
+        private System.Windows.Forms.Label lblUnidad;
+        private System.Windows.Forms.Label lblStockActual;
+        private System.Windows.Forms.TextBox txtStockActual;
+        private System.Windows.Forms.TextBox txtProducto;
+        private System.Windows.Forms.Label lblProducto;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem volverToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColProducto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColCategoria;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColUnidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColPrecioVenta;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColStockActual;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColSrockMinimo;
+    }
+}

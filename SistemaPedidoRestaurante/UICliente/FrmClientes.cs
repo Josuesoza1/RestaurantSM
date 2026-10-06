@@ -47,5 +47,15 @@ namespace SistemaPedidoRestaurante.UICliente
         {
             CargarDatos();
         }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -96,11 +96,35 @@
     <Compile Include="UICliente\FrmClientes.Designer.cs">
       <DependentUpon>FrmClientes.cs</DependentUpon>
     </Compile>
+    <Compile Include="UICliente\FrmFacturas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UICliente\FrmFacturas.Designer.cs">
+      <DependentUpon>FrmFacturas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UICliente\FrmInventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UICliente\FrmInventario.Designer.cs">
+      <DependentUpon>FrmInventario.cs</DependentUpon>
+    </Compile>
     <Compile Include="UICliente\FrmMenuCliente.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UICliente\FrmMenuCliente.Designer.cs">
       <DependentUpon>FrmMenuCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UICliente\FrmMesas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UICliente\FrmMesas.Designer.cs">
+      <DependentUpon>FrmMesas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UICliente\FrmPago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UICliente\FrmPago.Designer.cs">
+      <DependentUpon>FrmPago.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Login\FrmCrearCuenta.resx">
       <DependentUpon>FrmCrearCuenta.cs</DependentUpon>
@@ -135,8 +159,20 @@
     <EmbeddedResource Include="UICliente\FrmClientes.resx">
       <DependentUpon>FrmClientes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UICliente\FrmFacturas.resx">
+      <DependentUpon>FrmFacturas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UICliente\FrmInventario.resx">
+      <DependentUpon>FrmInventario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UICliente\FrmMenuCliente.resx">
       <DependentUpon>FrmMenuCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UICliente\FrmMesas.resx">
+      <DependentUpon>FrmMesas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UICliente\FrmPago.resx">
+      <DependentUpon>FrmPago.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

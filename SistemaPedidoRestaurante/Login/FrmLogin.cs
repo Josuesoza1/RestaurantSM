@@ -17,6 +17,10 @@ namespace SistemaPedidoRestaurante.Loggin
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)
         {
+            FrmMenuAdministracion ventanaPrincipal = new FrmMenuAdministracion();
+            ventanaPrincipal.Show();
+
+            return;
             try
             {
                 string usuario = txtUsuario.Text.Trim();
@@ -26,7 +30,7 @@ namespace SistemaPedidoRestaurante.Loggin
 
                 if (usuarioLogueado.IdRol == 1)
                 {
-                    FrmMenuAdministracion ventanaPrincipal = new FrmMenuAdministracion();
+                    //FrmMenuAdministracion ventanaPrincipal = new FrmMenuAdministracion();
                     ventanaPrincipal.Show();
                 }
                 else
