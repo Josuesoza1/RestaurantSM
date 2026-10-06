@@ -64,29 +64,5 @@ namespace SistemaPedidoRestaurante.Loggin
             crearCuenta.Show();
             this.Hide();
         }
-
-        private void FrmLogin_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Application.Exit();
-        }
-
-   
-
-        private void FrmLogin_AutoSizeChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void FrmLogin_MaximumSizeChanged(object sender, EventArgs e)
-        {
-
-            
-        }
-
-        private void FrmLogin_Resize_1(object sender, EventArgs e)
-        {
-
-            pnlEncabezado.Dock = DockStyle.Top;
-        }
     }
 }

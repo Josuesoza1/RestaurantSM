@@ -1,13 +1,15 @@
 using System.Data.SqlClient;
+using System.Configuration; // Necesario para leer el App.config
 
-namespace SistemaPedidoRestaurante.Conexion
+namespace SistemaPedidoRestaurante.DAL
 {
-
     public static class ConexionBD
     {
-        private static readonly string cadenaConexion = @"Server=(localdb)\MSSQLLocalDB;Database=RestaurantSM;User Id=2M6-SIS;Password=sasa;";
         public static SqlConnection ObtenerConexion()
         {
+            // Leemos la cadena de conexión usando el nombre que le dimos en el App.config
+            string cadenaConexion = ConfigurationManager.ConnectionStrings["RestauranteDB"].ConnectionString;
+
             return new SqlConnection(cadenaConexion);
         }
     }

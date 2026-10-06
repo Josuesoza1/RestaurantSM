@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using SistemaPedidoRestaurante.Conexion;
+using SistemaPedidoRestaurante.DAL;
 using SistemaPedidoRestaurante.Entities;
 
 namespace SistemaPedidoRestaurante.DAL

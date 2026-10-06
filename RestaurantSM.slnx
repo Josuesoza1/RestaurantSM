@@ -3,5 +3,5 @@
   <Project Path="SistemaPedidoRestaurante.DAL/SistemaPedidoRestaurante.DAL.csproj" Id="5ef52fb0-9694-4e0e-a1dd-a60666b0191c" />
   <Project Path="SistemaPedidoRestaurante.Entities/SistemaPedidoRestaurante.Entities.csproj" Id="ebc09365-6506-4246-8f61-d439dccb2d32" />
   <Project Path="SistemaPedidoRestaurante.Validaciones/SistemaPedidoRestaurante.Validaciones.csproj" Id="840b289b-250b-4cd9-be6a-4fb9d1959432" />
-  <Project Path="SistemaPedidoRestaurante/SistemaPedidoRestaurante.csproj" Id="f1009030-43e4-4481-81bc-84dc7bb3b7a0" />
+  <Project Path="SistemaPedidoRestaurante/SistemaPedidoRestaurante.UI.csproj" Id="f1009030-43e4-4481-81bc-84dc7bb3b7a0" />
 </Solution>

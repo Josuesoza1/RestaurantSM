@@ -1,19 +1,17 @@
 ﻿using SistemaPedidoRestaurante.DAL;
 using SistemaPedidoRestaurante.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SistemaPedidoRestaurante.Validaciones;
 
 namespace SistemaPedidoRestaurante.BLL
 {
     public class ClienteBLL
     {
         private readonly ClienteDAL _clienteDAL = new ClienteDAL();
+        private readonly ClienteValidacion _validacion = new ClienteValidacion();
 
-        public void InsertarCliente(Cliente cliente, Usuario usuario)
+        public void InsertarCliente(Cliente cliente, Usuario usuario, string confirmarContrasena)
         {
+            _validacion.ValidarRegistro(cliente, usuario.Contrasena, confirmarContrasena);
             _clienteDAL.InsertarCliente(cliente, usuario);
         }
     }

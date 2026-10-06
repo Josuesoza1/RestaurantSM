@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SistemaPedidoRestaurante.BLL;
+using SistemaPedidoRestaurante.Entities;
+using System;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using SistemaPedidoRestaurante.BLL;
-using SistemaPedidoRestaurante.Entities;
 
 namespace SistemaPedidoRestaurante.Loggin
 {
@@ -19,19 +19,6 @@ namespace SistemaPedidoRestaurante.Loggin
         {
             try
             {
-                if (txtContrasena.Text.Trim() != txtConfirmarContrasena.Text.Trim())
-                {
-                    MessageBox.Show("Las contraseñas no coinciden.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                string patronEmail = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-                if (!Regex.IsMatch(txtEmail.Text.Trim(), patronEmail))
-                {
-                    MessageBox.Show("El formato del correo no es válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
                 Cliente nuevoCliente = new Cliente
                 {
                     PrimerNombre = txtPnombre.Text.Trim(),
@@ -49,7 +36,9 @@ namespace SistemaPedidoRestaurante.Loggin
                     Contrasena = txtContrasena.Text.Trim()
                 };
 
-                _clienteBLL.InsertarCliente(nuevoCliente, nuevoUsuario);
+                string confirmarContrasena = txtConfirmarContrasena.Text.Trim();
+
+                _clienteBLL.InsertarCliente(nuevoCliente, nuevoUsuario, confirmarContrasena);
 
                 MessageBox.Show("Cuenta creada con éxito. Ya puedes iniciar sesión.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -57,11 +46,16 @@ namespace SistemaPedidoRestaurante.Loggin
                 login.Show();
                 this.Close();
             }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {

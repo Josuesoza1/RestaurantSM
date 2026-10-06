@@ -1,20 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using SistemaPedidoRestaurante.DAL;
 using SistemaPedidoRestaurante.Entities;
 
 namespace SistemaPedidoRestaurante.DAL
 {
-    public class CategoriaDAL
+    public class MesaDAL
     {
-        public Categorias Listar()
+        public List<Mesa> Listar()
         {
-            Categorias lista = new Categorias();
+            List<Mesa> lista = new List<Mesa>();
 
             using (SqlConnection connection = ConexionBD.ObtenerConexion())
             {
-                using (SqlCommand command = new SqlCommand("sp_Categoria_Listar", connection))
+                using (SqlCommand command = new SqlCommand("sp_Mesa_Listar", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     connection.Open();
@@ -23,11 +23,12 @@ namespace SistemaPedidoRestaurante.DAL
                     {
                         while (reader.Read())
                         {
-                            lista.Add(new Categoria
+                            lista.Add(new Mesa
                             {
-                                IdCategoria = Convert.ToInt32(reader["idCategoria"]),
-                                Nombre = reader["nombre"].ToString(),
-                                Descripcion = reader["descripcion"] == DBNull.Value ? string.Empty : reader["descripcion"].ToString()
+                                IdMesa = Convert.ToInt32(reader["idMesa"]),
+                                Numero = Convert.ToInt32(reader["numero"]),
+                                Capacidad = Convert.ToInt32(reader["capacidad"]),
+                                Estado = reader["estado"].ToString()
                             });
                         }
                     }

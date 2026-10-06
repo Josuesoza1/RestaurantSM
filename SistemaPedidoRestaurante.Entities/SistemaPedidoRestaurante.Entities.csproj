@@ -44,13 +44,20 @@
     <Compile Include="Categoria.cs" />
     <Compile Include="Categorias.cs" />
     <Compile Include="Cliente.cs" />
+    <Compile Include="DetallePedido.cs" />
     <Compile Include="Empleado.cs" />
     <Compile Include="Empleados.cs" />
+    <Compile Include="Factura.cs" />
+    <Compile Include="Mesa.cs" />
+    <Compile Include="Pago.cs" />
+    <Compile Include="Pedido.cs" />
     <Compile Include="Producto.cs" />
     <Compile Include="Productos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reservacion.cs" />
     <Compile Include="Rol.cs" />
     <Compile Include="Roles.cs" />
+    <Compile Include="SubCategoria.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Usuarios.cs" />
   </ItemGroup>

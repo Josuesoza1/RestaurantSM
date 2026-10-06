@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using SistemaPedidoRestaurante.Conexion;
+using SistemaPedidoRestaurante.DAL;
 using SistemaPedidoRestaurante.Entities;
 
 namespace SistemaPedidoRestaurante.DAL
@@ -27,6 +27,7 @@ namespace SistemaPedidoRestaurante.DAL
                             {
                                 IdProducto = Convert.ToInt32(reader["idProducto"]),
                                 IdCategoria = Convert.ToInt32(reader["idCategoria"]),
+                                IdSubcategoria = reader["idSubcategoria"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["idSubcategoria"]),
                                 CategoriaNombre = reader["CategoriaNombre"].ToString(),
                                 Nombre = reader["nombre"].ToString(),
                                 Precio = Convert.ToDecimal(reader["precio"]),
