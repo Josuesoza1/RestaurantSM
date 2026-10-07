@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusquedaLINQ.cs" />
     <Compile Include="CategoriaBLL.cs" />
     <Compile Include="ClienteBLL.cs" />
     <Compile Include="EmpleadoBLL.cs" />
