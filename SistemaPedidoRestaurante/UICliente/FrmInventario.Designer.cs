@@ -44,6 +44,12 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.grpListaProductos = new System.Windows.Forms.GroupBox();
             this.dgvProductoInventario = new System.Windows.Forms.DataGridView();
+            this.ColProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColUnidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColPrecioVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColStockActual = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColSrockMinimo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grpAgregarProducto = new System.Windows.Forms.GroupBox();
             this.cmbCategoriaInventario = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -59,12 +65,7 @@
             this.lblProducto = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.ColProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColUnidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColPrecioVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColStockActual = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColSrockMinimo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.grpAcciones.SuspendLayout();
             this.grpListaProductos.SuspendLayout();
@@ -79,7 +80,8 @@
             this.agregarToolStripMenuItem,
             this.eliminarToolStripMenuItem,
             this.editarToolStripMenuItem,
-            this.volverToolStripMenuItem});
+            this.volverToolStripMenuItem,
+            this.ayudaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(769, 24);
@@ -228,6 +230,42 @@
             this.dgvProductoInventario.Name = "dgvProductoInventario";
             this.dgvProductoInventario.Size = new System.Drawing.Size(708, 72);
             this.dgvProductoInventario.TabIndex = 0;
+            // 
+            // ColProducto
+            // 
+            this.ColProducto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColProducto.HeaderText = "Producto";
+            this.ColProducto.Name = "ColProducto";
+            // 
+            // ColCategoria
+            // 
+            this.ColCategoria.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColCategoria.HeaderText = "Categoría";
+            this.ColCategoria.Name = "ColCategoria";
+            // 
+            // ColUnidad
+            // 
+            this.ColUnidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColUnidad.HeaderText = "Unidad";
+            this.ColUnidad.Name = "ColUnidad";
+            // 
+            // ColPrecioVenta
+            // 
+            this.ColPrecioVenta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColPrecioVenta.HeaderText = "Precio de venta";
+            this.ColPrecioVenta.Name = "ColPrecioVenta";
+            // 
+            // ColStockActual
+            // 
+            this.ColStockActual.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColStockActual.HeaderText = "Stock Actual";
+            this.ColStockActual.Name = "ColStockActual";
+            // 
+            // ColSrockMinimo
+            // 
+            this.ColSrockMinimo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColSrockMinimo.HeaderText = "Stock Mínimo";
+            this.ColSrockMinimo.Name = "ColSrockMinimo";
             // 
             // grpAgregarProducto
             // 
@@ -383,41 +421,11 @@
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "GESTION DE INVENTARIO";
             // 
-            // ColProducto
+            // ayudaToolStripMenuItem
             // 
-            this.ColProducto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColProducto.HeaderText = "Producto";
-            this.ColProducto.Name = "ColProducto";
-            // 
-            // ColCategoria
-            // 
-            this.ColCategoria.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColCategoria.HeaderText = "Categoría";
-            this.ColCategoria.Name = "ColCategoria";
-            // 
-            // ColUnidad
-            // 
-            this.ColUnidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColUnidad.HeaderText = "Unidad";
-            this.ColUnidad.Name = "ColUnidad";
-            // 
-            // ColPrecioVenta
-            // 
-            this.ColPrecioVenta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColPrecioVenta.HeaderText = "Precio de venta";
-            this.ColPrecioVenta.Name = "ColPrecioVenta";
-            // 
-            // ColStockActual
-            // 
-            this.ColStockActual.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColStockActual.HeaderText = "Stock Actual";
-            this.ColStockActual.Name = "ColStockActual";
-            // 
-            // ColSrockMinimo
-            // 
-            this.ColSrockMinimo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColSrockMinimo.HeaderText = "Stock Mínimo";
-            this.ColSrockMinimo.Name = "ColSrockMinimo";
+            this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
+            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.ayudaToolStripMenuItem.Text = "Ayuda";
             // 
             // FrmInventario
             // 
@@ -487,5 +495,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColPrecioVenta;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColStockActual;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColSrockMinimo;
+        private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
     }
 }
