@@ -90,6 +90,12 @@
     <Compile Include="UIAdministracion\FrmRoles.Designer.cs">
       <DependentUpon>FrmRoles.cs</DependentUpon>
     </Compile>
+    <Compile Include="UICliente\FrmCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UICliente\FrmCompra.Designer.cs">
+      <DependentUpon>FrmCompra.cs</DependentUpon>
+    </Compile>
     <Compile Include="UICliente\FrmClientes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UIAdministracion\FrmRoles.resx">
       <DependentUpon>FrmRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UICliente\FrmCompra.resx">
+      <DependentUpon>FrmCompra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UICliente\FrmClientes.resx">
       <DependentUpon>FrmClientes.cs</DependentUpon>

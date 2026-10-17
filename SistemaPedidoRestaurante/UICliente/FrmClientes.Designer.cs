@@ -51,10 +51,6 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.grpListadoCliente = new System.Windows.Forms.GroupBox();
             this.dgvClientes = new System.Windows.Forms.DataGridView();
-            this.txtTextoBuscar = new System.Windows.Forms.TextBox();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.lblBuscar = new System.Windows.Forms.Label();
-            this.grpAccionesClientes = new System.Windows.Forms.GroupBox();
             this.ColID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColPnombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColSnombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,6 +59,10 @@
             this.Colcedula = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColTelefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtTextoBuscar = new System.Windows.Forms.TextBox();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.lblBuscar = new System.Windows.Forms.Label();
+            this.grpAccionesClientes = new System.Windows.Forms.GroupBox();
             this.pnlEncabezado.SuspendLayout();
             this.grpDatosClientes.SuspendLayout();
             this.grpListadoCliente.SuspendLayout();
@@ -193,7 +193,7 @@
             this.lblCedula.Name = "lblCedula";
             this.lblCedula.Size = new System.Drawing.Size(48, 14);
             this.lblCedula.TabIndex = 4;
-            this.lblCedula.Text = "Cedula:";
+            this.lblCedula.Text = "Cédula:";
             // 
             // label4
             // 
@@ -320,52 +320,6 @@
             this.dgvClientes.Size = new System.Drawing.Size(642, 97);
             this.dgvClientes.TabIndex = 0;
             // 
-            // txtTextoBuscar
-            // 
-            this.txtTextoBuscar.Location = new System.Drawing.Point(22, 51);
-            this.txtTextoBuscar.Name = "txtTextoBuscar";
-            this.txtTextoBuscar.Size = new System.Drawing.Size(266, 20);
-            this.txtTextoBuscar.TabIndex = 9;
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.btnBuscar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscar.ForeColor = System.Drawing.Color.Blue;
-            this.btnBuscar.Location = new System.Drawing.Point(107, 85);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(89, 31);
-            this.btnBuscar.TabIndex = 8;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.UseVisualStyleBackColor = false;
-            // 
-            // lblBuscar
-            // 
-            this.lblBuscar.AutoSize = true;
-            this.lblBuscar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBuscar.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblBuscar.Location = new System.Drawing.Point(19, 24);
-            this.lblBuscar.Name = "lblBuscar";
-            this.lblBuscar.Size = new System.Drawing.Size(48, 14);
-            this.lblBuscar.TabIndex = 5;
-            this.lblBuscar.Text = "Buscar:";
-            // 
-            // grpAccionesClientes
-            // 
-            this.grpAccionesClientes.Controls.Add(this.btnGuardar);
-            this.grpAccionesClientes.Controls.Add(this.btnBuscar);
-            this.grpAccionesClientes.Controls.Add(this.txtTextoBuscar);
-            this.grpAccionesClientes.Controls.Add(this.lblBuscar);
-            this.grpAccionesClientes.Controls.Add(this.btnEliminar);
-            this.grpAccionesClientes.Controls.Add(this.btnLimpiar);
-            this.grpAccionesClientes.Controls.Add(this.btnVolver);
-            this.grpAccionesClientes.Location = new System.Drawing.Point(361, 76);
-            this.grpAccionesClientes.Name = "grpAccionesClientes";
-            this.grpAccionesClientes.Size = new System.Drawing.Size(303, 236);
-            this.grpAccionesClientes.TabIndex = 10;
-            this.grpAccionesClientes.TabStop = false;
-            this.grpAccionesClientes.Text = "Acciones";
-            // 
             // ColID
             // 
             this.ColID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -429,6 +383,52 @@
             this.ColEmail.MinimumWidth = 6;
             this.ColEmail.Name = "ColEmail";
             this.ColEmail.ReadOnly = true;
+            // 
+            // txtTextoBuscar
+            // 
+            this.txtTextoBuscar.Location = new System.Drawing.Point(22, 51);
+            this.txtTextoBuscar.Name = "txtTextoBuscar";
+            this.txtTextoBuscar.Size = new System.Drawing.Size(266, 20);
+            this.txtTextoBuscar.TabIndex = 9;
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.btnBuscar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscar.ForeColor = System.Drawing.Color.Blue;
+            this.btnBuscar.Location = new System.Drawing.Point(107, 85);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(89, 31);
+            this.btnBuscar.TabIndex = 8;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = false;
+            // 
+            // lblBuscar
+            // 
+            this.lblBuscar.AutoSize = true;
+            this.lblBuscar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBuscar.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblBuscar.Location = new System.Drawing.Point(19, 24);
+            this.lblBuscar.Name = "lblBuscar";
+            this.lblBuscar.Size = new System.Drawing.Size(48, 14);
+            this.lblBuscar.TabIndex = 5;
+            this.lblBuscar.Text = "Buscar:";
+            // 
+            // grpAccionesClientes
+            // 
+            this.grpAccionesClientes.Controls.Add(this.btnGuardar);
+            this.grpAccionesClientes.Controls.Add(this.btnBuscar);
+            this.grpAccionesClientes.Controls.Add(this.txtTextoBuscar);
+            this.grpAccionesClientes.Controls.Add(this.lblBuscar);
+            this.grpAccionesClientes.Controls.Add(this.btnEliminar);
+            this.grpAccionesClientes.Controls.Add(this.btnLimpiar);
+            this.grpAccionesClientes.Controls.Add(this.btnVolver);
+            this.grpAccionesClientes.Location = new System.Drawing.Point(361, 76);
+            this.grpAccionesClientes.Name = "grpAccionesClientes";
+            this.grpAccionesClientes.Size = new System.Drawing.Size(303, 236);
+            this.grpAccionesClientes.TabIndex = 10;
+            this.grpAccionesClientes.TabStop = false;
+            this.grpAccionesClientes.Text = "Acciones";
             // 
             // FrmClientes
             // 
