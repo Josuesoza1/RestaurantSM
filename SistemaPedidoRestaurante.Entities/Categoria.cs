@@ -5,5 +5,6 @@ namespace SistemaPedidoRestaurante.Entities
         public int IdCategoria { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
+        public bool Activa { get; set; } = true;
     }
 }

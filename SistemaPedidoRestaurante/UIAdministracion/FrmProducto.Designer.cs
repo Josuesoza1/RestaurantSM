@@ -40,6 +40,11 @@
             this.ColSapellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Colcedula = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grpDatosClientes = new System.Windows.Forms.GroupBox();
+            this.cmbSubcategoria = new System.Windows.Forms.ComboBox();
+            this.txtDescripcion = new System.Windows.Forms.TextBox();
+            this.lblSubcategoria = new System.Windows.Forms.Label();
+            this.lblDescripcion = new System.Windows.Forms.Label();
+            this.ColSubcategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chkDisponible = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
@@ -103,6 +108,7 @@
             this.cmbCategoria.Location = new System.Drawing.Point(135, 41);
             this.cmbCategoria.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmbCategoria.Name = "cmbCategoria";
+            this.cmbCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCategoria.Size = new System.Drawing.Size(185, 24);
             this.cmbCategoria.TabIndex = 7;
             this.cmbCategoria.SelectedIndexChanged += new System.EventHandler(this.cmbBuscar_SelectedIndexChanged);
@@ -111,7 +117,7 @@
             // 
             this.grpListadoCliente.Controls.Add(this.dgvProductos);
             this.grpListadoCliente.ForeColor = System.Drawing.Color.DarkOrchid;
-            this.grpListadoCliente.Location = new System.Drawing.Point(26, 459);
+            this.grpListadoCliente.Location = new System.Drawing.Point(26, 609);
             this.grpListadoCliente.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpListadoCliente.Name = "grpListadoCliente";
             this.grpListadoCliente.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -131,7 +137,8 @@
             this.ColSnombre,
             this.ColPapellido,
             this.ColSapellido,
-            this.Colcedula});
+            this.Colcedula,
+            this.ColSubcategoria});
             this.dgvProductos.GridColor = System.Drawing.SystemColors.AppWorkspace;
             this.dgvProductos.Location = new System.Drawing.Point(29, 25);
             this.dgvProductos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -185,6 +192,10 @@
             // 
             // grpDatosClientes
             // 
+            this.grpDatosClientes.Controls.Add(this.cmbSubcategoria);
+            this.grpDatosClientes.Controls.Add(this.txtDescripcion);
+            this.grpDatosClientes.Controls.Add(this.lblSubcategoria);
+            this.grpDatosClientes.Controls.Add(this.lblDescripcion);
             this.grpDatosClientes.Controls.Add(this.chkDisponible);
             this.grpDatosClientes.Controls.Add(this.label1);
             this.grpDatosClientes.Controls.Add(this.txtNombre);
@@ -201,10 +212,34 @@
             this.grpDatosClientes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpDatosClientes.Name = "grpDatosClientes";
             this.grpDatosClientes.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.grpDatosClientes.Size = new System.Drawing.Size(408, 242);
+            this.grpDatosClientes.Size = new System.Drawing.Size(408, 392);
             this.grpDatosClientes.TabIndex = 5;
             this.grpDatosClientes.TabStop = false;
             this.grpDatosClientes.Text = "Datos del Producto";
+            // Subcategoría y descripción
+            this.cmbSubcategoria.Name = "cmbSubcategoria";
+            this.cmbSubcategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSubcategoria.Location = new System.Drawing.Point(155, 240);
+            this.cmbSubcategoria.Size = new System.Drawing.Size(210, 24);
+            this.cmbSubcategoria.TabIndex = 15;
+            this.lblSubcategoria.Name = "lblSubcategoria";
+            this.lblSubcategoria.Text = "Subcategoría:";
+            this.lblSubcategoria.AutoSize = true;
+            this.lblSubcategoria.ForeColor = System.Drawing.Color.Black;
+            this.lblSubcategoria.Location = new System.Drawing.Point(43, 243);
+            this.lblDescripcion.Name = "lblDescripcion";
+            this.lblDescripcion.Text = "Descripción:";
+            this.lblDescripcion.AutoSize = true;
+            this.lblDescripcion.ForeColor = System.Drawing.Color.Black;
+            this.lblDescripcion.Location = new System.Drawing.Point(43, 280);
+            this.txtDescripcion.Name = "txtDescripcion";
+            this.txtDescripcion.Multiline = true;
+            this.txtDescripcion.MaxLength = 250;
+            this.txtDescripcion.Location = new System.Drawing.Point(43, 305);
+            this.txtDescripcion.Size = new System.Drawing.Size(322, 62);
+            this.txtDescripcion.TabIndex = 16;
+            this.ColSubcategoria.Name = "ColSubcategoria";
+            this.ColSubcategoria.HeaderText = "Subcategoría";
             // 
             // chkDisponible
             // 
@@ -232,6 +267,7 @@
             this.txtNombre.Location = new System.Drawing.Point(135, 77);
             this.txtNombre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtNombre.Name = "txtNombre";
+            this.txtNombre.MaxLength = 100;
             this.txtNombre.Size = new System.Drawing.Size(185, 23);
             this.txtNombre.TabIndex = 12;
             // 
@@ -240,6 +276,7 @@
             this.txtCodigo.Location = new System.Drawing.Point(135, 157);
             this.txtCodigo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtCodigo.Name = "txtCodigo";
+            this.txtCodigo.MaxLength = 20;
             this.txtCodigo.Size = new System.Drawing.Size(185, 23);
             this.txtCodigo.TabIndex = 10;
             // 
@@ -323,7 +360,7 @@
             this.eliminarToolStripMenuItem.ForeColor = System.Drawing.Color.Crimson;
             this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
             this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(77, 24);
-            this.eliminarToolStripMenuItem.Text = "Eliminar";
+            this.eliminarToolStripMenuItem.Text = "Retirar";
             this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
             // 
             // agregarToolStripMenuItem
@@ -473,7 +510,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(976, 621);
+            this.ClientSize = new System.Drawing.Size(976, 771);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.grpAcciones);
@@ -485,7 +522,6 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FrmProducto";
             this.Text = "Gestión de Productos";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmProducto_FormClosed);
             this.Load += new System.EventHandler(this.FrmProducto_Load_1);
             this.pnlEncabezado.ResumeLayout(false);
             this.pnlEncabezado.PerformLayout();
@@ -508,6 +544,11 @@
         #endregion
 
         private System.Windows.Forms.Panel pnlEncabezado;
+        private System.Windows.Forms.ComboBox cmbSubcategoria;
+        private System.Windows.Forms.TextBox txtDescripcion;
+        private System.Windows.Forms.Label lblSubcategoria;
+        private System.Windows.Forms.Label lblDescripcion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColSubcategoria;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.ComboBox cmbCategoria;
         private System.Windows.Forms.GroupBox grpListadoCliente;

@@ -1,7 +1,6 @@
 ﻿using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.Entities;
 using System;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace SistemaPedidoRestaurante.Loggin
@@ -27,6 +26,9 @@ namespace SistemaPedidoRestaurante.Loggin
                     SegundoApellido = txtSapellido.Text.Trim(),
                     Telefono = mtxtTelefono.Text,
                     Email = txtEmail.Text.Trim(),
+                    Genero = cmbGenero.SelectedIndex < 0
+                        ? null
+                        : new[] { "M", "F", "O" }[cmbGenero.SelectedIndex],
                     Cedula = mtxtCedula.Text
                 };
 
@@ -42,8 +44,6 @@ namespace SistemaPedidoRestaurante.Loggin
 
                 MessageBox.Show("Cuenta creada con éxito. Ya puedes iniciar sesión.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                FrmLogin login = new FrmLogin();
-                login.Show();
                 this.Close();
             }
             catch (ArgumentException ex)
@@ -69,19 +69,16 @@ namespace SistemaPedidoRestaurante.Loggin
             txtUsuario.Clear();
             txtContrasena.Clear();
             txtConfirmarContrasena.Clear();
+            cmbGenero.SelectedIndex = -1;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            FrmLogin login = new FrmLogin();
-            login.Show();
             this.Close();
         }
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)
         {
-            FrmLogin login = new FrmLogin();
-            login.Show();
             this.Close();
         }
     }

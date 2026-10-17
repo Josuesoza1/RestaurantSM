@@ -1,0 +1,103 @@
+{
+  "categoria": [
+    {
+      "idCategoria": 1,
+      "nombre": "Entradas",
+      "descripcion": "Aperitivos y piqueos ligeros para comenzar",
+      "activa": true
+    },
+    {
+      "idCategoria": 2,
+      "nombre": "Platos Fuertes",
+      "descripcion": "Especialidades de la casa, carnes, aves y mariscos",
+      "activa": true
+    },
+    {
+      "idCategoria": 3,
+      "nombre": "Bebidas",
+      "descripcion": "Refrescos naturales, jugos, gaseosas y licores",
+      "activa": true
+    },
+    {
+      "idCategoria": 4,
+      "nombre": "Postres",
+      "descripcion": "Pasteles, helados y postres tradicionales",
+      "activa": true
+    },
+    {
+      "idCategoria": 5,
+      "nombre": "Sopas y Ensaladas",
+      "descripcion": "Opciones ligeras, caldos y ensaladas frescas",
+      "activa": true
+    },
+    {
+      "idCategoria": 6,
+      "nombre": "Comida Rapida",
+      "descripcion": "Hamburguesas, pizzas, papas fritas y snacks",
+      "activa": true
+    }
+  ],
+  "subcategoria": [],
+  "producto": [
+    {
+      "idProducto": 1,
+      "idCategoria": 1,
+      "nombre": "Dedos de Queso",
+      "precio": 120.00,
+      "descripcion": null,
+      "codigo": "PROD-001",
+      "disponible": true,
+      "idSubcategoria": null
+    },
+    {
+      "idProducto": 2,
+      "idCategoria": 2,
+      "nombre": "Lomito a la Plancha",
+      "precio": 320.50,
+      "descripcion": null,
+      "codigo": "PROD-002",
+      "disponible": true,
+      "idSubcategoria": null
+    },
+    {
+      "idProducto": 3,
+      "idCategoria": 3,
+      "nombre": "Jugo Natural de Naranja",
+      "precio": 45.00,
+      "descripcion": null,
+      "codigo": "PROD-003",
+      "disponible": true,
+      "idSubcategoria": null
+    },
+    {
+      "idProducto": 4,
+      "idCategoria": 4,
+      "nombre": "Tres Leches",
+      "precio": 65.00,
+      "descripcion": null,
+      "codigo": "PROD-004",
+      "disponible": true,
+      "idSubcategoria": null
+    },
+    {
+      "idProducto": 5,
+      "idCategoria": 5,
+      "nombre": "Sopa de Res",
+      "precio": 150.00,
+      "descripcion": null,
+      "codigo": "PROD-005",
+      "disponible": true,
+      "idSubcategoria": null
+    },
+    {
+      "idProducto": 6,
+      "idCategoria": 6,
+      "nombre": "Hamburguesa con Tocino",
+      "precio": 210.00,
+      "descripcion": null,
+      "codigo": "PROD-006",
+      "disponible": true,
+      "idSubcategoria": null
+    }
+  ]
+}

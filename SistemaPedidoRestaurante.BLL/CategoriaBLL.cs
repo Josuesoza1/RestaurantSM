@@ -1,11 +1,32 @@
 ﻿using SistemaPedidoRestaurante.DAL;
 using SistemaPedidoRestaurante.Entities;
 using System.Linq;
+using System;
+using SistemaPedidoRestaurante.Validaciones;
 namespace SistemaPedidoRestaurante.BLL
 {
     public class CategoriaBLL
     {
         private readonly CategoriaDAL _categoriaDAL = new CategoriaDAL();
+        private readonly CatalogoValidacion _validacion = new CatalogoValidacion();
+
+        public void GuardarCategoria(Categoria categoria)
+        {
+            CatalogoOperacion.Ejecutar(() =>
+            {
+                _validacion.ValidarCategoria(categoria);
+                _categoriaDAL.Guardar(categoria, SesionActual.IdUsuario);
+            }, "Ya existe una categoría con ese nombre.");
+        }
+
+        public void DesactivarCategoria(int idCategoria)
+        {
+            CatalogoOperacion.Ejecutar(() =>
+            {
+                if (idCategoria <= 0) throw new ArgumentException("Seleccione una categoría.");
+                _categoriaDAL.Desactivar(idCategoria, SesionActual.IdUsuario);
+            }, "Ya existe una categoría con ese nombre.");
+        }
 
         public Categorias ObtenerCategorias()
         {

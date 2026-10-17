@@ -14,6 +14,9 @@ namespace SistemaPedidoRestaurante.Validaciones
             if (string.IsNullOrWhiteSpace(cliente.Cedula))
                 throw new ArgumentException("La cédula es obligatoria.");
 
+            if (cliente.Genero != "M" && cliente.Genero != "F" && cliente.Genero != "O")
+                throw new ArgumentException("Seleccione un género.");
+
             if (contrasena != confirmarContrasena)
                 throw new ArgumentException("Las contraseñas no coinciden.");
 

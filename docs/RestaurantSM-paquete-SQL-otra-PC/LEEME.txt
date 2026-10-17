@@ -1,0 +1,7 @@
+RestaurantSM para otra PC
+
+1. Lea sql/instalacion/LEEME.md.
+2. Ejecute INSTALAR_NUEVA.sql o ACTUALIZAR_EXISTENTE.sql con Modo SQLCMD en SSMS.
+3. Configure su conexion local y compile el proyecto clonado de GitHub.
+
+Este ZIP contiene SQL, informe, plantilla de conexion y prueba SQL. El codigo completo se obtiene del repositorio. No incluye cuentas personales ni credenciales locales.

@@ -42,6 +42,14 @@
             this.ColCedula = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColTelefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grpDatosClientes = new System.Windows.Forms.GroupBox();
+            this.txtCargo = new System.Windows.Forms.TextBox();
+            this.txtCedula = new System.Windows.Forms.TextBox();
+            this.cmbGenero = new System.Windows.Forms.ComboBox();
+            this.lblCargo = new System.Windows.Forms.Label();
+            this.lblCedula = new System.Windows.Forms.Label();
+            this.lblGenero = new System.Windows.Forms.Label();
+            this.lblAyudaContrasena = new System.Windows.Forms.Label();
+            this.ColActivo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.txtSnombre = new System.Windows.Forms.TextBox();
             this.txtSapellido = new System.Windows.Forms.TextBox();
             this.txtPapellido = new System.Windows.Forms.TextBox();
@@ -114,11 +122,11 @@
             // 
             this.grpListadoCliente.Controls.Add(this.dgvEmpleados);
             this.grpListadoCliente.ForeColor = System.Drawing.Color.DarkOrchid;
-            this.grpListadoCliente.Location = new System.Drawing.Point(75, 426);
+            this.grpListadoCliente.Location = new System.Drawing.Point(75, 536);
             this.grpListadoCliente.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpListadoCliente.Name = "grpListadoCliente";
             this.grpListadoCliente.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.grpListadoCliente.Size = new System.Drawing.Size(1157, 150);
+            this.grpListadoCliente.Size = new System.Drawing.Size(1157, 160);
             this.grpListadoCliente.TabIndex = 7;
             this.grpListadoCliente.TabStop = false;
             this.grpListadoCliente.Text = "Listado de Empleados";
@@ -137,7 +145,8 @@
             this.ColCargo,
             this.ColGenero,
             this.ColCedula,
-            this.ColTelefono});
+            this.ColTelefono,
+            this.ColActivo});
             this.dgvEmpleados.GridColor = System.Drawing.SystemColors.AppWorkspace;
             this.dgvEmpleados.Location = new System.Drawing.Point(24, 25);
             this.dgvEmpleados.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -212,6 +221,12 @@
             // 
             // grpDatosClientes
             // 
+            this.grpDatosClientes.Controls.Add(this.txtCargo);
+            this.grpDatosClientes.Controls.Add(this.txtCedula);
+            this.grpDatosClientes.Controls.Add(this.cmbGenero);
+            this.grpDatosClientes.Controls.Add(this.lblCargo);
+            this.grpDatosClientes.Controls.Add(this.lblCedula);
+            this.grpDatosClientes.Controls.Add(this.lblGenero);
             this.grpDatosClientes.Controls.Add(this.txtSnombre);
             this.grpDatosClientes.Controls.Add(this.txtSapellido);
             this.grpDatosClientes.Controls.Add(this.txtPapellido);
@@ -228,10 +243,51 @@
             this.grpDatosClientes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpDatosClientes.Name = "grpDatosClientes";
             this.grpDatosClientes.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.grpDatosClientes.Size = new System.Drawing.Size(417, 211);
+            this.grpDatosClientes.Size = new System.Drawing.Size(417, 321);
             this.grpDatosClientes.TabIndex = 5;
             this.grpDatosClientes.TabStop = false;
             this.grpDatosClientes.Text = "Datos del Empleado";
+            // txtCargo
+            this.txtCargo.Location = new System.Drawing.Point(173, 200);
+            this.txtCargo.Name = "txtCargo";
+            this.txtCargo.MaxLength = 50;
+            this.txtCargo.Size = new System.Drawing.Size(199, 23);
+            this.txtCargo.TabIndex = 15;
+            // txtCedula
+            this.txtCedula.Location = new System.Drawing.Point(173, 276);
+            this.txtCedula.Name = "txtCedula";
+            this.txtCedula.MaxLength = 30;
+            this.txtCedula.Size = new System.Drawing.Size(199, 23);
+            this.txtCedula.TabIndex = 17;
+            // cmbGenero
+            this.cmbGenero.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbGenero.Items.AddRange(new object[] { "Masculino", "Femenino", "Otro" });
+            this.cmbGenero.Location = new System.Drawing.Point(173, 238);
+            this.cmbGenero.Name = "cmbGenero";
+            this.cmbGenero.Size = new System.Drawing.Size(199, 24);
+            this.cmbGenero.TabIndex = 16;
+            // lblCargo
+            this.lblCargo.AutoSize = true;
+            this.lblCargo.Location = new System.Drawing.Point(28, 203);
+            this.lblCargo.Name = "lblCargo";
+            this.lblCargo.ForeColor = System.Drawing.Color.Black;
+            this.lblCargo.Text = "Cargo:";
+            // lblGenero
+            this.lblGenero.AutoSize = true;
+            this.lblGenero.Location = new System.Drawing.Point(28, 241);
+            this.lblGenero.Name = "lblGenero";
+            this.lblGenero.ForeColor = System.Drawing.Color.Black;
+            this.lblGenero.Text = "Género:";
+            // lblCedula
+            this.lblCedula.AutoSize = true;
+            this.lblCedula.Location = new System.Drawing.Point(28, 279);
+            this.lblCedula.Name = "lblCedula";
+            this.lblCedula.ForeColor = System.Drawing.Color.Black;
+            this.lblCedula.Text = "Cédula:";
+            // ColActivo
+            this.ColActivo.HeaderText = "Activo";
+            this.ColActivo.Name = "ColActivo";
+            this.ColActivo.ReadOnly = true;
             // 
             // txtSnombre
             // 
@@ -330,6 +386,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblAyudaContrasena);
             this.groupBox1.Controls.Add(this.chkActivo);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtUsuario);
@@ -344,10 +401,16 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox1.Size = new System.Drawing.Size(428, 211);
+            this.groupBox1.Size = new System.Drawing.Size(428, 321);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de Acceso";
+            // lblAyudaContrasena
+            this.lblAyudaContrasena.Location = new System.Drawing.Point(38, 197);
+            this.lblAyudaContrasena.Name = "lblAyudaContrasena";
+            this.lblAyudaContrasena.ForeColor = System.Drawing.Color.Black;
+            this.lblAyudaContrasena.Size = new System.Drawing.Size(350, 80);
+            this.lblAyudaContrasena.Text = "Al editar, contraseña vacía: conservar la actual.\r\n\r\nInactivo: acceso bloqueado.";
             // 
             // chkActivo
             // 
@@ -375,6 +438,7 @@
             this.txtUsuario.Location = new System.Drawing.Point(140, 67);
             this.txtUsuario.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtUsuario.Name = "txtUsuario";
+            this.txtUsuario.MaxLength = 50;
             this.txtUsuario.Size = new System.Drawing.Size(241, 23);
             this.txtUsuario.TabIndex = 12;
             // 
@@ -385,6 +449,7 @@
             this.cmbRol.Location = new System.Drawing.Point(140, 26);
             this.cmbRol.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmbRol.Name = "cmbRol";
+            this.cmbRol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRol.Size = new System.Drawing.Size(244, 24);
             this.cmbRol.TabIndex = 7;
             // 
@@ -393,6 +458,8 @@
             this.txtContrasena.Location = new System.Drawing.Point(140, 108);
             this.txtContrasena.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtContrasena.Name = "txtContrasena";
+            this.txtContrasena.MaxLength = 255;
+            this.txtContrasena.UseSystemPasswordChar = true;
             this.txtContrasena.Size = new System.Drawing.Size(241, 23);
             this.txtContrasena.TabIndex = 9;
             // 
@@ -457,7 +524,7 @@
             this.eliminarToolStripMenuItem.ForeColor = System.Drawing.Color.Crimson;
             this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
             this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(77, 24);
-            this.eliminarToolStripMenuItem.Text = "Eliminar";
+            this.eliminarToolStripMenuItem.Text = "Desactivar";
             this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
             // 
             // agregarToolStripMenuItem
@@ -607,7 +674,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(1334, 617);
+            this.ClientSize = new System.Drawing.Size(1334, 737);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.panel1);
@@ -620,7 +687,6 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FrmEmpleados";
             this.Text = "Gestión de Empleados";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmEmpleados_FormClosed);
             this.Load += new System.EventHandler(this.FrmEmpleados_Load);
             this.pnlEncabezado.ResumeLayout(false);
             this.pnlEncabezado.PerformLayout();
@@ -645,6 +711,14 @@
         #endregion
 
         private System.Windows.Forms.Panel pnlEncabezado;
+        private System.Windows.Forms.TextBox txtCargo;
+        private System.Windows.Forms.TextBox txtCedula;
+        private System.Windows.Forms.ComboBox cmbGenero;
+        private System.Windows.Forms.Label lblCargo;
+        private System.Windows.Forms.Label lblCedula;
+        private System.Windows.Forms.Label lblGenero;
+        private System.Windows.Forms.Label lblAyudaContrasena;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ColActivo;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.GroupBox grpListadoCliente;
         private System.Windows.Forms.GroupBox grpDatosClientes;

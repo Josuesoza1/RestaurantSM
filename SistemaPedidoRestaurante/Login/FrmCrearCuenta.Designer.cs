@@ -32,6 +32,8 @@
             this.lblSubtitulo = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.grpDatosClientes = new System.Windows.Forms.GroupBox();
+            this.lblGenero = new System.Windows.Forms.Label();
+            this.cmbGenero = new System.Windows.Forms.ComboBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.mtxtTelefono = new System.Windows.Forms.MaskedTextBox();
             this.lblEmail = new System.Windows.Forms.Label();
@@ -101,6 +103,8 @@
             // 
             // grpDatosClientes
             // 
+            this.grpDatosClientes.Controls.Add(this.lblGenero);
+            this.grpDatosClientes.Controls.Add(this.cmbGenero);
             this.grpDatosClientes.Controls.Add(this.txtEmail);
             this.grpDatosClientes.Controls.Add(this.mtxtTelefono);
             this.grpDatosClientes.Controls.Add(this.lblEmail);
@@ -119,10 +123,28 @@
             this.grpDatosClientes.Margin = new System.Windows.Forms.Padding(4);
             this.grpDatosClientes.Name = "grpDatosClientes";
             this.grpDatosClientes.Padding = new System.Windows.Forms.Padding(4);
-            this.grpDatosClientes.Size = new System.Drawing.Size(455, 281);
-            this.grpDatosClientes.TabIndex = 6;
+            this.grpDatosClientes.Size = new System.Drawing.Size(455, 321);
+            this.grpDatosClientes.TabIndex = 0;
             this.grpDatosClientes.TabStop = false;
             this.grpDatosClientes.Text = "Datos Personales";
+            //
+            // lblGenero
+            //
+            this.lblGenero.AutoSize = true;
+            this.lblGenero.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblGenero.Location = new System.Drawing.Point(96, 267);
+            this.lblGenero.Name = "lblGenero";
+            this.lblGenero.Text = "Género:";
+            //
+            // cmbGenero
+            //
+            this.cmbGenero.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbGenero.FormattingEnabled = true;
+            this.cmbGenero.Items.AddRange(new object[] { "Masculino", "Femenino", "Otro" });
+            this.cmbGenero.Location = new System.Drawing.Point(188, 264);
+            this.cmbGenero.Name = "cmbGenero";
+            this.cmbGenero.Size = new System.Drawing.Size(198, 24);
+            this.cmbGenero.TabIndex = 6;
             // 
             // txtEmail
             // 
@@ -130,7 +152,7 @@
             this.txtEmail.Margin = new System.Windows.Forms.Padding(4);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(198, 23);
-            this.txtEmail.TabIndex = 30;
+            this.txtEmail.TabIndex = 5;
             // 
             // mtxtTelefono
             // 
@@ -138,7 +160,7 @@
             this.mtxtTelefono.Mask = "+000 0000-0000";
             this.mtxtTelefono.Name = "mtxtTelefono";
             this.mtxtTelefono.Size = new System.Drawing.Size(198, 23);
-            this.mtxtTelefono.TabIndex = 28;
+            this.mtxtTelefono.TabIndex = 4;
             // 
             // lblEmail
             // 
@@ -157,7 +179,7 @@
             this.txtSnombre.Margin = new System.Windows.Forms.Padding(4);
             this.txtSnombre.Name = "txtSnombre";
             this.txtSnombre.Size = new System.Drawing.Size(198, 23);
-            this.txtSnombre.TabIndex = 12;
+            this.txtSnombre.TabIndex = 1;
             // 
             // txtSapellido
             // 
@@ -165,7 +187,7 @@
             this.txtSapellido.Margin = new System.Windows.Forms.Padding(4);
             this.txtSapellido.Name = "txtSapellido";
             this.txtSapellido.Size = new System.Drawing.Size(198, 23);
-            this.txtSapellido.TabIndex = 10;
+            this.txtSapellido.TabIndex = 3;
             // 
             // txtPapellido
             // 
@@ -173,7 +195,7 @@
             this.txtPapellido.Margin = new System.Windows.Forms.Padding(4);
             this.txtPapellido.Name = "txtPapellido";
             this.txtPapellido.Size = new System.Drawing.Size(198, 23);
-            this.txtPapellido.TabIndex = 9;
+            this.txtPapellido.TabIndex = 2;
             // 
             // txtPnombre
             // 
@@ -181,7 +203,7 @@
             this.txtPnombre.Margin = new System.Windows.Forms.Padding(4);
             this.txtPnombre.Name = "txtPnombre";
             this.txtPnombre.Size = new System.Drawing.Size(198, 23);
-            this.txtPnombre.TabIndex = 7;
+            this.txtPnombre.TabIndex = 0;
             // 
             // lblTelefono
             // 
@@ -254,8 +276,8 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(455, 281);
-            this.groupBox1.TabIndex = 13;
+            this.groupBox1.Size = new System.Drawing.Size(455, 321);
+            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de Acceso";
             // 
@@ -265,7 +287,7 @@
             this.mtxtCedula.Mask = "000-000000-0000L";
             this.mtxtCedula.Name = "mtxtCedula";
             this.mtxtCedula.Size = new System.Drawing.Size(340, 23);
-            this.mtxtCedula.TabIndex = 27;
+            this.mtxtCedula.TabIndex = 0;
             // 
             // txtContrasena
             // 
@@ -274,7 +296,7 @@
             this.txtContrasena.Name = "txtContrasena";
             this.txtContrasena.PasswordChar = '*';
             this.txtContrasena.Size = new System.Drawing.Size(340, 23);
-            this.txtContrasena.TabIndex = 10;
+            this.txtContrasena.TabIndex = 2;
             // 
             // txtUsuario
             // 
@@ -282,7 +304,7 @@
             this.txtUsuario.Margin = new System.Windows.Forms.Padding(4);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(340, 23);
-            this.txtUsuario.TabIndex = 9;
+            this.txtUsuario.TabIndex = 1;
             // 
             // txtConfirmarContrasena
             // 
@@ -290,7 +312,7 @@
             this.txtConfirmarContrasena.Margin = new System.Windows.Forms.Padding(4);
             this.txtConfirmarContrasena.Name = "txtConfirmarContrasena";
             this.txtConfirmarContrasena.Size = new System.Drawing.Size(340, 23);
-            this.txtConfirmarContrasena.TabIndex = 8;
+            this.txtConfirmarContrasena.TabIndex = 3;
             // 
             // lblConfirmarContraseña
             // 
@@ -341,11 +363,11 @@
             this.btnCrearCuenta.BackColor = System.Drawing.Color.Aquamarine;
             this.btnCrearCuenta.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCrearCuenta.ForeColor = System.Drawing.Color.Black;
-            this.btnCrearCuenta.Location = new System.Drawing.Point(128, 498);
+            this.btnCrearCuenta.Location = new System.Drawing.Point(128, 538);
             this.btnCrearCuenta.Margin = new System.Windows.Forms.Padding(4);
             this.btnCrearCuenta.Name = "btnCrearCuenta";
             this.btnCrearCuenta.Size = new System.Drawing.Size(211, 44);
-            this.btnCrearCuenta.TabIndex = 20;
+            this.btnCrearCuenta.TabIndex = 2;
             this.btnCrearCuenta.Text = "CREAR CUENTA";
             this.btnCrearCuenta.UseVisualStyleBackColor = false;
             this.btnCrearCuenta.Click += new System.EventHandler(this.btnCrearCuenta_Click);
@@ -355,11 +377,11 @@
             this.btnCancelar.BackColor = System.Drawing.Color.LightCoral;
             this.btnCancelar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.Black;
-            this.btnCancelar.Location = new System.Drawing.Point(604, 498);
+            this.btnCancelar.Location = new System.Drawing.Point(604, 538);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(211, 44);
-            this.btnCancelar.TabIndex = 21;
+            this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "CANCELAR";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -369,11 +391,11 @@
             this.btnLimpiar.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnLimpiar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLimpiar.ForeColor = System.Drawing.Color.Black;
-            this.btnLimpiar.Location = new System.Drawing.Point(367, 498);
+            this.btnLimpiar.Location = new System.Drawing.Point(367, 538);
             this.btnLimpiar.Margin = new System.Windows.Forms.Padding(4);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(211, 44);
-            this.btnLimpiar.TabIndex = 24;
+            this.btnLimpiar.TabIndex = 3;
             this.btnLimpiar.Text = "LIMPIAR";
             this.btnLimpiar.UseVisualStyleBackColor = false;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
@@ -383,11 +405,11 @@
             this.btnIniciarSesion.BackColor = System.Drawing.Color.Aquamarine;
             this.btnIniciarSesion.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIniciarSesion.ForeColor = System.Drawing.Color.Black;
-            this.btnIniciarSesion.Location = new System.Drawing.Point(375, 585);
+            this.btnIniciarSesion.Location = new System.Drawing.Point(375, 625);
             this.btnIniciarSesion.Margin = new System.Windows.Forms.Padding(4);
             this.btnIniciarSesion.Name = "btnIniciarSesion";
             this.btnIniciarSesion.Size = new System.Drawing.Size(211, 44);
-            this.btnIniciarSesion.TabIndex = 26;
+            this.btnIniciarSesion.TabIndex = 5;
             this.btnIniciarSesion.Text = "INICIAR SESIÓN";
             this.btnIniciarSesion.UseVisualStyleBackColor = false;
             this.btnIniciarSesion.Click += new System.EventHandler(this.btnIniciarSesion_Click);
@@ -396,7 +418,7 @@
             // 
             this.lblPregunta.AutoSize = true;
             this.lblPregunta.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblPregunta.Location = new System.Drawing.Point(392, 554);
+            this.lblPregunta.Location = new System.Drawing.Point(392, 594);
             this.lblPregunta.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPregunta.Name = "lblPregunta";
             this.lblPregunta.Size = new System.Drawing.Size(145, 16);
@@ -408,7 +430,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSlateBlue;
-            this.ClientSize = new System.Drawing.Size(956, 645);
+            this.ClientSize = new System.Drawing.Size(956, 685);
             this.Controls.Add(this.btnIniciarSesion);
             this.Controls.Add(this.lblPregunta);
             this.Controls.Add(this.btnLimpiar);
@@ -438,6 +460,8 @@
         private System.Windows.Forms.Label lblSubtitulo;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.GroupBox grpDatosClientes;
+        private System.Windows.Forms.Label lblGenero;
+        private System.Windows.Forms.ComboBox cmbGenero;
         private System.Windows.Forms.TextBox txtSnombre;
         private System.Windows.Forms.TextBox txtSapellido;
         private System.Windows.Forms.TextBox txtPapellido;

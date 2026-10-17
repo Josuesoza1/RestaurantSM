@@ -6,11 +6,19 @@ namespace SistemaPedidoRestaurante.BLL
 {
     public class ClienteBLL
     {
+        public Cliente ObtenerMiPerfil()
+        {
+            if (!SesionActual.TieneRol(3))
+                throw new System.UnauthorizedAccessException("Este acceso corresponde a una cuenta de cliente.");
+            return _clienteDAL.ObtenerPorUsuario(SesionActual.IdUsuario);
+        }
+
         private readonly ClienteDAL _clienteDAL = new ClienteDAL();
         private readonly ClienteValidacion _validacion = new ClienteValidacion();
 
         public void InsertarCliente(Cliente cliente, Usuario usuario, string confirmarContrasena)
         {
+            new UsuarioValidacion().ValidarCredenciales(usuario.NombreUsuario, usuario.Contrasena);
             _validacion.ValidarRegistro(cliente, usuario.Contrasena, confirmarContrasena);
             _clienteDAL.InsertarCliente(cliente, usuario);
         }

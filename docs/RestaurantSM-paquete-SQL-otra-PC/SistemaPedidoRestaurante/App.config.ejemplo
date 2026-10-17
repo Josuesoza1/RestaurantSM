@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <connectionStrings>
+    <!-- LocalDB de la PC actual con autenticación de Windows. -->
+    <add name="RestauranteDB"
+         connectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=RestaurantSM;Integrated Security=True;"
+         providerName="System.Data.SqlClient" />
+  </connectionStrings>
+  <startup>
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8" />
+  </startup>
+</configuration>

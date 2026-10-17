@@ -4,6 +4,7 @@ using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.Entities;
 using SistemaPedidoRestaurante.UIAdministracion;
 using SistemaPedidoRestaurante.UICliente;
+using SistemaPedidoRestaurante.UIEmpleado;
 namespace SistemaPedidoRestaurante.Loggin
 {
     public partial class FrmLogin : Form
@@ -24,18 +25,7 @@ namespace SistemaPedidoRestaurante.Loggin
 
                 Usuario usuarioLogueado = _usuarioBLL.IniciarSesion(usuario, contrasena);    
 
-                if (usuarioLogueado.IdRol == 1)
-                {
-                    FrmMenuAdministracion ventanaPrincipal = new FrmMenuAdministracion();
-                    ventanaPrincipal.Show();
-                }
-                else
-                {
-                    FrmMenuCliente clientes = new FrmMenuCliente();
-                    clientes.Show();
-                }
-
-                this.Hide();
+                AbrirSesion(usuarioLogueado);
             }
             catch (ArgumentException ex)
             {
@@ -54,15 +44,67 @@ namespace SistemaPedidoRestaurante.Loggin
             }
         }
 
+        private void AbrirSesion(Usuario usuario)
+        {
+            using (Form menu = CrearMenuSegunRol(usuario.IdRol))
+            {
+                SesionActual.Iniciar(usuario);
+                this.Hide();
+                bool salir = false;
+                try
+                {
+                    salir = menu.ShowDialog(this) == DialogResult.Abort;
+                }
+                finally
+                {
+                    SesionActual.Cerrar();
+                    if (!this.IsDisposed && !this.Disposing)
+                    {
+                        txtContrasena.Clear();
+                        if (salir)
+                            this.Close();
+                        else
+                        {
+                            this.Show();
+                            txtUsuario.Focus();
+                        }
+                    }
+                }
+            }
+        }
+
+        private Form CrearMenuSegunRol(int idRol)
+        {
+            switch (idRol)
+            {
+                case 1:
+                    return new FrmMenuAdministracion();
+                case 2:
+                    return new FrmMenuEmpleado();
+                case 3:
+                    return new FrmMenuCliente();
+                default:
+                    throw new UnauthorizedAccessException("El usuario no tiene un rol de acceso válido.");
+            }
+        }
+
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
         }
         private void btnCrearCuenta_Click(object sender, EventArgs e)
         {
-            FrmCrearCuenta crearCuenta = new FrmCrearCuenta();
-            crearCuenta.Show();
             this.Hide();
+            try
+            {
+                using (var crearCuenta = new FrmCrearCuenta())
+                    crearCuenta.ShowDialog(this);
+            }
+            finally
+            {
+                if (!this.IsDisposed && !this.Disposing)
+                    this.Show();
+            }
         }
     }
 }

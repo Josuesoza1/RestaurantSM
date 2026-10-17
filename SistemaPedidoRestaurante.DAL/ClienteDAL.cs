@@ -8,6 +8,25 @@ namespace SistemaPedidoRestaurante.DAL
 {
     public class ClienteDAL
     {
+        public Cliente ObtenerPorUsuario(int idUsuario)
+        {
+            using (var connection = ConexionBD.ObtenerConexion())
+            using (var command = new SqlCommand("SELECT idCliente,pNombreCl,sNombreCl,pApellidoCl,sApellidoCl,genero,cedula,telefono,email FROM dbo.cliente WHERE idUsuario=@IdUsuario", connection))
+            {
+                command.Parameters.Add("@IdUsuario", SqlDbType.Int).Value = idUsuario;
+                connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    if (!reader.Read()) return null;
+                    return new Cliente { Id = Convert.ToInt32(reader["idCliente"]),
+                        PrimerNombre = reader["pNombreCl"].ToString(), SegundoNombre = reader["sNombreCl"].ToString(),
+                        PrimerApellido = reader["pApellidoCl"].ToString(), SegundoApellido = reader["sApellidoCl"].ToString(),
+                        Genero = reader["genero"].ToString(), Cedula = reader["cedula"].ToString(),
+                        Telefono = reader["telefono"].ToString(), Email = reader["email"].ToString() };
+                }
+            }
+        }
+
         public void InsertarCliente(Cliente cliente, Usuario usuario)
         {
             using (SqlConnection connection = ConexionBD.ObtenerConexion())

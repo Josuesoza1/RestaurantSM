@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -59,6 +59,65 @@
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="UICliente\FrmPedidoCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UICliente\FrmPedidoCliente.Designer.cs">
+      <DependentUpon>FrmPedidoCliente.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UICliente\FrmPedidoCliente.resx">
+      <DependentUpon>FrmPedidoCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="UIPrincipal\MenuSesion.cs" />
+    <Compile Include="UIPrincipal\PantallaPendiente.cs" />
+    <Compile Include="UIAdministracion\FrmClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIAdministracion\FrmClientes.Designer.cs">
+      <DependentUpon>FrmClientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIEmpleado\FrmPedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIEmpleado\FrmPedido.Designer.cs">
+      <DependentUpon>FrmPedido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIEmpleado\FrmFacturas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIEmpleado\FrmFacturas.Designer.cs">
+      <DependentUpon>FrmFacturas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIAdministracion\FrmInventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIAdministracion\FrmInventario.Designer.cs">
+      <DependentUpon>FrmInventario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UICliente\FrmMenuCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UICliente\FrmMenuCliente.Designer.cs">
+      <DependentUpon>FrmMenuCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIAdministracion\FrmMesas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIAdministracion\FrmMesas.Designer.cs">
+      <DependentUpon>FrmMesas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIEmpleado\FrmPago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIEmpleado\FrmPago.Designer.cs">
+      <DependentUpon>FrmPago.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIEmpleado\FrmMenuEmpleado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIEmpleado\FrmMenuEmpleado.Designer.cs">
+      <DependentUpon>FrmMenuEmpleado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UIAdministracion\FrmCategoria.cs">
       <SubType>Form</SubType>
@@ -92,18 +151,6 @@
     </Compile>
     <Compile Include="UIAdministracion\ModoFormulario.cs" />
     <Compile Include="UIAdministracion\TemaUI.cs" />
-    <Compile Include="UICliente\FrmClientes.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UICliente\FrmClientes.Designer.cs">
-      <DependentUpon>FrmClientes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UICliente\FrmMenuCliente.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UICliente\FrmMenuCliente.Designer.cs">
-      <DependentUpon>FrmMenuCliente.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Login\FrmCrearCuenta.resx">
       <DependentUpon>FrmCrearCuenta.cs</DependentUpon>
     </EmbeddedResource>
@@ -134,11 +181,26 @@
     <EmbeddedResource Include="UIAdministracion\FrmRoles.resx">
       <DependentUpon>FrmRoles.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UICliente\FrmClientes.resx">
+    <EmbeddedResource Include="UIAdministracion\FrmClientes.resx">
       <DependentUpon>FrmClientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIEmpleado\FrmPedido.resx">
+      <DependentUpon>FrmPedido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIEmpleado\FrmFacturas.resx">
+      <DependentUpon>FrmFacturas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIAdministracion\FrmInventario.resx">
+      <DependentUpon>FrmInventario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UICliente\FrmMenuCliente.resx">
       <DependentUpon>FrmMenuCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIAdministracion\FrmMesas.resx">
+      <DependentUpon>FrmMesas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIEmpleado\FrmPago.resx">
+      <DependentUpon>FrmPago.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -154,8 +216,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UIEmpleado\" />
-    <Folder Include="UIPrincipal\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SistemaPedidoRestaurante.BLL\SistemaPedidoRestaurante.BLL.csproj">

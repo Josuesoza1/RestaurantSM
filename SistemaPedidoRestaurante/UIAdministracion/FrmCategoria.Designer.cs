@@ -55,6 +55,8 @@
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.grpAcciones = new System.Windows.Forms.GroupBox();
             this.grpDatosClientes = new System.Windows.Forms.GroupBox();
+            this.chkActiva = new System.Windows.Forms.CheckBox();
+            this.ColActiva = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.pnlEncabezado.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grpListadoCliente.SuspendLayout();
@@ -169,7 +171,7 @@
             // 
             this.grpListadoCliente.Controls.Add(this.dgvCategorias);
             this.grpListadoCliente.ForeColor = System.Drawing.Color.DarkOrchid;
-            this.grpListadoCliente.Location = new System.Drawing.Point(24, 424);
+            this.grpListadoCliente.Location = new System.Drawing.Point(24, 459);
             this.grpListadoCliente.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpListadoCliente.Name = "grpListadoCliente";
             this.grpListadoCliente.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -186,7 +188,8 @@
             this.dgvCategorias.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColID,
             this.ColPnombre,
-            this.ColSnombre});
+            this.ColSnombre,
+            this.ColActiva});
             this.dgvCategorias.GridColor = System.Drawing.SystemColors.AppWorkspace;
             this.dgvCategorias.Location = new System.Drawing.Point(29, 23);
             this.dgvCategorias.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -246,7 +249,7 @@
             this.eliminarToolStripMenuItem.ForeColor = System.Drawing.Color.Crimson;
             this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
             this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(77, 24);
-            this.eliminarToolStripMenuItem.Text = "Eliminar";
+            this.eliminarToolStripMenuItem.Text = "Desactivar";
             this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
             // 
             // nuevoToolStripMenuItem
@@ -304,6 +307,7 @@
             this.txtNombre.Location = new System.Drawing.Point(119, 41);
             this.txtNombre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtNombre.Name = "txtNombre";
+            this.txtNombre.MaxLength = 60;
             this.txtNombre.Size = new System.Drawing.Size(199, 23);
             this.txtNombre.TabIndex = 7;
             // 
@@ -333,7 +337,7 @@
             // 
             this.txtDescripcion.Location = new System.Drawing.Point(45, 117);
             this.txtDescripcion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.txtDescripcion.MaxLength = 150;
+            this.txtDescripcion.MaxLength = 200;
             this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(269, 75);
@@ -357,6 +361,7 @@
             // 
             // grpDatosClientes
             // 
+            this.grpDatosClientes.Controls.Add(this.chkActiva);
             this.grpDatosClientes.Controls.Add(this.txtDescripcion);
             this.grpDatosClientes.Controls.Add(this.txtNombre);
             this.grpDatosClientes.Controls.Add(this.label3);
@@ -367,7 +372,7 @@
             this.grpDatosClientes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpDatosClientes.Name = "grpDatosClientes";
             this.grpDatosClientes.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.grpDatosClientes.Size = new System.Drawing.Size(365, 210);
+            this.grpDatosClientes.Size = new System.Drawing.Size(365, 245);
             this.grpDatosClientes.TabIndex = 3;
             this.grpDatosClientes.TabStop = false;
             this.grpDatosClientes.Text = "Datos de la Categoría";
@@ -377,7 +382,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(807, 592);
+            this.ClientSize = new System.Drawing.Size(807, 627);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.grpListadoCliente);
             this.Controls.Add(this.groupBox2);
@@ -389,7 +394,15 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FrmCategoria";
             this.Text = "Gestión de Categoría";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmCategoria_FormClosed);
+            this.chkActiva.Name = "chkActiva";
+            this.chkActiva.Text = "Activa";
+            this.chkActiva.ForeColor = System.Drawing.Color.Black;
+            this.chkActiva.Location = new System.Drawing.Point(45, 202);
+            this.chkActiva.Size = new System.Drawing.Size(140, 24);
+            this.chkActiva.TabIndex = 10;
+            this.ColActiva.Name = "ColActiva";
+            this.ColActiva.HeaderText = "Activa";
+            this.ColActiva.ReadOnly = true;
             this.Load += new System.EventHandler(this.FrmCategoria_Load);
             this.pnlEncabezado.ResumeLayout(false);
             this.pnlEncabezado.PerformLayout();
@@ -412,6 +425,8 @@
         #endregion
 
         private System.Windows.Forms.Panel pnlEncabezado;
+        private System.Windows.Forms.CheckBox chkActiva;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ColActiva;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnAccion;

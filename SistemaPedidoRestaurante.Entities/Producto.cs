@@ -6,6 +6,7 @@
         public int IdCategoria { get; set; }
         public int? IdSubcategoria { get; set; }
         public string CategoriaNombre { get; set; }
+        public string SubcategoriaNombre { get; set; }
         public string Nombre { get; set; }
         public decimal Precio { get; set; }
         public string Descripcion { get; set; }

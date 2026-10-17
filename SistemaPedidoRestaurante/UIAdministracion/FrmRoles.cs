@@ -35,12 +35,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void FrmRoles_Load(object sender, EventArgs e)
         {
-            CargarDatos();
-        }
+            if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
+                return;
 
-        private void FrmRoles_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Application.Exit();
+            CargarDatos();
         }
 
         private void CambiarModo(ModoFormulario nuevoModo)
@@ -104,9 +102,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void VolverAlMenu()
         {
-            FrmMenuAdministracion menu = new FrmMenuAdministracion();
-            menu.Show();
-            this.Hide();
+            this.Close();
         }
         private void volverAlMenúPríncipalToolStripMenuItem_Click(object sender, EventArgs e)
         {
