@@ -5,17 +5,15 @@ orientados a UI, BLL, DAL, entidades y validaciones.
 
 ## Documentación y traslado
 
-- [Informe explicado de cambios](docs/Informe-de-cambios-y-traslado.docx)
-- [Versión de texto del informe](docs/Informe-de-cambios-y-traslado.md)
-- [Instalación de SQL en otra PC](sql/instalacion/LEEME.md)
-- [Script completo para una base nueva](sql/instalacion/INSTALAR_NUEVA.sql)
-- [Actualización de una base anterior](sql/instalacion/ACTUALIZAR_EXISTENTE.sql)
-- [Estado y próximos bloques](docs/Cola-de-mejoras.md)
+- [Actualizar la base existente en otra PC: instrucciones](sql/LEEME_ACTUALIZACION.md)
+- [Archivo SQL único de actualización](sql/ACTUALIZAR_TODO_RESTAURANTSM.sql)
 
 Abrir la solución `RestaurantSM.slnx` con Visual Studio compatible y las
 herramientas de escritorio .NET Framework 4.8. La conexión de cada PC se configura
 en `SistemaPedidoRestaurante/App.config`; hay un ejemplo sin contraseñas junto a él.
 Consultar la guía SQL antes de ejecutar los scripts. No subir credenciales locales.
 
-El pedido del cliente se prepara en memoria. El guardado, cobro y factura aún
-están pendientes; el catálogo y las gestiones de empleados y productos ya funcionan.
+El cliente puede guardar pedidos, consultar sus compras, actualizar sus datos y
+gestionar reservas. El inventario permite controlar existencias por producto terminado.
+También funcionan las gestiones de empleados, clientes, roles, mesas, categorías y
+productos. Los cobros y la facturación de las pantallas internas continúan pendientes.
