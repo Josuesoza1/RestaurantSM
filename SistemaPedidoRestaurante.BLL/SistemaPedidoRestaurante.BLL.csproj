@@ -50,6 +50,12 @@
     <Compile Include="PedidoBLL.cs" />
     <Compile Include="PedidoBorrador.cs" />
     <Compile Include="ProductoBLL.cs" />
+    <Compile Include="GestionReglas.cs" />
+    <Compile Include="ClientesGestionBLL.cs" />
+    <Compile Include="MesasGestionBLL.cs" />
+    <Compile Include="InventarioBLL.cs" />
+    <Compile Include="ComprasClienteBLL.cs" />
+    <Compile Include="ReservasClienteBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RolBLL.cs" />
     <Compile Include="SesionActual.cs" />

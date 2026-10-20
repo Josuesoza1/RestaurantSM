@@ -62,8 +62,9 @@
             this.lblUnidad = new System.Windows.Forms.Label();
             this.lblStockActual = new System.Windows.Forms.Label();
             this.txtStockActual = new System.Windows.Forms.TextBox();
-            this.txtProducto = new System.Windows.Forms.TextBox();
+            this.cmbProductoInventario = new System.Windows.Forms.ComboBox();
             this.lblProducto = new System.Windows.Forms.Label();
+            this.chkControlActivo = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
@@ -136,9 +137,9 @@
             this.grpAcciones.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpAcciones.ForeColor = System.Drawing.Color.DarkSlateBlue;
             this.grpAcciones.Location = new System.Drawing.Point(665, 148);
-            this.grpAcciones.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpAcciones.Margin = new System.Windows.Forms.Padding(4);
             this.grpAcciones.Name = "grpAcciones";
-            this.grpAcciones.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpAcciones.Padding = new System.Windows.Forms.Padding(4);
             this.grpAcciones.Size = new System.Drawing.Size(343, 219);
             this.grpAcciones.TabIndex = 20;
             this.grpAcciones.TabStop = false;
@@ -151,7 +152,7 @@
             this.btnBuscar.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.ForeColor = System.Drawing.Color.Black;
             this.btnBuscar.Location = new System.Drawing.Point(228, 156);
-            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(89, 36);
             this.btnBuscar.TabIndex = 12;
@@ -161,7 +162,7 @@
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(84, 124);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(232, 25);
             this.textBox2.TabIndex = 11;
@@ -185,7 +186,7 @@
             this.btnGuardarProducto.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarProducto.ForeColor = System.Drawing.Color.Black;
             this.btnGuardarProducto.Location = new System.Drawing.Point(12, 25);
-            this.btnGuardarProducto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnGuardarProducto.Margin = new System.Windows.Forms.Padding(4);
             this.btnGuardarProducto.Name = "btnGuardarProducto";
             this.btnGuardarProducto.Size = new System.Drawing.Size(100, 41);
             this.btnGuardarProducto.TabIndex = 2;
@@ -199,7 +200,7 @@
             this.btnLimpiar.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLimpiar.ForeColor = System.Drawing.Color.Black;
             this.btnLimpiar.Location = new System.Drawing.Point(120, 25);
-            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(4);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(100, 41);
             this.btnLimpiar.TabIndex = 4;
@@ -213,7 +214,7 @@
             this.btnCancelar.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.Black;
             this.btnCancelar.Location = new System.Drawing.Point(228, 25);
-            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(103, 41);
             this.btnCancelar.TabIndex = 5;
@@ -226,9 +227,9 @@
             this.grpListaProductos.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpListaProductos.ForeColor = System.Drawing.Color.DarkSlateBlue;
             this.grpListaProductos.Location = new System.Drawing.Point(19, 374);
-            this.grpListaProductos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpListaProductos.Margin = new System.Windows.Forms.Padding(4);
             this.grpListaProductos.Name = "grpListaProductos";
-            this.grpListaProductos.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpListaProductos.Padding = new System.Windows.Forms.Padding(4);
             this.grpListaProductos.Size = new System.Drawing.Size(989, 138);
             this.grpListaProductos.TabIndex = 18;
             this.grpListaProductos.TabStop = false;
@@ -245,7 +246,7 @@
             this.ColStockActual,
             this.ColSrockMinimo});
             this.dgvProductoInventario.Location = new System.Drawing.Point(27, 25);
-            this.dgvProductoInventario.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvProductoInventario.Margin = new System.Windows.Forms.Padding(4);
             this.dgvProductoInventario.Name = "dgvProductoInventario";
             this.dgvProductoInventario.RowHeadersWidth = 51;
             this.dgvProductoInventario.Size = new System.Drawing.Size(944, 89);
@@ -305,14 +306,15 @@
             this.grpAgregarProducto.Controls.Add(this.lblUnidad);
             this.grpAgregarProducto.Controls.Add(this.lblStockActual);
             this.grpAgregarProducto.Controls.Add(this.txtStockActual);
-            this.grpAgregarProducto.Controls.Add(this.txtProducto);
+            this.grpAgregarProducto.Controls.Add(this.cmbProductoInventario);
             this.grpAgregarProducto.Controls.Add(this.lblProducto);
+            this.grpAgregarProducto.Controls.Add(this.chkControlActivo);
             this.grpAgregarProducto.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpAgregarProducto.ForeColor = System.Drawing.Color.DarkSlateBlue;
             this.grpAgregarProducto.Location = new System.Drawing.Point(19, 148);
-            this.grpAgregarProducto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpAgregarProducto.Margin = new System.Windows.Forms.Padding(4);
             this.grpAgregarProducto.Name = "grpAgregarProducto";
-            this.grpAgregarProducto.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpAgregarProducto.Padding = new System.Windows.Forms.Padding(4);
             this.grpAgregarProducto.Size = new System.Drawing.Size(627, 219);
             this.grpAgregarProducto.TabIndex = 17;
             this.grpAgregarProducto.TabStop = false;
@@ -323,7 +325,7 @@
             this.cmbCategoriaInventario.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCategoriaInventario.FormattingEnabled = true;
             this.cmbCategoriaInventario.Location = new System.Drawing.Point(161, 89);
-            this.cmbCategoriaInventario.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbCategoriaInventario.Margin = new System.Windows.Forms.Padding(4);
             this.cmbCategoriaInventario.Name = "cmbCategoriaInventario";
             this.cmbCategoriaInventario.Size = new System.Drawing.Size(151, 26);
             this.cmbCategoriaInventario.TabIndex = 14;
@@ -343,7 +345,7 @@
             // txtPrecioVenta
             // 
             this.txtPrecioVenta.Location = new System.Drawing.Point(161, 182);
-            this.txtPrecioVenta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPrecioVenta.Margin = new System.Windows.Forms.Padding(4);
             this.txtPrecioVenta.Name = "txtPrecioVenta";
             this.txtPrecioVenta.Size = new System.Drawing.Size(148, 25);
             this.txtPrecioVenta.TabIndex = 12;
@@ -363,7 +365,7 @@
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(457, 85);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(148, 25);
             this.textBox1.TabIndex = 10;
@@ -383,7 +385,7 @@
             // txtUnidad
             // 
             this.txtUnidad.Location = new System.Drawing.Point(159, 138);
-            this.txtUnidad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtUnidad.Margin = new System.Windows.Forms.Padding(4);
             this.txtUnidad.Name = "txtUnidad";
             this.txtUnidad.Size = new System.Drawing.Size(151, 25);
             this.txtUnidad.TabIndex = 8;
@@ -415,18 +417,19 @@
             // txtStockActual
             // 
             this.txtStockActual.Location = new System.Drawing.Point(457, 43);
-            this.txtStockActual.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtStockActual.Margin = new System.Windows.Forms.Padding(4);
             this.txtStockActual.Name = "txtStockActual";
             this.txtStockActual.Size = new System.Drawing.Size(148, 25);
             this.txtStockActual.TabIndex = 5;
             // 
-            // txtProducto
+            // cmbProductoInventario
             // 
-            this.txtProducto.Location = new System.Drawing.Point(155, 43);
-            this.txtProducto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.txtProducto.Name = "txtProducto";
-            this.txtProducto.Size = new System.Drawing.Size(155, 25);
-            this.txtProducto.TabIndex = 4;
+            this.cmbProductoInventario.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbProductoInventario.Location = new System.Drawing.Point(155, 43);
+            this.cmbProductoInventario.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbProductoInventario.Name = "cmbProductoInventario";
+            this.cmbProductoInventario.Size = new System.Drawing.Size(155, 26);
+            this.cmbProductoInventario.TabIndex = 4;
             // 
             // lblProducto
             // 
@@ -440,13 +443,23 @@
             this.lblProducto.TabIndex = 2;
             this.lblProducto.Text = "Producto:";
             // 
+            // chkControlActivo
+            // 
+            this.chkControlActivo.Checked = true;
+            this.chkControlActivo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkControlActivo.Location = new System.Drawing.Point(350, 135);
+            this.chkControlActivo.Name = "chkControlActivo";
+            this.chkControlActivo.Size = new System.Drawing.Size(220, 24);
+            this.chkControlActivo.TabIndex = 15;
+            this.chkControlActivo.Text = "Control activo";
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.panel1.Controls.Add(this.lblTitulo);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 28);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1025, 110);
             this.panel1.TabIndex = 16;
@@ -475,7 +488,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmInventario";
             this.Text = "GESTION DE INVENTARIO";
             this.Load += new System.EventHandler(this.FrmInventario_Load);
@@ -496,6 +509,7 @@
 
         #endregion
 
+        private System.Windows.Forms.CheckBox chkControlActivo;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem agregarToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
@@ -519,7 +533,7 @@
         private System.Windows.Forms.Label lblUnidad;
         private System.Windows.Forms.Label lblStockActual;
         private System.Windows.Forms.TextBox txtStockActual;
-        private System.Windows.Forms.TextBox txtProducto;
+        private System.Windows.Forms.ComboBox cmbProductoInventario;
         private System.Windows.Forms.Label lblProducto;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblTitulo;

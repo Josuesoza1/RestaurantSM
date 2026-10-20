@@ -28,7 +28,7 @@ namespace SistemaPedidoRestaurante.DAL
                                 IdPedido = Convert.ToInt32(reader["idPedido"]),
                                 IdCliente = Convert.ToInt32(reader["idCliente"]),
                                 IdMesa = reader["idMesa"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["idMesa"]),
-                                IdEmpleado = Convert.ToInt32(reader["idEmpleado"]),
+                                IdEmpleado = reader["idEmpleado"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["idEmpleado"]),
                                 IdRepartidor = reader["idRepartidor"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["idRepartidor"]),
                                 Direccion = reader["direccion"] == DBNull.Value ? string.Empty : reader["direccion"].ToString(),
                                 Referencia = reader["referencia"] == DBNull.Value ? string.Empty : reader["referencia"].ToString(),

@@ -1,3 +1,4 @@
+﻿using SistemaPedidoRestaurante.UIPrincipal;
 using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.Entities;
 using System;
@@ -7,16 +8,21 @@ using System.Windows.Forms;
 
 namespace SistemaPedidoRestaurante.UIAdministracion
 {
-    public partial class FrmEmpleados : Form
+    public partial class FrmEmpleados : System.Windows.Forms.Form
     {
-        private readonly EmpleadoBLL _empleadoBLL = new EmpleadoBLL();
-        private readonly RolBLL _rolBLL = new RolBLL();
+        private readonly EmpleadoBLL _empleadoBLL;
+        private readonly RolBLL _rolBLL;
         private ModoFormulario modoActual;
         private Empleado empleadoSeleccionado;
 
         public FrmEmpleados()
         {
             InitializeComponent();
+            if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
+                return;
+
+            _empleadoBLL = new EmpleadoBLL();
+            _rolBLL = new RolBLL();
             dgvEmpleados.ReadOnly = true;
             dgvEmpleados.AllowUserToAddRows = false;
             dgvEmpleados.MultiSelect = false;

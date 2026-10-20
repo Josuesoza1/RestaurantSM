@@ -9,20 +9,19 @@ namespace SistemaPedidoRestaurante.UICliente
 {
     public partial class FrmPedidoCliente : Form
     {
-        private readonly Label estadoPerfil = new Label();
         private readonly PedidoBorrador borrador = new PedidoBorrador();
         private Productos catalogo = new Productos();
         private bool perfilValido;
 
-        public FrmPedidoCliente()
+        private readonly int idPedido;
+        private readonly Guid solicitud=Guid.NewGuid();
+        public FrmPedidoCliente() : this(0) { }
+        public FrmPedidoCliente(int pedido)
         {
+            idPedido=pedido;
             InitializeComponent();
             grpDatosCliente.Text = "Mis datos";
             txtCliente.ReadOnly = txtCedula.ReadOnly = txtTelefono.ReadOnly = txtEmail.ReadOnly = true;
-            btnBuscar.Visible = btnRegistrarPago.Visible = false;
-            agregarToolStripMenuItem.Visible = ayudaToolStripMenuItem.Visible = false;
-            cmbCantidadPlato.Visible = cmbCantidadBebida.Visible = cmbPrecioBebida.Visible = false;
-            lblCantidad.Visible = lblPrecioBebida.Visible = false;
             cmbProducto.DropDownStyle = cmbCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPrecio.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPrecio.Enabled = false;
@@ -31,16 +30,14 @@ namespace SistemaPedidoRestaurante.UICliente
             btnCancelar.Text = "Volver";
             btnCancelar.Click += (sender, e) => Close();
             btnAceptar.Click += AgregarAlPedido;
+            btnEnviar.Click += (sender,e) => Enviar();
             btnQuitar.Click += QuitarDelPedido;
             btnVaciar.Click += (sender, e) => { borrador.Vaciar(); ActualizarDetalle(); };
             cmbCategoria.SelectedValueChanged += (sender, e) => AplicarFiltro();
             cmbProducto.SelectedValueChanged += (sender, e) => MostrarPrecio();
-            estadoPerfil.Name = "estadoPerfil";
-            estadoPerfil.SetBounds(12, 290, 760, 32);
-            estadoPerfil.Text = "Selecciona productos para preparar tu pedido. Todavía no se ha enviado.";
-            Controls.Add(estadoPerfil);
             Load += CargarPantalla;
             ActualizarDetalle();
+            UIPrincipal.TemaUI.Aplicar(this);
         }
 
         private void CargarPantalla(object sender, EventArgs e)
@@ -58,11 +55,19 @@ namespace SistemaPedidoRestaurante.UICliente
                     txtCedula.Text = cliente.Cedula; txtTelefono.Text = cliente.Telefono; txtEmail.Text = cliente.Email;
                 }
                 CargarCatalogo(new ProductoBLL().ObtenerDisponiblesParaPedido());
+                if(perfilValido && idPedido>0)
+                {
+                    var detalle=new ComprasClienteBLL().Detalle(idPedido);
+                    foreach(System.Data.DataRow fila in detalle.Rows)
+                        borrador.Agregar(new Producto{IdProducto=(int)fila["IdProducto"],Nombre=fila["Producto"].ToString(),Precio=(decimal)fila["PrecioUnitario"],Disponible=true},(int)fila["Cantidad"]);
+                    btnEnviar.Text="Guardar cambios";
+                }
+                ActualizarDetalle();
                 if (!perfilValido) estadoPerfil.Text = "Tu cuenta no tiene un perfil de cliente asociado. Solicita ayuda al restaurante.";
             }
             catch (Exception)
             {
-                perfilValido = false; btnAceptar.Enabled = false;
+                perfilValido = false; btnAceptar.Enabled = btnEnviar.Enabled = false;
                 estadoPerfil.Text = "No se pudieron cargar tus datos o el catálogo. Vuelve a iniciar sesión e inténtalo nuevamente.";
             }
         }
@@ -121,10 +126,21 @@ namespace SistemaPedidoRestaurante.UICliente
             dgvDetalle.DataSource = borrador.Lineas.ToList();
             lblTotal.Text = "Total estimado: " + borrador.Total.ToString("N2");
             btnQuitar.Enabled = btnVaciar.Enabled = borrador.Lineas.Count > 0;
+            btnEnviar.Enabled = perfilValido && borrador.Lineas.Count > 0;
         }
 
+        private void Enviar()
+        {
+            UIPrincipal.VistaGestion.Ejecutar(this,()=>{
+                btnEnviar.Enabled=false;
+                try {
+                    int numero=new ComprasClienteBLL().Guardar(borrador,solicitud,idPedido);
+                    MessageBox.Show(this,"Pedido "+numero+" guardado. Puede consultarlo en Mis compras.","Mi pedido");
+                    DialogResult=DialogResult.OK;Close();
+                } finally { if(!IsDisposed)ActualizarDetalle(); }
+            });
+        }
         private void lblPnombre_Click(object sender, EventArgs e) { }
-        private void agregarToolStripMenuItem_Click(object sender, EventArgs e) { }
         private void Form1_Load(object sender, EventArgs e) { }
     }
 }

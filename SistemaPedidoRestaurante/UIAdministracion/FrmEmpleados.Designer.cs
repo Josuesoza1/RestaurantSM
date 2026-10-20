@@ -1,6 +1,6 @@
-﻿namespace  SistemaPedidoRestaurante.UIAdministracion
+﻿namespace SistemaPedidoRestaurante.UIAdministracion
 {
-    partial class FrmEmpleados
+    partial class FrmEmpleados : System.Windows.Forms.Form
     {
         /// <summary>
         /// Required designer variable.

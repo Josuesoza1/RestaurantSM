@@ -11,8 +11,9 @@ namespace SistemaPedidoRestaurante.DAL
         public Cliente ObtenerPorUsuario(int idUsuario)
         {
             using (var connection = ConexionBD.ObtenerConexion())
-            using (var command = new SqlCommand("SELECT idCliente,pNombreCl,sNombreCl,pApellidoCl,sApellidoCl,genero,cedula,telefono,email FROM dbo.cliente WHERE idUsuario=@IdUsuario", connection))
+            using (var command = new SqlCommand("sp_Cliente_ObtenerMiPerfil", connection))
             {
+                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("@IdUsuario", SqlDbType.Int).Value = idUsuario;
                 connection.Open();
                 using (var reader = command.ExecuteReader())

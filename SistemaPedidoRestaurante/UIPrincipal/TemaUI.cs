@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 
-namespace SistemaPedidoRestaurante.UIAdministracion
+namespace SistemaPedidoRestaurante.UIPrincipal
 {
 
     public static class TemaUI
@@ -28,12 +28,13 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             Control contenedor = listado.Parent;
             while (contenedor != null && contenedor != formulario)
             {
-                contenedor.Anchor = AnchorStyles.Top | AnchorStyles.Bottom |
-                                    AnchorStyles.Left | AnchorStyles.Right;
+                if (contenedor.Dock == DockStyle.None)
+                    contenedor.Anchor = AnchorStyles.Top | AnchorStyles.Bottom |
+                                        AnchorStyles.Left | AnchorStyles.Right;
                 contenedor = contenedor.Parent;
             }
 
-         
+
             if (listado.Parent != formulario)
             {
                 listado.Dock = DockStyle.Fill;
@@ -69,7 +70,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                     grupo.Font = FuenteTitulo;
                 }
 
-                
+
                 if (control.HasChildren)
                     AplicarEstilos(control);
             }

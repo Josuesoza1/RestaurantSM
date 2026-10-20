@@ -3,7 +3,7 @@ using SistemaPedidoRestaurante.Entities;
 
 namespace SistemaPedidoRestaurante.BLL
 {
-    // Identidad disponible mientras la aplicación está abierta. No conserva contraseñas.
+    
     public static class SesionActual
     {
         public static int IdUsuario { get; private set; }

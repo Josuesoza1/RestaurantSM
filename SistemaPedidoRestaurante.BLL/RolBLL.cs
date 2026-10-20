@@ -13,6 +13,21 @@ namespace SistemaPedidoRestaurante.BLL
             return _rolDAL.Listar();
         }
 
+        public int Guardar(int id, string nombre, string descripcion)
+        {
+            GestionReglas.Rol(1);
+            return GestionReglas.Escribir("sp_Rol_Guardar", "@Actor", SesionActual.IdUsuario, "@Id", id,
+                "@Nombre", GestionReglas.Texto(nombre, 50, "Nombre", true),
+                "@Descripcion", GestionReglas.Texto(descripcion, 150, "Descripción"));
+        }
+
+        public void Eliminar(int id)
+        {
+            GestionReglas.Rol(1);
+            if (id <= 3) throw new System.ArgumentException("Los tres roles del sistema están protegidos.");
+            GestionReglas.Escribir("sp_Rol_Eliminar", "@Actor", SesionActual.IdUsuario, "@Id", id);
+        }
+
         public Roles BuscarRoles(string filtro)
         {
             Roles roles = _rolDAL.Listar();

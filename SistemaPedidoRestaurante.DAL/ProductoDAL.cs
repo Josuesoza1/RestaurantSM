@@ -26,11 +26,11 @@ namespace SistemaPedidoRestaurante.DAL
             using (SqlConnection connection = ConexionBD.ObtenerConexion())
             {
                 string consulta = soloDisponibles
-                    ? "SELECT p.idProducto,p.idCategoria,p.idSubcategoria,c.nombre AS CategoriaNombre,s.nombre AS SubcategoriaNombre,p.nombre,p.precio,p.descripcion,p.codigo,p.disponible FROM dbo.producto p INNER JOIN dbo.categoria c ON c.idCategoria=p.idCategoria LEFT JOIN dbo.subcategoria s ON s.idSubcategoria=p.idSubcategoria WHERE p.disponible=1 AND c.activa=1 ORDER BY c.nombre,p.nombre"
+                    ? "sp_Producto_Disponibles"
                     : "sp_Producto_Listar";
                 using (SqlCommand command = new SqlCommand(consulta, connection))
                 {
-                    command.CommandType = soloDisponibles ? CommandType.Text : CommandType.StoredProcedure;
+                    command.CommandType = CommandType.StoredProcedure;
                     connection.Open();
 
                     using (SqlDataReader reader = command.ExecuteReader())

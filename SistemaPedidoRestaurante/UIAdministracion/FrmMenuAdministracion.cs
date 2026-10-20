@@ -20,9 +20,9 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             InitializeComponent();
             var gestiones = new ToolStripMenuItem("Más opciones") { Name = "masGestionesToolStripMenuItem" };
-            gestiones.DropDownItems.Add(PantallaPendiente.Opcion(this, "clientesToolStripMenuItem", "Clientes", () => new FrmClientes()));
-            gestiones.DropDownItems.Add(PantallaPendiente.Opcion(this, "mesasToolStripMenuItem", "Mesas", () => new FrmMesas()));
-            gestiones.DropDownItems.Add(PantallaPendiente.Opcion(this, "inventarioToolStripMenuItem", "Inventario", () => new FrmInventario()));
+            gestiones.DropDownItems.Add(CrearGestion("clientesToolStripMenuItem", "Clientes", () => new FrmClientes()));
+            gestiones.DropDownItems.Add(CrearGestion("mesasToolStripMenuItem", "Mesas", () => new FrmMesas()));
+            gestiones.DropDownItems.Add(CrearGestion("inventarioToolStripMenuItem", "Inventario", () => new FrmInventario()));
             menuStrip1.Items.Insert(menuStrip1.Items.Count - 1, gestiones);
             var operaciones = new ToolStripMenuItem("Operaciones") { Name = "operacionesToolStripMenuItem" };
             operaciones.DropDownItems.Add(PantallaPendiente.Opcion(this, "pedidosToolStripMenuItem", "Pedidos en el local", () => new FrmPedido()));
@@ -31,6 +31,11 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             gestiones.DropDownItems.Add(new ToolStripSeparator());
             gestiones.DropDownItems.Add(operaciones);
             MenuSesion.Configurar(this, menuStrip1, 1);
+        }
+        private ToolStripMenuItem CrearGestion(string nombre,string texto,Func<Form> crear)
+        {
+            var opcion=new ToolStripMenuItem(texto){Name=nombre};
+            opcion.Click+=(s,e)=>{using(var f=crear())f.ShowDialog(this);};return opcion;
         }
         private void categoríasToolStripMenuItem_Click(object sender, EventArgs e)
         {
