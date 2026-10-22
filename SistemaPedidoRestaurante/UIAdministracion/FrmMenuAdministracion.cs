@@ -21,6 +21,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             InitializeComponent();
             var gestiones = new ToolStripMenuItem("Más opciones") { Name = "masGestionesToolStripMenuItem" };
             gestiones.DropDownItems.Add(CrearGestion("clientesToolStripMenuItem", "Clientes", () => new FrmClientes()));
+            gestiones.DropDownItems.Add(CrearGestion("usuariosToolStripMenuItem", "Usuarios", () => new FrmUsuarios()));
             gestiones.DropDownItems.Add(CrearGestion("mesasToolStripMenuItem", "Mesas", () => new FrmMesas()));
             gestiones.DropDownItems.Add(CrearGestion("inventarioToolStripMenuItem", "Inventario", () => new FrmInventario()));
             menuStrip1.Items.Insert(menuStrip1.Items.Count - 1, gestiones);

@@ -1,6 +1,7 @@
 ﻿using System;
 using SistemaPedidoRestaurante.DAL;
 using SistemaPedidoRestaurante.Entities;
+using System.Linq;
 using SistemaPedidoRestaurante.Validaciones;
 
 namespace SistemaPedidoRestaurante.BLL
@@ -27,7 +28,21 @@ namespace SistemaPedidoRestaurante.BLL
 
         public Usuarios ObtenerTodosLosUsuarios()
         {
+            Permisos.ExigirRol(1);
             return _usuarioDAL.Listar();
+        }
+
+        public Usuarios BuscarUsuarios(string filtro)
+        {
+            Usuarios usuarios = ObtenerTodosLosUsuarios();
+            if (string.IsNullOrWhiteSpace(filtro)) return usuarios;
+            filtro = filtro.Trim();
+            var resultado = new Usuarios();
+            resultado.AddRange(usuarios.Where(usuario =>
+                BusquedaLINQ.Contiene(usuario.NombreUsuario, filtro) ||
+                BusquedaLINQ.Contiene(usuario.NombreRol, filtro) ||
+                BusquedaLINQ.Contiene(usuario.IdUsuario.ToString(), filtro)));
+            return resultado;
         }
     }
 }

@@ -19,3 +19,9 @@ El cliente puede guardar pedidos, consultar sus compras, actualizar sus datos y
 gestionar reservas. El inventario permite controlar existencias por producto terminado.
 También funcionan las gestiones de empleados, clientes, roles, mesas, categorías y
 productos. Los cobros y la facturación de las pantallas internas continúan pendientes.
+
+El administrador también puede consultar usuarios desde Más opciones → Usuarios.
+La pantalla muestra ID, usuario y rol, permite buscar con LINQ y recargar el listado;
+no muestra contraseñas ni permite modificar cuentas. Utiliza `sp_Usuario_Listar`.
+El archivo [datos de demostración](sql/007_datos_para_capturas.sql) añade registros
+ficticios para capturas y puede repetirse sin reiniciar sus existencias.

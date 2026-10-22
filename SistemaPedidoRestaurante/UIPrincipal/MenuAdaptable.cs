@@ -91,7 +91,7 @@ namespace SistemaPedidoRestaurante.UIPrincipal
 
         private void Liberar(object sender, EventArgs e)
         {
-            // Los grupos que no están visibles también deben liberar sus recursos.
+
             foreach (var grupo in grupos)
                 if (!grupo.Opcion.IsDisposed) grupo.Opcion.Dispose();
         }

@@ -76,6 +76,12 @@
       <DependentUpon>FrmPedidoCliente.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="UIPrincipal\MenuSesion.cs" />
+    <Compile Include="UIAdministracion\FrmUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIAdministracion\FrmUsuarios.Designer.cs">
+      <DependentUpon>FrmUsuarios.cs</DependentUpon>
+    </Compile>
     <Compile Include="UIPrincipal\MenuAdaptable.cs" />
     <Compile Include="UIPrincipal\PantallaPendiente.cs" />
     <Compile Include="UIAdministracion\FrmClientes.cs">
