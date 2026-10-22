@@ -8,6 +8,10 @@ namespace SistemaPedidoRestaurante.DAL
 {
     public class EmpleadoDAL
     {
+        public void Eliminar(int idEmpleado, int idAdministrador)
+        {
+            new GestionDAL().Ejecutar("sp_Empleado_Eliminar", "@IdEmpleado", idEmpleado, "@IdAdministrador", idAdministrador);
+        }
         public Empleados Listar()
         {
             Empleados lista = new Empleados();

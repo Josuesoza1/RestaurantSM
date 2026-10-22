@@ -50,6 +50,10 @@
     <Compile Include="PedidoDAL.cs" />
     <Compile Include="ProductoDAL.cs" />
     <Compile Include="GestionDAL.cs" />
+    <Compile Include="InventarioDAL.cs" />
+    <Compile Include="OperacionDatos.cs" />
+    <Compile Include="ComprasClienteDAL.cs" />
+    <Compile Include="ReservasClienteDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RolDAL.cs" />
     <Compile Include="UsuarioDAL.cs" />

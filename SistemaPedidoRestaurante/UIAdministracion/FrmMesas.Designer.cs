@@ -31,6 +31,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.agregarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.desactivarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.volverToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -67,6 +68,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.agregarToolStripMenuItem,
             this.eliminarToolStripMenuItem,
+            this.desactivarToolStripMenuItem,
             this.editarToolStripMenuItem,
             this.volverToolStripMenuItem1,
             this.ayudaToolStripMenuItem});
@@ -84,7 +86,11 @@
             //
             // eliminarToolStripMenuItem
             //
+            this.desactivarToolStripMenuItem.Name = "desactivarToolStripMenuItem";
+            this.desactivarToolStripMenuItem.Text = "Desactivar";
+            this.desactivarToolStripMenuItem.Click += new System.EventHandler(this.desactivarToolStripMenuItem_Click);
             this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
+            this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
             this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
             this.eliminarToolStripMenuItem.Text = "Eliminar";
             //
@@ -202,6 +208,7 @@
             this.btnGuardarMesas.ForeColor = System.Drawing.Color.Black;
             this.btnGuardarMesas.Location = new System.Drawing.Point(50, 373);
             this.btnGuardarMesas.Name = "btnGuardarMesas";
+            this.btnGuardarMesas.Click += new System.EventHandler(this.btnGuardarMesas_Click);
             this.btnGuardarMesas.Size = new System.Drawing.Size(81, 31);
             this.btnGuardarMesas.TabIndex = 4;
             this.btnGuardarMesas.Text = "Guardar";
@@ -215,6 +222,7 @@
             this.btnCancelarMesas.ForeColor = System.Drawing.Color.Black;
             this.btnCancelarMesas.Location = new System.Drawing.Point(202, 373);
             this.btnCancelarMesas.Name = "btnCancelarMesas";
+            this.btnCancelarMesas.Click += new System.EventHandler(this.btnCancelarMesas_Click);
             this.btnCancelarMesas.Size = new System.Drawing.Size(81, 31);
             this.btnCancelarMesas.TabIndex = 8;
             this.btnCancelarMesas.Text = "Cancelar";
@@ -274,6 +282,7 @@
             this.btnBuscarMesas.ForeColor = System.Drawing.Color.Blue;
             this.btnBuscarMesas.Location = new System.Drawing.Point(461, 375);
             this.btnBuscarMesas.Name = "btnBuscarMesas";
+            this.btnBuscarMesas.Click += new System.EventHandler(this.btnBuscarMesas_Click);
             this.btnBuscarMesas.Size = new System.Drawing.Size(89, 31);
             this.btnBuscarMesas.TabIndex = 11;
             this.btnBuscarMesas.Text = "Buscar";
@@ -298,6 +307,7 @@
             this.btnLimpiar.ForeColor = System.Drawing.Color.Black;
             this.btnLimpiar.Location = new System.Drawing.Point(124, 373);
             this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             this.btnLimpiar.Size = new System.Drawing.Size(81, 31);
             this.btnLimpiar.TabIndex = 13;
             this.btnLimpiar.Text = "Limpiar";
@@ -351,6 +361,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem agregarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem desactivarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editarToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;

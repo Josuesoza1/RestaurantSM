@@ -18,6 +18,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         public FrmEmpleados()
         {
             InitializeComponent();
+            ValidacionEntradaUI.Nombres(txtPnombre,txtSnombre,txtPapellido,txtSapellido); ValidacionEntradaUI.Telefonos(txtTelefono); ValidacionEntradaUI.Cedulas(txtCedula);
             if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
                 return;
 
@@ -82,8 +83,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                     lblOperacion.Text = "Operación actual: Editar empleado";
                     btnAccion.Text = "Guardar cambios"; panel1.BackColor = Color.LightSkyBlue; break;
                 case ModoFormulario.Eliminar:
-                    lblOperacion.Text = "Operación actual: Desactivar empleado";
-                    btnAccion.Text = "Desactivar"; panel1.BackColor = Color.LightCoral; break;
+                    lblOperacion.Text = "Operación actual: Eliminar empleado";
+                    btnAccion.Text = "Eliminar"; panel1.BackColor = Color.LightCoral; break;
             }
             txtPnombre.Enabled = txtSnombre.Enabled = txtPapellido.Enabled = txtSapellido.Enabled = puedeEditar;
             txtTelefono.Enabled = txtCargo.Enabled = txtCedula.Enabled = puedeEditar;
@@ -134,10 +135,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 if (modoActual == ModoFormulario.Eliminar)
                 {
                     if (empleadoSeleccionado == null) return;
-                    if (MessageBox.Show("¿Desactivar a " + empleadoSeleccionado.PrimerNombre + " " +
-                        empleadoSeleccionado.PrimerApellido + "? Su cuenta no podrá iniciar sesión.",
-                        "Desactivar empleado", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
-                    _empleadoBLL.DesactivarEmpleado(empleadoSeleccionado.IdEmpleado);
+                    if (MessageBox.Show("¿Eliminar permanentemente a " + empleadoSeleccionado.PrimerNombre + " " +
+                        empleadoSeleccionado.PrimerApellido + "? También se eliminará su cuenta de acceso asociada si no tiene historial.",
+                        "Eliminar empleado", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+                    _empleadoBLL.EliminarEmpleado(empleadoSeleccionado.IdEmpleado);
                 }
                 else
                 {
@@ -212,6 +213,18 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private void MostrarError(Exception ex)
         {
             MessageBox.Show(ex.Message, "Empleados", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void desactivarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!SeleccionarEmpleado()) return;
+                if (MessageBox.Show("¿Desactivar al empleado conservando su cuenta e historial?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+                _empleadoBLL.DesactivarEmpleado(empleadoSeleccionado.IdEmpleado);
+                empleadoSeleccionado=null; LimpiarCampos(); CambiarModo(ModoFormulario.Neutral); CargarDatos();
+            }
+            catch (Exception ex) { MostrarError(ex); }
         }
     }
 }

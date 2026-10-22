@@ -8,6 +8,16 @@ namespace SistemaPedidoRestaurante.DAL
 {
     public class RolDAL
     {
+        public int Guardar(Rol rol, int idAdministrador)
+        {
+            return new GestionDAL().Ejecutar("sp_Rol_Guardar", "@Actor", idAdministrador,
+                "@Id", rol.IdRol, "@Nombre", rol.Nombre, "@Descripcion", rol.Descripcion);
+        }
+
+        public int Eliminar(int idRol, int idAdministrador)
+        {
+            return new GestionDAL().Ejecutar("sp_Rol_Eliminar", "@Actor", idAdministrador, "@Id", idRol);
+        }
         public Roles Listar()
         {
             Roles lista = new Roles();

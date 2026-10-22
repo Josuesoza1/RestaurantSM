@@ -11,6 +11,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Prefer32Bit>false</Prefer32Bit>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -75,6 +76,7 @@
       <DependentUpon>FrmPedidoCliente.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="UIPrincipal\MenuSesion.cs" />
+    <Compile Include="UIPrincipal\MenuAdaptable.cs" />
     <Compile Include="UIPrincipal\PantallaPendiente.cs" />
     <Compile Include="UIAdministracion\FrmClientes.cs">
       <SubType>Form</SubType>
@@ -143,6 +145,7 @@
     <Compile Include="UICliente\FrmMisReservas.Designer.cs">
       <DependentUpon>FrmMisReservas.cs</DependentUpon>
     </Compile>
+    <Compile Include="UIPrincipal\ValidacionEntradaUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UIAdministracion\FrmCategoria.cs">
       <SubType>Form</SubType>
@@ -243,6 +246,10 @@
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SistemaPedidoRestaurante.Validaciones\SistemaPedidoRestaurante.Validaciones.csproj">
+      <Project>{840B289B-250B-4CD9-BE6A-4FB9D1959432}</Project>
+      <Name>SistemaPedidoRestaurante.Validaciones</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SistemaPedidoRestaurante.BLL\SistemaPedidoRestaurante.BLL.csproj">
       <Project>{35f036d0-a6eb-4e37-815e-8240d3cf89da}</Project>
       <Name>SistemaPedidoRestaurante.BLL</Name>

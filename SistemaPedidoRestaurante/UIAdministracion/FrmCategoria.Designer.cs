@@ -44,6 +44,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.desactivarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.volverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblOperacion = new System.Windows.Forms.Label();
@@ -226,6 +227,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editarToolStripMenuItem,
             this.eliminarToolStripMenuItem,
+            this.desactivarToolStripMenuItem,
             this.nuevoToolStripMenuItem,
             this.volverToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -247,9 +249,12 @@
             // eliminarToolStripMenuItem
             // 
             this.eliminarToolStripMenuItem.ForeColor = System.Drawing.Color.Crimson;
+            this.desactivarToolStripMenuItem.Name = "desactivarToolStripMenuItem";
+            this.desactivarToolStripMenuItem.Text = "Desactivar";
+            this.desactivarToolStripMenuItem.Click += new System.EventHandler(this.desactivarToolStripMenuItem_Click);
             this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
             this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(77, 24);
-            this.eliminarToolStripMenuItem.Text = "Desactivar";
+            this.eliminarToolStripMenuItem.Text = "Eliminar";
             this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
             // 
             // nuevoToolStripMenuItem
@@ -443,6 +448,7 @@
         private System.Windows.Forms.ToolStripMenuItem nuevoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem desactivarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem volverToolStripMenuItem;
         private System.Windows.Forms.Label lblOperacion;
         private System.Windows.Forms.Button btnCancelar;

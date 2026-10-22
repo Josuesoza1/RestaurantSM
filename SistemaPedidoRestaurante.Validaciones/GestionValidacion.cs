@@ -9,18 +9,19 @@ namespace SistemaPedidoRestaurante.Validaciones
     {
         public static string Texto(string valor, int maximo, string campo, bool requerido = false)
         {
-            valor = (valor ?? "").Trim();
-            if ((requerido && valor.Length == 0) || valor.Length > maximo)
-                throw new ArgumentException(campo + ": revise el valor (máximo " + maximo + " caracteres).");
-            return valor.Length == 0 ? null : valor;
+            return CamposValidacion.Texto(valor,maximo,campo,requerido);
         }
         public static void Cliente(Cliente cliente)
         {
             if (cliente == null) throw new ArgumentException("Ingrese los datos del cliente.");
+            cliente.PrimerNombre=CamposValidacion.NombrePersona(cliente.PrimerNombre,"primer nombre",true);
+            cliente.SegundoNombre=CamposValidacion.NombrePersona(cliente.SegundoNombre,"segundo nombre",false);
+            cliente.PrimerApellido=CamposValidacion.NombrePersona(cliente.PrimerApellido,"primer apellido",true);
+            cliente.SegundoApellido=CamposValidacion.NombrePersona(cliente.SegundoApellido,"segundo apellido",false);
+            cliente.Cedula=CamposValidacion.Cedula(cliente.Cedula,false);
+            cliente.Telefono=CamposValidacion.Telefono(cliente.Telefono,false);
+            cliente.Email=CamposValidacion.Correo(cliente.Email,false);
             if (!new[] { "M", "F", "O" }.Contains(cliente.Genero)) throw new ArgumentException("Seleccione el género.");
-            string correo = Texto(cliente.Email, 120, "Correo");
-            if (correo != null && !Regex.IsMatch(correo, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-                throw new ArgumentException("El correo no es válido.");
         }
         public static void Mesa(int numero, int capacidad, string estado)
         {

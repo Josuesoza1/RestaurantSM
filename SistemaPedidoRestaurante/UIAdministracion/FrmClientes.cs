@@ -15,20 +15,15 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         public FrmClientes()
         {
             InitializeComponent();
+            ValidacionEntradaUI.Nombres(txtPnombre,txtSnombre,txtPapellido,txtSapellido); ValidacionEntradaUI.Telefonos(txtTelefono); ValidacionEntradaUI.Cedulas(txtCedula); txtEmail.MaxLength=120;
             VistaGestion.Listado(dgvClientes);
             string[] campos = { "Id", "PrimerNombre", "SegundoNombre", "PrimerApellido", "SegundoApellido", "Cedula", "Telefono", "Email" };
             for (int i=0; i<campos.Length; i++) dgvClientes.Columns[i].DataPropertyName=campos[i];
             VistaGestion.Columna(dgvClientes,"Genero","Género");
             VistaGestion.Columna(dgvClientes,"Activo","Activo");
-            btnEliminar.Text="Desactivar";
+            btnEliminar.Text="Eliminar";
             btnEliminar.Font=new System.Drawing.Font("Arial",8.25F,System.Drawing.FontStyle.Bold);
-            btnNuevo.Click += (s,e) => Nuevo();
-            btnGuardar.Click += (s,e) => VistaGestion.Ejecutar(this, () => { servicio.Guardar(Leer(),chkActivo.Checked); Recargar(); Nuevo(); });
-            btnEliminar.Click += (s,e) => VistaGestion.Ejecutar(this, () => {
-                if(id==0) throw new ArgumentException("Seleccione un cliente del listado.");
-                if(VistaGestion.Confirmar(this,"¿Desactivar al cliente conservando su historial?")) { servicio.Guardar(Leer(),false); Recargar(); Nuevo(); }
-            });
-            btnBuscar.Click += (s,e) => VistaGestion.Ejecutar(this, () => dgvClientes.DataSource=servicio.Buscar(clientes,txtTextoBuscar.Text));
+
             dgvClientes.CellClick += (s,e) => { if(e.RowIndex>=0) Mostrar(); };
             VistaGestion.Iniciar(this,1,()=>{ Recargar(); Nuevo(); });
         }
@@ -49,5 +44,38 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private void FrmClientes_Load(object sender,EventArgs e) { }
         private void btnVolver_Click(object sender,EventArgs e) { Close(); }
         private void btnLimpiar_Click(object sender,EventArgs e) { Nuevo(); }
+
+        private void btnNuevo_Click(object s, EventArgs e)
+        {
+            Nuevo();
+        }
+
+        private void btnGuardar_Click(object s, EventArgs e)
+        {
+            VistaGestion.Ejecutar(this, () => { servicio.Guardar(Leer(),chkActivo.Checked); Recargar(); Nuevo(); });
+        }
+
+        private void btnEliminar_Click(object s, EventArgs e)
+        {
+            VistaGestion.Ejecutar(this, () => {
+                            if(id==0) throw new ArgumentException("Seleccione un cliente del listado.");
+                            if(VistaGestion.Confirmar(this,"¿Eliminar permanentemente este cliente y su cuenta de acceso asociada? Solo se permite si no tiene pedidos ni reservas.")) { servicio.Eliminar(id); Recargar(); Nuevo(); }
+                        });
+        }
+
+        private void btnBuscar_Click(object s, EventArgs e)
+        {
+            VistaGestion.Ejecutar(this, () => dgvClientes.DataSource=servicio.Buscar(clientes,txtTextoBuscar.Text));
+        }
+
+        private void btnDesactivar_Click(object sender, EventArgs e)
+        {
+            VistaGestion.Ejecutar(this, () => {
+                if(id==0) throw new ArgumentException("Seleccione un cliente del listado.");
+                if(VistaGestion.Confirmar(this,"¿Desactivar al cliente conservando su historial?")) {
+                    servicio.Desactivar(id); Recargar(); Nuevo();
+                }
+            });
+        }
     }
 }

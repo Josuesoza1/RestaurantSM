@@ -47,6 +47,7 @@
             this.grpAdmin.Controls.Add(this.menuStrip1);
             this.grpAdmin.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.grpAdmin.Location = new System.Drawing.Point(12, 98);
+            this.grpAdmin.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             this.grpAdmin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpAdmin.Name = "grpAdmin";
             this.grpAdmin.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -98,6 +99,7 @@
             this.pnlEncabezado.BackColor = System.Drawing.Color.MidnightBlue;
             this.pnlEncabezado.Controls.Add(this.lblTitulo);
             this.pnlEncabezado.Location = new System.Drawing.Point(12, 3);
+            this.pnlEncabezado.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             this.pnlEncabezado.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnlEncabezado.Name = "pnlEncabezado";
             this.pnlEncabezado.Size = new System.Drawing.Size(649, 86);
@@ -105,8 +107,9 @@
             // 
             // lblTitulo
             // 
-            this.lblTitulo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblTitulo.AutoSize = false;
+            this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblTitulo.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
             this.lblTitulo.Location = new System.Drawing.Point(217, 26);

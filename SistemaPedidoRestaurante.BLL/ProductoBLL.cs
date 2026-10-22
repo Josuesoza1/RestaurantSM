@@ -9,6 +9,12 @@ namespace SistemaPedidoRestaurante.BLL
 {
     public class ProductoBLL
     {
+        public void EliminarProducto(int idProducto)
+        {
+            if (idProducto <= 0) throw new ArgumentException("Seleccione un producto para eliminar.");
+            CatalogoOperacion.Ejecutar(() => _productoDAL.Eliminar(idProducto, SesionActual.IdUsuario),
+                "El producto tiene datos relacionados.");
+        }
         private readonly ProductoDAL _productoDAL = new ProductoDAL();
         private readonly CatalogoValidacion _validacion = new CatalogoValidacion();
 

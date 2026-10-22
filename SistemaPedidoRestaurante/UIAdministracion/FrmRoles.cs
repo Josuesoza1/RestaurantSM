@@ -16,6 +16,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         public FrmRoles()
         {
             InitializeComponent();
+            txtNombre.MaxLength=50; txtDescripcion.MaxLength=150;
             CambiarModo(ModoFormulario.Neutral);
             TemaUI.Aplicar(this);
             VistaGestion.Listado(dgvRoles);

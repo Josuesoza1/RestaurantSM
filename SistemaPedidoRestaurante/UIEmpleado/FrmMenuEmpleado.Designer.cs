@@ -17,7 +17,9 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             this.lblTitulo = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.pedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cobrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.operacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pagosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.facturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblEstado = new System.Windows.Forms.Label();
             this.pnlEncabezado.SuspendLayout();
@@ -39,19 +41,29 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             // menuStrip1
             this.menuStrip1.BackColor = System.Drawing.Color.LightSteelBlue;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.pedidosToolStripMenuItem,
-                this.cobrarToolStripMenuItem,
+                this.operacionesToolStripMenuItem,
                 this.salirToolStripMenuItem });
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.TabIndex = 0;
             // pedidosToolStripMenuItem
-            this.pedidosToolStripMenuItem.Enabled = false;
+            // operacionesToolStripMenuItem
+            this.operacionesToolStripMenuItem.Name = "operacionesToolStripMenuItem";
+            this.operacionesToolStripMenuItem.Text = "Operaciones";
+            this.operacionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                this.pedidosToolStripMenuItem,
+                this.pagosToolStripMenuItem,
+                this.facturasToolStripMenuItem });
             this.pedidosToolStripMenuItem.Name = "pedidosToolStripMenuItem";
-            this.pedidosToolStripMenuItem.Text = "Pedidos";
-            // cobrarToolStripMenuItem
-            this.cobrarToolStripMenuItem.Enabled = false;
-            this.cobrarToolStripMenuItem.Name = "cobrarToolStripMenuItem";
-            this.cobrarToolStripMenuItem.Text = "Cobrar venta";
+            this.pedidosToolStripMenuItem.Text = "Pedidos en el local (en preparación)";
+            this.pedidosToolStripMenuItem.Click += new System.EventHandler(this.pedidosToolStripMenuItem_Click);
+            // pagosToolStripMenuItem
+            this.pagosToolStripMenuItem.Name = "pagosToolStripMenuItem";
+            this.pagosToolStripMenuItem.Text = "Cobros (en preparación)";
+            this.pagosToolStripMenuItem.Click += new System.EventHandler(this.pagosToolStripMenuItem_Click);
+            // facturasToolStripMenuItem
+            this.facturasToolStripMenuItem.Name = "facturasToolStripMenuItem";
+            this.facturasToolStripMenuItem.Text = "Facturas (en preparación)";
+            this.facturasToolStripMenuItem.Click += new System.EventHandler(this.facturasToolStripMenuItem_Click);
             // salirToolStripMenuItem
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             this.salirToolStripMenuItem.Text = "Salir";
@@ -61,7 +73,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             this.lblEstado.Font = new System.Drawing.Font("Arial", 11F);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Padding = new System.Windows.Forms.Padding(24);
-            this.lblEstado.Text = "Bienvenido al menú del empleado.\r\n\r\nLas opciones de pedidos y cobro se habilitarán al completar esos módulos.";
+            this.lblEstado.Text = "Seleccione una pantalla desde Operaciones.\r\n\r\nEl registro de pedidos, cobros y facturas está en preparación.";
             this.lblEstado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // FrmMenuEmpleado
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -88,7 +100,9 @@ namespace SistemaPedidoRestaurante.UIEmpleado
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem pedidosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cobrarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem operacionesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pagosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem facturasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.Label lblEstado;
     }

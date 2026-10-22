@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace SistemaPedidoRestaurante.DAL
 {
-    // Acceso parametrizado compartido por las gestiones nuevas. No contiene controles de UI.
+
     public class GestionDAL
     {
         private SqlCommand Crear(SqlConnection cn, string procedimiento, object[] parametros)

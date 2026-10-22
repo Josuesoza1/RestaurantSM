@@ -43,7 +43,7 @@
             this.raiz.Controls.Add(this.acciones, 0, 4);
             this.raiz.Dock = System.Windows.Forms.DockStyle.Fill;
             this.raiz.Location = new System.Drawing.Point(0, 0);
-            this.raiz.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.raiz.Margin = new System.Windows.Forms.Padding(4);
             this.raiz.Name = "raiz";
             this.raiz.Padding = new System.Windows.Forms.Padding(16, 15, 16, 15);
             this.raiz.RowCount = 5;
@@ -75,7 +75,7 @@
             this.pnlBusqueda.Controls.Add(this.lblBuscar);
             this.pnlBusqueda.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlBusqueda.Location = new System.Drawing.Point(20, 99);
-            this.pnlBusqueda.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlBusqueda.Margin = new System.Windows.Forms.Padding(4);
             this.pnlBusqueda.Name = "pnlBusqueda";
             this.pnlBusqueda.Size = new System.Drawing.Size(1053, 35);
             this.pnlBusqueda.TabIndex = 1;
@@ -84,7 +84,7 @@
             // 
             this.txtBuscar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtBuscar.Location = new System.Drawing.Point(93, 0);
-            this.txtBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(960, 22);
             this.txtBuscar.TabIndex = 0;
@@ -107,7 +107,7 @@
             this.dgvPedidos.ColumnHeadersHeight = 29;
             this.dgvPedidos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvPedidos.Location = new System.Drawing.Point(20, 142);
-            this.dgvPedidos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvPedidos.Margin = new System.Windows.Forms.Padding(4);
             this.dgvPedidos.MultiSelect = false;
             this.dgvPedidos.Name = "dgvPedidos";
             this.dgvPedidos.ReadOnly = true;
@@ -124,7 +124,7 @@
             this.dgvDetalle.ColumnHeadersHeight = 29;
             this.dgvDetalle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvDetalle.Location = new System.Drawing.Point(20, 405);
-            this.dgvDetalle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvDetalle.Margin = new System.Windows.Forms.Padding(4);
             this.dgvDetalle.MultiSelect = false;
             this.dgvDetalle.Name = "dgvDetalle";
             this.dgvDetalle.ReadOnly = true;
@@ -142,7 +142,7 @@
             this.acciones.Controls.Add(this.btnVolver);
             this.acciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.acciones.Location = new System.Drawing.Point(20, 668);
-            this.acciones.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.acciones.Margin = new System.Windows.Forms.Padding(4);
             this.acciones.Name = "acciones";
             this.acciones.Size = new System.Drawing.Size(1053, 51);
             this.acciones.TabIndex = 4;
@@ -150,8 +150,9 @@
             // btnEditar
             // 
             this.btnEditar.Location = new System.Drawing.Point(4, 4);
-            this.btnEditar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEditar.Margin = new System.Windows.Forms.Padding(4);
             this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             this.btnEditar.Size = new System.Drawing.Size(167, 39);
             this.btnEditar.TabIndex = 0;
             this.btnEditar.Text = "Editar pendiente";
@@ -159,8 +160,9 @@
             // btnCancelarPedido
             // 
             this.btnCancelarPedido.Location = new System.Drawing.Point(179, 4);
-            this.btnCancelarPedido.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancelarPedido.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancelarPedido.Name = "btnCancelarPedido";
+            this.btnCancelarPedido.Click += new System.EventHandler(this.btnCancelarPedido_Click);
             this.btnCancelarPedido.Size = new System.Drawing.Size(167, 39);
             this.btnCancelarPedido.TabIndex = 1;
             this.btnCancelarPedido.Text = "Cancelar pedido";
@@ -168,8 +170,9 @@
             // btnActualizar
             // 
             this.btnActualizar.Location = new System.Drawing.Point(354, 4);
-            this.btnActualizar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnActualizar.Margin = new System.Windows.Forms.Padding(4);
             this.btnActualizar.Name = "btnActualizar";
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             this.btnActualizar.Size = new System.Drawing.Size(167, 39);
             this.btnActualizar.TabIndex = 2;
             this.btnActualizar.Text = "Recargar";
@@ -177,8 +180,9 @@
             // btnVolver
             // 
             this.btnVolver.Location = new System.Drawing.Point(529, 4);
-            this.btnVolver.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(4);
             this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             this.btnVolver.Size = new System.Drawing.Size(167, 39);
             this.btnVolver.TabIndex = 3;
             this.btnVolver.Text = "Volver";
@@ -190,7 +194,7 @@
             this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(1093, 738);
             this.Controls.Add(this.raiz);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(994, 678);
             this.Name = "FrmMisCompras";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

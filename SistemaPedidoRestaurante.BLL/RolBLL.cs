@@ -1,6 +1,7 @@
 ﻿using SistemaPedidoRestaurante.DAL;
 using SistemaPedidoRestaurante.Entities;
 using System.Linq;
+using SistemaPedidoRestaurante.Validaciones;
 
 namespace SistemaPedidoRestaurante.BLL
 {
@@ -15,17 +16,17 @@ namespace SistemaPedidoRestaurante.BLL
 
         public int Guardar(int id, string nombre, string descripcion)
         {
-            GestionReglas.Rol(1);
-            return GestionReglas.Escribir("sp_Rol_Guardar", "@Actor", SesionActual.IdUsuario, "@Id", id,
-                "@Nombre", GestionReglas.Texto(nombre, 50, "Nombre", true),
-                "@Descripcion", GestionReglas.Texto(descripcion, 150, "Descripción"));
+            Permisos.ExigirRol(1);
+            var rol = new Rol { IdRol = id, Nombre = GestionValidacion.Texto(nombre, 50, "Nombre", true),
+                Descripcion = GestionValidacion.Texto(descripcion, 150, "Descripción") };
+            return OperacionDatos.Ejecutar(() => _rolDAL.Guardar(rol, SesionActual.IdUsuario));
         }
 
         public void Eliminar(int id)
         {
-            GestionReglas.Rol(1);
+            Permisos.ExigirRol(1);
             if (id <= 3) throw new System.ArgumentException("Los tres roles del sistema están protegidos.");
-            GestionReglas.Escribir("sp_Rol_Eliminar", "@Actor", SesionActual.IdUsuario, "@Id", id);
+            OperacionDatos.Ejecutar(() => _rolDAL.Eliminar(id, SesionActual.IdUsuario));
         }
 
         public Roles BuscarRoles(string filtro)

@@ -8,6 +8,10 @@ namespace SistemaPedidoRestaurante.DAL
 {
     public class CategoriaDAL
     {
+        public void Eliminar(int idCategoria, int idAdministrador)
+        {
+            new GestionDAL().Ejecutar("sp_Categoria_Eliminar", "@IdCategoria", idCategoria, "@IdAdministrador", idAdministrador);
+        }
         public Categorias Listar()
         {
             Categorias lista = new Categorias();

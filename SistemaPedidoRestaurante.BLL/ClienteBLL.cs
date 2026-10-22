@@ -18,7 +18,9 @@ namespace SistemaPedidoRestaurante.BLL
 
         public void InsertarCliente(Cliente cliente, Usuario usuario, string confirmarContrasena)
         {
+            if (usuario == null) throw new System.ArgumentException("Ingrese los datos de la cuenta.");
             new UsuarioValidacion().ValidarCredenciales(usuario.NombreUsuario, usuario.Contrasena);
+            usuario.NombreUsuario=CamposValidacion.Usuario(usuario.NombreUsuario);
             _validacion.ValidarRegistro(cliente, usuario.Contrasena, confirmarContrasena);
             _clienteDAL.InsertarCliente(cliente, usuario);
         }

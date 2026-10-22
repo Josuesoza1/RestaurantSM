@@ -257,6 +257,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(353, 160);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             this.btnCancelar.Size = new System.Drawing.Size(200, 38);
             this.btnCancelar.TabIndex = 19;
             this.btnCancelar.Text = "Volver";
@@ -271,6 +272,7 @@
             this.btnAceptar.Location = new System.Drawing.Point(127, 160);
             this.btnAceptar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             this.btnAceptar.Size = new System.Drawing.Size(207, 38);
             this.btnAceptar.TabIndex = 18;
             this.btnAceptar.Text = "Agregar al pedido";
@@ -371,6 +373,7 @@
             this.btnQuitar.Location = new System.Drawing.Point(16, 628);
             this.btnQuitar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnQuitar.Name = "btnQuitar";
+            this.btnQuitar.Click += new System.EventHandler(this.btnQuitar_Click);
             this.btnQuitar.Size = new System.Drawing.Size(193, 39);
             this.btnQuitar.TabIndex = 1;
             this.btnQuitar.Text = "Quitar seleccionado";
@@ -381,6 +384,7 @@
             this.btnVaciar.Location = new System.Drawing.Point(220, 628);
             this.btnVaciar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnVaciar.Name = "btnVaciar";
+            this.btnVaciar.Click += new System.EventHandler(this.btnVaciar_Click);
             this.btnVaciar.Size = new System.Drawing.Size(180, 39);
             this.btnVaciar.TabIndex = 2;
             this.btnVaciar.Text = "Vaciar pedido";
@@ -392,6 +396,7 @@
             this.btnEnviar.Location = new System.Drawing.Point(413, 628);
             this.btnEnviar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnEnviar.Name = "btnEnviar";
+            this.btnEnviar.Click += new System.EventHandler(this.btnEnviar_Click);
             this.btnEnviar.Size = new System.Drawing.Size(180, 39);
             this.btnEnviar.TabIndex = 3;
             this.btnEnviar.Text = "Enviar pedido";

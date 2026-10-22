@@ -16,6 +16,7 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             cerrarSesion.Name = "cerrarSesionToolStripMenuItem";
             cerrarSesion.Click += (sender, e) => formulario.Close();
             menu.Items.Insert(Math.Max(0, menu.Items.Count - 1), cerrarSesion);
+            MenuAdaptable.Configurar(formulario, menu);
 
             formulario.Load += (sender, e) =>
             {

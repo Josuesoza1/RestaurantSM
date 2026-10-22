@@ -7,6 +7,8 @@ orientados a UI, BLL, DAL, entidades y validaciones.
 
 - [Actualizar la base existente en otra PC: instrucciones](sql/LEEME_ACTUALIZACION.md)
 - [Archivo SQL único de actualización](sql/ACTUALIZAR_TODO_RESTAURANTSM.sql)
+- [CRUD administrativo y reglas de eliminación](docs/CRUD-administrativo.md)
+- [Validaciones y organización por capas](docs/Validaciones-y-capas.md)
 
 Abrir la solución `RestaurantSM.slnx` con Visual Studio compatible y las
 herramientas de escritorio .NET Framework 4.8. La conexión de cada PC se configura

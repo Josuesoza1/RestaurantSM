@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
 using SistemaPedidoRestaurante.DAL;
 using SistemaPedidoRestaurante.Entities;
 using SistemaPedidoRestaurante.Validaciones;
@@ -12,21 +8,49 @@ namespace SistemaPedidoRestaurante.BLL
 {
     public class InventarioBLL
     {
-        public DataTable Listar() { GestionReglas.Rol(1); return GestionReglas.Datos.Consultar("sp_Inventario_Listar", "@Actor", SesionActual.IdUsuario); }
-        public DataTable Buscar(DataTable tabla, string filtro, bool soloBajos = false)
+        private readonly InventarioDAL inventarioDAL = new InventarioDAL();
+
+        public void Eliminar(int idProducto, byte[] version)
         {
-            GestionReglas.Rol(1);
-            var t = GestionReglas.Filtrar(tabla, filtro);
-            if (!soloBajos) return t;
-            var filas = t.AsEnumerable().Where(r => r.Field<bool>("Activo") && r.Field<int>("StockActual") <= r.Field<int>("StockMinimo")).ToArray();
-            return filas.Length == 0 ? t.Clone() : filas.CopyToDataTable();
+            Permisos.ExigirRol(1);
+            if (idProducto <= 0 || version == null || version.Length != 8)
+                throw new ArgumentException("Seleccione un registro de inventario actualizado.");
+            OperacionDatos.Ejecutar(() => inventarioDAL.Eliminar(idProducto, version, SesionActual.IdUsuario));
         }
+
+        public InventarioProductos Listar()
+        {
+            Permisos.ExigirRol(1);
+            return inventarioDAL.Listar(SesionActual.IdUsuario);
+        }
+
+        public InventarioProductos Buscar(InventarioProductos inventario, string filtro, bool soloBajos = false)
+        {
+            Permisos.ExigirRol(1);
+            filtro = (filtro ?? string.Empty).Trim();
+            var resultado = new InventarioProductos();
+            if (inventario == null) return resultado;
+            resultado.AddRange(inventario.Where(item =>
+                (filtro.Length == 0 || new[] { item.IdProducto.ToString(), item.Producto,
+                    item.Categoria, item.Unidad, item.PrecioVenta.ToString(),
+                    item.StockActual.ToString(), item.StockMinimo.ToString(), item.Activo.ToString() }
+                    .Any(texto => BusquedaLINQ.Contiene(texto, filtro))) &&
+                (!soloBajos || item.Activo && item.StockActual <= item.StockMinimo)));
+            return resultado;
+        }
+
         public void Guardar(int producto, int stock, int minimo, bool activo, byte[] version)
         {
-            GestionReglas.Rol(1);
-            GestionValidacion.Inventario(producto,stock,minimo);
-            GestionReglas.Escribir("sp_Inventario_Guardar", "@Actor", SesionActual.IdUsuario, "@IdProducto", producto,
-                "@Stock", stock, "@Minimo", minimo, "@Activo", activo, "@Version", version);
+            Guardar(new InventarioProducto { IdProducto = producto, StockActual = stock,
+                StockMinimo = minimo, Activo = activo, Version = version });
+        }
+
+        public void Guardar(InventarioProducto inventario)
+        {
+            Permisos.ExigirRol(1);
+            if (inventario == null) throw new ArgumentException("Faltan los datos del inventario.");
+            GestionValidacion.Inventario(inventario.IdProducto, inventario.StockActual, inventario.StockMinimo);
+            OperacionDatos.Ejecutar(() => inventarioDAL.Guardar(inventario, SesionActual.IdUsuario));
         }
     }
 }

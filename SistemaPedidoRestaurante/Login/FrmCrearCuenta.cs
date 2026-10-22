@@ -1,4 +1,5 @@
-﻿using SistemaPedidoRestaurante.BLL;
+﻿using SistemaPedidoRestaurante.UIPrincipal;
+using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.Entities;
 using System;
 using System.Windows.Forms;
@@ -12,12 +13,16 @@ namespace SistemaPedidoRestaurante.Loggin
         public FrmCrearCuenta()
         {
             InitializeComponent();
+            ValidacionEntradaUI.Telefonos(mtxtTelefono);
+            ValidacionEntradaUI.Nombres(txtPnombre,txtSnombre,txtPapellido,txtSapellido); txtEmail.MaxLength=120; txtUsuario.MaxLength=50; txtContrasena.MaxLength=txtConfirmarContrasena.MaxLength=255;
         }
 
         private void btnCrearCuenta_Click(object sender, EventArgs e)
         {
             try
             {
+                SistemaPedidoRestaurante.Validaciones.CamposValidacion.MascaraCompleta(mtxtCedula.MaskCompleted,
+                    mtxtCedula.MaskedTextProvider.AssignedEditPositionCount>0,"cédula",true);
                 Cliente nuevoCliente = new Cliente
                 {
                     PrimerNombre = txtPnombre.Text.Trim(),

@@ -9,6 +9,10 @@ namespace SistemaPedidoRestaurante.DAL
 {
     public class ProductoDAL
     {
+        public void Eliminar(int idProducto, int idAdministrador)
+        {
+            new GestionDAL().Ejecutar("sp_Producto_Eliminar", "@IdProducto", idProducto, "@IdAdministrador", idAdministrador);
+        }
         public Productos Listar()
         {
             return Consultar(false);

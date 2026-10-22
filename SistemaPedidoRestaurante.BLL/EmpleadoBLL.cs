@@ -2,7 +2,6 @@
 using SistemaPedidoRestaurante.Entities;
 using System.Linq;
 using System;
-using System.Data.SqlClient;
 using SistemaPedidoRestaurante.Validaciones;
 
 namespace SistemaPedidoRestaurante.BLL
@@ -11,6 +10,13 @@ namespace SistemaPedidoRestaurante.BLL
     {
         private readonly EmpleadoDAL _empleadoDAL = new EmpleadoDAL();
         private readonly EmpleadoValidacion _validacion = new EmpleadoValidacion();
+
+        public void EliminarEmpleado(int idEmpleado)
+        {
+            ExigirAdministrador();
+            if (idEmpleado <= 0) throw new ArgumentException("Seleccione un empleado para eliminar.");
+            Ejecutar(() => _empleadoDAL.Eliminar(idEmpleado, SesionActual.IdUsuario));
+        }
 
         private void ExigirAdministrador()
         {
@@ -40,15 +46,7 @@ namespace SistemaPedidoRestaurante.BLL
 
         private void Ejecutar(Action operacion)
         {
-            try { operacion(); }
-            catch (SqlException ex) when (ex.Number == 2601 || ex.Number == 2627)
-            {
-                throw new ArgumentException("La cédula o el nombre de usuario ya están registrados.");
-            }
-            catch (SqlException ex) when (ex.Number >= 50000 && ex.Number < 51000)
-            {
-                throw new ArgumentException(ex.Message);
-            }
+            OperacionDatos.Ejecutar(operacion,"La cédula o el nombre de usuario ya están registrados.");
         }
 
         public Empleados ObtenerEmpleados()

@@ -14,6 +14,7 @@ namespace SistemaPedidoRestaurante.Loggin
         public FrmLogin()
         {
             InitializeComponent();
+            txtUsuario.MaxLength=50; txtContrasena.MaxLength=255;
         }
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)

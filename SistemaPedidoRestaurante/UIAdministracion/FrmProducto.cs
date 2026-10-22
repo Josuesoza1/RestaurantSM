@@ -21,6 +21,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         public FrmProducto()
         {
             InitializeComponent();
+            ValidacionEntradaUI.Precios(txtPrecio);
             dgvProductos.ReadOnly = true; dgvProductos.AllowUserToAddRows = false;
             dgvProductos.MultiSelect = false; dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProductos.CellClick += (sender, e) => { if (e.RowIndex >= 0 && modoActual == ModoFormulario.Neutral) SeleccionarProducto(); };
@@ -71,7 +72,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 case ModoFormulario.Neutral: lblOperacion.Text = "Operación actual: Seleccione una operación"; btnAccion.Text = "Acción"; panel1.BackColor = Color.Gainsboro; break;
                 case ModoFormulario.Nuevo: lblOperacion.Text = "Operación actual: Nuevo producto"; btnAccion.Text = "Guardar"; panel1.BackColor = Color.LightGreen; break;
                 case ModoFormulario.Editar: lblOperacion.Text = "Operación actual: Editar producto"; btnAccion.Text = "Guardar cambios"; panel1.BackColor = Color.LightSkyBlue; break;
-                case ModoFormulario.Eliminar: lblOperacion.Text = "Operación actual: Retirar producto"; btnAccion.Text = "Retirar"; panel1.BackColor = Color.LightCoral; break;
+                case ModoFormulario.Eliminar: lblOperacion.Text = "Operación actual: Eliminar producto"; btnAccion.Text = "Eliminar"; panel1.BackColor = Color.LightCoral; break;
             }
             cmbCategoria.Enabled = cmbSubcategoria.Enabled = txtDescripcion.Enabled = editar;
             txtNombre.Enabled = txtPrecio.Enabled = txtCodigo.Enabled = chkDisponible.Enabled = btnLimpiar.Enabled = editar;
@@ -98,10 +99,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         }
         private Producto ObtenerProductoDesdeFormulario()
         {
-            decimal precio;
-            if (!decimal.TryParse(txtPrecio.Text.Trim().Replace(',', '.'), NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign,
-                CultureInfo.InvariantCulture, out precio))
-                throw new ArgumentException("Ingrese un precio numérico sin separadores de miles, por ejemplo 150.50.");
+            decimal precio=SistemaPedidoRestaurante.Validaciones.CamposValidacion.Precio(txtPrecio.Text);
             int subcategoria = cmbSubcategoria.SelectedValue is int ? (int)cmbSubcategoria.SelectedValue : 0;
             return new Producto { IdProducto = productoSeleccionado?.IdProducto ?? 0,
                 IdCategoria = cmbCategoria.SelectedValue is int ? (int)cmbCategoria.SelectedValue : 0,
@@ -135,9 +133,9 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 if (modoActual == ModoFormulario.Eliminar)
                 {
                     if (productoSeleccionado == null) return;
-                    if (MessageBox.Show("¿Marcar como no disponible el producto " + productoSeleccionado.Nombre + "?",
+                    if (MessageBox.Show("¿Eliminar permanentemente el producto " + productoSeleccionado.Nombre + "?",
                         "Productos", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
-                    _productoBLL.DesactivarProducto(productoSeleccionado.IdProducto);
+                    _productoBLL.EliminarProducto(productoSeleccionado.IdProducto);
                 }
                 else _productoBLL.GuardarProducto(ObtenerProductoDesdeFormulario());
                 productoSeleccionado = null;
@@ -152,5 +150,17 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             catch (Exception ex) { MostrarError(ex); }
         }
         private void MostrarError(Exception ex) { MessageBox.Show(ex.Message, "Productos", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+
+        private void desactivarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!SeleccionarProducto()) return;
+                if (MessageBox.Show("¿Marcar el producto como no disponible conservando su historial?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+                _productoBLL.DesactivarProducto(productoSeleccionado.IdProducto);
+                productoSeleccionado=null; LimpiarCampos(); CambiarModo(ModoFormulario.Neutral); CargarDatos();
+            }
+            catch (Exception ex) { MostrarError(ex); }
+        }
     }
 }

@@ -47,6 +47,7 @@
             this.lblPnombre = new System.Windows.Forms.Label();
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
+            this.btnDesactivar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.grpListadoCliente = new System.Windows.Forms.GroupBox();
@@ -245,7 +246,7 @@
             this.btnVolver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVolver.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVolver.ForeColor = System.Drawing.Color.Black;
-            this.btnVolver.Location = new System.Drawing.Point(190, 195);
+            this.btnVolver.Location = new System.Drawing.Point(190, 121);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(81, 32);
             this.btnVolver.TabIndex = 5;
@@ -261,9 +262,10 @@
             this.btnEliminar.ForeColor = System.Drawing.Color.Black;
             this.btnEliminar.Location = new System.Drawing.Point(22, 195);
             this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             this.btnEliminar.Size = new System.Drawing.Size(84, 31);
             this.btnEliminar.TabIndex = 7;
-            this.btnEliminar.Text = "Cancelar";
+            this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = false;
             //
             // btnLimpiar
@@ -288,6 +290,7 @@
             this.btnGuardar.ForeColor = System.Drawing.Color.Black;
             this.btnGuardar.Location = new System.Drawing.Point(22, 156);
             this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             this.btnGuardar.Size = new System.Drawing.Size(84, 33);
             this.btnGuardar.TabIndex = 1;
             this.btnGuardar.Text = "Guardar";
@@ -402,6 +405,7 @@
             this.btnBuscar.ForeColor = System.Drawing.Color.Blue;
             this.btnBuscar.Location = new System.Drawing.Point(107, 85);
             this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             this.btnBuscar.Size = new System.Drawing.Size(89, 31);
             this.btnBuscar.TabIndex = 8;
             this.btnBuscar.Text = "Buscar";
@@ -420,6 +424,13 @@
             //
             // grpAccionesClientes
             //
+            this.btnDesactivar.Name = "btnDesactivar";
+            this.btnDesactivar.Text = "Desactivar";
+            this.btnDesactivar.Location = new System.Drawing.Point(190, 195);
+            this.btnDesactivar.Size = new System.Drawing.Size(98, 32);
+            this.btnDesactivar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnDesactivar.Click += new System.EventHandler(this.btnDesactivar_Click);
+            this.grpAccionesClientes.Controls.Add(this.btnDesactivar);
             this.grpAccionesClientes.Controls.Add(this.btnGuardar);
             this.grpAccionesClientes.Controls.Add(this.btnBuscar);
             this.grpAccionesClientes.Controls.Add(this.txtTextoBuscar);
@@ -471,6 +482,7 @@
             this.chkActivo.Location = new System.Drawing.Point(131, 265);
             this.chkActivo.Size = new System.Drawing.Size(140, 22);
             this.btnNuevo.Name = "btnNuevo";
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             this.btnNuevo.Text = "Nuevo cliente";
             this.btnNuevo.Location = new System.Drawing.Point(22, 121);
             this.btnNuevo.Size = new System.Drawing.Size(135, 28);
@@ -507,6 +519,7 @@
         private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.TextBox txtPnombre;
         private System.Windows.Forms.Button btnEliminar;
+        private System.Windows.Forms.Button btnDesactivar;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Label lblBuscar;

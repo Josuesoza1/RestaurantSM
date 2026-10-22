@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -41,26 +41,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Categoria.cs" />
-    <Compile Include="Categorias.cs" />
-    <Compile Include="Cliente.cs" />
-    <Compile Include="DetallePedido.cs" />
-    <Compile Include="Empleado.cs" />
-    <Compile Include="Empleados.cs" />
-    <Compile Include="Factura.cs" />
-    <Compile Include="Mesa.cs" />
-    <Compile Include="Pago.cs" />
-    <Compile Include="Pedido.cs" />
-    <Compile Include="Producto.cs" />
-    <Compile Include="LineaPedidoBorrador.cs" />
-    <Compile Include="Productos.cs" />
+    <Compile Include="Individuales\InventarioProducto.cs" />
+    <Compile Include="Colecciones\InventarioProductos.cs" />
+    <Compile Include="Individuales\Categoria.cs" />
+    <Compile Include="Colecciones\Categorias.cs" />
+    <Compile Include="Individuales\Cliente.cs" />
+    <Compile Include="Individuales\DetallePedido.cs" />
+    <Compile Include="Individuales\Empleado.cs" />
+    <Compile Include="Colecciones\Empleados.cs" />
+    <Compile Include="Individuales\Factura.cs" />
+    <Compile Include="Individuales\Mesa.cs" />
+    <Compile Include="Individuales\Pago.cs" />
+    <Compile Include="Individuales\Pedido.cs" />
+    <Compile Include="Individuales\Producto.cs" />
+    <Compile Include="Modelos\LineaPedidoBorrador.cs" />
+    <Compile Include="Colecciones\Productos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reservacion.cs" />
-    <Compile Include="Rol.cs" />
-    <Compile Include="Roles.cs" />
-    <Compile Include="SubCategoria.cs" />
-    <Compile Include="Usuario.cs" />
-    <Compile Include="Usuarios.cs" />
+    <Compile Include="Individuales\Reservacion.cs" />
+    <Compile Include="Individuales\Rol.cs" />
+    <Compile Include="Colecciones\Roles.cs" />
+    <Compile Include="Individuales\SubCategoria.cs" />
+    <Compile Include="Individuales\Usuario.cs" />
+    <Compile Include="Colecciones\Usuarios.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

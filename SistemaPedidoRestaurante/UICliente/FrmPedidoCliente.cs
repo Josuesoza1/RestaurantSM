@@ -28,11 +28,7 @@ namespace SistemaPedidoRestaurante.UICliente
             btnAceptar.Text = "Agregar al pedido";
             btnAceptar.Enabled = false;
             btnCancelar.Text = "Volver";
-            btnCancelar.Click += (sender, e) => Close();
-            btnAceptar.Click += AgregarAlPedido;
-            btnEnviar.Click += (sender,e) => Enviar();
-            btnQuitar.Click += QuitarDelPedido;
-            btnVaciar.Click += (sender, e) => { borrador.Vaciar(); ActualizarDetalle(); };
+
             cmbCategoria.SelectedValueChanged += (sender, e) => AplicarFiltro();
             cmbProducto.SelectedValueChanged += (sender, e) => MostrarPrecio();
             Load += CargarPantalla;
@@ -142,5 +138,30 @@ namespace SistemaPedidoRestaurante.UICliente
         }
         private void lblPnombre_Click(object sender, EventArgs e) { }
         private void Form1_Load(object sender, EventArgs e) { }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            AgregarAlPedido(sender, e);
+        }
+
+        private void btnEnviar_Click(object sender, EventArgs e)
+        {
+            Enviar();
+        }
+
+        private void btnQuitar_Click(object sender, EventArgs e)
+        {
+            QuitarDelPedido(sender, e);
+        }
+
+        private void btnVaciar_Click(object sender, EventArgs e)
+        {
+            borrador.Vaciar(); ActualizarDetalle();
+        }
     }
 }

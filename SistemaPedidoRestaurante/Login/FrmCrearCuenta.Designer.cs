@@ -35,7 +35,7 @@
             this.lblGenero = new System.Windows.Forms.Label();
             this.cmbGenero = new System.Windows.Forms.ComboBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
-            this.mtxtTelefono = new System.Windows.Forms.MaskedTextBox();
+            this.mtxtTelefono = new System.Windows.Forms.TextBox();
             this.lblEmail = new System.Windows.Forms.Label();
             this.txtSnombre = new System.Windows.Forms.TextBox();
             this.txtSapellido = new System.Windows.Forms.TextBox();
@@ -157,7 +157,7 @@
             // mtxtTelefono
             // 
             this.mtxtTelefono.Location = new System.Drawing.Point(188, 180);
-            this.mtxtTelefono.Mask = "+000 0000-0000";
+            this.mtxtTelefono.MaxLength = 20;
             this.mtxtTelefono.Name = "mtxtTelefono";
             this.mtxtTelefono.Size = new System.Drawing.Size(198, 23);
             this.mtxtTelefono.TabIndex = 4;
@@ -487,6 +487,6 @@
         private System.Windows.Forms.Label lblPregunta;
         private System.Windows.Forms.MaskedTextBox mtxtCedula;
         private System.Windows.Forms.TextBox txtEmail;
-        private System.Windows.Forms.MaskedTextBox mtxtTelefono;
+        private System.Windows.Forms.TextBox mtxtTelefono;
     }
 }

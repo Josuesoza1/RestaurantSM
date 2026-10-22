@@ -50,7 +50,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 case ModoFormulario.Neutral: lblOperacion.Text = "Operación actual: Seleccione una operación"; btnAccion.Text = "Acción"; panel1.BackColor = Color.Gainsboro; break;
                 case ModoFormulario.Nuevo: lblOperacion.Text = "Operación actual: Nueva categoría"; btnAccion.Text = "Guardar"; panel1.BackColor = Color.LightGreen; break;
                 case ModoFormulario.Editar: lblOperacion.Text = "Operación actual: Editar categoría"; btnAccion.Text = "Guardar cambios"; panel1.BackColor = Color.LightSkyBlue; break;
-                case ModoFormulario.Eliminar: lblOperacion.Text = "Operación actual: Desactivar categoría"; btnAccion.Text = "Desactivar"; panel1.BackColor = Color.LightCoral; break;
+                case ModoFormulario.Eliminar: lblOperacion.Text = "Operación actual: Eliminar categoría"; btnAccion.Text = "Eliminar"; panel1.BackColor = Color.LightCoral; break;
             }
             txtNombre.Enabled = txtDescripcion.Enabled = chkActiva.Enabled = btnLimpiar.Enabled = editar;
             btnAccion.Enabled = btnCancelar.Enabled = operacion;
@@ -97,9 +97,9 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 if (modoActual == ModoFormulario.Eliminar)
                 {
                     if (categoriaSeleccionada == null) return;
-                    if (MessageBox.Show("¿Desactivar la categoría " + categoriaSeleccionada.Nombre + "?",
+                    if (MessageBox.Show("¿Eliminar permanentemente la categoría " + categoriaSeleccionada.Nombre + "?",
                         "Categorías", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
-                    _categoriaBLL.DesactivarCategoria(categoriaSeleccionada.IdCategoria);
+                    _categoriaBLL.EliminarCategoria(categoriaSeleccionada.IdCategoria);
                 }
                 else _categoriaBLL.GuardarCategoria(ObtenerCategoriaDesdeFormulario());
                 categoriaSeleccionada = null;
@@ -114,5 +114,17 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             catch (Exception ex) { MostrarError(ex); }
         }
         private void MostrarError(Exception ex) { MessageBox.Show(ex.Message, "Categorías", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+
+        private void desactivarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!SeleccionarCategoria()) return;
+                if (MessageBox.Show("¿Desactivar la categoría conservando sus relaciones?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+                _categoriaBLL.DesactivarCategoria(categoriaSeleccionada.IdCategoria);
+                categoriaSeleccionada=null; LimpiarCampos(); CambiarModo(ModoFormulario.Neutral); CargarDatos();
+            }
+            catch (Exception ex) { MostrarError(ex); }
+        }
     }
 }

@@ -4,5 +4,6 @@ namespace SistemaPedidoRestaurante.Entities
 {
     public class Categorias : List<Categoria>
     {
+
     }
 }

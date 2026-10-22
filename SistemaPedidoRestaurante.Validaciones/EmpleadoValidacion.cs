@@ -10,14 +10,14 @@ namespace SistemaPedidoRestaurante.Validaciones
             if (empleado == null || usuario == null)
                 throw new ArgumentException("Faltan los datos del empleado y su cuenta.");
 
-            ValidarTexto(empleado.PrimerNombre, "primer nombre", 80, true);
-            ValidarTexto(empleado.SegundoNombre, "segundo nombre", 80, false);
-            ValidarTexto(empleado.PrimerApellido, "primer apellido", 80, true);
-            ValidarTexto(empleado.SegundoApellido, "segundo apellido", 80, false);
+            empleado.PrimerNombre=CamposValidacion.NombrePersona(empleado.PrimerNombre,"primer nombre",true);
+            empleado.SegundoNombre=CamposValidacion.NombrePersona(empleado.SegundoNombre,"segundo nombre",false);
+            empleado.PrimerApellido=CamposValidacion.NombrePersona(empleado.PrimerApellido,"primer apellido",true);
+            empleado.SegundoApellido=CamposValidacion.NombrePersona(empleado.SegundoApellido,"segundo apellido",false);
             ValidarTexto(empleado.Cargo, "cargo", 50, true);
-            ValidarTexto(empleado.Cedula, "cédula", 30, true);
-            ValidarTexto(empleado.Telefono, "teléfono", 20, true);
-            ValidarTexto(usuario.NombreUsuario, "usuario", 50, true);
+            empleado.Cedula=CamposValidacion.Cedula(empleado.Cedula,true);
+            empleado.Telefono=CamposValidacion.Telefono(empleado.Telefono,true);
+            usuario.NombreUsuario=CamposValidacion.Usuario(usuario.NombreUsuario);
             ValidarTexto(usuario.Contrasena, "contraseña", 255, requiereContrasena);
 
             if (empleado.Genero != "M" && empleado.Genero != "F" && empleado.Genero != "O")
@@ -28,10 +28,7 @@ namespace SistemaPedidoRestaurante.Validaciones
 
         private void ValidarTexto(string valor, string campo, int longitud, bool obligatorio)
         {
-            if (obligatorio && string.IsNullOrWhiteSpace(valor))
-                throw new ArgumentException("El campo " + campo + " es obligatorio.");
-            if (valor != null && valor.Length > longitud)
-                throw new ArgumentException("El campo " + campo + " admite hasta " + longitud + " caracteres.");
+            CamposValidacion.Texto(valor,longitud,campo,obligatorio);
         }
     }
 }

@@ -8,6 +8,24 @@ namespace SistemaPedidoRestaurante.DAL
 {
     public class ClienteDAL
     {
+        public DataTable ListarGestion(int idAdministrador)
+        {
+            return new GestionDAL().Consultar("sp_Gestion_Clientes", "@Actor", idAdministrador);
+        }
+
+        public int GuardarGestion(Cliente cliente, bool activo, int idActor)
+        {
+            return new GestionDAL().Ejecutar("sp_Cliente_Guardar", "@Actor", idActor, "@Id", cliente.Id,
+                "@PrimerNombre", cliente.PrimerNombre, "@SegundoNombre", cliente.SegundoNombre,
+                "@PrimerApellido", cliente.PrimerApellido, "@SegundoApellido", cliente.SegundoApellido,
+                "@Genero", cliente.Genero, "@Cedula", cliente.Cedula, "@Telefono", cliente.Telefono,
+                "@Email", cliente.Email, "@Activo", activo);
+        }
+
+        public int Eliminar(int idCliente, int idAdministrador)
+        {
+            return new GestionDAL().Ejecutar("sp_Cliente_Eliminar", "@Actor", idAdministrador, "@Id", idCliente);
+        }
         public Cliente ObtenerPorUsuario(int idUsuario)
         {
             using (var connection = ConexionBD.ObtenerConexion())
@@ -44,7 +62,7 @@ namespace SistemaPedidoRestaurante.DAL
                     command.Parameters.AddWithValue("@PrimerApellido", cliente.PrimerApellido);
                     command.Parameters.AddWithValue("@SegundoApellido", string.IsNullOrEmpty(cliente.SegundoApellido) ? (object)DBNull.Value : cliente.SegundoApellido);
                     command.Parameters.AddWithValue("@Genero", cliente.Genero);
-                    command.Parameters.AddWithValue("@Telefono", cliente.Telefono);
+                    command.Parameters.AddWithValue("@Telefono", (object)cliente.Telefono ?? DBNull.Value);
                     command.Parameters.AddWithValue("@Email", cliente.Email);
                     command.Parameters.AddWithValue("@Cedula", cliente.Cedula);
 

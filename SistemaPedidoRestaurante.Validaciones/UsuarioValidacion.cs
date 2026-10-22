@@ -6,6 +6,8 @@ namespace SistemaPedidoRestaurante.Validaciones
     {
         public void ValidarCredenciales(string nombreUsuario, string contrasena)
         {
+            CamposValidacion.Texto(nombreUsuario,50,"usuario",true);
+            CamposValidacion.Texto(contrasena,255,"contraseña",true);
             if (string.IsNullOrWhiteSpace(nombreUsuario))
                 throw new ArgumentException("El campo de usuario no puede estar vacío.");
 

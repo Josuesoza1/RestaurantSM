@@ -29,10 +29,7 @@ namespace SistemaPedidoRestaurante.Validaciones
 
         private void Texto(string valor, string campo, int longitud, bool obligatorio)
         {
-            if (obligatorio && string.IsNullOrWhiteSpace(valor))
-                throw new ArgumentException("El campo " + campo + " es obligatorio.");
-            if (valor != null && valor.Length > longitud)
-                throw new ArgumentException("El campo " + campo + " admite hasta " + longitud + " caracteres.");
+            CamposValidacion.Texto(valor,longitud,campo,obligatorio);
         }
     }
 }
