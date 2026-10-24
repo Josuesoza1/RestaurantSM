@@ -100,13 +100,17 @@
             // 
             // eliminarToolStripMenuItem
             // 
-            this.desactivarToolStripMenuItem.Name = "desactivarToolStripMenuItem";
-            this.desactivarToolStripMenuItem.Text = "Retirar control";
-            this.desactivarToolStripMenuItem.Click += new System.EventHandler(this.desactivarToolStripMenuItem_Click);
             this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
-            this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
             this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(77, 24);
             this.eliminarToolStripMenuItem.Text = "Eliminar";
+            this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
+            // 
+            // desactivarToolStripMenuItem
+            // 
+            this.desactivarToolStripMenuItem.Name = "desactivarToolStripMenuItem";
+            this.desactivarToolStripMenuItem.Size = new System.Drawing.Size(118, 24);
+            this.desactivarToolStripMenuItem.Text = "Retirar control";
+            this.desactivarToolStripMenuItem.Click += new System.EventHandler(this.desactivarToolStripMenuItem_Click);
             // 
             // editarToolStripMenuItem
             // 
@@ -160,11 +164,11 @@
             this.btnBuscar.Location = new System.Drawing.Point(228, 156);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             this.btnBuscar.Size = new System.Drawing.Size(89, 36);
             this.btnBuscar.TabIndex = 12;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // textBox2
             // 
@@ -195,11 +199,11 @@
             this.btnGuardarProducto.Location = new System.Drawing.Point(12, 25);
             this.btnGuardarProducto.Margin = new System.Windows.Forms.Padding(4);
             this.btnGuardarProducto.Name = "btnGuardarProducto";
-            this.btnGuardarProducto.Click += new System.EventHandler(this.btnGuardarProducto_Click);
             this.btnGuardarProducto.Size = new System.Drawing.Size(100, 41);
             this.btnGuardarProducto.TabIndex = 2;
             this.btnGuardarProducto.Text = "Guardar";
             this.btnGuardarProducto.UseVisualStyleBackColor = false;
+            this.btnGuardarProducto.Click += new System.EventHandler(this.btnGuardarProducto_Click);
             // 
             // btnLimpiar
             // 
@@ -210,11 +214,11 @@
             this.btnLimpiar.Location = new System.Drawing.Point(120, 25);
             this.btnLimpiar.Margin = new System.Windows.Forms.Padding(4);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             this.btnLimpiar.Size = new System.Drawing.Size(100, 41);
             this.btnLimpiar.TabIndex = 4;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = false;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnCancelar
             // 
@@ -225,11 +229,11 @@
             this.btnCancelar.Location = new System.Drawing.Point(228, 25);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             this.btnCancelar.Size = new System.Drawing.Size(103, 41);
             this.btnCancelar.TabIndex = 5;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // grpListaProductos
             // 

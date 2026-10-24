@@ -5,21 +5,28 @@ namespace SistemaPedidoRestaurante.DAL
 {
     public static class OperacionDatos
     {
-        public static T Ejecutar<T>(Func<T> operacion, string duplicado = "Ya existe un registro con ese código, nombre o dato único.")
+        // Recibe el error ocurrido, en lugar de recibir una funcion para ejecutarla.
+        public static Exception Traducir(SqlException error, string mensajeDuplicado)
         {
-            try { return operacion(); }
-            catch (SqlException e) when (e.Number == 2601 || e.Number == 2627)
-            { throw new ArgumentException(duplicado, e); }
-            catch (SqlException e) when (e.Number == 1205)
-            { throw new ArgumentException("Otra operación modificó estos datos al mismo tiempo. Recargue e inténtelo de nuevo.", e); }
-            catch (SqlException e) when (e.Number == 547)
-            { throw new ArgumentException("El registro tiene relaciones o valores incompatibles. No se realizó el cambio.", e); }
-            catch (SqlException e) when (e.Number == 2812)
-            { throw new ArgumentException("Falta un procedimiento en la base. Instale las actualizaciones SQL del proyecto.", e); }
-            catch (SqlException e) when (e.Number >= 50000)
-            { throw new ArgumentException(e.Message, e); }
+            switch (error.Number)
+            {
+                case 2601:
+                case 2627:
+                    return new ArgumentException(mensajeDuplicado, error);
+                case 1205:
+                    return new ArgumentException("Otra operación modificó estos datos al mismo tiempo. Recargue e inténtelo de nuevo.", error);
+                case 547:
+                    return new ArgumentException("El registro tiene relaciones o valores incompatibles. No se realizó el cambio.", error);
+                case 2812:
+                    return new ArgumentException("Falta un procedimiento en la base. Instale las actualizaciones SQL del proyecto.", error);
+                default:
+                    if (error.Number >= 50000)
+                    {
+                        return new ArgumentException(error.Message, error);
+                    }
+
+                    return error;
+            }
         }
-        public static void Ejecutar(Action operacion, string duplicado = "Ya existe un registro con ese código, nombre o dato único.")
-        { Ejecutar(() => { operacion(); return 0; }, duplicado); }
     }
 }

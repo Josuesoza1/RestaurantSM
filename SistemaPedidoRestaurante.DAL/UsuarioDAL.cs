@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using SistemaPedidoRestaurante.DAL;
@@ -11,7 +11,6 @@ namespace SistemaPedidoRestaurante.DAL
         public Usuario ValidarLogin(string nombreUsuario, string contrasena)
         {
             Usuario usuarioAutenticado = null;
-
             using (SqlConnection connection = ConexionBD.ObtenerConexion())
             {
                 using (SqlCommand command = new SqlCommand("sp_Usuario_ValidarLogin", connection))
@@ -19,9 +18,7 @@ namespace SistemaPedidoRestaurante.DAL
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@NombreUsuario", nombreUsuario);
                     command.Parameters.AddWithValue("@Contrasena", contrasena);
-
                     connection.Open();
-
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
@@ -37,21 +34,19 @@ namespace SistemaPedidoRestaurante.DAL
                     }
                 }
             }
+
             return usuarioAutenticado;
         }
-
 
         public Usuarios Listar()
         {
             Usuarios listaDeUsuarios = new Usuarios();
-
             using (SqlConnection connection = ConexionBD.ObtenerConexion())
             {
                 using (SqlCommand command = new SqlCommand("sp_Usuario_Listar", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     connection.Open();
-
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -67,8 +62,8 @@ namespace SistemaPedidoRestaurante.DAL
                     }
                 }
             }
+
             return listaDeUsuarios;
         }
     }
-
 }

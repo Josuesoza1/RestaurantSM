@@ -1,4 +1,4 @@
-﻿using SistemaPedidoRestaurante.UIPrincipal;
+using SistemaPedidoRestaurante.UIPrincipal;
 using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.Entities;
 using System;
@@ -9,20 +9,21 @@ namespace SistemaPedidoRestaurante.Loggin
     public partial class FrmCrearCuenta : Form
     {
         private readonly ClienteBLL _clienteBLL = new ClienteBLL();
-
         public FrmCrearCuenta()
         {
             InitializeComponent();
             ValidacionEntradaUI.Telefonos(mtxtTelefono);
-            ValidacionEntradaUI.Nombres(txtPnombre,txtSnombre,txtPapellido,txtSapellido); txtEmail.MaxLength=120; txtUsuario.MaxLength=50; txtContrasena.MaxLength=txtConfirmarContrasena.MaxLength=255;
+            ValidacionEntradaUI.Nombres(txtPnombre, txtSnombre, txtPapellido, txtSapellido);
+            txtEmail.MaxLength = 120;
+            txtUsuario.MaxLength = 50;
+            txtContrasena.MaxLength = txtConfirmarContrasena.MaxLength = 255;
         }
 
         private void btnCrearCuenta_Click(object sender, EventArgs e)
         {
             try
             {
-                SistemaPedidoRestaurante.Validaciones.CamposValidacion.MascaraCompleta(mtxtCedula.MaskCompleted,
-                    mtxtCedula.MaskedTextProvider.AssignedEditPositionCount>0,"cédula",true);
+                SistemaPedidoRestaurante.Validaciones.CamposValidacion.MascaraCompleta(mtxtCedula.MaskCompleted, mtxtCedula.MaskedTextProvider.AssignedEditPositionCount > 0, "cédula", true);
                 Cliente nuevoCliente = new Cliente
                 {
                     PrimerNombre = txtPnombre.Text.Trim(),
@@ -31,24 +32,22 @@ namespace SistemaPedidoRestaurante.Loggin
                     SegundoApellido = txtSapellido.Text.Trim(),
                     Telefono = mtxtTelefono.Text,
                     Email = txtEmail.Text.Trim(),
-                    Genero = cmbGenero.SelectedIndex < 0
-                        ? null
-                        : new[] { "M", "F", "O" }[cmbGenero.SelectedIndex],
+                    Genero = cmbGenero.SelectedIndex < 0 ? null : new[]
+                    {
+                        "M",
+                        "F",
+                        "O"
+                    }[cmbGenero.SelectedIndex],
                     Cedula = mtxtCedula.Text
                 };
-
                 Usuario nuevoUsuario = new Usuario
                 {
                     NombreUsuario = txtUsuario.Text.Trim(),
                     Contrasena = txtContrasena.Text.Trim()
                 };
-
                 string confirmarContrasena = txtConfirmarContrasena.Text.Trim();
-
                 _clienteBLL.InsertarCliente(nuevoCliente, nuevoUsuario, confirmarContrasena);
-
                 MessageBox.Show("Cuenta creada con éxito. Ya puedes iniciar sesión.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 this.Close();
             }
             catch (ArgumentException ex)
@@ -60,7 +59,6 @@ namespace SistemaPedidoRestaurante.Loggin
                 MessageBox.Show(ex.Message, "Error del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {

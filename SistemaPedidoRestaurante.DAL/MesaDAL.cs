@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,30 +10,76 @@ namespace SistemaPedidoRestaurante.DAL
     {
         public DataTable ListarGestion()
         {
-            return new GestionDAL().Consultar("sp_Mesa_Listar");
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+                using (SqlCommand comando = new SqlCommand("sp_Mesa_Listar", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                    {
+                        DataTable tabla = new DataTable();
+                        adaptador.Fill(tabla);
+                        return tabla;
+                    }
+                }
+            }
         }
 
         public int Guardar(int id, int numero, int capacidad, string estado, bool activa, int idAdministrador)
         {
-            return new GestionDAL().Ejecutar("sp_Mesa_Guardar", "@Actor", idAdministrador, "@Id", id,
-                "@Numero", numero, "@Capacidad", capacidad, "@Estado", estado, "@Activa", activa);
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+                using (SqlCommand comando = new SqlCommand("sp_Mesa_Guardar", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.Add("@Actor", SqlDbType.Int).Value = idAdministrador;
+                    comando.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+                    comando.Parameters.Add("@Numero", SqlDbType.Int).Value = numero;
+                    comando.Parameters.Add("@Capacidad", SqlDbType.Int).Value = capacidad;
+                    comando.Parameters.Add("@Estado", SqlDbType.VarChar, 20).Value = (object)(estado) ?? DBNull.Value;
+                    comando.Parameters.Add("@Activa", SqlDbType.Bit).Value = activa;
+                    conexion.Open();
+                    object resultado = comando.ExecuteScalar();
+                    if (resultado == null || resultado == DBNull.Value)
+                    {
+                        return 0;
+                    }
+
+                    return Convert.ToInt32(resultado);
+                }
+            }
         }
 
         public int Eliminar(int id, int idAdministrador)
         {
-            return new GestionDAL().Ejecutar("sp_Mesa_Eliminar", "@Actor", idAdministrador, "@Id", id);
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+                using (SqlCommand comando = new SqlCommand("sp_Mesa_Eliminar", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.Add("@Actor", SqlDbType.Int).Value = idAdministrador;
+                    comando.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+                    conexion.Open();
+                    object resultado = comando.ExecuteScalar();
+                    if (resultado == null || resultado == DBNull.Value)
+                    {
+                        return 0;
+                    }
+
+                    return Convert.ToInt32(resultado);
+                }
+            }
         }
+
         public List<Mesa> Listar()
         {
             List<Mesa> lista = new List<Mesa>();
-
             using (SqlConnection connection = ConexionBD.ObtenerConexion())
             {
                 using (SqlCommand command = new SqlCommand("sp_Mesa_Listar", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     connection.Open();
-
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -49,6 +95,7 @@ namespace SistemaPedidoRestaurante.DAL
                     }
                 }
             }
+
             return lista;
         }
     }

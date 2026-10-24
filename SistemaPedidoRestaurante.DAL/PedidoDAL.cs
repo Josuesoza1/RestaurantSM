@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -11,14 +11,12 @@ namespace SistemaPedidoRestaurante.DAL
         public List<Pedido> ListarAbiertos()
         {
             List<Pedido> lista = new List<Pedido>();
-
             using (SqlConnection connection = ConexionBD.ObtenerConexion())
             {
                 using (SqlCommand command = new SqlCommand("sp_Pedido_ListarAbiertos", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     connection.Open();
-
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -27,9 +25,9 @@ namespace SistemaPedidoRestaurante.DAL
                             {
                                 IdPedido = Convert.ToInt32(reader["idPedido"]),
                                 IdCliente = Convert.ToInt32(reader["idCliente"]),
-                                IdMesa = reader["idMesa"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["idMesa"]),
-                                IdEmpleado = reader["idEmpleado"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["idEmpleado"]),
-                                IdRepartidor = reader["idRepartidor"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["idRepartidor"]),
+                                IdMesa = reader["idMesa"] == DBNull.Value ? (int? )null : Convert.ToInt32(reader["idMesa"]),
+                                IdEmpleado = reader["idEmpleado"] == DBNull.Value ? (int? )null : Convert.ToInt32(reader["idEmpleado"]),
+                                IdRepartidor = reader["idRepartidor"] == DBNull.Value ? (int? )null : Convert.ToInt32(reader["idRepartidor"]),
                                 Direccion = reader["direccion"] == DBNull.Value ? string.Empty : reader["direccion"].ToString(),
                                 Referencia = reader["referencia"] == DBNull.Value ? string.Empty : reader["referencia"].ToString(),
                                 TelefonoDeContacto = reader["telefonoDeContacto"] == DBNull.Value ? string.Empty : reader["telefonoDeContacto"].ToString(),
@@ -44,6 +42,7 @@ namespace SistemaPedidoRestaurante.DAL
                     }
                 }
             }
+
             return lista;
         }
     }

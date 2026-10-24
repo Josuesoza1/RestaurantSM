@@ -1,20 +1,21 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.Entities;
 using SistemaPedidoRestaurante.UIAdministracion;
 using SistemaPedidoRestaurante.UICliente;
 using SistemaPedidoRestaurante.UIEmpleado;
+
 namespace SistemaPedidoRestaurante.Loggin
 {
     public partial class FrmLogin : Form
     {
         private readonly UsuarioBLL _usuarioBLL = new UsuarioBLL();
-
         public FrmLogin()
         {
             InitializeComponent();
-            txtUsuario.MaxLength=50; txtContrasena.MaxLength=255;
+            txtUsuario.MaxLength = 50;
+            txtContrasena.MaxLength = 255;
         }
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)
@@ -23,9 +24,7 @@ namespace SistemaPedidoRestaurante.Loggin
             {
                 string usuario = txtUsuario.Text.Trim();
                 string contrasena = txtContrasena.Text.Trim();
-
-                Usuario usuarioLogueado = _usuarioBLL.IniciarSesion(usuario, contrasena);    
-
+                Usuario usuarioLogueado = _usuarioBLL.IniciarSesion(usuario, contrasena);
                 AbrirSesion(usuarioLogueado);
             }
             catch (ArgumentException ex)
@@ -63,7 +62,9 @@ namespace SistemaPedidoRestaurante.Loggin
                     {
                         txtContrasena.Clear();
                         if (salir)
+                        {
                             this.Close();
+                        }
                         else
                         {
                             this.Show();
@@ -93,18 +94,23 @@ namespace SistemaPedidoRestaurante.Loggin
         {
             this.Close();
         }
+
         private void btnCrearCuenta_Click(object sender, EventArgs e)
         {
             this.Hide();
             try
             {
-                using (var crearCuenta = new FrmCrearCuenta())
+                using (FrmCrearCuenta crearCuenta = new FrmCrearCuenta())
+                {
                     crearCuenta.ShowDialog(this);
+                }
             }
             finally
             {
                 if (!this.IsDisposed && !this.Disposing)
+                {
                     this.Show();
+                }
             }
         }
     }

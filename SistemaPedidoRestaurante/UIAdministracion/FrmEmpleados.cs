@@ -1,4 +1,4 @@
-﻿using SistemaPedidoRestaurante.UIPrincipal;
+using SistemaPedidoRestaurante.UIPrincipal;
 using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.Entities;
 using System;
@@ -14,13 +14,16 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private readonly RolBLL _rolBLL;
         private ModoFormulario modoActual;
         private Empleado empleadoSeleccionado;
-
         public FrmEmpleados()
         {
             InitializeComponent();
-            ValidacionEntradaUI.Nombres(txtPnombre,txtSnombre,txtPapellido,txtSapellido); ValidacionEntradaUI.Telefonos(txtTelefono); ValidacionEntradaUI.Cedulas(txtCedula);
+            ValidacionEntradaUI.Nombres(txtPnombre, txtSnombre, txtPapellido, txtSapellido);
+            ValidacionEntradaUI.Telefonos(txtTelefono);
+            ValidacionEntradaUI.Cedulas(txtCedula);
             if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
+            {
                 return;
+            }
 
             _empleadoBLL = new EmpleadoBLL();
             _rolBLL = new RolBLL();
@@ -36,10 +39,25 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private void CargarDatos()
         {
             dgvEmpleados.AutoGenerateColumns = false;
-            string[] propiedades = { "IdEmpleado", "PrimerNombre", "SegundoNombre", "PrimerApellido",
-                "SegundoApellido", "Cargo", "Genero", "Cedula", "Telefono", "Activo" };
+            string[] propiedades =
+
+            {
+                "IdEmpleado",
+                "PrimerNombre",
+                "SegundoNombre",
+                "PrimerApellido",
+                "SegundoApellido",
+                "Cargo",
+                "Genero",
+                "Cedula",
+                "Telefono",
+                "Activo"
+            };
             for (int i = 0; i < propiedades.Length; i++)
+            {
                 dgvEmpleados.Columns[i].DataPropertyName = propiedades[i];
+            }
+
             dgvEmpleados.DataSource = _empleadoBLL.ObtenerEmpleados();
         }
 
@@ -47,24 +65,43 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             cmbRol.DisplayMember = "Nombre";
             cmbRol.ValueMember = "IdRol";
-            cmbRol.DataSource = _rolBLL.ObtenerRoles()
-                .Where(rol => rol.IdRol == 1 || rol.IdRol == 2)
-                .Select(rol => new { rol.IdRol, rol.Nombre })
-                .OrderBy(rol => rol.Nombre).ToList();
+            cmbRol.DataSource = _rolBLL.ObtenerRoles().Where(rol => rol.IdRol == 1 || rol.IdRol == 2).Select(rol => new { rol.IdRol, rol.Nombre }).OrderBy(rol => rol.Nombre).ToList();
             cmbRol.SelectedValue = 2;
         }
 
         private void FrmEmpleados_Load(object sender, EventArgs e)
         {
             if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
+            {
                 return;
-            if (!SesionActual.TieneRol(1)) { this.Close(); return; }
-            try { CargarRoles(); CargarDatos(); }
-            catch (Exception ex) { MostrarError(ex); }
+            }
+
+            if (!SesionActual.TieneRol(1))
+            {
+                this.Close();
+                return;
+            }
+
+            try
+            {
+                CargarRoles();
+                CargarDatos();
+            }
+            catch (Exception ex)
+            {
+                MostrarError(ex);
+            }
         }
 
-        private void VolverAlMenu() { this.Close(); }
-        private void volverAlMenúPríncipalToolStripMenuItem_Click(object sender, EventArgs e) { VolverAlMenu(); }
+        private void VolverAlMenu()
+        {
+            this.Close();
+        }
+
+        private void volverAlMenúPríncipalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VolverAlMenu();
+        }
 
         private void CambiarModo(ModoFormulario nuevoModo)
         {
@@ -97,26 +134,49 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void editarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (SeleccionarEmpleado()) CambiarModo(ModoFormulario.Editar);
+            if (SeleccionarEmpleado())
+            {
+                CambiarModo(ModoFormulario.Editar);
+            }
         }
+
         private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (SeleccionarEmpleado()) CambiarModo(ModoFormulario.Eliminar);
+            if (SeleccionarEmpleado())
+            {
+                CambiarModo(ModoFormulario.Eliminar);
+            }
         }
+
         private void agregarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             empleadoSeleccionado = null;
             LimpiarCampos();
             CambiarModo(ModoFormulario.Nuevo);
         }
-        private void btnLimpiar_Click(object sender, EventArgs e) { LimpiarCampos(); }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            LimpiarCampos();
+        }
 
         private void LimpiarCampos()
         {
-            txtPnombre.Clear(); txtSnombre.Clear(); txtPapellido.Clear(); txtSapellido.Clear();
-            txtTelefono.Clear(); txtCargo.Clear(); txtCedula.Clear(); txtUsuario.Clear(); txtContrasena.Clear();
+            txtPnombre.Clear();
+            txtSnombre.Clear();
+            txtPapellido.Clear();
+            txtSapellido.Clear();
+            txtTelefono.Clear();
+            txtCargo.Clear();
+            txtCedula.Clear();
+            txtUsuario.Clear();
+            txtContrasena.Clear();
             cmbGenero.SelectedIndex = -1;
-            if (cmbRol.DataSource != null) cmbRol.SelectedValue = 2;
+            if (cmbRol.DataSource != null)
+            {
+                cmbRol.SelectedValue = 2;
+            }
+
             chkActivo.Checked = true;
         }
 
@@ -131,13 +191,23 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             try
             {
-                if (modoActual == ModoFormulario.Neutral) return;
+                if (modoActual == ModoFormulario.Neutral)
+                {
+                    return;
+                }
+
                 if (modoActual == ModoFormulario.Eliminar)
                 {
-                    if (empleadoSeleccionado == null) return;
-                    if (MessageBox.Show("¿Eliminar permanentemente a " + empleadoSeleccionado.PrimerNombre + " " +
-                        empleadoSeleccionado.PrimerApellido + "? También se eliminará su cuenta de acceso asociada si no tiene historial.",
-                        "Eliminar empleado", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+                    if (empleadoSeleccionado == null)
+                    {
+                        return;
+                    }
+
+                    if (MessageBox.Show("¿Eliminar permanentemente a " + empleadoSeleccionado.PrimerNombre + " " + empleadoSeleccionado.PrimerApellido + "? También se eliminará su cuenta de acceso asociada si no tiene historial.", "Eliminar empleado", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                    {
+                        return;
+                    }
+
                     _empleadoBLL.EliminarEmpleado(empleadoSeleccionado.IdEmpleado);
                 }
                 else
@@ -145,7 +215,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                     Empleado empleado = LeerEmpleado();
                     Usuario usuario = new Usuario
                     {
-                        NombreUsuario = txtUsuario.Text.Trim(), Contrasena = txtContrasena.Text.Trim(),
+                        NombreUsuario = txtUsuario.Text.Trim(),
+                        Contrasena = txtContrasena.Text.Trim(),
                         IdRol = cmbRol.SelectedValue == null ? 0 : Convert.ToInt32(cmbRol.SelectedValue)
                     };
                     _empleadoBLL.GuardarEmpleado(empleado, usuario, modoActual == ModoFormulario.Nuevo);
@@ -156,6 +227,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                         SesionActual.Iniciar(usuario);
                     }
                 }
+
                 MessageBox.Show("Operación realizada correctamente.", "Empleados", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 empleadoSeleccionado = null;
                 txtTextoBuscar.Clear();
@@ -163,18 +235,31 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 CambiarModo(ModoFormulario.Neutral);
                 CargarDatos();
             }
-            catch (Exception ex) { MostrarError(ex); }
+            catch (Exception ex)
+            {
+                MostrarError(ex);
+            }
         }
 
         private Empleado LeerEmpleado()
         {
             return new Empleado
             {
-                IdEmpleado = empleadoSeleccionado?.IdEmpleado ?? 0, IdUsuario = empleadoSeleccionado?.IdUsuario,
-                PrimerNombre = txtPnombre.Text.Trim(), SegundoNombre = txtSnombre.Text.Trim(),
-                PrimerApellido = txtPapellido.Text.Trim(), SegundoApellido = txtSapellido.Text.Trim(),
-                Cargo = txtCargo.Text.Trim(), Cedula = txtCedula.Text.Trim(), Telefono = txtTelefono.Text.Trim(),
-                Genero = cmbGenero.SelectedIndex < 0 ? null : new[] { "M", "F", "O" }[cmbGenero.SelectedIndex],
+                IdEmpleado = empleadoSeleccionado?.IdEmpleado ?? 0,
+                IdUsuario = empleadoSeleccionado?.IdUsuario,
+                PrimerNombre = txtPnombre.Text.Trim(),
+                SegundoNombre = txtSnombre.Text.Trim(),
+                PrimerApellido = txtPapellido.Text.Trim(),
+                SegundoApellido = txtSapellido.Text.Trim(),
+                Cargo = txtCargo.Text.Trim(),
+                Cedula = txtCedula.Text.Trim(),
+                Telefono = txtTelefono.Text.Trim(),
+                Genero = cmbGenero.SelectedIndex < 0 ? null : new[]
+                {
+                    "M",
+                    "F",
+                    "O"
+                }[cmbGenero.SelectedIndex],
                 Activo = chkActivo.Checked
             };
         }
@@ -187,29 +272,52 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 MessageBox.Show("Seleccione un empleado del listado.", "Empleados", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
+
             MostrarEmpleado(empleadoSeleccionado);
             return true;
         }
+
         private void dgvEmpleados_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && modoActual == ModoFormulario.Neutral) SeleccionarEmpleado();
+            if (e.RowIndex >= 0 && modoActual == ModoFormulario.Neutral)
+            {
+                SeleccionarEmpleado();
+            }
         }
+
         private void MostrarEmpleado(Empleado empleado)
         {
-            txtPnombre.Text = empleado.PrimerNombre; txtSnombre.Text = empleado.SegundoNombre;
-            txtPapellido.Text = empleado.PrimerApellido; txtSapellido.Text = empleado.SegundoApellido;
-            txtTelefono.Text = empleado.Telefono; txtCargo.Text = empleado.Cargo; txtCedula.Text = empleado.Cedula;
-            cmbGenero.SelectedIndex = Array.IndexOf(new[] { "M", "F", "O" }, empleado.Genero);
+            txtPnombre.Text = empleado.PrimerNombre;
+            txtSnombre.Text = empleado.SegundoNombre;
+            txtPapellido.Text = empleado.PrimerApellido;
+            txtSapellido.Text = empleado.SegundoApellido;
+            txtTelefono.Text = empleado.Telefono;
+            txtCargo.Text = empleado.Cargo;
+            txtCedula.Text = empleado.Cedula;
+            cmbGenero.SelectedIndex = Array.IndexOf(new[]
+            {
+                "M",
+                "F",
+                "O"
+            }, empleado.Genero);
             cmbRol.SelectedValue = empleado.IdRol ?? 2;
             txtUsuario.Text = empleado.NombreUsuario;
             txtContrasena.Clear();
             chkActivo.Checked = empleado.Activo;
         }
+
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            try { dgvEmpleados.DataSource = _empleadoBLL.BuscarEmpleados(txtTextoBuscar.Text); }
-            catch (Exception ex) { MostrarError(ex); }
+            try
+            {
+                dgvEmpleados.DataSource = _empleadoBLL.BuscarEmpleados(txtTextoBuscar.Text);
+            }
+            catch (Exception ex)
+            {
+                MostrarError(ex);
+            }
         }
+
         private void MostrarError(Exception ex)
         {
             MessageBox.Show(ex.Message, "Empleados", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -219,12 +327,26 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             try
             {
-                if (!SeleccionarEmpleado()) return;
-                if (MessageBox.Show("¿Desactivar al empleado conservando su cuenta e historial?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+                if (!SeleccionarEmpleado())
+                {
+                    return;
+                }
+
+                if (MessageBox.Show("¿Desactivar al empleado conservando su cuenta e historial?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                {
+                    return;
+                }
+
                 _empleadoBLL.DesactivarEmpleado(empleadoSeleccionado.IdEmpleado);
-                empleadoSeleccionado=null; LimpiarCampos(); CambiarModo(ModoFormulario.Neutral); CargarDatos();
+                empleadoSeleccionado = null;
+                LimpiarCampos();
+                CambiarModo(ModoFormulario.Neutral);
+                CargarDatos();
             }
-            catch (Exception ex) { MostrarError(ex); }
+            catch (Exception ex)
+            {
+                MostrarError(ex);
+            }
         }
     }
 }

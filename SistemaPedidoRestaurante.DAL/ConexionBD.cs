@@ -8,7 +8,6 @@ namespace SistemaPedidoRestaurante.DAL
         public static SqlConnection ObtenerConexion()
         {
             string cadenaConexion = ConfigurationManager.ConnectionStrings["RestauranteDB"].ConnectionString;
-
             return new SqlConnection(cadenaConexion);
         }
     }

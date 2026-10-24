@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -11,8 +11,19 @@ namespace SistemaPedidoRestaurante.DAL
     {
         public void Eliminar(int idProducto, int idAdministrador)
         {
-            new GestionDAL().Ejecutar("sp_Producto_Eliminar", "@IdProducto", idProducto, "@IdAdministrador", idAdministrador);
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+                using (SqlCommand comando = new SqlCommand("sp_Producto_Eliminar", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
+                    comando.Parameters.Add("@IdAdministrador", SqlDbType.Int).Value = idAdministrador;
+                    conexion.Open();
+                    comando.ExecuteScalar();
+                }
+            }
         }
+
         public Productos Listar()
         {
             return Consultar(false);
@@ -26,17 +37,13 @@ namespace SistemaPedidoRestaurante.DAL
         private Productos Consultar(bool soloDisponibles)
         {
             Productos lista = new Productos();
-
             using (SqlConnection connection = ConexionBD.ObtenerConexion())
             {
-                string consulta = soloDisponibles
-                    ? "sp_Producto_Disponibles"
-                    : "sp_Producto_Listar";
+                string consulta = soloDisponibles ? "sp_Producto_Disponibles" : "sp_Producto_Listar";
                 using (SqlCommand command = new SqlCommand(consulta, connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     connection.Open();
-
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -45,7 +52,7 @@ namespace SistemaPedidoRestaurante.DAL
                             {
                                 IdProducto = Convert.ToInt32(reader["idProducto"]),
                                 IdCategoria = Convert.ToInt32(reader["idCategoria"]),
-                                IdSubcategoria = reader["idSubcategoria"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["idSubcategoria"]),
+                                IdSubcategoria = reader["idSubcategoria"] == DBNull.Value ? (int? )null : Convert.ToInt32(reader["idSubcategoria"]),
                                 CategoriaNombre = reader["CategoriaNombre"].ToString(),
                                 SubcategoriaNombre = reader["SubcategoriaNombre"].ToString(),
                                 Nombre = reader["nombre"].ToString(),
@@ -58,56 +65,74 @@ namespace SistemaPedidoRestaurante.DAL
                     }
                 }
             }
+
             return lista;
         }
 
         public List<Subcategoria> ListarSubcategorias()
         {
-            var lista = new List<Subcategoria>();
+            List<Subcategoria> lista = new List<Subcategoria>();
             using (var connection = ConexionBD.ObtenerConexion())
-            using (var command = new SqlCommand("sp_Subcategoria_Listar", connection))
             {
-                command.CommandType = CommandType.StoredProcedure;
-                connection.Open();
-                using (var reader = command.ExecuteReader())
-                    while (reader.Read())
-                        lista.Add(new Subcategoria { IdSubcategoria = Convert.ToInt32(reader["idSubcategoria"]),
-                            IdCategoria = Convert.ToInt32(reader["idCategoria"]), Nombre = reader["nombre"].ToString() });
+                using (SqlCommand command = new SqlCommand("sp_Subcategoria_Listar", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            lista.Add(new Subcategoria
+                            {
+                                IdSubcategoria = Convert.ToInt32(reader["idSubcategoria"]),
+                                IdCategoria = Convert.ToInt32(reader["idCategoria"]),
+                                Nombre = reader["nombre"].ToString()
+                            });
+                        }
+                    }
+                }
             }
+
             return lista;
         }
 
         public void Guardar(Producto producto, int idAdministrador)
         {
             using (var connection = ConexionBD.ObtenerConexion())
-            using (var command = new SqlCommand("sp_Producto_Guardar", connection))
             {
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add("@IdProducto", SqlDbType.Int).Value = producto.IdProducto;
-                command.Parameters.Add("@IdAdministrador", SqlDbType.Int).Value = idAdministrador;
-                command.Parameters.Add("@IdCategoria", SqlDbType.Int).Value = producto.IdCategoria;
-                command.Parameters.Add("@IdSubcategoria", SqlDbType.Int).Value = (object)producto.IdSubcategoria ?? DBNull.Value;
-                command.Parameters.Add("@Nombre", SqlDbType.VarChar, 100).Value = producto.Nombre;
-                var precio = command.Parameters.Add("@Precio", SqlDbType.Decimal);
-                precio.Precision = 10; precio.Scale = 2; precio.Value = producto.Precio;
-                command.Parameters.Add("@Descripcion", SqlDbType.VarChar, 250).Value = (object)producto.Descripcion ?? DBNull.Value;
-                command.Parameters.Add("@Codigo", SqlDbType.VarChar, 20).Value = producto.Codigo;
-                command.Parameters.Add("@Disponible", SqlDbType.Bit).Value = producto.Disponible;
-                connection.Open();
-                command.ExecuteNonQuery();
+                using (SqlCommand command = new SqlCommand("sp_Producto_Guardar", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@IdProducto", SqlDbType.Int).Value = producto.IdProducto;
+                    command.Parameters.Add("@IdAdministrador", SqlDbType.Int).Value = idAdministrador;
+                    command.Parameters.Add("@IdCategoria", SqlDbType.Int).Value = producto.IdCategoria;
+                    command.Parameters.Add("@IdSubcategoria", SqlDbType.Int).Value = (object)producto.IdSubcategoria ?? DBNull.Value;
+                    command.Parameters.Add("@Nombre", SqlDbType.VarChar, 100).Value = producto.Nombre;
+                    var precio = command.Parameters.Add("@Precio", SqlDbType.Decimal);
+                    precio.Precision = 10;
+                    precio.Scale = 2;
+                    precio.Value = producto.Precio;
+                    command.Parameters.Add("@Descripcion", SqlDbType.VarChar, 250).Value = (object)producto.Descripcion ?? DBNull.Value;
+                    command.Parameters.Add("@Codigo", SqlDbType.VarChar, 20).Value = producto.Codigo;
+                    command.Parameters.Add("@Disponible", SqlDbType.Bit).Value = producto.Disponible;
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
             }
         }
 
         public void Desactivar(int idProducto, int idAdministrador)
         {
             using (var connection = ConexionBD.ObtenerConexion())
-            using (var command = new SqlCommand("sp_Producto_Desactivar", connection))
             {
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
-                command.Parameters.Add("@IdAdministrador", SqlDbType.Int).Value = idAdministrador;
-                connection.Open();
-                command.ExecuteNonQuery();
+                using (SqlCommand command = new SqlCommand("sp_Producto_Desactivar", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
+                    command.Parameters.Add("@IdAdministrador", SqlDbType.Int).Value = idAdministrador;
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
             }
         }
     }

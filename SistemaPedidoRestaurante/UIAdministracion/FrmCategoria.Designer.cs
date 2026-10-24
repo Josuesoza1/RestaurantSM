@@ -199,6 +199,7 @@
             this.dgvCategorias.RowHeadersWidth = 62;
             this.dgvCategorias.Size = new System.Drawing.Size(694, 119);
             this.dgvCategorias.TabIndex = 0;
+            this.dgvCategorias.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCategorias_CellClick);
             // 
             // ColID
             // 

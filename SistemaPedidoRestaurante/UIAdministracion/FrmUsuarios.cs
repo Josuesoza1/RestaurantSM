@@ -8,12 +8,12 @@ namespace SistemaPedidoRestaurante.UIAdministracion
     public partial class FrmUsuarios : Form
     {
         private readonly UsuarioBLL servicio = new UsuarioBLL();
-
         public FrmUsuarios()
         {
             InitializeComponent();
             VistaGestion.Listado(dgvUsuarios);
-            VistaGestion.Iniciar(this, 1, CargarUsuarios);
+            TemaUI.Aplicar(this);
+            Load += FrmUsuarios_CargarDatos;
         }
 
         private void CargarUsuarios()
@@ -30,22 +30,57 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            VistaGestion.Ejecutar(this, () =>
+            try
             {
                 dgvUsuarios.DataSource = servicio.BuscarUsuarios(txtBuscar.Text);
                 dgvUsuarios.ClearSelection();
                 ActualizarCantidad();
-            });
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(this, error.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void btnRecargar_Click(object sender, EventArgs e)
         {
-            VistaGestion.Ejecutar(this, () => { txtBuscar.Clear(); CargarUsuarios(); });
+            try
+            {
+                txtBuscar.Clear();
+                CargarUsuarios();
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(this, error.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void FrmUsuarios_CargarDatos(object sender, EventArgs e)
+        {
+            if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime || this.Site?.DesignMode == true)
+            {
+                return;
+            }
+
+            if (!SesionActual.TieneRol(1))
+            {
+                Close();
+                return;
+            }
+
+            try
+            {
+                CargarUsuarios();
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(this, error.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

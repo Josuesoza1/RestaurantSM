@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="BusquedaLINQ.cs" />
     <Compile Include="CategoriaBLL.cs" />
-    <Compile Include="CatalogoOperacion.cs" />
     <Compile Include="ClienteBLL.cs" />
     <Compile Include="EmpleadoBLL.cs" />
     <Compile Include="MesaBLL.cs" />

@@ -3,7 +3,6 @@ using SistemaPedidoRestaurante.Entities;
 
 namespace SistemaPedidoRestaurante.BLL
 {
-    
     public static class SesionActual
     {
         public static int IdUsuario { get; private set; }
@@ -14,10 +13,10 @@ namespace SistemaPedidoRestaurante.BLL
 
         public static void Iniciar(Usuario usuario)
         {
-            if (usuario == null || usuario.IdUsuario <= 0 ||
-                string.IsNullOrWhiteSpace(usuario.NombreUsuario) ||
-                usuario.IdRol < 1 || usuario.IdRol > 3)
+            if (usuario == null || usuario.IdUsuario <= 0 || string.IsNullOrWhiteSpace(usuario.NombreUsuario) || usuario.IdRol < 1 || usuario.IdRol > 3)
+            {
                 throw new UnauthorizedAccessException("El usuario no tiene un acceso válido.");
+            }
 
             IdUsuario = usuario.IdUsuario;
             NombreUsuario = usuario.NombreUsuario;

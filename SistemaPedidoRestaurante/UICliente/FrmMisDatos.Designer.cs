@@ -295,20 +295,20 @@
             this.btnGuardar.Location = new System.Drawing.Point(4, 4);
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(4);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             this.btnGuardar.Size = new System.Drawing.Size(167, 39);
             this.btnGuardar.TabIndex = 0;
             this.btnGuardar.Text = "Guardar datos";
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // btnVolver
             // 
             this.btnVolver.Location = new System.Drawing.Point(179, 4);
             this.btnVolver.Margin = new System.Windows.Forms.Padding(4);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             this.btnVolver.Size = new System.Drawing.Size(167, 39);
             this.btnVolver.TabIndex = 1;
             this.btnVolver.Text = "Volver";
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // FrmMisDatos
             // 

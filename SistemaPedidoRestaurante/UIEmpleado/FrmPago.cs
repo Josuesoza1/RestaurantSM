@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using SistemaPedidoRestaurante.UIPrincipal;
 using System.Collections.Generic;
 using System.ComponentModel;

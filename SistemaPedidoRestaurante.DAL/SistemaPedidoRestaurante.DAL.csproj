@@ -49,7 +49,6 @@
     <Compile Include="MesaDAL.cs" />
     <Compile Include="PedidoDAL.cs" />
     <Compile Include="ProductoDAL.cs" />
-    <Compile Include="GestionDAL.cs" />
     <Compile Include="InventarioDAL.cs" />
     <Compile Include="OperacionDatos.cs" />
     <Compile Include="ComprasClienteDAL.cs" />

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using SistemaPedidoRestaurante.Entities;
@@ -9,46 +9,83 @@ namespace SistemaPedidoRestaurante.DAL
     {
         public int Eliminar(int idProducto, byte[] version, int idAdministrador)
         {
-            return new GestionDAL().Ejecutar("sp_Inventario_Eliminar", "@Actor", idAdministrador,
-                "@IdProducto", idProducto, "@Version", version);
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+                using (SqlCommand comando = new SqlCommand("sp_Inventario_Eliminar", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.Add("@Actor", SqlDbType.Int).Value = idAdministrador;
+                    comando.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
+                    comando.Parameters.Add("@Version", SqlDbType.Binary, 8).Value = (object)(version) ?? DBNull.Value;
+                    conexion.Open();
+                    object resultado = comando.ExecuteScalar();
+                    if (resultado == null || resultado == DBNull.Value)
+                    {
+                        return 0;
+                    }
+
+                    return Convert.ToInt32(resultado);
+                }
+            }
         }
+
         public InventarioProductos Listar(int idAdministrador)
         {
-            var inventario = new InventarioProductos();
+            InventarioProductos inventario = new InventarioProductos();
             using (var conexion = ConexionBD.ObtenerConexion())
-            using (var comando = new SqlCommand("sp_Inventario_Listar", conexion))
             {
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@Actor", SqlDbType.Int).Value = idAdministrador;
-                conexion.Open();
-                using (var lector = comando.ExecuteReader())
+                using (SqlCommand comando = new SqlCommand("sp_Inventario_Listar", conexion))
                 {
-                    while (lector.Read())
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.Add("@Actor", SqlDbType.Int).Value = idAdministrador;
+                    conexion.Open();
+                    using (var lector = comando.ExecuteReader())
                     {
-                        inventario.Add(new InventarioProducto
+                        while (lector.Read())
                         {
-                            IdProducto = Convert.ToInt32(lector["IdProducto"]),
-                            Producto = lector["Producto"].ToString(),
-                            Categoria = lector["Categoria"].ToString(),
-                            Unidad = lector["Unidad"].ToString(),
-                            PrecioVenta = Convert.ToDecimal(lector["PrecioVenta"]),
-                            StockActual = Convert.ToInt32(lector["StockActual"]),
-                            StockMinimo = Convert.ToInt32(lector["StockMinimo"]),
-                            Activo = Convert.ToBoolean(lector["Activo"]),
-                            Version = (byte[])lector["Version"]
-                        });
+                            inventario.Add(new InventarioProducto
+                            {
+                                IdProducto = Convert.ToInt32(lector["IdProducto"]),
+                                Producto = lector["Producto"].ToString(),
+                                Categoria = lector["Categoria"].ToString(),
+                                Unidad = lector["Unidad"].ToString(),
+                                PrecioVenta = Convert.ToDecimal(lector["PrecioVenta"]),
+                                StockActual = Convert.ToInt32(lector["StockActual"]),
+                                StockMinimo = Convert.ToInt32(lector["StockMinimo"]),
+                                Activo = Convert.ToBoolean(lector["Activo"]),
+                                Version = (byte[])lector["Version"]
+                            });
+                        }
                     }
                 }
             }
+
             return inventario;
         }
 
         public int Guardar(InventarioProducto inventario, int idAdministrador)
         {
-            return new GestionDAL().Ejecutar("sp_Inventario_Guardar",
-                "@Actor", idAdministrador, "@IdProducto", inventario.IdProducto,
-                "@Stock", inventario.StockActual, "@Minimo", inventario.StockMinimo,
-                "@Activo", inventario.Activo, "@Version", inventario.Version);
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+                using (SqlCommand comando = new SqlCommand("sp_Inventario_Guardar", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.Add("@Actor", SqlDbType.Int).Value = idAdministrador;
+                    comando.Parameters.Add("@IdProducto", SqlDbType.Int).Value = inventario.IdProducto;
+                    comando.Parameters.Add("@Stock", SqlDbType.Int).Value = inventario.StockActual;
+                    comando.Parameters.Add("@Minimo", SqlDbType.Int).Value = inventario.StockMinimo;
+                    comando.Parameters.Add("@Activo", SqlDbType.Bit).Value = inventario.Activo;
+                    comando.Parameters.Add("@Version", SqlDbType.Binary, 8).Value = (object)(inventario.Version) ?? DBNull.Value;
+                    conexion.Open();
+                    object resultado = comando.ExecuteScalar();
+                    if (resultado == null || resultado == DBNull.Value)
+                    {
+                        return 0;
+                    }
+
+                    return Convert.ToInt32(resultado);
+                }
+            }
         }
     }
 }

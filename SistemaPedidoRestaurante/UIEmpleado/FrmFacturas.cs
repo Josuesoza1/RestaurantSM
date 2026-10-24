@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using SistemaPedidoRestaurante.UIPrincipal;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,7 +21,6 @@ namespace SistemaPedidoRestaurante.UIEmpleado
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-
         }
     }
 }

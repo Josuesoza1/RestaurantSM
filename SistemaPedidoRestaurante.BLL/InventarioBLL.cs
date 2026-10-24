@@ -1,21 +1,31 @@
-﻿using System;
+using System;
 using System.Linq;
 using SistemaPedidoRestaurante.DAL;
 using SistemaPedidoRestaurante.Entities;
 using SistemaPedidoRestaurante.Validaciones;
+using System.Data.SqlClient;
 
 namespace SistemaPedidoRestaurante.BLL
 {
     public class InventarioBLL
     {
         private readonly InventarioDAL inventarioDAL = new InventarioDAL();
-
         public void Eliminar(int idProducto, byte[] version)
         {
             Permisos.ExigirRol(1);
             if (idProducto <= 0 || version == null || version.Length != 8)
+            {
                 throw new ArgumentException("Seleccione un registro de inventario actualizado.");
-            OperacionDatos.Ejecutar(() => inventarioDAL.Eliminar(idProducto, version, SesionActual.IdUsuario));
+            }
+
+            try
+            {
+                inventarioDAL.Eliminar(idProducto, version, SesionActual.IdUsuario);
+            }
+            catch (SqlException error)
+            {
+                throw OperacionDatos.Traducir(error, "Ya existe un registro con ese código, nombre o dato único.");
+            }
         }
 
         public InventarioProductos Listar()
@@ -28,29 +38,67 @@ namespace SistemaPedidoRestaurante.BLL
         {
             Permisos.ExigirRol(1);
             filtro = (filtro ?? string.Empty).Trim();
-            var resultado = new InventarioProductos();
-            if (inventario == null) return resultado;
-            resultado.AddRange(inventario.Where(item =>
-                (filtro.Length == 0 || new[] { item.IdProducto.ToString(), item.Producto,
-                    item.Categoria, item.Unidad, item.PrecioVenta.ToString(),
-                    item.StockActual.ToString(), item.StockMinimo.ToString(), item.Activo.ToString() }
-                    .Any(texto => BusquedaLINQ.Contiene(texto, filtro))) &&
-                (!soloBajos || item.Activo && item.StockActual <= item.StockMinimo)));
+            InventarioProductos resultado = new InventarioProductos();
+            if (inventario == null)
+            {
+                return resultado;
+            }
+
+            var coincidencias = inventario.Where(item => CoincideProducto(item, filtro));
+            if (soloBajos)
+            {
+                coincidencias = coincidencias.Where(item =>
+                    item.Activo && item.StockActual <= item.StockMinimo);
+            }
+            resultado.AddRange(coincidencias);
             return resultado;
+        }
+
+        private bool CoincideProducto(InventarioProducto producto, string filtro)
+        {
+            if (filtro.Length == 0)
+            {
+                return true;
+            }
+            return BusquedaLINQ.Contiene(producto.IdProducto.ToString(), filtro) ||
+                BusquedaLINQ.Contiene(producto.Producto, filtro) ||
+                BusquedaLINQ.Contiene(producto.Categoria, filtro) ||
+                BusquedaLINQ.Contiene(producto.Unidad, filtro) ||
+                BusquedaLINQ.Contiene(producto.PrecioVenta.ToString(), filtro) ||
+                BusquedaLINQ.Contiene(producto.StockActual.ToString(), filtro) ||
+                BusquedaLINQ.Contiene(producto.StockMinimo.ToString(), filtro) ||
+                BusquedaLINQ.Contiene(producto.Activo.ToString(), filtro);
         }
 
         public void Guardar(int producto, int stock, int minimo, bool activo, byte[] version)
         {
-            Guardar(new InventarioProducto { IdProducto = producto, StockActual = stock,
-                StockMinimo = minimo, Activo = activo, Version = version });
+            Guardar(new InventarioProducto
+            {
+                IdProducto = producto,
+                StockActual = stock,
+                StockMinimo = minimo,
+                Activo = activo,
+                Version = version
+            });
         }
 
         public void Guardar(InventarioProducto inventario)
         {
             Permisos.ExigirRol(1);
-            if (inventario == null) throw new ArgumentException("Faltan los datos del inventario.");
+            if (inventario == null)
+            {
+                throw new ArgumentException("Faltan los datos del inventario.");
+            }
+
             GestionValidacion.Inventario(inventario.IdProducto, inventario.StockActual, inventario.StockMinimo);
-            OperacionDatos.Ejecutar(() => inventarioDAL.Guardar(inventario, SesionActual.IdUsuario));
+            try
+            {
+                inventarioDAL.Guardar(inventario, SesionActual.IdUsuario);
+            }
+            catch (SqlException error)
+            {
+                throw OperacionDatos.Traducir(error, "Ya existe un registro con ese código, nombre o dato único.");
+            }
         }
     }
 }
