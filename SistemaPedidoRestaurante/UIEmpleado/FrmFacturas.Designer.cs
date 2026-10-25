@@ -98,7 +98,7 @@
             // 
             this.agregarToolStripMenuItem.Name = "agregarToolStripMenuItem";
             this.agregarToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.agregarToolStripMenuItem.Text = "Agregar";
+            this.agregarToolStripMenuItem.Text = "Consultar";
             // 
             // eliminarToolStripMenuItem
             // 
@@ -110,7 +110,7 @@
             // 
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
             this.editarToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
-            this.editarToolStripMenuItem.Text = "Editar";
+            this.editarToolStripMenuItem.Text = "Recargar";
             // 
             // volverToolStripMenuItem
             // 
@@ -274,7 +274,7 @@
             this.btnGuardarProducto.Name = "btnGuardarProducto";
             this.btnGuardarProducto.Size = new System.Drawing.Size(81, 31);
             this.btnGuardarProducto.TabIndex = 4;
-            this.btnGuardarProducto.Text = "Guardar";
+            this.btnGuardarProducto.Text = "PDF";
             this.btnGuardarProducto.UseVisualStyleBackColor = false;
             // 
             // btnLimpiar
@@ -301,7 +301,7 @@
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(81, 31);
             this.btnCancelar.TabIndex = 6;
-            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.Text = "Volver";
             this.btnCancelar.UseVisualStyleBackColor = false;
             // 
             // grpDetalleFactura
@@ -444,7 +444,7 @@
             this.lblImpuestos.Name = "lblImpuestos";
             this.lblImpuestos.Size = new System.Drawing.Size(101, 15);
             this.lblImpuestos.TabIndex = 7;
-            this.lblImpuestos.Text = "Impuestos(15%):";
+            this.lblImpuestos.Text = "Impuesto:";
             // 
             // lblSubtotal
             // 
@@ -521,6 +521,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.grpInformacionAdicional.ResumeLayout(false);
             this.grpInformacionAdicional.PerformLayout();
+            this.agregarToolStripMenuItem.Click += new System.EventHandler(this.consultar_Click);
+            this.editarToolStripMenuItem.Click += new System.EventHandler(this.consultar_Click);
+            this.volverToolStripMenuItem.Click += new System.EventHandler(this.volver_Click);
+            this.ayudaToolStripMenuItem.Click += new System.EventHandler(this.ayuda_Click);
+            this.btnBuscarFactura.Click += new System.EventHandler(this.consultar_Click);
+            this.btnGuardarProducto.Click += new System.EventHandler(this.guardarPdf_Click);
+            this.btnCancelar.Click += new System.EventHandler(this.volver_Click);
+            this.btnGuardarProducto.Enabled = false;
+            this.eliminarToolStripMenuItem.Enabled = false;
+            this.eliminarToolStripMenuItem.ToolTipText = "Las facturas pagadas conservan su historial.";
             this.ResumeLayout(false);
             this.PerformLayout();
 

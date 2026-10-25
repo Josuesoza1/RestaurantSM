@@ -40,6 +40,19 @@
             this.pnlEncabezado.SuspendLayout();
             this.grpAdmin.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.masGestionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mesasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inventarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configuracionRestauranteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reservasPersonalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.separadorOperaciones = new System.Windows.Forms.ToolStripSeparator();
+            this.operacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pagosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.facturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cerrarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SuspendLayout();
             // 
             // pnlEncabezado
@@ -86,11 +99,13 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.categoríasToolStripMenuItem,
-            this.productosToolStripMenuItem,
-            this.rolesToolStripMenuItem,
-            this.empleadosToolStripMenuItem,
-            this.salirToolStripMenuItem});
+                this.categoríasToolStripMenuItem,
+                this.productosToolStripMenuItem,
+                this.rolesToolStripMenuItem,
+                this.empleadosToolStripMenuItem,
+                this.masGestionesToolStripMenuItem,
+                this.cerrarSesionToolStripMenuItem,
+                this.salirToolStripMenuItem });
             this.menuStrip1.Location = new System.Drawing.Point(3, 16);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
@@ -135,6 +150,56 @@
             // 
             // FrmMenuAdministracion
             // 
+            // masGestionesToolStripMenuItem
+            this.masGestionesToolStripMenuItem.Name = "masGestionesToolStripMenuItem";
+            this.masGestionesToolStripMenuItem.Text = "Más opciones";
+            // clientesToolStripMenuItem
+            this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
+            this.clientesToolStripMenuItem.Text = "Clientes";
+            this.clientesToolStripMenuItem.Click += new System.EventHandler(this.clientesToolStripMenuItem_Click);
+            // usuariosToolStripMenuItem
+            this.usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
+            this.usuariosToolStripMenuItem.Text = "Usuarios";
+            this.usuariosToolStripMenuItem.Click += new System.EventHandler(this.usuariosToolStripMenuItem_Click);
+            // mesasToolStripMenuItem
+            this.mesasToolStripMenuItem.Name = "mesasToolStripMenuItem";
+            this.mesasToolStripMenuItem.Text = "Mesas";
+            this.mesasToolStripMenuItem.Click += new System.EventHandler(this.mesasToolStripMenuItem_Click);
+            // inventarioToolStripMenuItem
+            this.inventarioToolStripMenuItem.Name = "inventarioToolStripMenuItem";
+            this.inventarioToolStripMenuItem.Text = "Inventario";
+            this.inventarioToolStripMenuItem.Click += new System.EventHandler(this.inventarioToolStripMenuItem_Click);
+            // configuracionRestauranteToolStripMenuItem
+            this.configuracionRestauranteToolStripMenuItem.Name = "configuracionRestauranteToolStripMenuItem";
+            this.configuracionRestauranteToolStripMenuItem.Text = "Configuracion";
+            this.configuracionRestauranteToolStripMenuItem.Click += new System.EventHandler(this.configuracionRestauranteToolStripMenuItem_Click);
+            // reservasPersonalToolStripMenuItem
+            this.reservasPersonalToolStripMenuItem.Name = "reservasPersonalToolStripMenuItem";
+            this.reservasPersonalToolStripMenuItem.Text = "Reservas";
+            this.reservasPersonalToolStripMenuItem.Click += new System.EventHandler(this.reservasPersonalToolStripMenuItem_Click);
+            // separadorOperaciones
+            this.separadorOperaciones.Name = "separadorOperaciones";
+            // operacionesToolStripMenuItem
+            this.operacionesToolStripMenuItem.Name = "operacionesToolStripMenuItem";
+            this.operacionesToolStripMenuItem.Text = "Operaciones";
+            // pedidosToolStripMenuItem
+            this.pedidosToolStripMenuItem.Name = "pedidosToolStripMenuItem";
+            this.pedidosToolStripMenuItem.Text = "Pedidos";
+            this.pedidosToolStripMenuItem.Click += new System.EventHandler(this.pedidosToolStripMenuItem_Click);
+            // pagosToolStripMenuItem
+            this.pagosToolStripMenuItem.Name = "pagosToolStripMenuItem";
+            this.pagosToolStripMenuItem.Text = "Cobros";
+            this.pagosToolStripMenuItem.Click += new System.EventHandler(this.pagosToolStripMenuItem_Click);
+            // facturasToolStripMenuItem
+            this.facturasToolStripMenuItem.Name = "facturasToolStripMenuItem";
+            this.facturasToolStripMenuItem.Text = "Facturas";
+            this.facturasToolStripMenuItem.Click += new System.EventHandler(this.facturasToolStripMenuItem_Click);
+            // cerrarSesionToolStripMenuItem
+            this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
+            this.cerrarSesionToolStripMenuItem.Text = "Cerrar sesión";
+            this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem_Click);
+            this.masGestionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.clientesToolStripMenuItem, this.usuariosToolStripMenuItem, this.mesasToolStripMenuItem, this.inventarioToolStripMenuItem, this.configuracionRestauranteToolStripMenuItem, this.reservasPersonalToolStripMenuItem, this.separadorOperaciones, this.operacionesToolStripMenuItem });
+            this.operacionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.pedidosToolStripMenuItem, this.pagosToolStripMenuItem, this.facturasToolStripMenuItem });
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
@@ -165,5 +230,19 @@
         private System.Windows.Forms.ToolStripMenuItem rolesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem empleadosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
+
+        private System.Windows.Forms.ToolStripMenuItem masGestionesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem usuariosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mesasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inventarioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem configuracionRestauranteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reservasPersonalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator separadorOperaciones;
+        private System.Windows.Forms.ToolStripMenuItem operacionesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pedidosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pagosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem facturasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cerrarSesionToolStripMenuItem;
     }
 }

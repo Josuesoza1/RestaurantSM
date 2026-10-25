@@ -17,29 +17,38 @@ namespace SistemaPedidoRestaurante.UICliente
         public FrmMenuCliente()
         {
             InitializeComponent();
-            hacerPedidoToolStripMenuItem.Enabled = true;
-            hacerPedidoToolStripMenuItem.Text = "Mi pedido";
-            hacerPedidoToolStripMenuItem.Click += (sender, e) =>
-            {
-                using (var pedido = new FrmPedidoCliente()) pedido.ShowDialog(this);
-            };
-            reservarMesaToolStripMenuItem.Enabled = true;
-            verComprasToolStripMenuItem.Enabled = true;
-            hacerPedidoToolStripMenuItem.ToolTipText = "Elegir productos y enviar mi pedido.";
-            reservarMesaToolStripMenuItem.ToolTipText = "Crear, consultar, editar y cancelar mis reservas.";
-            verComprasToolStripMenuItem.ToolTipText = "Consultar, editar y cancelar mis pedidos pendientes.";
-            reservarMesaToolStripMenuItem.Click+=(s,e)=>{using(var f=new FrmMisReservas())f.ShowDialog(this);};
-            verComprasToolStripMenuItem.Text="Mis compras";
-            verComprasToolStripMenuItem.Click+=(s,e)=>{using(var f=new FrmMisCompras())f.ShowDialog(this);};
-            var datos=new ToolStripMenuItem("Mis datos");
-            datos.Click+=(s,e)=>{using(var f=new FrmMisDatos())f.ShowDialog(this);};
-            menuStrip1.Items.Insert(menuStrip1.Items.Count-1,datos);
             MenuSesion.Configurar(this, menuStrip1, 3);
-            salirToolStripMenuItem.Click += (sender, e) =>
-            {
-                this.DialogResult = DialogResult.Abort;
-                this.Close();
-            };
+        }
+
+        private void hacerPedidoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (FrmPedidoCliente formulario = new FrmPedidoCliente()) formulario.ShowDialog(this);
+        }
+
+        private void reservarMesaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (FrmMisReservas formulario = new FrmMisReservas()) formulario.ShowDialog(this);
+        }
+
+        private void verComprasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (FrmMisCompras formulario = new FrmMisCompras()) formulario.ShowDialog(this);
+        }
+
+        private void misDatosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (FrmMisDatos formulario = new FrmMisDatos()) formulario.ShowDialog(this);
+        }
+
+        private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Abort;
+            Close();
         }
 
         private void FrmMenuCliente_FormClosed(object sender, FormClosedEventArgs e)

@@ -1,0 +1,60 @@
+﻿using System;
+using System.Data;
+using System.Drawing;
+using System.Windows.Forms;
+using SistemaPedidoRestaurante.BLL;
+using SistemaPedidoRestaurante.UIPrincipal;
+
+namespace SistemaPedidoRestaurante.UIEmpleado
+{
+    public partial class FrmSeleccionCliente : Form
+    {
+
+        private DataTable clientes;
+        private OperacionRestauranteBLL servicio = new OperacionRestauranteBLL();
+        public DataRow Cliente { get; private set; }
+
+        public FrmSeleccionCliente()
+        {
+            InitializeComponent();
+        }
+
+        private void cargar(object sender, EventArgs e)
+        {
+            if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
+                return;
+            try
+            {
+                clientes = servicio.ListarClientes();
+                listado.DataSource = clientes;
+                listado.ClearSelection();
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(this, error.Message);
+            }
+        }
+
+        private void buscar_TextChanged(object sender, EventArgs e)
+        {
+            if (clientes != null)
+            {
+                listado.DataSource = servicio.Buscar(clientes, buscar.Text);
+                listado.ClearSelection();
+            }
+        }
+
+        private void elegir_Click(object sender, EventArgs e)
+        {
+            Cliente = VistaGestion.Fila(listado);
+            if (Cliente == null)
+            {
+                MessageBox.Show(this, "Seleccione un cliente.");
+                return;
+            }
+
+            DialogResult = DialogResult.OK;
+            Close();
+        }
+    }
+}

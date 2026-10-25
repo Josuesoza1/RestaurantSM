@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
@@ -29,10 +29,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 "Reservada",
                 "En limpieza"
             });
-            agregarToolStripMenuItem.Click += agregarToolStripMenuItem_Click;
-            editarToolStripMenuItem.Click += editarToolStripMenuItem_Click;
-            volverToolStripMenuItem1.Click += volverToolStripMenuItem1_Click;
-            ayudaToolStripMenuItem.Click += ayudaToolStripMenuItem_Click;
             dgvMesas.CellClick += dgvMesas_CellClick;
             TemaUI.Aplicar(this);
             Load += FrmMesas_CargarDatos;

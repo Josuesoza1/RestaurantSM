@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
 using SistemaPedidoRestaurante.Entities;
@@ -7,7 +7,7 @@ namespace SistemaPedidoRestaurante.DAL
 {
     public class InventarioDAL
     {
-        public int Eliminar(int idProducto, byte[] version, int idAdministrador)
+        public int Eliminar(int idProducto, int revision, int idAdministrador)
         {
             using (SqlConnection conexion = ConexionBD.ObtenerConexion())
             {
@@ -16,8 +16,9 @@ namespace SistemaPedidoRestaurante.DAL
                     comando.CommandType = CommandType.StoredProcedure;
                     comando.Parameters.Add("@Actor", SqlDbType.Int).Value = idAdministrador;
                     comando.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
-                    comando.Parameters.Add("@Version", SqlDbType.Binary, 8).Value = (object)(version) ?? DBNull.Value;
+                    comando.Parameters.Add("@Revision", SqlDbType.Int).Value = revision;
                     conexion.Open();
+
                     object resultado = comando.ExecuteScalar();
                     if (resultado == null || resultado == DBNull.Value)
                     {
@@ -53,7 +54,7 @@ namespace SistemaPedidoRestaurante.DAL
                                 StockActual = Convert.ToInt32(lector["StockActual"]),
                                 StockMinimo = Convert.ToInt32(lector["StockMinimo"]),
                                 Activo = Convert.ToBoolean(lector["Activo"]),
-                                Version = (byte[])lector["Version"]
+                                Revision = Convert.ToInt32(lector["Revision"])
                             });
                         }
                     }
@@ -75,8 +76,9 @@ namespace SistemaPedidoRestaurante.DAL
                     comando.Parameters.Add("@Stock", SqlDbType.Int).Value = inventario.StockActual;
                     comando.Parameters.Add("@Minimo", SqlDbType.Int).Value = inventario.StockMinimo;
                     comando.Parameters.Add("@Activo", SqlDbType.Bit).Value = inventario.Activo;
-                    comando.Parameters.Add("@Version", SqlDbType.Binary, 8).Value = (object)(inventario.Version) ?? DBNull.Value;
+                    comando.Parameters.Add("@Revision", SqlDbType.Int).Value = inventario.Revision;
                     conexion.Open();
+
                     object resultado = comando.ExecuteScalar();
                     if (resultado == null || resultado == DBNull.Value)
                     {

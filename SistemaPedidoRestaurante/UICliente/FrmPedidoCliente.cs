@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,15 +13,19 @@ namespace SistemaPedidoRestaurante.UICliente
         private Productos catalogo = new Productos();
         private bool perfilValido;
         private readonly int idPedido;
+        private readonly int clienteDelLocal;
         private readonly Guid solicitud = Guid.NewGuid();
         public FrmPedidoCliente() : this(0)
         {
         }
 
-        public FrmPedidoCliente(int pedido)
+        public FrmPedidoCliente(int pedido) : this(pedido, 0) { }
+        public FrmPedidoCliente(int pedido, int clienteDelLocal)
         {
+            this.clienteDelLocal = clienteDelLocal;
             idPedido = pedido;
             InitializeComponent();
+            if (clienteDelLocal > 0) Text = "Pedido en el local";
             grpDatosCliente.Text = "Mis datos";
             txtCliente.ReadOnly = txtCedula.ReadOnly = txtTelefono.ReadOnly = txtEmail.ReadOnly = true;
             cmbProducto.DropDownStyle = cmbCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -33,6 +37,7 @@ namespace SistemaPedidoRestaurante.UICliente
             cmbCategoria.SelectedValueChanged += cmbCategoria_SelectedValueChanged;
             cmbProducto.SelectedValueChanged += cmbProducto_SelectedValueChanged;
             Load += CargarPantalla;
+            FormClosing += FrmPedidoCliente_FormClosing;
             ActualizarDetalle();
             UIPrincipal.TemaUI.Aplicar(this);
         }
@@ -44,7 +49,7 @@ namespace SistemaPedidoRestaurante.UICliente
                 return;
             }
 
-            if (!SesionActual.TieneRol(3))
+            if (!TieneAcceso())
             {
                 Close();
                 return;
@@ -52,7 +57,19 @@ namespace SistemaPedidoRestaurante.UICliente
 
             try
             {
-                var cliente = new ClienteBLL().ObtenerMiPerfil();
+                Cliente cliente;
+                if (clienteDelLocal > 0)
+                {
+                    System.Data.DataRow[] filas = new OperacionRestauranteBLL().ListarClientes().Select("IdCliente=" + clienteDelLocal);
+                    if (filas.Length != 1) throw new ArgumentException("Seleccione un cliente activo.");
+                    System.Data.DataRow fila = filas[0];
+                    cliente = new Cliente();
+                    cliente.PrimerNombre = Convert.ToString(fila["Nombre"]);
+                    cliente.Cedula = Convert.ToString(fila["Cedula"]);
+                    cliente.Telefono = Convert.ToString(fila["Telefono"]);
+                    cliente.Email = Convert.ToString(fila["Email"]);
+                }
+                else cliente = new ClienteBLL().ObtenerMiPerfil();
                 perfilValido = cliente != null;
                 if (cliente != null)
                 {
@@ -150,7 +167,7 @@ namespace SistemaPedidoRestaurante.UICliente
         {
             try
             {
-                if (!SesionActual.TieneRol(3) || !perfilValido)
+                if (!TieneAcceso() || !perfilValido)
                 {
                     throw new ArgumentException("Inicie sesión con una cuenta de cliente válida.");
                 }
@@ -191,8 +208,10 @@ namespace SistemaPedidoRestaurante.UICliente
                 btnEnviar.Enabled = false;
                 try
                 {
-                    int numero = new ComprasClienteBLL().Guardar(borrador, solicitud, idPedido);
-                    MessageBox.Show(this, "Pedido " + numero + " guardado. Puede consultarlo en Mis compras.", "Mi pedido");
+                    int numero;
+                    if (clienteDelLocal > 0) numero = new OperacionRestauranteBLL().GuardarPedido(clienteDelLocal, borrador, solicitud);
+                    else numero = new ComprasClienteBLL().Guardar(borrador, solicitud, idPedido);
+                    MessageBox.Show(this, "Pedido " + numero + " guardado. Puede consultarlo en la lista de pedidos.", "Mi pedido");
                     DialogResult = DialogResult.OK;
                     Close();
                 }
@@ -252,6 +271,18 @@ namespace SistemaPedidoRestaurante.UICliente
         private void cmbProducto_SelectedValueChanged(object sender, EventArgs e)
         {
             MostrarPrecio();
+        }
+        private void FrmPedidoCliente_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (DialogResult != DialogResult.OK && borrador.Lineas.Count > 0)
+            {
+                e.Cancel = !UIPrincipal.VistaGestion.Confirmar(this, "¿Salir y descartar los cambios del pedido?");
+            }
+        }
+        private bool TieneAcceso()
+        {
+            if (clienteDelLocal > 0) return SesionActual.TieneRol(1) || SesionActual.TieneRol(2);
+            return SesionActual.TieneRol(3);
         }
     }
 }

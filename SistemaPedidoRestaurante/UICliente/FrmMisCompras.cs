@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
@@ -13,6 +13,7 @@ namespace SistemaPedidoRestaurante.UICliente
         public FrmMisCompras()
         {
             InitializeComponent();
+            Text = "Mis pedidos";
             txtBuscar.TextChanged += txtBuscar_TextChanged;
             dgvPedidos.CellClick += dgvPedidos_CellClick;
             TemaUI.Aplicar(this);
@@ -186,6 +187,25 @@ namespace SistemaPedidoRestaurante.UICliente
             {
                 MessageBox.Show(this, error.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+        private void dgvPedidos_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right) return;
+            int fila = dgvPedidos.HitTest(e.X, e.Y).RowIndex;
+            if (fila >= 0) { dgvPedidos.ClearSelection(); dgvPedidos.Rows[fila].Selected = true; dgvPedidos.CurrentCell = dgvPedidos.Rows[fila].Cells[0]; }
+        }
+        private void comprobante_Click(object sender, EventArgs e) { GuardarDocumento(false); }
+        private void factura_Click(object sender, EventArgs e) { GuardarDocumento(true); }
+        private void GuardarDocumento(bool factura)
+        {
+            try
+            {
+                DataRow fila = VistaGestion.Fila(dgvPedidos);
+                if (fila == null) throw new ArgumentException("Seleccione un pedido.");
+                var documento = new OperacionRestauranteBLL().ObtenerDocumento((int)fila["IdPedido"], factura);
+                DocumentoPdf.GuardarConDialogo(this, documento);
+            }
+            catch (Exception error) { MessageBox.Show(this, error.Message); }
         }
     }
 }

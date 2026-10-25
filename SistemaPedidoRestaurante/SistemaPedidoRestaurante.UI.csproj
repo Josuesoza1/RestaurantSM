@@ -47,6 +47,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="QuestPDF" Version="2026.9.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="UIEmpleado\FrmElegirMesa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIAdministracion\FrmConfiguracionRestaurante.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIAdministracion\FrmAjusteInventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIEmpleado\FrmBandejaOperaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIEmpleado\FrmConfirmarCobro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIEmpleado\FrmSeleccionCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIAdministracion\FrmAjusteInventario.Designer.cs">
+      <DependentUpon>FrmAjusteInventario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIAdministracion\FrmConfiguracionRestaurante.Designer.cs">
+      <DependentUpon>FrmConfiguracionRestaurante.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIEmpleado\FrmSeleccionCliente.Designer.cs">
+      <DependentUpon>FrmSeleccionCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIEmpleado\FrmElegirMesa.Designer.cs">
+      <DependentUpon>FrmElegirMesa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIEmpleado\FrmConfirmarCobro.Designer.cs">
+      <DependentUpon>FrmConfirmarCobro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIEmpleado\FrmBandejaOperaciones.Designer.cs">
+      <DependentUpon>FrmBandejaOperaciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIPrincipal\DocumentoPdf.cs" />
     <Compile Include="Login\FrmCrearCuenta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -264,6 +304,36 @@
       <Project>{ebc09365-6506-4246-8f61-d439dccb2d32}</Project>
       <Name>SistemaPedidoRestaurante.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UIAdministracion\FrmAjusteInventario.resx">
+      <DependentUpon>FrmAjusteInventario.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UIAdministracion\FrmConfiguracionRestaurante.resx">
+      <DependentUpon>FrmConfiguracionRestaurante.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UIEmpleado\FrmSeleccionCliente.resx">
+      <DependentUpon>FrmSeleccionCliente.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UIEmpleado\FrmElegirMesa.resx">
+      <DependentUpon>FrmElegirMesa.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UIEmpleado\FrmConfirmarCobro.resx">
+      <DependentUpon>FrmConfirmarCobro.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UIEmpleado\FrmBandejaOperaciones.resx">
+      <DependentUpon>FrmBandejaOperaciones.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

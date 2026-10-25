@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
@@ -11,13 +11,9 @@ namespace SistemaPedidoRestaurante.UIAdministracion
     {
         private readonly InventarioBLL servicio = new InventarioBLL();
         private InventarioProductos inventario;
-        private byte[] version;
+        private int revision;
         private int seleccionado;
         private bool cargando;
-        private readonly ToolStripMenuItem bajos = new ToolStripMenuItem("Solo existencias bajas")
-        {
-            CheckOnClick = true
-        };
         public FrmInventario()
         {
             InitializeComponent();
@@ -45,15 +41,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             cmbProductoInventario.DisplayMember = "Nombre";
             cmbProductoInventario.ValueMember = "IdProducto";
             cmbProductoInventario.SelectedValueChanged += cmbProductoInventario_SelectedValueChanged;
-            agregarToolStripMenuItem.Click += agregarToolStripMenuItem_Click;
-            editarToolStripMenuItem.Click += editarToolStripMenuItem_Click;
-            volverToolStripMenuItem.Click += volverToolStripMenuItem_Click;
-            bajos.CheckedChanged += bajos_CheckedChanged;
-            menuStrip1.Items.Insert(menuStrip1.Items.Count - 1, bajos);
-            ToolStripMenuItem actualizar = new ToolStripMenuItem("Recargar");
-            actualizar.Click += actualizar_Click;
-            menuStrip1.Items.Add(actualizar);
-            ayudaToolStripMenuItem.Click += ayudaToolStripMenuItem_Click;
             dgvProductoInventario.CellClick += dgvProductoInventario_CellClick;
             TemaUI.Aplicar(this);
             Load += FrmInventario_CargarDatos;
@@ -90,7 +77,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             var p = cmbProductoInventario.SelectedItem as Producto;
             seleccionado = 0;
-            version = null;
+            revision = 0;
             txtStockActual.Text = "0";
             textBox1.Text = "0";
             chkControlActivo.Checked = true;
@@ -112,7 +99,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private void CargarFila(InventarioProducto item)
         {
             seleccionado = item.IdProducto;
-            version = item.Version;
+            revision = item.Revision;
             txtStockActual.Text = item.StockActual.ToString();
             textBox1.Text = item.StockMinimo.ToString();
             chkControlActivo.Checked = item.Activo;
@@ -141,7 +128,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 StockActual = stock,
                 StockMinimo = minimo,
                 Activo = activo,
-                Version = version
+                Revision = revision
             });
         }
 
@@ -196,7 +183,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
                 if (VistaGestion.Confirmar(this, "¿Eliminar permanentemente el registro de inventario? Requiere stock cero y no haber sido usado en pedidos. El producto se conserva."))
                 {
-                    servicio.Eliminar(registro.IdProducto, registro.Version);
+                    servicio.Eliminar(registro.IdProducto, registro.Revision);
                     Recargar();
                     Nuevo();
                 }
@@ -273,7 +260,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void ayudaToolStripMenuItem_Click(object s, EventArgs e)
         {
-            MessageBox.Show(this, "Seleccione un producto existente. Unidad y precio vienen de Productos. Guardar establece las unidades disponibles; los pedidos las descuentan. Productos sin control activo no limitan existencias. Use Recargar si otra operación cambió el stock.", "Inventario");
+            MessageBox.Show(this, "Seleccione un producto existente. Unidad y precio vienen de Productos. Guardar establece las unidades disponibles; los pedidos las descuentan. Solo se venden productos con inventario activo y existencias. Use Ajustar existencias para entradas o salidas con motivo y Movimientos para consultar el historial. Use Recargar si otra operación cambió el stock.", "Inventario");
         }
 
         private void dgvProductoInventario_CellClick(object s, DataGridViewCellEventArgs e)
@@ -306,6 +293,15 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             {
                 MessageBox.Show(this, error.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+        private void entradaSalida_Click(object sender, EventArgs e)
+        {
+            using (FrmAjusteInventario formulario = new FrmAjusteInventario()) formulario.ShowDialog(this);
+            try { Recargar(); Nuevo(); } catch (Exception error) { MessageBox.Show(this, error.Message); }
+        }
+        private void historial_Click(object sender, EventArgs e)
+        {
+            using (SistemaPedidoRestaurante.UIEmpleado.FrmBandejaOperaciones formulario = new SistemaPedidoRestaurante.UIEmpleado.FrmBandejaOperaciones("Movimientos")) formulario.ShowDialog(this);
         }
     }
 }

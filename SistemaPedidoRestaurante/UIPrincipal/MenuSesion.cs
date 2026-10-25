@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
@@ -12,10 +12,6 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
                 return;
 
-            var cerrarSesion = new ToolStripMenuItem("Cerrar sesión");
-            cerrarSesion.Name = "cerrarSesionToolStripMenuItem";
-            cerrarSesion.Click += (sender, e) => formulario.Close();
-            menu.Items.Insert(Math.Max(0, menu.Items.Count - 1), cerrarSesion);
             MenuAdaptable.Configurar(formulario, menu);
 
             formulario.Load += (sender, e) =>

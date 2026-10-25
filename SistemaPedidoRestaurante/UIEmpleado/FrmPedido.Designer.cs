@@ -456,6 +456,17 @@
             this.grpDatosCliente.PerformLayout();
             this.grpProducto.ResumeLayout(false);
             this.grpProducto.PerformLayout();
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            this.btnAceptar.Click += new System.EventHandler(this.guardar_Click);
+            this.btnCancelar.Click += new System.EventHandler(this.volver_Click);
+            this.btnRegistrarPago.Click += new System.EventHandler(this.bandeja_Click);
+            this.guardarToolStripMenuItem.Click += new System.EventHandler(this.guardar_Click);
+            this.guardarToolStripMenuItem1.Click += new System.EventHandler(this.guardar_Click);
+            this.limpiarToolStripMenuItem.Click += new System.EventHandler(this.limpiar_Click);
+            this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.limpiar_Click);
+            this.editarToolStripMenuItem.Click += new System.EventHandler(this.bandeja_Click);
+            this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.bandeja_Click);
+            this.ayudaToolStripMenuItem.Click += new System.EventHandler(this.ayuda_Click);
             this.ResumeLayout(false);
             this.PerformLayout();
 

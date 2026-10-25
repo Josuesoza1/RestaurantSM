@@ -1,4 +1,4 @@
-namespace SistemaPedidoRestaurante.UIEmpleado
+﻿namespace SistemaPedidoRestaurante.UIEmpleado
 {
     partial class FrmMenuEmpleado
     {
@@ -24,6 +24,8 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             this.lblEstado = new System.Windows.Forms.Label();
             this.pnlEncabezado.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.reservasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cerrarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SuspendLayout();
             // pnlEncabezado
             this.pnlEncabezado.BackColor = System.Drawing.Color.MidnightBlue;
@@ -42,6 +44,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             this.menuStrip1.BackColor = System.Drawing.Color.LightSteelBlue;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 this.operacionesToolStripMenuItem,
+                this.cerrarSesionToolStripMenuItem,
                 this.salirToolStripMenuItem });
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.TabIndex = 0;
@@ -52,17 +55,17 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             this.operacionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 this.pedidosToolStripMenuItem,
                 this.pagosToolStripMenuItem,
-                this.facturasToolStripMenuItem });
+                this.facturasToolStripMenuItem, this.reservasToolStripMenuItem });
             this.pedidosToolStripMenuItem.Name = "pedidosToolStripMenuItem";
-            this.pedidosToolStripMenuItem.Text = "Pedidos en el local (en preparación)";
+            this.pedidosToolStripMenuItem.Text = "Pedidos";
             this.pedidosToolStripMenuItem.Click += new System.EventHandler(this.pedidosToolStripMenuItem_Click);
             // pagosToolStripMenuItem
             this.pagosToolStripMenuItem.Name = "pagosToolStripMenuItem";
-            this.pagosToolStripMenuItem.Text = "Cobros (en preparación)";
+            this.pagosToolStripMenuItem.Text = "Cobros";
             this.pagosToolStripMenuItem.Click += new System.EventHandler(this.pagosToolStripMenuItem_Click);
             // facturasToolStripMenuItem
             this.facturasToolStripMenuItem.Name = "facturasToolStripMenuItem";
-            this.facturasToolStripMenuItem.Text = "Facturas (en preparación)";
+            this.facturasToolStripMenuItem.Text = "Facturas";
             this.facturasToolStripMenuItem.Click += new System.EventHandler(this.facturasToolStripMenuItem_Click);
             // salirToolStripMenuItem
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
@@ -73,9 +76,17 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             this.lblEstado.Font = new System.Drawing.Font("Arial", 11F);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Padding = new System.Windows.Forms.Padding(24);
-            this.lblEstado.Text = "Seleccione una pantalla desde Operaciones.\r\n\r\nEl registro de pedidos, cobros y facturas está en preparación.";
+            this.lblEstado.Text = "Consulte pedidos, avance su preparacion y registre cobros desde Operaciones.";
             this.lblEstado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // FrmMenuEmpleado
+            // reservasToolStripMenuItem
+            this.reservasToolStripMenuItem.Name = "reservasToolStripMenuItem";
+            this.reservasToolStripMenuItem.Text = "Reservas";
+            this.reservasToolStripMenuItem.Click += new System.EventHandler(this.reservas_Click);
+            // cerrarSesionToolStripMenuItem
+            this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
+            this.cerrarSesionToolStripMenuItem.Text = "Cerrar sesión";
+            this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem_Click);
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
@@ -105,5 +116,8 @@ namespace SistemaPedidoRestaurante.UIEmpleado
         private System.Windows.Forms.ToolStripMenuItem facturasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.Label lblEstado;
+
+        private System.Windows.Forms.ToolStripMenuItem reservasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cerrarSesionToolStripMenuItem;
     }
 }

@@ -74,18 +74,26 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductoInventario)).BeginInit();
             this.grpAgregarProducto.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.movimientos = new System.Windows.Forms.ToolStripMenuItem();
+            this.entradaSalida = new System.Windows.Forms.ToolStripMenuItem();
+            this.historial = new System.Windows.Forms.ToolStripMenuItem();
+            this.bajos = new System.Windows.Forms.ToolStripMenuItem();
+            this.actualizar = new System.Windows.Forms.ToolStripMenuItem();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.agregarToolStripMenuItem,
-            this.eliminarToolStripMenuItem,
-            this.desactivarToolStripMenuItem,
-            this.editarToolStripMenuItem,
-            this.volverToolStripMenuItem,
-            this.ayudaToolStripMenuItem});
+                this.agregarToolStripMenuItem,
+                this.eliminarToolStripMenuItem,
+                this.desactivarToolStripMenuItem,
+                this.editarToolStripMenuItem,
+                this.volverToolStripMenuItem,
+                this.ayudaToolStripMenuItem,
+                this.bajos,
+                this.movimientos,
+                this.actualizar });
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1025, 28);
@@ -492,6 +500,27 @@
             // 
             // FrmInventario
             // 
+            // movimientos
+            this.movimientos.Name = "movimientos";
+            this.movimientos.Text = "Movimientos";
+            // entradaSalida
+            this.entradaSalida.Name = "entradaSalida";
+            this.entradaSalida.Text = "Entrada o salida";
+            this.entradaSalida.Click += new System.EventHandler(this.entradaSalida_Click);
+            // historial
+            this.historial.Name = "historial";
+            this.historial.Text = "Historial";
+            this.historial.Click += new System.EventHandler(this.historial_Click);
+            // bajos
+            this.bajos.Name = "bajos";
+            this.bajos.Text = "Solo existencias bajas";
+            this.bajos.CheckOnClick = true;
+            this.bajos.CheckedChanged += new System.EventHandler(this.bajos_CheckedChanged);
+            // actualizar
+            this.actualizar.Name = "actualizar";
+            this.actualizar.Text = "Recargar";
+            this.actualizar.Click += new System.EventHandler(this.actualizar_Click);
+            this.movimientos.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.entradaSalida, this.historial });
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
@@ -516,6 +545,10 @@
             this.grpAgregarProducto.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.agregarToolStripMenuItem.Click += new System.EventHandler(this.agregarToolStripMenuItem_Click);
+            this.editarToolStripMenuItem.Click += new System.EventHandler(this.editarToolStripMenuItem_Click);
+            this.volverToolStripMenuItem.Click += new System.EventHandler(this.volverToolStripMenuItem_Click);
+            this.ayudaToolStripMenuItem.Click += new System.EventHandler(this.ayudaToolStripMenuItem_Click);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -562,5 +595,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColStockActual;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColSrockMinimo;
         private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
+
+        private System.Windows.Forms.ToolStripMenuItem movimientos;
+        private System.Windows.Forms.ToolStripMenuItem entradaSalida;
+        private System.Windows.Forms.ToolStripMenuItem historial;
+        private System.Windows.Forms.ToolStripMenuItem bajos;
+        private System.Windows.Forms.ToolStripMenuItem actualizar;
     }
 }

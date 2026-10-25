@@ -350,6 +350,10 @@
             this.chkActiva.Location = new System.Drawing.Point(138, 181);
             this.chkActiva.Size = new System.Drawing.Size(120, 22);
             this.groupBox1.Controls.Add(this.chkActiva);
+            this.agregarToolStripMenuItem.Click += new System.EventHandler(this.agregarToolStripMenuItem_Click);
+            this.editarToolStripMenuItem.Click += new System.EventHandler(this.editarToolStripMenuItem_Click);
+            this.volverToolStripMenuItem1.Click += new System.EventHandler(this.volverToolStripMenuItem1_Click);
+            this.ayudaToolStripMenuItem.Click += new System.EventHandler(this.ayudaToolStripMenuItem_Click);
             this.ResumeLayout(false);
             this.PerformLayout();
 

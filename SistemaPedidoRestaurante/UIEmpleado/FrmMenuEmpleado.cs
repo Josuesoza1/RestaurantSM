@@ -15,7 +15,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
 
         private void pedidosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var formulario = new FrmPedido()) formulario.ShowDialog(this);
+            using (var formulario = new FrmBandejaOperaciones("Pedidos")) formulario.ShowDialog(this);
         }
 
         private void pagosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -28,6 +28,11 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             using (var formulario = new FrmFacturas()) formulario.ShowDialog(this);
         }
 
+        private void reservas_Click(object sender, EventArgs e)
+        {
+            using (FrmBandejaOperaciones formulario = new FrmBandejaOperaciones("Reservas")) formulario.ShowDialog(this);
+        }
+
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Abort;
@@ -37,6 +42,10 @@ namespace SistemaPedidoRestaurante.UIEmpleado
         private void FrmMenuEmpleado_FormClosed(object sender, FormClosedEventArgs e)
         {
             SesionActual.Cerrar();
+        }
+        private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

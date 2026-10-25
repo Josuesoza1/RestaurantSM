@@ -175,6 +175,13 @@
             this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.btnRegistrarPago.Click += new System.EventHandler(this.btnRegistrarPago_Click);
+            this.btnVolverPagos.Click += new System.EventHandler(this.btnVolver_Click);
+            this.txtMontoTotal.ReadOnly = true;
+            this.txtNotas.MaxLength = 200;
+            this.cmbTipoPedido.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTipoPedido.Items.AddRange(new object[] { "Efectivo", "Tarjeta", "Transferencia" });
+            this.cmbTipoPedido.SelectedIndex = 0;
             this.ResumeLayout(false);
             this.PerformLayout();
 

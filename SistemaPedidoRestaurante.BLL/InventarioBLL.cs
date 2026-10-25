@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using SistemaPedidoRestaurante.DAL;
 using SistemaPedidoRestaurante.Entities;
@@ -10,17 +10,17 @@ namespace SistemaPedidoRestaurante.BLL
     public class InventarioBLL
     {
         private readonly InventarioDAL inventarioDAL = new InventarioDAL();
-        public void Eliminar(int idProducto, byte[] version)
+        public void Eliminar(int idProducto, int revision)
         {
             Permisos.ExigirRol(1);
-            if (idProducto <= 0 || version == null || version.Length != 8)
+            if (idProducto <= 0 || revision <= 0)
             {
                 throw new ArgumentException("Seleccione un registro de inventario actualizado.");
             }
 
             try
             {
-                inventarioDAL.Eliminar(idProducto, version, SesionActual.IdUsuario);
+                inventarioDAL.Eliminar(idProducto, revision, SesionActual.IdUsuario);
             }
             catch (SqlException error)
             {
@@ -70,7 +70,7 @@ namespace SistemaPedidoRestaurante.BLL
                 BusquedaLINQ.Contiene(producto.Activo.ToString(), filtro);
         }
 
-        public void Guardar(int producto, int stock, int minimo, bool activo, byte[] version)
+        public void Guardar(int producto, int stock, int minimo, bool activo, int revision)
         {
             Guardar(new InventarioProducto
             {
@@ -78,7 +78,7 @@ namespace SistemaPedidoRestaurante.BLL
                 StockActual = stock,
                 StockMinimo = minimo,
                 Activo = activo,
-                Version = version
+                Revision = revision
             });
         }
 

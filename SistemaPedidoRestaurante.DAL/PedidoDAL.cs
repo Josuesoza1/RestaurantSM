@@ -8,6 +8,76 @@ namespace SistemaPedidoRestaurante.DAL
 {
     public class PedidoDAL
     {
+        // Cabecera, productos y total pertenecen a una sola transaccion.
+        public int Guardar(int actor, int cliente, int idPedido, Guid solicitud, IEnumerable<LineaPedidoBorrador> lineas)
+        {
+            List<LineaPedidoBorrador> detalle = new List<LineaPedidoBorrador>(lineas);
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+                conexion.Open();
+                // Serializable evita que dos operaciones cambien las mismas existencias a la vez.
+                using (SqlTransaction transaccion = conexion.BeginTransaction(IsolationLevel.Serializable))
+                {
+                    try
+                    {
+                        bool reintento;
+                        using (SqlCommand comando = new SqlCommand("sp_Pedido_Iniciar", conexion, transaccion))
+                        {
+                            comando.CommandType = CommandType.StoredProcedure;
+                            comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
+                            comando.Parameters.Add("@IdCliente", SqlDbType.Int).Value = cliente == 0 ? (object)DBNull.Value : cliente;
+                            comando.Parameters.Add("@IdPedido", SqlDbType.Int).Value = idPedido;
+                            comando.Parameters.Add("@Solicitud", SqlDbType.UniqueIdentifier).Value = solicitud;
+                            comando.Parameters.Add("@NumeroLineas", SqlDbType.Int).Value = detalle.Count;
+                            using (SqlDataReader lector = comando.ExecuteReader())
+                            {
+                                if (!lector.Read()) throw new InvalidOperationException("No se pudo iniciar el pedido.");
+                                idPedido = Convert.ToInt32(lector["IdPedido"]);
+                                reintento = Convert.ToBoolean(lector["Reintento"]);
+                            }
+                        }
+
+                        // Cada producto viaja como parametros normales, sin XML.
+                        foreach (LineaPedidoBorrador linea in detalle)
+                        {
+                            using (SqlCommand comando = new SqlCommand("sp_Pedido_AgregarLinea", conexion, transaccion))
+                            {
+                                comando.CommandType = CommandType.StoredProcedure;
+                                comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
+                                comando.Parameters.Add("@IdPedido", SqlDbType.Int).Value = idPedido;
+                                comando.Parameters.Add("@IdProducto", SqlDbType.Int).Value = linea.IdProducto;
+                                comando.Parameters.Add("@Cantidad", SqlDbType.Int).Value = linea.Cantidad;
+                                SqlParameter precio = comando.Parameters.Add("@Precio", SqlDbType.Decimal);
+                                precio.Precision = 10;
+                                precio.Scale = 2;
+                                precio.Value = linea.PrecioUnitario;
+                                comando.Parameters.Add("@Reintento", SqlDbType.Bit).Value = reintento;
+                                comando.ExecuteNonQuery();
+                            }
+                        }
+
+                        using (SqlCommand comando = new SqlCommand("sp_Pedido_Finalizar", conexion, transaccion))
+                        {
+                            comando.CommandType = CommandType.StoredProcedure;
+                            comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
+                            comando.Parameters.Add("@IdPedido", SqlDbType.Int).Value = idPedido;
+                            comando.Parameters.Add("@NumeroLineas", SqlDbType.Int).Value = detalle.Count;
+                            comando.Parameters.Add("@Reintento", SqlDbType.Bit).Value = reintento;
+                            comando.ExecuteNonQuery();
+                        }
+                        transaccion.Commit();
+                        return idPedido;
+                    }
+                    catch
+                    {
+                        // Un error de SQL puede haber revertido la transaccion previamente.
+                        if (transaccion.Connection != null) transaccion.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
         public List<Pedido> ListarAbiertos()
         {
             List<Pedido> lista = new List<Pedido>();

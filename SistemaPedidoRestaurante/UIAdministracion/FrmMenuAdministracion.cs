@@ -19,24 +19,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         public FrmMenuAdministracion()
         {
             InitializeComponent();
-            var gestiones = new ToolStripMenuItem("Más opciones") { Name = "masGestionesToolStripMenuItem" };
-            gestiones.DropDownItems.Add(CrearGestion("clientesToolStripMenuItem", "Clientes", () => new FrmClientes()));
-            gestiones.DropDownItems.Add(CrearGestion("usuariosToolStripMenuItem", "Usuarios", () => new FrmUsuarios()));
-            gestiones.DropDownItems.Add(CrearGestion("mesasToolStripMenuItem", "Mesas", () => new FrmMesas()));
-            gestiones.DropDownItems.Add(CrearGestion("inventarioToolStripMenuItem", "Inventario", () => new FrmInventario()));
-            menuStrip1.Items.Insert(menuStrip1.Items.Count - 1, gestiones);
-            var operaciones = new ToolStripMenuItem("Operaciones") { Name = "operacionesToolStripMenuItem" };
-            operaciones.DropDownItems.Add(PantallaPendiente.Opcion(this, "pedidosToolStripMenuItem", "Pedidos en el local", () => new FrmPedido()));
-            operaciones.DropDownItems.Add(PantallaPendiente.Opcion(this, "pagosToolStripMenuItem", "Cobros", () => new FrmPago()));
-            operaciones.DropDownItems.Add(PantallaPendiente.Opcion(this, "facturasToolStripMenuItem", "Facturas", () => new FrmFacturas()));
-            gestiones.DropDownItems.Add(new ToolStripSeparator());
-            gestiones.DropDownItems.Add(operaciones);
             MenuSesion.Configurar(this, menuStrip1, 1);
-        }
-        private ToolStripMenuItem CrearGestion(string nombre,string texto,Func<Form> crear)
-        {
-            var opcion=new ToolStripMenuItem(texto){Name=nombre};
-            opcion.Click+=(s,e)=>{using(var f=crear())f.ShowDialog(this);};return opcion;
         }
         private void categoríasToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -68,6 +51,82 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private void FrmMenuAdministracion_FormClosed(object sender, FormClosedEventArgs e)
         {
             SesionActual.Cerrar();
+        }
+        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (Form formulario = new FrmClientes())
+            {
+                formulario.ShowDialog(this);
+            }
+        }
+
+        private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (Form formulario = new FrmUsuarios())
+            {
+                formulario.ShowDialog(this);
+            }
+        }
+
+        private void mesasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (Form formulario = new FrmMesas())
+            {
+                formulario.ShowDialog(this);
+            }
+        }
+
+        private void inventarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (Form formulario = new FrmInventario())
+            {
+                formulario.ShowDialog(this);
+            }
+        }
+
+        private void configuracionRestauranteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (Form formulario = new FrmConfiguracionRestaurante())
+            {
+                formulario.ShowDialog(this);
+            }
+        }
+
+        private void reservasPersonalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (Form formulario = new FrmBandejaOperaciones("Reservas"))
+            {
+                formulario.ShowDialog(this);
+            }
+        }
+
+        private void pedidosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (Form formulario = new FrmBandejaOperaciones("Pedidos"))
+            {
+                formulario.ShowDialog(this);
+            }
+        }
+
+        private void pagosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (Form formulario = new FrmPago())
+            {
+                formulario.ShowDialog(this);
+            }
+        }
+
+        private void facturasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (Form formulario = new FrmFacturas())
+            {
+                formulario.ShowDialog(this);
+            }
+        }
+
+        private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

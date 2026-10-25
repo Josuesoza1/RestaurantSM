@@ -14,6 +14,10 @@
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.documentos = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.comprobante = new System.Windows.Forms.ToolStripMenuItem();
+            this.factura = new System.Windows.Forms.ToolStripMenuItem();
             this.raiz = new System.Windows.Forms.TableLayoutPanel();
             this.titulo = new System.Windows.Forms.Label();
             this.pnlBusqueda = new System.Windows.Forms.Panel();
@@ -31,6 +35,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvPedidos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).BeginInit();
             this.acciones.SuspendLayout();
+            this.documentos.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.comprobante, this.factura });
+            this.documentos.Name = "documentos";
+            this.comprobante.Name = "comprobante";
+            this.comprobante.Text = "Guardar comprobante del pedido PDF";
+            this.comprobante.Click += new System.EventHandler(this.comprobante_Click);
+            this.factura.Name = "factura";
+            this.factura.Text = "Guardar factura pagada PDF";
+            this.factura.Click += new System.EventHandler(this.factura_Click);
+            this.dgvPedidos.ContextMenuStrip = this.documentos;
+            this.dgvPedidos.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvPedidos_MouseDown);
             this.SuspendLayout();
             // 
             // raiz
@@ -212,5 +226,8 @@
         private System.Windows.Forms.Label lblBuscar;
         private System.Windows.Forms.TableLayoutPanel raiz;
         private System.Windows.Forms.Label titulo;
+        private System.Windows.Forms.ContextMenuStrip documentos;
+        private System.Windows.Forms.ToolStripMenuItem comprobante;
+        private System.Windows.Forms.ToolStripMenuItem factura;
     }
 }

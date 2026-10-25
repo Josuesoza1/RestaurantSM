@@ -39,6 +39,8 @@
             this.grpAdmin.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.pnlEncabezado.SuspendLayout();
+            this.misDatosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cerrarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SuspendLayout();
             // 
             // grpAdmin
@@ -59,10 +61,12 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.hacerPedidoToolStripMenuItem,
-            this.reservarMesaToolStripMenuItem,
-            this.verComprasToolStripMenuItem,
-            this.salirToolStripMenuItem});
+                this.hacerPedidoToolStripMenuItem,
+                this.reservarMesaToolStripMenuItem,
+                this.verComprasToolStripMenuItem,
+                this.misDatosToolStripMenuItem,
+                this.cerrarSesionToolStripMenuItem,
+                this.salirToolStripMenuItem });
             this.menuStrip1.Location = new System.Drawing.Point(4, 19);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
@@ -74,25 +78,33 @@
             // 
             this.hacerPedidoToolStripMenuItem.Name = "hacerPedidoToolStripMenuItem";
             this.hacerPedidoToolStripMenuItem.Size = new System.Drawing.Size(112, 24);
-            this.hacerPedidoToolStripMenuItem.Text = "Hacer Pedido";
+            this.hacerPedidoToolStripMenuItem.Text = "Mi pedido";
+            this.hacerPedidoToolStripMenuItem.Click += new System.EventHandler(this.hacerPedidoToolStripMenuItem_Click);
+            this.hacerPedidoToolStripMenuItem.ToolTipText = "Elegir productos y enviar mi pedido.";
             // 
             // reservarMesaToolStripMenuItem
             // 
             this.reservarMesaToolStripMenuItem.Name = "reservarMesaToolStripMenuItem";
             this.reservarMesaToolStripMenuItem.Size = new System.Drawing.Size(118, 24);
             this.reservarMesaToolStripMenuItem.Text = "Reservar Mesa";
+            this.reservarMesaToolStripMenuItem.Click += new System.EventHandler(this.reservarMesaToolStripMenuItem_Click);
+            this.reservarMesaToolStripMenuItem.ToolTipText = "Crear, consultar, editar y cancelar mis reservas.";
             // 
             // verComprasToolStripMenuItem
             // 
             this.verComprasToolStripMenuItem.Name = "verComprasToolStripMenuItem";
             this.verComprasToolStripMenuItem.Size = new System.Drawing.Size(104, 24);
-            this.verComprasToolStripMenuItem.Text = "Ver Historial";
+            this.verComprasToolStripMenuItem.Text = "Mis pedidos";
+            this.verComprasToolStripMenuItem.Click += new System.EventHandler(this.verComprasToolStripMenuItem_Click);
+            this.verComprasToolStripMenuItem.ToolTipText = "Consultar, editar y cancelar mis pedidos pendientes.";
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             this.salirToolStripMenuItem.Size = new System.Drawing.Size(52, 24);
             this.salirToolStripMenuItem.Text = "Salir";
+            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            this.salirToolStripMenuItem.ToolTipText = "Salir del programa.";
             // 
             // pnlEncabezado
             // 
@@ -121,6 +133,14 @@
             // 
             // FrmMenuCliente
             // 
+            // misDatosToolStripMenuItem
+            this.misDatosToolStripMenuItem.Name = "misDatosToolStripMenuItem";
+            this.misDatosToolStripMenuItem.Text = "Mis datos";
+            this.misDatosToolStripMenuItem.Click += new System.EventHandler(this.misDatosToolStripMenuItem_Click);
+            // cerrarSesionToolStripMenuItem
+            this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
+            this.cerrarSesionToolStripMenuItem.Text = "Cerrar sesión";
+            this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem_Click);
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
@@ -151,5 +171,8 @@
         private System.Windows.Forms.ToolStripMenuItem reservarMesaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem verComprasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
+
+        private System.Windows.Forms.ToolStripMenuItem misDatosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cerrarSesionToolStripMenuItem;
     }
 }
