@@ -3,7 +3,7 @@ using SistemaPedidoRestaurante.Validaciones;
 
 namespace SistemaPedidoRestaurante.UIPrincipal
 {
-    // Facilita la escritura; la BLL siempre vuelve a validar el contenido completo.
+
     internal static class ValidacionEntradaUI
     {
         internal static void Nombres(params TextBox[] campos)

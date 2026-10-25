@@ -86,7 +86,7 @@ namespace SistemaPedidoRestaurante.DAL
             }
         }
 
-        // Comparte la ejecución y el manejo de errores sin recibir funciones ni lambdas.
+
         private void EjecutarEscritura(SqlCommand comando, string mensajeDuplicado)
         {
             try

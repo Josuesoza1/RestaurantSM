@@ -6,7 +6,6 @@ using System.Windows.Forms;
 
 namespace SistemaPedidoRestaurante.UIPrincipal
 {
-    // Reubica las mismas opciones: conserva sus eventos y permisos al cambiar el ancho.
     internal sealed class MenuAdaptable
     {
         private readonly Form formulario;

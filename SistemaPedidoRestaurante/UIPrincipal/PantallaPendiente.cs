@@ -6,7 +6,6 @@ using SistemaPedidoRestaurante.BLL;
 
 namespace SistemaPedidoRestaurante.UIPrincipal
 {
-    // Permite revisar el diseño sin ofrecer acciones todavía no implementadas.
     internal static class PantallaPendiente
     {
         public static void Configurar(Form formulario, params int[] roles)

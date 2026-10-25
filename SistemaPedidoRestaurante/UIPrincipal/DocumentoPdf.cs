@@ -11,7 +11,7 @@ namespace SistemaPedidoRestaurante.UIPrincipal
 {
     public static class DocumentoPdf
     {
-        // La sintaxis fluida de QuestPDF queda aislada del CRUD y sus eventos.
+
         public static void GuardarConDialogo(Form propietario, DocumentoVenta documento)
         {
             using (SaveFileDialog elegir = new SaveFileDialog())
@@ -33,14 +33,14 @@ namespace SistemaPedidoRestaurante.UIPrincipal
                 throw new ArgumentException("El documento no contiene productos.");
             if (string.IsNullOrWhiteSpace(archivo))
                 throw new ArgumentException("Seleccione un archivo PDF.");
-            // Uso educativo: licencia Community conforme a la licencia de QuestPDF.
+
             QuestPDF.Settings.License = LicenseType.Community;
             string destino = Path.GetFullPath(archivo);
             string temporal = Path.Combine(Path.GetDirectoryName(destino), "." + Guid.NewGuid().ToString("N") + ".pdf");
             try
             {
                 Crear(documento).GeneratePdf(temporal);
-                // Solo reemplaza el archivo elegido cuando el PDF ya esta completo.
+
                 if (File.Exists(destino))
                     File.Replace(temporal, destino, null);
                 else
