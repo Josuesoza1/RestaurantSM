@@ -42,6 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClienteValidacion.cs" />
+    <Compile Include="PagoValidacion.cs" />
+    <Compile Include="PedidoValidacion.cs" />
+    <Compile Include="ConfiguracionValidacion.cs" />
     <Compile Include="CatalogoValidacion.cs" />
     <Compile Include="EmpleadoValidacion.cs" />
     <Compile Include="GestionValidacion.cs" />

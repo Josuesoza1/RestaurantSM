@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using SistemaPedidoRestaurante.DAL;
 using SistemaPedidoRestaurante.Entities;
 using SistemaPedidoRestaurante.Validaciones;
-using System.Data.SqlClient;
 
 namespace SistemaPedidoRestaurante.BLL
 {
@@ -98,6 +99,33 @@ namespace SistemaPedidoRestaurante.BLL
             catch (SqlException error)
             {
                 throw OperacionDatos.Traducir(error, "Ya existe un registro con ese código, nombre o dato único.");
+            }
+        }
+
+        public DataTable ListarMovimientos()
+        {
+            Permisos.ExigirRol(1);
+            try
+            {
+                return inventarioDAL.ListarMovimientos(SesionActual.IdUsuario);
+            }
+            catch (SqlException error)
+            {
+                throw OperacionDatos.Traducir(error, "No se pudo consultar el listado.");
+            }
+        }
+
+        public void AjustarInventario(InventarioProducto producto, int cantidad, string tipo, string motivo)
+        {
+            Permisos.ExigirRol(1);
+            motivo = GestionValidacion.MovimientoInventario(producto, cantidad, tipo, motivo);
+            try
+            {
+                inventarioDAL.AjustarInventario(SesionActual.IdUsuario, producto.IdProducto, cantidad, tipo, motivo, producto.Revision);
+            }
+            catch (SqlException error)
+            {
+                throw OperacionDatos.Traducir(error, "No se pudo ajustar el inventario.");
             }
         }
     }

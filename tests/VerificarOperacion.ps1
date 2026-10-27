@@ -1,6 +1,9 @@
-param([string]$Repositorio=(Split-Path $PSScriptRoot -Parent))
+﻿param([string]$Repositorio=(Split-Path $PSScriptRoot -Parent))
 $ErrorActionPreference='Stop'
 $repo=[IO.Path]::GetFullPath($Repositorio)
+foreach($archivo in @('sql\INSTALAR_NUEVA.sql','sql\ACTUALIZAR_TODO_RESTAURANTSM.sql','tests\VerificarOperacion.cs')) {
+ if(-not(Test-Path -LiteralPath (Join-Path $repo $archivo))){throw "Falta $archivo. Si falta un SQL completo, prepare los instaladores con sql\PrepararScripts.ps1 antes de probar."}
+}
 $qa=Join-Path $env:TEMP ('RestaurantSM-Operacion-Pruebas-'+[guid]::NewGuid().ToString('N'))
 [void](New-Item -ItemType Directory -Path $qa)
 $configuracion=Join-Path $repo 'SistemaPedidoRestaurante\bin\Debug\SistemaPedidoRestaurante.exe.config'

@@ -11,7 +11,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
     {
 
         private DataTable clientes;
-        private OperacionRestauranteBLL servicio = new OperacionRestauranteBLL();
+        private ClienteBLL servicio = new ClienteBLL();
         public DataRow Cliente { get; private set; }
 
         public FrmSeleccionCliente()
@@ -39,7 +39,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
         {
             if (clientes != null)
             {
-                listado.DataSource = servicio.Buscar(clientes, buscar.Text);
+                listado.DataSource = BusquedaLINQ.Filtrar(clientes, buscar.Text);
                 listado.ClearSelection();
             }
         }

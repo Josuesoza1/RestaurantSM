@@ -1,7 +1,6 @@
-using System;
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using SistemaPedidoRestaurante.DAL;
 using SistemaPedidoRestaurante.Entities;
 
 namespace SistemaPedidoRestaurante.DAL
@@ -129,6 +128,24 @@ namespace SistemaPedidoRestaurante.DAL
                     command.Parameters.AddWithValue("@Cedula", cliente.Cedula);
                     connection.Open();
                     command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public DataTable ListarClientes(int actor)
+        {
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+                using (SqlCommand comando = new SqlCommand("sp_Operacion_Clientes", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                    {
+                        DataTable tabla = new DataTable();
+                        adaptador.Fill(tabla);
+                        return tabla;
+                    }
                 }
             }
         }

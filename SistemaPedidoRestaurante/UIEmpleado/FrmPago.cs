@@ -9,7 +9,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
 {
     public partial class FrmPago : Form
     {
-        private readonly OperacionRestauranteBLL servicio = new OperacionRestauranteBLL();
+        private readonly PagoBLL servicio = new PagoBLL();
         private readonly Guid solicitud = Guid.NewGuid();
         private int pedido;
         private decimal total;
@@ -37,7 +37,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
 
             try
             {
-                servicio.VerificarInstalacion();
+                new ConfiguracionRestauranteBLL().VerificarInstalacion();
                 if (pedido == 0)
                 {
                     using (FrmBandejaOperaciones elegir = new FrmBandejaOperaciones("Pedidos", true, "Entregado"))

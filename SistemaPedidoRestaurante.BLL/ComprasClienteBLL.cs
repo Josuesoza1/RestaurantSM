@@ -32,10 +32,7 @@ namespace SistemaPedidoRestaurante.BLL
         public int Guardar(PedidoBorrador pedido, Guid solicitud, int id = 0)
         {
             Permisos.ExigirRol(3);
-            if (pedido == null || pedido.Lineas.Count == 0 || pedido.Lineas.Count > 200 || solicitud == Guid.Empty)
-            {
-                throw new ArgumentException("Agregue entre 1 y 200 productos diferentes antes de guardar.");
-            }
+            PedidoValidacion.Contenido(pedido == null ? null : pedido.Lineas, solicitud);
 
             try
             {

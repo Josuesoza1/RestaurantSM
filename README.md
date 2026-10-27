@@ -2,6 +2,8 @@
 
 Sistema académico de restaurante en C# Windows Forms, .NET Framework 4.8 y SQL Server. La solución separa interfaz (UI), reglas de negocio (BLL), acceso a datos (DAL), entidades y validaciones. Las consultas y escrituras de las operaciones usan procedimientos almacenados; las búsquedas de los listados utilizan LINQ en memoria.
 
+La [guía de arquitectura](ARQUITECTURA.md) muestra qué hace cada clase y cómo seguir un evento desde el formulario hasta SQL. Las operaciones se reparten por área; la gestión de clientes y mesas está integrada en sus BLL respectivas.
+
 ## Preparar una computadora
 
 1. Abra `RestaurantSM.slnx` en Visual Studio con las herramientas de escritorio .NET y el paquete de destino .NET Framework 4.8.
@@ -19,6 +21,7 @@ Sistema académico de restaurante en C# Windows Forms, .NET Framework 4.8 y SQL 
 - Inventario obligatorio por producto terminado, control de existencias, entradas/salidas justificadas e historial de movimientos. Un producto sin inventario activo o sin unidades no se ofrece para pedidos.
 - Reservas del cliente y atención por el personal, incluyendo llegada, cancelación, ausencia y limpieza de mesas.
 - Configuración administrativa del nombre del restaurante y del impuesto incluido. La tasa inicial es **0 %** y los precios del menú se mantienen como precios finales.
+- La bandeja habilita las acciones según el estado del registro y muestra el detalle al seleccionar también con el teclado.
 
 Se conservan los archivos de diseño, los modos de gestión y el comportamiento existente al maximizar. Las pantallas auxiliares nuevas tienen sus propios eventos de botones.
 

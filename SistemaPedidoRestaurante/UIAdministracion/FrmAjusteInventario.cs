@@ -9,7 +9,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
     public partial class FrmAjusteInventario : Form
     {
 
-        private readonly OperacionRestauranteBLL servicio = new OperacionRestauranteBLL();
+        private readonly InventarioBLL servicio = new InventarioBLL();
         public FrmAjusteInventario()
         {
             InitializeComponent();
@@ -21,7 +21,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 return;
             try
             {
-                servicio.VerificarInstalacion();
+                new ConfiguracionRestauranteBLL().VerificarInstalacion();
                 InventarioProductos activos = new InventarioProductos();
                 foreach (InventarioProducto producto in new InventarioBLL().Listar())
                     if (producto.Activo)

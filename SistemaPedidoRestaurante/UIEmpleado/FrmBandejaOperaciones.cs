@@ -9,10 +9,16 @@ namespace SistemaPedidoRestaurante.UIEmpleado
 {
     public partial class FrmBandejaOperaciones : Form
     {
-        private readonly OperacionRestauranteBLL servicio = new OperacionRestauranteBLL();
+        private readonly PedidoBLL pedidos = new PedidoBLL();
+        private readonly ReservaBLL reservas = new ReservaBLL();
+        private readonly PagoBLL pagos = new PagoBLL();
+        private readonly FacturaBLL facturas = new FacturaBLL();
+        private readonly InventarioBLL inventario = new InventarioBLL();
+        private readonly MesaBLL mesas = new MesaBLL();
         private readonly string tipo;
         private readonly bool seleccionar;
         private DataTable registros;
+        private bool actualizandoListado;
 
         public int PedidoSeleccionado { get; private set; }
 
@@ -29,6 +35,8 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             titulo.Text = Text.ToUpperInvariant();
             txtBuscar.Text = filtro;
             ConfigurarOpciones();
+            listado.SelectionChanged += listado_SelectionChanged;
+            ActualizarAcciones();
         }
 
         private void ConfigurarOpciones()
@@ -59,7 +67,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
                 return;
             try
             {
-                servicio.VerificarInstalacion();
+                new ConfiguracionRestauranteBLL().VerificarInstalacion();
                 Recargar();
             }
             catch (Exception error)
@@ -71,15 +79,15 @@ namespace SistemaPedidoRestaurante.UIEmpleado
         private void Recargar()
         {
             if (tipo == "Pedidos")
-                registros = servicio.ListarPedidos();
+                registros = pedidos.ListarPedidos();
             else if (tipo == "Reservas")
-                registros = servicio.ListarReservas();
+                registros = reservas.ListarReservas();
             else if (tipo == "Facturas")
-                registros = servicio.ListarFacturas();
+                registros = facturas.ListarFacturas();
             else if (tipo == "Mesas")
-                registros = servicio.ListarMesas();
+                registros = mesas.ListarMesas();
             else
-                registros = servicio.ListarMovimientos();
+                registros = inventario.ListarMovimientos();
             Filtrar();
         }
 
@@ -87,10 +95,19 @@ namespace SistemaPedidoRestaurante.UIEmpleado
         {
             if (registros == null)
                 return;
-            listado.DataSource = servicio.Buscar(registros, txtBuscar.Text);
-            FormatearColumnas(listado);
-            listado.ClearSelection();
-            detalle.DataSource = null;
+            actualizandoListado = true;
+            try
+            {
+                listado.DataSource = BusquedaLINQ.Filtrar(registros, txtBuscar.Text);
+                FormatearColumnas(listado);
+                listado.ClearSelection();
+                detalle.DataSource = null;
+            }
+            finally
+            {
+                actualizandoListado = false;
+                ActualizarAcciones();
+            }
         }
 
         private DataRow Seleccion()
@@ -115,17 +132,45 @@ namespace SistemaPedidoRestaurante.UIEmpleado
 
         private void listado_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || tipo != "Pedidos")
+            ActualizarAcciones();
+        }
+
+        private void listado_SelectionChanged(object sender, EventArgs e)
+        {
+            if (actualizandoListado)
+                return;
+            ActualizarAcciones();
+            if (tipo != "Pedidos" || DesignMode ||
+                System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
                 return;
             try
             {
-                detalle.DataSource = servicio.Detalle(Convert.ToInt32(Seleccion()["IdPedido"]));
-                FormatearColumnas(detalle);
+                DataRow fila = VistaGestion.Fila(listado);
+                detalle.DataSource = fila == null ? null : pedidos.Detalle(Convert.ToInt32(fila["IdPedido"]));
+                if (fila != null)
+                    FormatearColumnas(detalle);
             }
             catch (Exception error)
             {
                 MostrarError(error);
             }
+        }
+
+        private void ActualizarAcciones()
+        {
+            DataRow fila = VistaGestion.Fila(listado);
+            string estado = fila != null && fila.Table.Columns.Contains("Estado") ? Convert.ToString(fila["Estado"]) : "";
+            bool puedeAvanzar = estado == "Pendiente" || estado == "En preparación" || estado == "Listo";
+            bool reservaAbierta = estado == "Pendiente" || estado == "Confirmada";
+            btnSeleccionar.Enabled = fila != null;
+            btnMesa.Enabled = fila != null && puedeAvanzar;
+            btnAvanzar.Enabled = fila != null && puedeAvanzar;
+            btnCobrar.Enabled = fila != null && estado == "Entregado";
+            btnCancelar.Enabled = fila != null && (tipo == "Reservas" ? reservaAbierta : estado == "Pendiente");
+            btnPedidoPdf.Enabled = fila != null;
+            btnFacturaPdf.Enabled = fila != null && (tipo == "Facturas" || estado == "Pagado");
+            btnAtendida.Enabled = btnAusencia.Enabled = fila != null && reservaAbierta;
+            btnLimpiarMesa.Enabled = fila != null && (estado == "Ocupada" || estado == "En limpieza");
         }
 
         private void btnSeleccionar_Click(object sender, EventArgs e)
@@ -164,7 +209,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
                 string estado = Convert.ToString(fila["Estado"]);
                 if (!VistaGestion.Confirmar(this, "¿Avanzar el pedido desde " + estado + " al siguiente estado?"))
                     return;
-                servicio.AvanzarPedido(Convert.ToInt32(fila["IdPedido"]), estado);
+                pedidos.AvanzarPedido(Convert.ToInt32(fila["IdPedido"]), estado);
                 Recargar();
             }
             catch (Exception error)
@@ -178,7 +223,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             try
             {
                 int pedido = Convert.ToInt32(Seleccion()["IdPedido"]);
-                servicio.Cotizar(pedido);
+                pagos.Cotizar(pedido);
                 using (FrmPago formulario = new FrmPago(pedido))
                     formulario.ShowDialog(this);
                 Recargar();
@@ -197,9 +242,9 @@ namespace SistemaPedidoRestaurante.UIEmpleado
                 if (!VistaGestion.Confirmar(this, "¿Confirmar la cancelacion del registro seleccionado?"))
                     return;
                 if (tipo == "Reservas")
-                    servicio.CambiarReserva(Convert.ToInt32(fila["IdReserva"]), Convert.ToString(fila["Estado"]), "Cancelada");
+                    reservas.CambiarReserva(Convert.ToInt32(fila["IdReserva"]), Convert.ToString(fila["Estado"]), "Cancelada");
                 else
-                    servicio.CancelarPedido(Convert.ToInt32(fila["IdPedido"]));
+                    pedidos.CancelarPedido(Convert.ToInt32(fila["IdPedido"]));
                 Recargar();
             }
             catch (Exception error)
@@ -213,7 +258,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             DataRow fila = Seleccion();
             if (!VistaGestion.Confirmar(this, "¿Marcar la reserva como " + estado + "?"))
                 return;
-            servicio.CambiarReserva(Convert.ToInt32(fila["IdReserva"]), Convert.ToString(fila["Estado"]), estado);
+            reservas.CambiarReserva(Convert.ToInt32(fila["IdReserva"]), Convert.ToString(fila["Estado"]), estado);
             Recargar();
         }
 
@@ -256,7 +301,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             try
             {
                 int pedido = Convert.ToInt32(Seleccion()["IdPedido"]);
-                DocumentoPdf.GuardarConDialogo(this, servicio.ObtenerDocumento(pedido, factura));
+                DocumentoPdf.GuardarConDialogo(this, facturas.ObtenerDocumento(pedido, factura));
             }
             catch (Exception error)
             {
@@ -319,7 +364,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
                 string mensaje = anterior == "Ocupada" ? "¿Iniciar la limpieza de esta mesa?" : "¿Confirmar que la mesa ya esta limpia y disponible?";
                 if (!VistaGestion.Confirmar(this, mensaje))
                     return;
-                servicio.CambiarMesa(Convert.ToInt32(fila["IdMesa"]), anterior);
+                mesas.CambiarMesa(Convert.ToInt32(fila["IdMesa"]), anterior);
                 Recargar();
             }
             catch (Exception error)

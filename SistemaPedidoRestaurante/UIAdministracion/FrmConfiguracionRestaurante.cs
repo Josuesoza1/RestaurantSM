@@ -9,7 +9,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
     public partial class FrmConfiguracionRestaurante : Form
     {
 
-        private OperacionRestauranteBLL servicio = new OperacionRestauranteBLL();
+        private ConfiguracionRestauranteBLL servicio = new ConfiguracionRestauranteBLL();
         public FrmConfiguracionRestaurante()
         {
             InitializeComponent();

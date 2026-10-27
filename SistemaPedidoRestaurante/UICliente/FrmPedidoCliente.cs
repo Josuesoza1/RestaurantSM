@@ -60,7 +60,7 @@ namespace SistemaPedidoRestaurante.UICliente
                 Cliente cliente;
                 if (clienteDelLocal > 0)
                 {
-                    System.Data.DataRow[] filas = new OperacionRestauranteBLL().ListarClientes().Select("IdCliente=" + clienteDelLocal);
+                    System.Data.DataRow[] filas = new ClienteBLL().ListarClientes().Select("IdCliente=" + clienteDelLocal);
                     if (filas.Length != 1) throw new ArgumentException("Seleccione un cliente activo.");
                     System.Data.DataRow fila = filas[0];
                     cliente = new Cliente();
@@ -209,7 +209,7 @@ namespace SistemaPedidoRestaurante.UICliente
                 try
                 {
                     int numero;
-                    if (clienteDelLocal > 0) numero = new OperacionRestauranteBLL().GuardarPedido(clienteDelLocal, borrador, solicitud);
+                    if (clienteDelLocal > 0) numero = new PedidoBLL().GuardarPedido(clienteDelLocal, borrador, solicitud);
                     else numero = new ComprasClienteBLL().Guardar(borrador, solicitud, idPedido);
                     MessageBox.Show(this, "Pedido " + numero + " guardado. Puede consultarlo en la lista de pedidos.", "Mi pedido");
                     DialogResult = DialogResult.OK;

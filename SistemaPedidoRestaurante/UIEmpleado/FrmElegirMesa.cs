@@ -9,7 +9,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
     public partial class FrmElegirMesa : Form
     {
 
-        private OperacionRestauranteBLL servicio = new OperacionRestauranteBLL();
+        private MesaBLL servicio = new MesaBLL();
         private readonly int pedido;
         public FrmElegirMesa() : this(0)
         {

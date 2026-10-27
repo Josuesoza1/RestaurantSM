@@ -41,7 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OperacionRestauranteBLL.cs" />
+    <Compile Include="ReservaBLL.cs" />
+    <Compile Include="PagoBLL.cs" />
+    <Compile Include="FacturaBLL.cs" />
+    <Compile Include="ConfiguracionRestauranteBLL.cs" />
     <Compile Include="BusquedaLINQ.cs" />
     <Compile Include="CategoriaBLL.cs" />
     <Compile Include="ClienteBLL.cs" />
@@ -50,8 +53,6 @@
     <Compile Include="PedidoBLL.cs" />
     <Compile Include="PedidoBorrador.cs" />
     <Compile Include="ProductoBLL.cs" />
-    <Compile Include="ClientesGestionBLL.cs" />
-    <Compile Include="MesasGestionBLL.cs" />
     <Compile Include="InventarioBLL.cs" />
     <Compile Include="ComprasClienteBLL.cs" />
     <Compile Include="ReservasClienteBLL.cs" />

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -97,6 +97,50 @@ namespace SistemaPedidoRestaurante.DAL
             }
 
             return lista;
+        }
+
+        public DataTable ListarMesas(int actor)
+        {
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            using (SqlCommand comando = new SqlCommand("sp_Operacion_Mesas", conexion))
+            {
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
+                using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                {
+                    DataTable tabla = new DataTable();
+                    adaptador.Fill(tabla);
+                    return tabla;
+                }
+            }
+        }
+
+        public void CambiarMesa(int actor, int mesa, string anterior)
+        {
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            using (SqlCommand comando = new SqlCommand("sp_Operacion_CambiarMesa", conexion))
+            {
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
+                comando.Parameters.Add("@IdMesa", SqlDbType.Int).Value = mesa;
+                comando.Parameters.Add("@Anterior", SqlDbType.VarChar, 20).Value = anterior;
+                conexion.Open();
+                comando.ExecuteNonQuery();
+            }
+        }
+
+        public void AsignarMesa(int actor, int pedido, int mesa)
+        {
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            using (SqlCommand comando = new SqlCommand("sp_Operacion_AsignarMesa", conexion))
+            {
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
+                comando.Parameters.Add("@IdPedido", SqlDbType.Int).Value = pedido;
+                comando.Parameters.Add("@IdMesa", SqlDbType.Int).Value = mesa;
+                conexion.Open();
+                comando.ExecuteNonQuery();
+            }
         }
     }
 }

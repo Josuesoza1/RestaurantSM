@@ -202,7 +202,7 @@ namespace SistemaPedidoRestaurante.UICliente
             {
                 DataRow fila = VistaGestion.Fila(dgvPedidos);
                 if (fila == null) throw new ArgumentException("Seleccione un pedido.");
-                var documento = new OperacionRestauranteBLL().ObtenerDocumento((int)fila["IdPedido"], factura);
+                var documento = new FacturaBLL().ObtenerDocumento((int)fila["IdPedido"], factura);
                 DocumentoPdf.GuardarConDialogo(this, documento);
             }
             catch (Exception error) { MessageBox.Show(this, error.Message); }

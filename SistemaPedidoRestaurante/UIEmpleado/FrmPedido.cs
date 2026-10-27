@@ -10,7 +10,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
 {
     public partial class FrmPedido : Form
     {
-        private readonly OperacionRestauranteBLL servicio = new OperacionRestauranteBLL();
+        private readonly PedidoBLL servicio = new PedidoBLL();
         private readonly Guid solicitud = Guid.NewGuid();
         private int cliente;
         private bool guardado;
@@ -45,7 +45,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
 
             try
             {
-                servicio.VerificarInstalacion();
+                new ConfiguracionRestauranteBLL().VerificarInstalacion();
                 Productos productos = new ProductoBLL().ObtenerDisponiblesParaPedido();
                 cmbPlato.DisplayMember = cmbBebida.DisplayMember = "Nombre";
                 cmbPlato.DataSource = productos;

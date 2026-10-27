@@ -42,7 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OperacionRestauranteDAL.cs" />
+    <Compile Include="ReservaDAL.cs" />
+    <Compile Include="PagoDAL.cs" />
+    <Compile Include="FacturaDAL.cs" />
+    <Compile Include="ConfiguracionRestauranteDAL.cs" />
     <Compile Include="CategoriaDAL.cs" />
     <Compile Include="ClienteDAL.cs" />
     <Compile Include="ConexionBD.cs" />

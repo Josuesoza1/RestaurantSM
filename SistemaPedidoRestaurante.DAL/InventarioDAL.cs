@@ -89,5 +89,43 @@ namespace SistemaPedidoRestaurante.DAL
                 }
             }
         }
+
+        public DataTable ListarMovimientos(int actor)
+        {
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+                using (SqlCommand comando = new SqlCommand("sp_Inventario_Movimientos", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                    {
+                        DataTable tabla = new DataTable();
+                        adaptador.Fill(tabla);
+                        return tabla;
+                    }
+                }
+            }
+        }
+
+        public void AjustarInventario(int actor, int producto, int cantidad, string tipo, string motivo, int revision)
+        {
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+                using (SqlCommand comando = new SqlCommand("sp_Inventario_Ajustar", conexion))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
+                    comando.Parameters.Add("@IdProducto", SqlDbType.Int).Value = producto;
+                    comando.Parameters.Add("@Cantidad", SqlDbType.Int).Value = cantidad;
+                    comando.Parameters.Add("@Tipo", SqlDbType.VarChar, 20).Value = tipo;
+                    comando.Parameters.Add("@Motivo", SqlDbType.NVarChar, 200).Value = motivo;
+                    comando.Parameters.Add("@Revision", SqlDbType.Int).Value = revision;
+                    conexion.Open();
+
+                    comando.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

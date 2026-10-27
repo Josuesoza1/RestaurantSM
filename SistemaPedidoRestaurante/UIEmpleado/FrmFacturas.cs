@@ -9,7 +9,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
 {
     public partial class FrmFacturas : Form
     {
-        private readonly OperacionRestauranteBLL servicio = new OperacionRestauranteBLL();
+        private readonly FacturaBLL servicio = new FacturaBLL();
         private DocumentoVenta documento;
         private readonly int pedidoInicial;
         public FrmFacturas() : this(0)
@@ -24,6 +24,8 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             txtNumeroFactura.ReadOnly = txtSubtotalFactura.ReadOnly = txtTotalFactura.ReadOnly = true;
             txtImpuestoFactura.ReadOnly = txtDescuentoFactura.ReadOnly = txtMetodoPago.ReadOnly = true;
             cmbTipoPedido.Enabled = dtpFechaFactura.Enabled = false;
+            dtpFechaFactura.Format = DateTimePickerFormat.Custom;
+            dtpFechaFactura.CustomFormat = "dd/MM/yy";
             VistaGestion.Listado(dataGridView1);
             dataGridView1.Columns[0].DataPropertyName = "Producto";
             dataGridView1.Columns[1].DataPropertyName = "Cantidad";
@@ -44,7 +46,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
 
             try
             {
-                servicio.VerificarInstalacion();
+                new ConfiguracionRestauranteBLL().VerificarInstalacion();
                 if (pedidoInicial > 0)
                     CargarDocumento(pedidoInicial);
             }

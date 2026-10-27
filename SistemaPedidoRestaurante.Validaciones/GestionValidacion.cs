@@ -66,5 +66,14 @@ namespace SistemaPedidoRestaurante.Validaciones
                 throw new ArgumentException("Seleccione una mesa, fecha futura y de 1 a 20 personas.");
             }
         }
+
+        public static string MovimientoInventario(InventarioProducto producto, int cantidad, string tipo, string motivo)
+        {
+            if (producto == null || producto.IdProducto <= 0 || producto.Revision <= 0)
+                throw new ArgumentException("Seleccione un producto de inventario actualizado.");
+            if (cantidad <= 0 || (tipo != "Entrada" && tipo != "Salida"))
+                throw new ArgumentException("Seleccione entrada o salida y una cantidad positiva.");
+            return CamposValidacion.Texto(motivo, 200, "motivo", true);
+        }
     }
 }

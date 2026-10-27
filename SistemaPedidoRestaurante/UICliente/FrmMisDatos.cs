@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.Entities;
@@ -28,7 +28,7 @@ namespace SistemaPedidoRestaurante.UICliente
         {
             try
             {
-                new ClientesGestionBLL().Guardar(new Cliente
+                new ClienteBLL().ActualizarMiPerfil(new Cliente
                 {
                     PrimerNombre = txtNombre.Text,
                     SegundoNombre = txtSegundoNombre.Text,
@@ -38,7 +38,7 @@ namespace SistemaPedidoRestaurante.UICliente
                     Telefono = txtTelefono.Text,
                     Email = txtEmail.Text,
                     Genero = cmbGenero.SelectedItem as string
-                }, true, true);
+                });
                 MessageBox.Show(this, "Datos actualizados.", "Mis datos");
             }
             catch (Exception error)

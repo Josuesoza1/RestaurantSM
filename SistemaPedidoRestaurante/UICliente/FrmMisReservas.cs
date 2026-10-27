@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.UIPrincipal;
@@ -21,7 +21,7 @@ namespace SistemaPedidoRestaurante.UICliente
 
         private void Recargar()
         {
-            cmbMesa.DataSource = new MesasGestionBLL().Listar(true);
+            cmbMesa.DataSource = new MesaBLL().ListarParaReservar();
             dgvReservas.DataSource = servicio.Listar();
             if (dgvReservas.Columns.Contains("IdMesa"))
             {

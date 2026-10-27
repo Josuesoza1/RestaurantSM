@@ -8,7 +8,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 {
     public partial class FrmMesas : Form
     {
-        private readonly MesasGestionBLL servicio = new MesasGestionBLL();
+        private readonly MesaBLL servicio = new MesaBLL();
         private DataTable mesas;
         private int id;
         public FrmMesas()

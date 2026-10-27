@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Data;
 using System.Windows.Forms;
@@ -10,7 +10,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 {
     public partial class FrmClientes : Form
     {
-        private readonly ClientesGestionBLL servicio = new ClientesGestionBLL();
+        private readonly ClienteBLL servicio = new ClienteBLL();
         private DataTable clientes;
         private int id;
         public FrmClientes()
