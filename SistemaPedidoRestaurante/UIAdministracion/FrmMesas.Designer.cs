@@ -61,6 +61,8 @@
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMesas)).BeginInit();
             this.chkActiva = new System.Windows.Forms.CheckBox();
+            this.pnlOperacion = new System.Windows.Forms.Panel();
+            this.lblOperacion = new System.Windows.Forms.Label();
             this.SuspendLayout();
             //
             // menuStrip1
@@ -114,7 +116,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(751, 100);
+            this.panel1.Size = new System.Drawing.Size(751, 126);
             this.panel1.TabIndex = 2;
             //
             // label1
@@ -137,7 +139,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(26, 142);
+            this.groupBox1.Location = new System.Drawing.Point(26, 168);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(279, 215);
             this.groupBox1.TabIndex = 3;
@@ -206,7 +208,7 @@
             this.btnGuardarMesas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarMesas.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarMesas.ForeColor = System.Drawing.Color.Black;
-            this.btnGuardarMesas.Location = new System.Drawing.Point(50, 373);
+            this.btnGuardarMesas.Location = new System.Drawing.Point(50, 399);
             this.btnGuardarMesas.Name = "btnGuardarMesas";
             this.btnGuardarMesas.Click += new System.EventHandler(this.btnGuardarMesas_Click);
             this.btnGuardarMesas.Size = new System.Drawing.Size(81, 31);
@@ -220,7 +222,7 @@
             this.btnCancelarMesas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelarMesas.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelarMesas.ForeColor = System.Drawing.Color.Black;
-            this.btnCancelarMesas.Location = new System.Drawing.Point(202, 373);
+            this.btnCancelarMesas.Location = new System.Drawing.Point(202, 399);
             this.btnCancelarMesas.Name = "btnCancelarMesas";
             this.btnCancelarMesas.Click += new System.EventHandler(this.btnCancelarMesas_Click);
             this.btnCancelarMesas.Size = new System.Drawing.Size(81, 31);
@@ -231,7 +233,7 @@
             // groupBox2
             //
             this.groupBox2.Controls.Add(this.dgvMesas);
-            this.groupBox2.Location = new System.Drawing.Point(311, 168);
+            this.groupBox2.Location = new System.Drawing.Point(311, 194);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(431, 100);
             this.groupBox2.TabIndex = 9;
@@ -270,7 +272,7 @@
             //
             // txtBuscarMesas
             //
-            this.txtBuscarMesas.Location = new System.Drawing.Point(375, 327);
+            this.txtBuscarMesas.Location = new System.Drawing.Point(375, 353);
             this.txtBuscarMesas.Name = "txtBuscarMesas";
             this.txtBuscarMesas.Size = new System.Drawing.Size(266, 20);
             this.txtBuscarMesas.TabIndex = 10;
@@ -280,7 +282,7 @@
             this.btnBuscarMesas.BackColor = System.Drawing.Color.DarkTurquoise;
             this.btnBuscarMesas.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscarMesas.ForeColor = System.Drawing.Color.Blue;
-            this.btnBuscarMesas.Location = new System.Drawing.Point(461, 375);
+            this.btnBuscarMesas.Location = new System.Drawing.Point(461, 401);
             this.btnBuscarMesas.Name = "btnBuscarMesas";
             this.btnBuscarMesas.Click += new System.EventHandler(this.btnBuscarMesas_Click);
             this.btnBuscarMesas.Size = new System.Drawing.Size(89, 31);
@@ -293,7 +295,7 @@
             this.lblBuscarMesas.AutoSize = true;
             this.lblBuscarMesas.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBuscarMesas.ForeColor = System.Drawing.Color.Black;
-            this.lblBuscarMesas.Location = new System.Drawing.Point(336, 291);
+            this.lblBuscarMesas.Location = new System.Drawing.Point(336, 317);
             this.lblBuscarMesas.Name = "lblBuscarMesas";
             this.lblBuscarMesas.Size = new System.Drawing.Size(51, 15);
             this.lblBuscarMesas.TabIndex = 12;
@@ -305,7 +307,7 @@
             this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLimpiar.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLimpiar.ForeColor = System.Drawing.Color.Black;
-            this.btnLimpiar.Location = new System.Drawing.Point(124, 373);
+            this.btnLimpiar.Location = new System.Drawing.Point(124, 399);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             this.btnLimpiar.Size = new System.Drawing.Size(81, 31);
@@ -323,7 +325,7 @@
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(751, 450);
+            this.ClientSize = new System.Drawing.Size(751, 476);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.lblBuscarMesas);
             this.Controls.Add(this.btnBuscarMesas);
@@ -354,6 +356,16 @@
             this.editarToolStripMenuItem.Click += new System.EventHandler(this.editarToolStripMenuItem_Click);
             this.volverToolStripMenuItem1.Click += new System.EventHandler(this.volverToolStripMenuItem1_Click);
             this.ayudaToolStripMenuItem.Click += new System.EventHandler(this.ayudaToolStripMenuItem_Click);
+            this.pnlOperacion.Name = "pnlOperacion";
+            this.pnlOperacion.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlOperacion.Height = 26;
+            this.pnlOperacion.BackColor = System.Drawing.Color.Gainsboro;
+            this.lblOperacion.Name = "lblOperacion";
+            this.lblOperacion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblOperacion.Text = "Operación actual: Seleccione una operación";
+            this.lblOperacion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.pnlOperacion.Controls.Add(this.lblOperacion);
+            this.panel1.Controls.Add(this.pnlOperacion);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -389,5 +401,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColEstado;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
+
+        private System.Windows.Forms.Panel pnlOperacion;
+        private System.Windows.Forms.Label lblOperacion;
     }
 }

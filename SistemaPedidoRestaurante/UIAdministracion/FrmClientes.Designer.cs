@@ -73,6 +73,14 @@
             this.chkActivo = new System.Windows.Forms.CheckBox();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.lblGenero = new System.Windows.Forms.Label();
+            this.pnlOperacion = new System.Windows.Forms.Panel();
+            this.lblOperacion = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.editarMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.eliminarMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.desactivarMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.agregarMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.volverMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.SuspendLayout();
             //
             // pnlEncabezado
@@ -82,7 +90,7 @@
             this.pnlEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlEncabezado.Location = new System.Drawing.Point(0, 0);
             this.pnlEncabezado.Name = "pnlEncabezado";
-            this.pnlEncabezado.Size = new System.Drawing.Size(702, 70);
+            this.pnlEncabezado.Size = new System.Drawing.Size(702, 96);
             this.pnlEncabezado.TabIndex = 0;
             //
             // lblTitulo
@@ -114,7 +122,7 @@
             this.grpDatosClientes.Controls.Add(this.lblPnombre);
             this.grpDatosClientes.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpDatosClientes.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.grpDatosClientes.Location = new System.Drawing.Point(22, 76);
+            this.grpDatosClientes.Location = new System.Drawing.Point(22, 126);
             this.grpDatosClientes.Name = "grpDatosClientes";
             this.grpDatosClientes.Size = new System.Drawing.Size(333, 296);
             this.grpDatosClientes.TabIndex = 1;
@@ -300,7 +308,7 @@
             //
             this.grpListadoCliente.Controls.Add(this.dgvClientes);
             this.grpListadoCliente.ForeColor = System.Drawing.Color.DarkOrchid;
-            this.grpListadoCliente.Location = new System.Drawing.Point(12, 378);
+            this.grpListadoCliente.Location = new System.Drawing.Point(12, 428);
             this.grpListadoCliente.Name = "grpListadoCliente";
             this.grpListadoCliente.Size = new System.Drawing.Size(669, 122);
             this.grpListadoCliente.TabIndex = 3;
@@ -438,7 +446,7 @@
             this.grpAccionesClientes.Controls.Add(this.btnEliminar);
             this.grpAccionesClientes.Controls.Add(this.btnLimpiar);
             this.grpAccionesClientes.Controls.Add(this.btnVolver);
-            this.grpAccionesClientes.Location = new System.Drawing.Point(361, 76);
+            this.grpAccionesClientes.Location = new System.Drawing.Point(361, 126);
             this.grpAccionesClientes.Name = "grpAccionesClientes";
             this.grpAccionesClientes.Size = new System.Drawing.Size(303, 236);
             this.grpAccionesClientes.TabIndex = 10;
@@ -450,7 +458,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(702, 507);
+            this.ClientSize = new System.Drawing.Size(702, 557);
             this.Controls.Add(this.grpAccionesClientes);
             this.Controls.Add(this.grpListadoCliente);
             this.Controls.Add(this.grpDatosClientes);
@@ -490,6 +498,36 @@
             this.grpDatosClientes.Controls.Add(this.lblGenero);
             this.grpDatosClientes.Controls.Add(this.chkActivo);
             this.grpAccionesClientes.Controls.Add(this.btnNuevo);
+            this.pnlOperacion.Name = "pnlOperacion";
+            this.pnlOperacion.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlOperacion.Height = 26;
+            this.pnlOperacion.BackColor = System.Drawing.Color.Gainsboro;
+            this.lblOperacion.Name = "lblOperacion";
+            this.lblOperacion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblOperacion.Text = "Operación actual: Seleccione una operación";
+            this.lblOperacion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.pnlOperacion.Controls.Add(this.lblOperacion);
+            this.pnlEncabezado.Controls.Add(this.pnlOperacion);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.editarMenu.Name = "editarMenu";
+            this.editarMenu.Text = "Editar";
+            this.editarMenu.Click += new System.EventHandler(this.editarMenu_Click);
+            this.eliminarMenu.Name = "eliminarMenu";
+            this.eliminarMenu.Text = "Eliminar";
+            this.eliminarMenu.Click += new System.EventHandler(this.btnEliminar_Click);
+            this.desactivarMenu.Name = "desactivarMenu";
+            this.desactivarMenu.Text = "Desactivar";
+            this.desactivarMenu.Click += new System.EventHandler(this.btnDesactivar_Click);
+            this.agregarMenu.Name = "agregarMenu";
+            this.agregarMenu.Text = "Agregar";
+            this.agregarMenu.Click += new System.EventHandler(this.btnNuevo_Click);
+            this.volverMenu.Name = "volverMenu";
+            this.volverMenu.Text = "Volver al menú principal";
+            this.volverMenu.Click += new System.EventHandler(this.btnVolver_Click);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.editarMenu, this.eliminarMenu, this.desactivarMenu, this.agregarMenu, this.volverMenu });
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.ResumeLayout(false);
 
         }
@@ -536,6 +574,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Colcedula;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColTelefono;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColEmail;
+
+        private System.Windows.Forms.Panel pnlOperacion;
+        private System.Windows.Forms.Label lblOperacion;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem editarMenu;
+        private System.Windows.Forms.ToolStripMenuItem eliminarMenu;
+        private System.Windows.Forms.ToolStripMenuItem desactivarMenu;
+        private System.Windows.Forms.ToolStripMenuItem agregarMenu;
+        private System.Windows.Forms.ToolStripMenuItem volverMenu;
     }
 }
 

@@ -19,6 +19,11 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
                 return;
+            if (!SesionActual.TieneRol(RolesSistema.Administrador))
+            {
+                Close();
+                return;
+            }
             try
             {
                 new ConfiguracionRestauranteBLL().VerificarInstalacion();

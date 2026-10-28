@@ -11,6 +11,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private readonly MesaBLL servicio = new MesaBLL();
         private DataTable mesas;
         private int id;
+        private ModoFormulario modoActual;
         public FrmMesas()
         {
             InitializeComponent();
@@ -30,6 +31,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 "En limpieza"
             });
             dgvMesas.CellClick += dgvMesas_CellClick;
+            CambiarModo(ModoFormulario.Neutral);
             TemaUI.Aplicar(this);
             Load += FrmMesas_CargarDatos;
         }
@@ -83,26 +85,30 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void btnGuardarMesas_Click(object s, EventArgs e)
         {
+            if (modoActual == ModoFormulario.Neutral) return;
             try
             {
-                Guardar(chkActiva.Checked);
-                Recargar();
-                Nuevo();
+                if (modoActual == ModoFormulario.Eliminar)
+                {
+                    if (!VistaGestion.Confirmar(this, "¿Eliminar permanentemente la mesa? Debe carecer de pedidos y reservas.")) return;
+                    servicio.Eliminar(id);
+                }
+                else Guardar(chkActiva.Checked);
+                Recargar(); Nuevo(); CambiarModo(ModoFormulario.Neutral);
             }
-            catch (Exception error)
-            {
-                MessageBox.Show(this, error.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            catch (Exception error) { MessageBox.Show(this, error.Message, Text, MessageBoxButtons.OK, MessageBoxIcon.Information); }
         }
 
         private void btnLimpiar_Click(object s, EventArgs e)
         {
+            int anterior = id;
             Nuevo();
+            if (modoActual == ModoFormulario.Editar) id = anterior;
         }
 
         private void btnCancelarMesas_Click(object s, EventArgs e)
         {
-            Nuevo();
+            Nuevo(); CambiarModo(ModoFormulario.Neutral);
         }
 
         private void btnBuscarMesas_Click(object s, EventArgs e)
@@ -119,25 +125,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var fila = VistaGestion.Fila(dgvMesas);
-                if (fila == null)
-                {
-                    throw new ArgumentException("Seleccione una mesa del listado.");
-                }
-
-                if (VistaGestion.Confirmar(this, "¿Eliminar permanentemente esta mesa? No debe tener pedidos ni reservas en su historial."))
-                {
-                    servicio.Eliminar((int)fila["IdMesa"]);
-                    Recargar();
-                    Nuevo();
-                }
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show(this, error.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            IniciarSeleccion(ModoFormulario.Eliminar);
         }
 
         private void desactivarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -165,12 +153,12 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void agregarToolStripMenuItem_Click(object s, EventArgs e)
         {
-            Nuevo();
+            Nuevo(); CambiarModo(ModoFormulario.Nuevo);
         }
 
         private void editarToolStripMenuItem_Click(object s, EventArgs e)
         {
-            Seleccionar();
+            IniciarSeleccion(ModoFormulario.Editar);
         }
 
         private void volverToolStripMenuItem1_Click(object s, EventArgs e)
@@ -185,7 +173,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void dgvMesas_CellClick(object s, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex >= 0 && modoActual == ModoFormulario.Neutral)
             {
                 Seleccionar();
             }
@@ -213,6 +201,24 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             {
                 MessageBox.Show(this, error.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void IniciarSeleccion(ModoFormulario modo)
+        {
+            if (VistaGestion.Fila(dgvMesas) == null) { MessageBox.Show(this, "Seleccione una mesa del listado."); return; }
+            Seleccionar(); CambiarModo(modo);
+        }
+        private void CambiarModo(ModoFormulario modo)
+        {
+            modoActual = modo;
+            bool edicion = modo == ModoFormulario.Nuevo || modo == ModoFormulario.Editar;
+            bool operacion = modo != ModoFormulario.Neutral;
+            VistaGestion.Modo(lblOperacion, pnlOperacion, btnGuardarMesas, modo, "mesa");
+            groupBox1.Enabled = edicion;
+            dgvMesas.Enabled = txtBuscarMesas.Enabled = btnBuscarMesas.Enabled = !operacion;
+            btnGuardarMesas.Enabled = btnCancelarMesas.Enabled = operacion;
+            btnLimpiar.Enabled = edicion;
+            agregarToolStripMenuItem.Enabled = editarToolStripMenuItem.Enabled = eliminarToolStripMenuItem.Enabled = desactivarToolStripMenuItem.Enabled = !operacion;
         }
     }
 }

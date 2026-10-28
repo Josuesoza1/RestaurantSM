@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.UIPrincipal;
 
-namespace SistemaPedidoRestaurante.UIEmpleado
+namespace SistemaPedidoRestaurante.UICompartida
 {
     public partial class FrmSeleccionCliente : Form
     {
@@ -23,6 +23,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
         {
             if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
                 return;
+            if (!AccesoFormulario.PermitirPersonal(this)) return;
             try
             {
                 clientes = servicio.ListarClientes();

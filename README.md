@@ -1,42 +1,40 @@
 # RestaurantSM
 
-Sistema académico de restaurante en C# Windows Forms, .NET Framework 4.8 y SQL Server. La solución separa interfaz (UI), reglas de negocio (BLL), acceso a datos (DAL), entidades y validaciones. Las consultas y escrituras de las operaciones usan procedimientos almacenados; las búsquedas de los listados utilizan LINQ en memoria.
+Sistema académico de restaurante en C# Windows Forms, .NET Framework 4.8 y SQL Server. La solución separa UI, BLL, DAL, entidades y validaciones. Las operaciones usan procedimientos almacenados y las búsquedas de listados utilizan LINQ.
 
-La [guía de arquitectura](ARQUITECTURA.md) muestra qué hace cada clase y cómo seguir un evento desde el formulario hasta SQL. Las operaciones se reparten por área; la gestión de clientes y mesas está integrada en sus BLL respectivas.
+## Abrir el proyecto
 
-## Preparar una computadora
+1. Abra RestaurantSM.slnx en Visual Studio con las herramientas de escritorio .NET y el paquete de destino .NET Framework 4.8.
+2. Configure la conexión RestauranteDB de SistemaPedidoRestaurante/App.config para una base RestaurantSM preparada con el esquema y los procedimientos de la versión 9.
+3. Restaure NuGet y recompile la solución. QuestPDF está incluido como dependencia del proyecto UI.
+4. Abra el diseñador del formulario que vaya a editar. Los formularios operativos por rol heredan sus controles de UICompartida; es necesario compilar las bases antes de abrir los derivados.
 
-1. Abra `RestaurantSM.slnx` en Visual Studio con las herramientas de escritorio .NET y el paquete de destino .NET Framework 4.8.
-2. Siga la [guía de instalación y actualización](sql/LEEME.md). Para una base existente, ejecute el [actualizador completo](sql/ACTUALIZAR_TODO_RESTAURANTSM.sql); para una base nueva, use [INSTALAR_NUEVA.sql](sql/INSTALAR_NUEVA.sql).
-3. Ajuste únicamente la conexión `RestauranteDB` de `SistemaPedidoRestaurante/App.config` a su servidor y base. Hay un ejemplo sin contraseñas en `App.config.ejemplo`.
-4. Restaure los paquetes NuGet y compile. QuestPDF se restaura desde el proyecto UI; conserve sus archivos y la carpeta `runtimes` al trasladar el ejecutable.
+El archivo sql/010_descripciones_roles.sql actualiza las descripciones de los tres roles existentes. No crea la base ni sustituye los scripts completos de instalación del esquema.
 
-## Funciones
+## Formularios y permisos
 
-- Gestión de categorías, productos, roles, empleados, clientes, mesas e inventario. Consulta de usuarios sin mostrar contraseñas.
-- Pedidos del cliente y del personal para clientes registrados, con carrito de varios productos, consulta, edición y cancelación mientras estén pendientes.
-- Bandeja del personal: preparación, entrega, asignación de mesas, cobros y consultas. Estados: **Pendiente → En preparación → Listo → Entregado → Pagado**.
-- Cobros en efectivo, tarjeta o transferencia. El sistema registra el método; la tarjeta y la transferencia se confirman manualmente, sin una pasarela bancaria.
-- Facturas pagadas y comprobantes de pedido en PDF con QuestPDF. Las facturas conservan los nombres, precios e importes del momento del cobro.
-- Inventario obligatorio por producto terminado, control de existencias, entradas/salidas justificadas e historial de movimientos. Un producto sin inventario activo o sin unidades no se ofrece para pedidos.
-- Reservas del cliente y atención por el personal, incluyendo llegada, cancelación, ausencia y limpieza de mesas.
-- Configuración administrativa del nombre del restaurante y del impuesto incluido. La tasa inicial es **0 %** y los precios del menú se mantienen como precios finales.
-- La bandeja habilita las acciones según el estado del registro y muestra el detalle al seleccionar también con el teclado.
+Consulte [Formularios y roles](FORMULARIOS_Y_ROLES.md) para identificar cada pantalla, sus eventos y el recorrido de navegación.
 
-Se conservan los archivos de diseño, los modos de gestión y el comportamiento existente al maximizar. Las pantallas auxiliares nuevas tienen sus propios eventos de botones.
+- UIAdministracion contiene las gestiones y las pantallas de supervisión del administrador.
+- UIEmpleado contiene las pantallas operativas propias del empleado: pedidos, reservas, mesas y limpieza, cobros y facturas.
+- UICliente contiene los pedidos, reservas, perfil y documentos propios del cliente.
+- UICompartida conserva los diseños y eventos comunes, y los diálogos de selección o confirmación.
+- UIPrincipal contiene los ajustes de presentación, menús y otras ayudas de interfaz.
 
-Los controles de las pantallas auxiliares y las opciones de los menús están declarados en sus archivos `.Designer.cs`, con sus recursos `.resx`. Se pueden seleccionar y editar desde el diseñador de Visual Studio; la propiedad **Eventos → Click** muestra el método asociado en el archivo principal del formulario. El menú adaptable sigue agrupando las opciones cuando falta espacio y mostrándolas al ampliar la ventana.
+Los roles conservan sus identificadores: 1 Administrador, 2 Empleado y 3 Cliente. Las pantallas comprueban su rol; BLL y SQL mantienen los controles de permisos. La separación visual no sustituye esas comprobaciones.
 
-## SQL para estudiar
+## Operaciones
 
-La versión 009 organiza los procedimientos por tema en `sql/procedimientos`, con parámetros normales, validaciones y transacciones. El pedido se guarda como cabecera, líneas y total; C# recorre sus productos dentro de una misma transacción. Se eliminó el envío por XML y la auditoría mediante contexto de sesión. El inventario usa un contador entero para detectar cambios.
+El administrador prepara catálogo e inventario. El personal y el cliente pueden registrar pedidos con varios productos según sus permisos. Un producto sin inventario activo o sin unidades no se ofrece para pedidos.
 
-La [guía para entender el SQL](sql/COMO_ENTENDER_SQL.md) explica el recorrido y las protecciones que se conservan para operaciones simultáneas y solicitudes repetidas. No es necesario borrar la base para pasar a esta versión.
+El personal atiende Pendiente → En preparación → Listo → Entregado → Pagado. Cobrar guarda pago y factura juntos. Los comprobantes de pedido y las facturas pagadas se exportan con QuestPDF. Al trasladar el ejecutable, conserve todos sus archivos de salida y subcarpetas, incluida runtimes.
 
-## Verificación
+Los pagos pueden registrarse como efectivo, tarjeta o transferencia. La comprobación bancaria de tarjeta y transferencia es manual. La configuración permite indicar el impuesto incluido en los precios finales.
 
-Después de compilar en Debug, `tests/VerificarDisenadores.ps1` comprueba los controles, sus eventos y los menús al cambiar el tamaño. Genera capturas en una carpeta temporal y no necesita conexión a SQL Server. Esta prueba comprueba la construcción de los formularios; no automatiza la apertura del diseñador de Visual Studio.
+Clientes, Mesas e Inventario utilizan los modos Neutral, Agregar, Editar y Eliminar, con confirmación y cancelación. Se conserva la adaptación de la interfaz al maximizar.
 
-Después de compilar en Debug, ejecute `tests/VerificarOperacion.ps1` desde Windows PowerShell. Instala y actualiza una base temporal, prueba el flujo con datos ficticios, genera PDF y captura las pantallas. Elimina esa base al terminar; no modifica la base de trabajo. Requiere permiso para crear y eliminar bases temporales en el servidor configurado.
+## Validación del último bloque
 
-La prueba incluye falta de inventario, permisos, estados, pagos duplicados, operaciones simultáneas, reversión ante fallos, conservación de facturas y actualización de otra base que carezca de subtotal y total. Los PDF se generan con [QuestPDF](https://www.questpdf.com/quick-start.html), aislado en `UIPrincipal/DocumentoPdf.cs`.
+La regresión con datos comprobó pedidos, inventario, cancelaciones, mesas, reservas, permisos, cobros simultáneos y PDF en bases temporales. Las comprobaciones de interfaz revisaron controles, eventos, menús, modos y el acceso directo a formularios de otros roles.
+
+El checkout actual no incluye los verificadores ni el instalador completo que se usaron en entregas anteriores. La base debe estar preparada antes de ejecutar la aplicación; el archivo de descripciones de rol no realiza esa instalación.

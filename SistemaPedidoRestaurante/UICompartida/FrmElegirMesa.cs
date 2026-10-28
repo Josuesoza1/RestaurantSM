@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
 
-namespace SistemaPedidoRestaurante.UIEmpleado
+namespace SistemaPedidoRestaurante.UICompartida
 {
     public partial class FrmElegirMesa : Form
     {
@@ -26,6 +26,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
         {
             if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
                 return;
+            if (!AccesoFormulario.PermitirPersonal(this)) return;
             try
             {
                 mesas.DataSource = servicio.ListarMesas();

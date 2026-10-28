@@ -21,7 +21,7 @@ namespace SistemaPedidoRestaurante.BLL
             IdUsuario = usuario.IdUsuario;
             NombreUsuario = usuario.NombreUsuario;
             IdRol = usuario.IdRol;
-            NombreRol = usuario.NombreRol;
+            NombreRol = RolesSistema.Nombre(usuario.IdRol);
         }
 
         public static bool TieneRol(int idRol)

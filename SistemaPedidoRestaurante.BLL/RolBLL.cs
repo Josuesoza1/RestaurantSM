@@ -23,6 +23,9 @@ namespace SistemaPedidoRestaurante.BLL
                 Nombre = GestionValidacion.Texto(nombre, 50, "Nombre", true),
                 Descripcion = GestionValidacion.Texto(descripcion, 150, "Descripción")
             };
+            string nombreProtegido = RolesSistema.Nombre(id);
+            if (nombreProtegido != null && rol.Nombre != nombreProtegido)
+                throw new System.ArgumentException("El nombre de este rol está protegido. Puede actualizar su descripción.");
             try
             {
                 return _rolDAL.Guardar(rol, SesionActual.IdUsuario);

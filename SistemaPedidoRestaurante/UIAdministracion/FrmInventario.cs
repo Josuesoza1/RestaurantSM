@@ -14,6 +14,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private int revision;
         private int seleccionado;
         private bool cargando;
+        private ModoFormulario modoActual;
+        private Productos catalogo;
         public FrmInventario()
         {
             InitializeComponent();
@@ -42,6 +44,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             cmbProductoInventario.ValueMember = "IdProducto";
             cmbProductoInventario.SelectedValueChanged += cmbProductoInventario_SelectedValueChanged;
             dgvProductoInventario.CellClick += dgvProductoInventario_CellClick;
+            CambiarModo(ModoFormulario.Neutral);
             TemaUI.Aplicar(this);
             Load += FrmInventario_CargarDatos;
         }
@@ -51,7 +54,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             cargando = true;
             try
             {
-                cmbProductoInventario.DataSource = new ProductoBLL().ObtenerProductos();
+                catalogo = new ProductoBLL().ObtenerProductos();
+                cmbProductoInventario.DataSource = catalogo;
                 inventario = servicio.Listar();
                 dgvProductoInventario.DataSource = inventario;
             }
@@ -144,26 +148,31 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void btnGuardarProducto_Click(object s, EventArgs e)
         {
+            if (modoActual == ModoFormulario.Neutral) return;
             try
             {
-                Guardar(chkControlActivo.Checked);
-                Recargar();
-                Nuevo();
+                if (modoActual == ModoFormulario.Eliminar)
+                {
+                    if (!VistaGestion.Confirmar(this, "¿Eliminar este registro de inventario? Requiere stock cero y no haber sido usado en pedidos.")) return;
+                    servicio.Eliminar(seleccionado, revision);
+                }
+                else Guardar(chkControlActivo.Checked);
+                Recargar(); Nuevo(); CambiarModo(ModoFormulario.Neutral);
             }
-            catch (Exception error)
-            {
-                MessageBox.Show(this, error.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            catch (Exception error) { MessageBox.Show(this, error.Message, Text, MessageBoxButtons.OK, MessageBoxIcon.Information); }
         }
 
         private void btnLimpiar_Click(object s, EventArgs e)
         {
-            Nuevo();
+            txtStockActual.Clear(); textBox1.Clear();
         }
 
         private void btnCancelar_Click(object s, EventArgs e)
         {
-            Nuevo();
+            cargando = true;
+            cmbProductoInventario.DataSource = catalogo;
+            cargando = false;
+            Nuevo(); CambiarModo(ModoFormulario.Neutral);
         }
 
         private void btnBuscar_Click(object s, EventArgs e)
@@ -173,32 +182,15 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var registro = dgvProductoInventario.CurrentRow?.DataBoundItem as InventarioProducto;
-                if (registro == null)
-                {
-                    throw new ArgumentException("Seleccione un registro de inventario.");
-                }
-
-                if (VistaGestion.Confirmar(this, "¿Eliminar permanentemente el registro de inventario? Requiere stock cero y no haber sido usado en pedidos. El producto se conserva."))
-                {
-                    servicio.Eliminar(registro.IdProducto, registro.Revision);
-                    Recargar();
-                    Nuevo();
-                }
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show(this, error.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            IniciarSeleccion(ModoFormulario.Eliminar);
         }
 
         private void desactivarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
-                if (!(dgvProductoInventario.CurrentRow?.DataBoundItem is InventarioProducto))
+                if (dgvProductoInventario.SelectedRows.Count == 0 ||
+                    !(dgvProductoInventario.CurrentRow?.DataBoundItem is InventarioProducto))
                 {
                     throw new ArgumentException("Seleccione un registro de inventario.");
                 }
@@ -227,12 +219,19 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void agregarToolStripMenuItem_Click(object s, EventArgs e)
         {
-            Nuevo();
+            Productos sinRegistro = new Productos();
+            if (catalogo != null && inventario != null)
+                sinRegistro.AddRange(catalogo.Where(p => !inventario.Any(i => i.IdProducto == p.IdProducto)));
+            if (sinRegistro.Count == 0) { MessageBox.Show(this, "Todos los productos ya tienen inventario, o no hay productos registrados. Use Editar o registre otro producto."); return; }
+            cargando = true;
+            cmbProductoInventario.DataSource = sinRegistro;
+            cargando = false;
+            Nuevo(); CambiarModo(ModoFormulario.Nuevo);
         }
 
         private void editarToolStripMenuItem_Click(object s, EventArgs e)
         {
-            Seleccionar();
+            IniciarSeleccion(ModoFormulario.Editar);
         }
 
         private void volverToolStripMenuItem_Click(object s, EventArgs e)
@@ -265,7 +264,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void dgvProductoInventario_CellClick(object s, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex >= 0 && modoActual == ModoFormulario.Neutral)
             {
                 Seleccionar();
             }
@@ -301,7 +300,27 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         }
         private void historial_Click(object sender, EventArgs e)
         {
-            using (SistemaPedidoRestaurante.UIEmpleado.FrmBandejaOperaciones formulario = new SistemaPedidoRestaurante.UIEmpleado.FrmBandejaOperaciones("Movimientos")) formulario.ShowDialog(this);
+            using (FrmMovimientosAdministracion formulario = new FrmMovimientosAdministracion()) formulario.ShowDialog(this);
+        }
+
+        private void IniciarSeleccion(ModoFormulario modo)
+        {
+            if (dgvProductoInventario.SelectedRows.Count == 0) { MessageBox.Show(this, "Seleccione un registro de inventario."); return; }
+            Seleccionar(); CambiarModo(modo);
+        }
+        private void CambiarModo(ModoFormulario modo)
+        {
+            modoActual = modo;
+            bool edicion = modo == ModoFormulario.Nuevo || modo == ModoFormulario.Editar;
+            bool operacion = modo != ModoFormulario.Neutral;
+            VistaGestion.Modo(lblOperacion, pnlOperacion, btnGuardarProducto, modo, "inventario");
+            grpAgregarProducto.Enabled = edicion;
+            cmbProductoInventario.Enabled = modo == ModoFormulario.Nuevo;
+            dgvProductoInventario.Enabled = textBox2.Enabled = btnBuscar.Enabled = !operacion;
+            btnGuardarProducto.Enabled = btnCancelar.Enabled = operacion;
+            btnLimpiar.Enabled = edicion;
+            agregarToolStripMenuItem.Enabled = editarToolStripMenuItem.Enabled = eliminarToolStripMenuItem.Enabled = desactivarToolStripMenuItem.Enabled = !operacion;
+            movimientos.Enabled = bajos.Enabled = actualizar.Enabled = !operacion;
         }
     }
 }

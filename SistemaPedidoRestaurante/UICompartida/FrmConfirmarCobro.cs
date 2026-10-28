@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace SistemaPedidoRestaurante.UIEmpleado
+namespace SistemaPedidoRestaurante.UICompartida
 {
     public partial class FrmConfirmarCobro : Form
     {

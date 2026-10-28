@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RolesSistema.cs" />
     <Compile Include="Modelos\DocumentoVenta.cs" />
     <Compile Include="Individuales\InventarioProducto.cs" />
     <Compile Include="Colecciones\InventarioProductos.cs" />

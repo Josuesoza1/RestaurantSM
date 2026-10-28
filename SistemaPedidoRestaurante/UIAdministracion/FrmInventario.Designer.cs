@@ -79,6 +79,8 @@
             this.historial = new System.Windows.Forms.ToolStripMenuItem();
             this.bajos = new System.Windows.Forms.ToolStripMenuItem();
             this.actualizar = new System.Windows.Forms.ToolStripMenuItem();
+            this.pnlOperacion = new System.Windows.Forms.Panel();
+            this.lblOperacion = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -154,7 +156,7 @@
             this.grpAcciones.Controls.Add(this.btnCancelar);
             this.grpAcciones.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpAcciones.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.grpAcciones.Location = new System.Drawing.Point(665, 148);
+            this.grpAcciones.Location = new System.Drawing.Point(665, 174);
             this.grpAcciones.Margin = new System.Windows.Forms.Padding(4);
             this.grpAcciones.Name = "grpAcciones";
             this.grpAcciones.Padding = new System.Windows.Forms.Padding(4);
@@ -248,7 +250,7 @@
             this.grpListaProductos.Controls.Add(this.dgvProductoInventario);
             this.grpListaProductos.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpListaProductos.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.grpListaProductos.Location = new System.Drawing.Point(19, 374);
+            this.grpListaProductos.Location = new System.Drawing.Point(19, 400);
             this.grpListaProductos.Margin = new System.Windows.Forms.Padding(4);
             this.grpListaProductos.Name = "grpListaProductos";
             this.grpListaProductos.Padding = new System.Windows.Forms.Padding(4);
@@ -333,7 +335,7 @@
             this.grpAgregarProducto.Controls.Add(this.chkControlActivo);
             this.grpAgregarProducto.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpAgregarProducto.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.grpAgregarProducto.Location = new System.Drawing.Point(19, 148);
+            this.grpAgregarProducto.Location = new System.Drawing.Point(19, 174);
             this.grpAgregarProducto.Margin = new System.Windows.Forms.Padding(4);
             this.grpAgregarProducto.Name = "grpAgregarProducto";
             this.grpAgregarProducto.Padding = new System.Windows.Forms.Padding(4);
@@ -483,7 +485,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 28);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1025, 110);
+            this.panel1.Size = new System.Drawing.Size(1025, 136);
             this.panel1.TabIndex = 16;
             // 
             // lblTitulo
@@ -524,7 +526,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(1025, 523);
+            this.ClientSize = new System.Drawing.Size(1025, 549);
             this.Controls.Add(this.grpListaProductos);
             this.Controls.Add(this.grpAcciones);
             this.Controls.Add(this.grpAgregarProducto);
@@ -549,6 +551,16 @@
             this.editarToolStripMenuItem.Click += new System.EventHandler(this.editarToolStripMenuItem_Click);
             this.volverToolStripMenuItem.Click += new System.EventHandler(this.volverToolStripMenuItem_Click);
             this.ayudaToolStripMenuItem.Click += new System.EventHandler(this.ayudaToolStripMenuItem_Click);
+            this.pnlOperacion.Name = "pnlOperacion";
+            this.pnlOperacion.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlOperacion.Height = 26;
+            this.pnlOperacion.BackColor = System.Drawing.Color.Gainsboro;
+            this.lblOperacion.Name = "lblOperacion";
+            this.lblOperacion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblOperacion.Text = "Operación actual: Seleccione una operación";
+            this.lblOperacion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.pnlOperacion.Controls.Add(this.lblOperacion);
+            this.panel1.Controls.Add(this.pnlOperacion);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -601,5 +613,8 @@
         private System.Windows.Forms.ToolStripMenuItem historial;
         private System.Windows.Forms.ToolStripMenuItem bajos;
         private System.Windows.Forms.ToolStripMenuItem actualizar;
+
+        private System.Windows.Forms.Panel pnlOperacion;
+        private System.Windows.Forms.Label lblOperacion;
     }
 }

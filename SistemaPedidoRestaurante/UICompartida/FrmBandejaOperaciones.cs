@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.UIPrincipal;
 
-namespace SistemaPedidoRestaurante.UIEmpleado
+namespace SistemaPedidoRestaurante.UICompartida
 {
     public partial class FrmBandejaOperaciones : Form
     {
@@ -15,6 +15,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
         private readonly FacturaBLL facturas = new FacturaBLL();
         private readonly InventarioBLL inventario = new InventarioBLL();
         private readonly MesaBLL mesas = new MesaBLL();
+        private readonly int rolPermitido;
         private readonly string tipo;
         private readonly bool seleccionar;
         private DataTable registros;
@@ -22,12 +23,13 @@ namespace SistemaPedidoRestaurante.UIEmpleado
 
         public int PedidoSeleccionado { get; private set; }
 
-        public FrmBandejaOperaciones() : this("Pedidos")
+        public FrmBandejaOperaciones() : this(0, "Pedidos")
         {
         }
 
-        public FrmBandejaOperaciones(string tipo, bool seleccionar = false, string filtro = "")
+        protected FrmBandejaOperaciones(int rol, string tipo, bool seleccionar = false, string filtro = "")
         {
+            rolPermitido = rol;
             this.tipo = tipo;
             this.seleccionar = seleccionar;
             InitializeComponent();
@@ -39,8 +41,13 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             ActualizarAcciones();
         }
 
-        private void ConfigurarOpciones()
+        protected void ConfigurarOpciones()
         {
+            if (seleccionar)
+            {
+                Text = "Seleccione un registro";
+                titulo.Text = Text.ToUpperInvariant();
+            }
             bool pedidos = !seleccionar && tipo == "Pedidos";
             bool reservas = !seleccionar && tipo == "Reservas";
             btnSeleccionar.Visible = seleccionar;
@@ -65,6 +72,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
         {
             if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
                 return;
+            if (!AccesoFormulario.Permitir(this, rolPermitido)) return;
             try
             {
                 new ConfiguracionRestauranteBLL().VerificarInstalacion();
@@ -194,7 +202,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
                 if (elegir.ShowDialog(this) != DialogResult.OK)
                     return;
                 int cliente = Convert.ToInt32(elegir.Cliente["IdCliente"]);
-                using (SistemaPedidoRestaurante.UICliente.FrmPedidoCliente formulario = new SistemaPedidoRestaurante.UICliente.FrmPedidoCliente(0, cliente))
+                using (Form formulario = PantallasPersonal.CrearPedido(cliente))
                     formulario.ShowDialog(this);
             }
 
@@ -224,7 +232,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             {
                 int pedido = Convert.ToInt32(Seleccion()["IdPedido"]);
                 pagos.Cotizar(pedido);
-                using (FrmPago formulario = new FrmPago(pedido))
+                using (Form formulario = PantallasPersonal.CrearCobro(pedido))
                     formulario.ShowDialog(this);
                 Recargar();
             }
@@ -347,7 +355,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
 
         private void btnMesas_Click(object sender, EventArgs e)
         {
-            using (FrmBandejaOperaciones formulario = new FrmBandejaOperaciones("Mesas"))
+            using (FrmBandejaOperaciones formulario = PantallasPersonal.CrearBandeja("Mesas"))
             {
                 formulario.ShowDialog(this);
             }

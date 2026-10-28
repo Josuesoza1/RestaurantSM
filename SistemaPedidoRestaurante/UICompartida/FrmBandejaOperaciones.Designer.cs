@@ -1,4 +1,4 @@
-﻿namespace SistemaPedidoRestaurante.UIEmpleado
+﻿namespace SistemaPedidoRestaurante.UICompartida
 {
     partial class FrmBandejaOperaciones
     {
@@ -378,27 +378,27 @@
         }
         #endregion
 
-        private System.Windows.Forms.Label titulo;
-        private System.Windows.Forms.Panel buscar;
-        private System.Windows.Forms.TextBox txtBuscar;
-        private System.Windows.Forms.Label etiquetaBuscar;
-        private System.Windows.Forms.FlowLayoutPanel acciones;
-        private System.Windows.Forms.SplitContainer paneles;
-        private System.Windows.Forms.DataGridView listado;
-        private System.Windows.Forms.DataGridView detalle;
-        private System.Windows.Forms.Button btnSeleccionar;
-        private System.Windows.Forms.Button btnNuevo;
-        private System.Windows.Forms.Button btnMesa;
-        private System.Windows.Forms.Button btnMesas;
-        private System.Windows.Forms.Button btnAvanzar;
-        private System.Windows.Forms.Button btnCobrar;
-        private System.Windows.Forms.Button btnAtendida;
-        private System.Windows.Forms.Button btnAusencia;
-        private System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.Button btnPedidoPdf;
-        private System.Windows.Forms.Button btnFacturaPdf;
-        private System.Windows.Forms.Button btnLimpiarMesa;
-        private System.Windows.Forms.Button btnRecargar;
-        private System.Windows.Forms.Button btnVolver;
+        protected System.Windows.Forms.Label titulo;
+        protected System.Windows.Forms.Panel buscar;
+        protected System.Windows.Forms.TextBox txtBuscar;
+        protected System.Windows.Forms.Label etiquetaBuscar;
+        protected System.Windows.Forms.FlowLayoutPanel acciones;
+        protected System.Windows.Forms.SplitContainer paneles;
+        protected System.Windows.Forms.DataGridView listado;
+        protected System.Windows.Forms.DataGridView detalle;
+        protected System.Windows.Forms.Button btnSeleccionar;
+        protected System.Windows.Forms.Button btnNuevo;
+        protected System.Windows.Forms.Button btnMesa;
+        protected System.Windows.Forms.Button btnMesas;
+        protected System.Windows.Forms.Button btnAvanzar;
+        protected System.Windows.Forms.Button btnCobrar;
+        protected System.Windows.Forms.Button btnAtendida;
+        protected System.Windows.Forms.Button btnAusencia;
+        protected System.Windows.Forms.Button btnCancelar;
+        protected System.Windows.Forms.Button btnPedidoPdf;
+        protected System.Windows.Forms.Button btnFacturaPdf;
+        protected System.Windows.Forms.Button btnLimpiarMesa;
+        protected System.Windows.Forms.Button btnRecargar;
+        protected System.Windows.Forms.Button btnVolver;
     }
 }

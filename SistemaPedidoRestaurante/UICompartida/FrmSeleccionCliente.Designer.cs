@@ -1,4 +1,4 @@
-﻿namespace SistemaPedidoRestaurante.UIEmpleado
+﻿namespace SistemaPedidoRestaurante.UICompartida
 {
     partial class FrmSeleccionCliente
     {

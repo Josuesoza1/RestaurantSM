@@ -11,7 +11,7 @@ using SistemaPedidoRestaurante.UIAdministracion;
 using SistemaPedidoRestaurante.UICliente;
 using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.UIPrincipal;
-using SistemaPedidoRestaurante.UIEmpleado;
+
 namespace SistemaPedidoRestaurante.UIAdministracion
 {
     public partial class FrmMenuAdministracion : Form
@@ -94,7 +94,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void reservasPersonalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (Form formulario = new FrmBandejaOperaciones("Reservas"))
+            using (Form formulario = new FrmReservasAdministracion())
             {
                 formulario.ShowDialog(this);
             }
@@ -102,7 +102,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void pedidosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (Form formulario = new FrmBandejaOperaciones("Pedidos"))
+            using (Form formulario = new FrmPedidosAdministracion())
             {
                 formulario.ShowDialog(this);
             }
@@ -110,7 +110,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void pagosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (Form formulario = new FrmPago())
+            using (Form formulario = new FrmPagoAdministracion())
             {
                 formulario.ShowDialog(this);
             }
@@ -118,7 +118,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void facturasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (Form formulario = new FrmFacturas())
+            using (Form formulario = new FrmFacturasAdministracion())
             {
                 formulario.ShowDialog(this);
             }

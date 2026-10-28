@@ -26,6 +26,7 @@
             this.menuStrip1.SuspendLayout();
             this.reservasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mesasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SuspendLayout();
             // pnlEncabezado
             this.pnlEncabezado.BackColor = System.Drawing.Color.MidnightBlue;
@@ -55,7 +56,7 @@
             this.operacionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 this.pedidosToolStripMenuItem,
                 this.pagosToolStripMenuItem,
-                this.facturasToolStripMenuItem, this.reservasToolStripMenuItem });
+                this.facturasToolStripMenuItem, this.reservasToolStripMenuItem, this.mesasToolStripMenuItem });
             this.pedidosToolStripMenuItem.Name = "pedidosToolStripMenuItem";
             this.pedidosToolStripMenuItem.Text = "Pedidos";
             this.pedidosToolStripMenuItem.Click += new System.EventHandler(this.pedidosToolStripMenuItem_Click);
@@ -83,6 +84,9 @@
             this.reservasToolStripMenuItem.Name = "reservasToolStripMenuItem";
             this.reservasToolStripMenuItem.Text = "Reservas";
             this.reservasToolStripMenuItem.Click += new System.EventHandler(this.reservas_Click);
+            this.mesasToolStripMenuItem.Name = "mesasToolStripMenuItem";
+            this.mesasToolStripMenuItem.Text = "Mesas y limpieza";
+            this.mesasToolStripMenuItem.Click += new System.EventHandler(this.mesas_Click);
             // cerrarSesionToolStripMenuItem
             this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
             this.cerrarSesionToolStripMenuItem.Text = "Cerrar sesión";
@@ -119,5 +123,6 @@
 
         private System.Windows.Forms.ToolStripMenuItem reservasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cerrarSesionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mesasToolStripMenuItem;
     }
 }
