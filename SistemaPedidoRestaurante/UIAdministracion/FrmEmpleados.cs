@@ -93,6 +93,24 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             }
         }
 
+        private void cmbRol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarCargos(null);
+        }
+
+        private void CargarCargos(string cargoActual)
+        {
+            if (!(cmbRol.SelectedValue is int)) return;
+            int rol = (int)cmbRol.SelectedValue;
+            cmbCargo.Items.Clear();
+            cmbCargo.Items.AddRange(CargosPersonal.ParaRol(rol));
+            string cargo = CargosPersonal.Normalizar(cargoActual);
+            // Los administradores antiguos conservan su puesto sin perder acceso.
+            if (rol == RolesSistema.Administrador && cargo.Length > 0 && !cmbCargo.Items.Contains(cargo))
+                cmbCargo.Items.Add(cargo);
+            cmbCargo.SelectedItem = cargo;
+        }
+
         private void VolverAlMenu()
         {
             this.Close();
@@ -124,7 +142,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                     btnAccion.Text = "Eliminar"; panel1.BackColor = Color.LightCoral; break;
             }
             txtPnombre.Enabled = txtSnombre.Enabled = txtPapellido.Enabled = txtSapellido.Enabled = puedeEditar;
-            txtTelefono.Enabled = txtCargo.Enabled = txtCedula.Enabled = puedeEditar;
+            txtTelefono.Enabled = cmbCargo.Enabled = txtCedula.Enabled = puedeEditar;
             cmbGenero.Enabled = cmbRol.Enabled = puedeEditar;
             txtUsuario.Enabled = txtContrasena.Enabled = chkActivo.Enabled = puedeEditar;
             btnAccion.Enabled = btnCancelar.Enabled = hayOperacion;
@@ -167,7 +185,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             txtPapellido.Clear();
             txtSapellido.Clear();
             txtTelefono.Clear();
-            txtCargo.Clear();
+            cmbCargo.SelectedIndex = -1;
             txtCedula.Clear();
             txtUsuario.Clear();
             txtContrasena.Clear();
@@ -224,6 +242,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                     {
                         usuario.IdUsuario = SesionActual.IdUsuario;
                         usuario.NombreRol = "Administrador";
+                        usuario.Cargo = empleado.Cargo;
                         SesionActual.Iniciar(usuario);
                     }
                 }
@@ -251,7 +270,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 SegundoNombre = txtSnombre.Text.Trim(),
                 PrimerApellido = txtPapellido.Text.Trim(),
                 SegundoApellido = txtSapellido.Text.Trim(),
-                Cargo = txtCargo.Text.Trim(),
+                Cargo = cmbCargo.Text.Trim(),
                 Cedula = txtCedula.Text.Trim(),
                 Telefono = txtTelefono.Text.Trim(),
                 Genero = cmbGenero.SelectedIndex < 0 ? null : new[]
@@ -292,7 +311,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             txtPapellido.Text = empleado.PrimerApellido;
             txtSapellido.Text = empleado.SegundoApellido;
             txtTelefono.Text = empleado.Telefono;
-            txtCargo.Text = empleado.Cargo;
             txtCedula.Text = empleado.Cedula;
             cmbGenero.SelectedIndex = Array.IndexOf(new[]
             {
@@ -301,6 +319,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 "O"
             }, empleado.Genero);
             cmbRol.SelectedValue = empleado.IdRol ?? 2;
+            CargarCargos(empleado.Cargo);
             txtUsuario.Text = empleado.NombreUsuario;
             txtContrasena.Clear();
             chkActivo.Checked = empleado.Activo;

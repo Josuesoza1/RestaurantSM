@@ -28,7 +28,8 @@ namespace SistemaPedidoRestaurante.DAL
                                 IdUsuario = Convert.ToInt32(reader["idUsuario"]),
                                 NombreUsuario = reader["nombreUsuario"].ToString(),
                                 IdRol = Convert.ToInt32(reader["idRol"]),
-                                NombreRol = reader["NombreRol"].ToString()
+                                NombreRol = reader["NombreRol"].ToString(),
+                                Cargo = reader["Cargo"].ToString()
                             };
                         }
                     }

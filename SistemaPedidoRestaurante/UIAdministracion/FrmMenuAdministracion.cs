@@ -68,6 +68,14 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             }
         }
 
+        private void registrarPersonaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var formulario = new FrmRegistrarPersona())
+            {
+                formulario.ShowDialog(this);
+            }
+        }
+
         private void mesasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (Form formulario = new FrmMesas())

@@ -9,6 +9,7 @@ namespace SistemaPedidoRestaurante.BLL
         public static string NombreUsuario { get; private set; }
         public static int IdRol { get; private set; }
         public static string NombreRol { get; private set; }
+        public static string Cargo { get; private set; }
         public static bool EstaAutenticado => IdUsuario > 0;
 
         public static void Iniciar(Usuario usuario)
@@ -22,6 +23,7 @@ namespace SistemaPedidoRestaurante.BLL
             NombreUsuario = usuario.NombreUsuario;
             IdRol = usuario.IdRol;
             NombreRol = RolesSistema.Nombre(usuario.IdRol);
+            Cargo = CargosPersonal.Normalizar(usuario.Cargo);
         }
 
         public static bool TieneRol(int idRol)
@@ -35,6 +37,7 @@ namespace SistemaPedidoRestaurante.BLL
             NombreUsuario = null;
             IdRol = 0;
             NombreRol = null;
+            Cargo = null;
         }
     }
 }

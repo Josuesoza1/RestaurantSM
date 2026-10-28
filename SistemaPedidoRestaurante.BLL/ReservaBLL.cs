@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using SistemaPedidoRestaurante.DAL;
@@ -11,7 +11,7 @@ namespace SistemaPedidoRestaurante.BLL
 
         public DataTable ListarReservas()
         {
-            Permisos.ExigirPersonal();
+            Permisos.ExigirAtencion();
             try
             {
                 return reservasDAL.ListarReservas(SesionActual.IdUsuario);
@@ -24,7 +24,7 @@ namespace SistemaPedidoRestaurante.BLL
 
         public void CambiarReserva(int reserva, string anterior, string nuevo)
         {
-            Permisos.ExigirPersonal();
+            Permisos.ExigirAtencion();
             if (reserva <= 0)
                 throw new ArgumentException("Seleccione una reserva.");
             if (anterior != "Pendiente" && anterior != "Confirmada")

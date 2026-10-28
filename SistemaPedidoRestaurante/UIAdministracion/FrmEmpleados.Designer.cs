@@ -1,4 +1,4 @@
-﻿namespace SistemaPedidoRestaurante.UIAdministracion
+namespace SistemaPedidoRestaurante.UIAdministracion
 {
     partial class FrmEmpleados : System.Windows.Forms.Form
     {
@@ -42,7 +42,7 @@
             this.ColCedula = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColTelefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grpDatosClientes = new System.Windows.Forms.GroupBox();
-            this.txtCargo = new System.Windows.Forms.TextBox();
+            this.cmbCargo = new System.Windows.Forms.ComboBox();
             this.txtCedula = new System.Windows.Forms.TextBox();
             this.cmbGenero = new System.Windows.Forms.ComboBox();
             this.lblCargo = new System.Windows.Forms.Label();
@@ -222,7 +222,7 @@
             // 
             // grpDatosClientes
             // 
-            this.grpDatosClientes.Controls.Add(this.txtCargo);
+            this.grpDatosClientes.Controls.Add(this.cmbCargo);
             this.grpDatosClientes.Controls.Add(this.txtCedula);
             this.grpDatosClientes.Controls.Add(this.cmbGenero);
             this.grpDatosClientes.Controls.Add(this.lblCargo);
@@ -248,12 +248,12 @@
             this.grpDatosClientes.TabIndex = 5;
             this.grpDatosClientes.TabStop = false;
             this.grpDatosClientes.Text = "Datos del Empleado";
-            // txtCargo
-            this.txtCargo.Location = new System.Drawing.Point(173, 200);
-            this.txtCargo.Name = "txtCargo";
-            this.txtCargo.MaxLength = 50;
-            this.txtCargo.Size = new System.Drawing.Size(199, 23);
-            this.txtCargo.TabIndex = 15;
+            // cmbCargo
+            this.cmbCargo.Location = new System.Drawing.Point(173, 200);
+            this.cmbCargo.Name = "cmbCargo";
+            this.cmbCargo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCargo.Size = new System.Drawing.Size(199, 23);
+            this.cmbCargo.TabIndex = 15;
             // txtCedula
             this.txtCedula.Location = new System.Drawing.Point(173, 276);
             this.txtCedula.Name = "txtCedula";
@@ -453,6 +453,7 @@
             this.cmbRol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRol.Size = new System.Drawing.Size(244, 24);
             this.cmbRol.TabIndex = 7;
+            this.cmbRol.SelectedIndexChanged += new System.EventHandler(this.cmbRol_SelectedIndexChanged);
             // 
             // txtContrasena
             // 
@@ -716,7 +717,7 @@
         #endregion
 
         private System.Windows.Forms.Panel pnlEncabezado;
-        private System.Windows.Forms.TextBox txtCargo;
+        private System.Windows.Forms.ComboBox cmbCargo;
         private System.Windows.Forms.TextBox txtCedula;
         private System.Windows.Forms.ComboBox cmbGenero;
         private System.Windows.Forms.Label lblCargo;

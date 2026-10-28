@@ -30,6 +30,11 @@ namespace SistemaPedidoRestaurante.Validaciones
             {
                 throw new ArgumentException("Seleccione Administrador o Empleado como rol de acceso.");
             }
+
+            empleado.Cargo = CargosPersonal.Normalizar(empleado.Cargo);
+            if (usuario.IdRol == RolesSistema.Empleado &&
+                empleado.Cargo != CargosPersonal.Mesero && empleado.Cargo != CargosPersonal.Cajero)
+                throw new ArgumentException("Seleccione Mesero o Cajero como cargo del empleado.");
         }
 
         private void ValidarTexto(string valor, string campo, int longitud, bool obligatorio)

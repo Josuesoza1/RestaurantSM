@@ -1,14 +1,42 @@
 using System;
+using SistemaPedidoRestaurante.Entities;
 
 namespace SistemaPedidoRestaurante.BLL
 {
-    internal static class Permisos
+    public static class Permisos
     {
+        public static bool PuedeAtender
+        {
+            get { return SesionActual.TieneRol(1) || SesionActual.TieneRol(2) && SesionActual.Cargo == CargosPersonal.Mesero; }
+        }
+
+        public static bool PuedeCobrar
+        {
+            get { return SesionActual.TieneRol(1) || SesionActual.TieneRol(2) && SesionActual.Cargo == CargosPersonal.Cajero; }
+        }
+
+        public static bool PuedeConsultarPedidos
+        {
+            get { return PuedeAtender || PuedeCobrar; }
+        }
+
+        public static void ExigirAtencion()
+        {
+            if (!PuedeAtender)
+                throw new UnauthorizedAccessException("Esta operación requiere un mesero o administrador.");
+        }
+
+        public static void ExigirCobro()
+        {
+            if (!PuedeCobrar)
+                throw new UnauthorizedAccessException("Esta operación requiere un cajero o administrador.");
+        }
+
         internal static void ExigirPersonal()
         {
-            if (!SesionActual.TieneRol(1) && !SesionActual.TieneRol(2))
+            if (!PuedeConsultarPedidos)
             {
-                throw new UnauthorizedAccessException("Esta operacion requiere una cuenta del personal.");
+                throw new UnauthorizedAccessException("Su cuenta necesita un cargo habilitado: Mesero o Cajero. Solicite al administrador que revise su registro.");
             }
         }
         internal static void ExigirRol(int rol)

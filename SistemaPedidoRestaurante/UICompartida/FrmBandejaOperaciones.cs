@@ -66,13 +66,25 @@ namespace SistemaPedidoRestaurante.UICompartida
             btnLimpiarMesa.Visible = !seleccionar && tipo == "Mesas";
             acciones.Controls.SetChildIndex(btnMesas, reservas ? 9 : 3);
             paneles.Panel2Collapsed = tipo != "Pedidos";
+            if (System.ComponentModel.LicenseManager.UsageMode != System.ComponentModel.LicenseUsageMode.Designtime)
+            {
+                btnNuevo.Visible = btnMesa.Visible = btnAvanzar.Visible = pedidos && Permisos.PuedeAtender;
+                btnMesas.Visible = (pedidos || reservas) && Permisos.PuedeAtender;
+                btnCancelar.Visible = (pedidos || reservas) && Permisos.PuedeAtender;
+                btnCobrar.Visible = pedidos && Permisos.PuedeCobrar;
+                btnFacturaPdf.Visible = (pedidos || (!seleccionar && tipo == "Facturas")) && Permisos.PuedeCobrar;
+            }
         }
 
         private void FrmBandeja_Load(object sender, EventArgs e)
         {
             if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
                 return;
-            if (!AccesoFormulario.Permitir(this, rolPermitido)) return;
+            bool permitido = tipo == "Pedidos" ? Permisos.PuedeConsultarPedidos :
+                tipo == "Facturas" ? Permisos.PuedeCobrar :
+                tipo == "Movimientos" ? SesionActual.TieneRol(1) : Permisos.PuedeAtender;
+            if (!AccesoFormulario.PermitirOperacion(this, rolPermitido, permitido)) return;
+            ConfigurarOpciones();
             try
             {
                 new ConfiguracionRestauranteBLL().VerificarInstalacion();

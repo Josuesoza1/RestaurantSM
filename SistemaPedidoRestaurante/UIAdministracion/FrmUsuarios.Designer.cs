@@ -26,6 +26,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.pnlAcciones = new System.Windows.Forms.Panel();
             this.lblCantidad = new System.Windows.Forms.Label();
             this.btnRecargar = new System.Windows.Forms.Button();
+            this.btnRegistrarPersona = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
             this.pnlEncabezado.SuspendLayout();
             this.pnlBusqueda.SuspendLayout();
@@ -101,6 +102,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.pnlAcciones.Size = new System.Drawing.Size(900, 58);
             this.pnlAcciones.Controls.Add(this.lblCantidad);
             this.pnlAcciones.Controls.Add(this.btnRecargar);
+            this.pnlAcciones.Controls.Add(this.btnRegistrarPersona);
             this.pnlAcciones.Controls.Add(this.btnVolver);
             this.pnlAcciones.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblCantidad.AutoSize = true;
@@ -111,14 +113,22 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.btnRecargar.Size = new System.Drawing.Size(110, 36);
             this.btnRecargar.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             this.btnRecargar.Name = "btnRecargar";
-            this.btnRecargar.TabIndex = 3;
+            this.btnRecargar.TabIndex = 4;
             this.btnRecargar.Text = "Recargar";
             this.btnRecargar.Click += new System.EventHandler(this.btnRecargar_Click);
+            this.btnRegistrarPersona.Location = new System.Drawing.Point(470, 12);
+            this.btnRegistrarPersona.Size = new System.Drawing.Size(155, 36);
+            this.btnRegistrarPersona.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            this.btnRegistrarPersona.Name = "btnRegistrarPersona";
+            this.btnRegistrarPersona.TabIndex = 3;
+            this.btnRegistrarPersona.Text = "Registrar persona";
+            this.btnRegistrarPersona.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnRegistrarPersona.Click += new System.EventHandler(this.btnRegistrarPersona_Click);
             this.btnVolver.Location = new System.Drawing.Point(770, 12);
             this.btnVolver.Size = new System.Drawing.Size(110, 36);
             this.btnVolver.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.TabIndex = 4;
+            this.btnVolver.TabIndex = 5;
             this.btnVolver.Text = "Volver";
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // Formulario
@@ -131,10 +141,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.Controls.Add(this.pnlAcciones);
             this.Controls.Add(this.pnlBusqueda);
             this.Controls.Add(this.pnlEncabezado);
-            this.MinimumSize = new System.Drawing.Size(650, 420);
+            this.MinimumSize = new System.Drawing.Size(800, 420);
             this.Name = "FrmUsuarios";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Consulta de usuarios";
+            this.Text = "Administrar usuarios";
             this.pnlEncabezado.ResumeLayout(false);
             this.pnlBusqueda.ResumeLayout(false);
             this.pnlBusqueda.PerformLayout();
@@ -159,6 +169,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private System.Windows.Forms.Panel pnlAcciones;
         private System.Windows.Forms.Label lblCantidad;
         private System.Windows.Forms.Button btnRecargar;
+        private System.Windows.Forms.Button btnRegistrarPersona;
         private System.Windows.Forms.Button btnVolver;
     }
 }

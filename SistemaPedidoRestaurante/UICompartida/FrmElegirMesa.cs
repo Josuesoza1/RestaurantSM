@@ -26,7 +26,7 @@ namespace SistemaPedidoRestaurante.UICompartida
         {
             if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
                 return;
-            if (!AccesoFormulario.PermitirPersonal(this)) return;
+            if (!AccesoFormulario.PermitirAtencion(this)) return;
             try
             {
                 mesas.DataSource = servicio.ListarMesas();

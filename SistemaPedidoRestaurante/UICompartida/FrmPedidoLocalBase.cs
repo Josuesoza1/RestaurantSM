@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -271,7 +271,7 @@ namespace SistemaPedidoRestaurante.UICompartida
         }
         private bool TieneAcceso()
         {
-            return rolPermitido > 0 && SesionActual.TieneRol(rolPermitido);
+            return rolPermitido > 0 && SesionActual.TieneRol(rolPermitido) && Permisos.PuedeAtender;
         }
     }
 }

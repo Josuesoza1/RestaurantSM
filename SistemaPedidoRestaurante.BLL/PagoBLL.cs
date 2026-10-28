@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using SistemaPedidoRestaurante.DAL;
@@ -12,7 +12,7 @@ namespace SistemaPedidoRestaurante.BLL
 
         public DataRow Cotizar(int pedido)
         {
-            Permisos.ExigirPersonal();
+            Permisos.ExigirCobro();
             if (pedido <= 0)
                 throw new ArgumentException("Seleccione un pedido para cobrar.");
             try
@@ -30,7 +30,7 @@ namespace SistemaPedidoRestaurante.BLL
 
         public DataRow Cobrar(int pedido, string metodo, decimal recibido, decimal total, Guid solicitud, string notas)
         {
-            Permisos.ExigirPersonal();
+            Permisos.ExigirCobro();
             notas = PagoValidacion.Validar(pedido, metodo, recibido, total, solicitud, notas);
             try
             {

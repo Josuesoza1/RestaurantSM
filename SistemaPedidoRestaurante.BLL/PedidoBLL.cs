@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -45,7 +45,7 @@ namespace SistemaPedidoRestaurante.BLL
 
         public int GuardarPedido(int cliente, PedidoBorrador pedido, Guid solicitud)
         {
-            Permisos.ExigirPersonal();
+            Permisos.ExigirAtencion();
             if (cliente <= 0)
                 throw new ArgumentException("Seleccione un cliente.");
             PedidoValidacion.Contenido(pedido == null ? null : pedido.Lineas, solicitud);
@@ -61,7 +61,7 @@ namespace SistemaPedidoRestaurante.BLL
 
         public void AvanzarPedido(int pedido, string estado)
         {
-            Permisos.ExigirPersonal();
+            Permisos.ExigirAtencion();
             string nuevo;
             switch (estado)
             {
@@ -90,7 +90,7 @@ namespace SistemaPedidoRestaurante.BLL
 
         public void CancelarPedido(int pedido)
         {
-            Permisos.ExigirPersonal();
+            Permisos.ExigirAtencion();
             if (pedido <= 0)
                 throw new ArgumentException("Seleccione un pedido.");
             try

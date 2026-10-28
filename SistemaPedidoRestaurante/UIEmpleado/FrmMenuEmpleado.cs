@@ -11,6 +11,25 @@ namespace SistemaPedidoRestaurante.UIEmpleado
         {
             InitializeComponent();
             MenuSesion.Configurar(this, menuStrip1, 2);
+            Load += ConfigurarCargo;
+        }
+
+        private void ConfigurarCargo(object sender, EventArgs e)
+        {
+            if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
+                return;
+            if (!SesionActual.TieneRol(2)) return;
+            pedidosToolStripMenuItem.Available = Permisos.PuedeConsultarPedidos;
+            pagosToolStripMenuItem.Available = facturasToolStripMenuItem.Available = Permisos.PuedeCobrar;
+            reservasToolStripMenuItem.Available = mesasToolStripMenuItem.Available = Permisos.PuedeAtender;
+            operacionesToolStripMenuItem.Available = Permisos.PuedeConsultarPedidos;
+            lblTitulo.Text = "EMPLEADOS — " + SesionActual.Cargo.ToUpperInvariant();
+            if (Permisos.PuedeAtender)
+                lblEstado.Text = "Registre y atienda pedidos, asigne mesas y gestione reservas. Los cobros corresponden al cajero.";
+            else if (Permisos.PuedeCobrar)
+                lblEstado.Text = "Consulte los pedidos entregados, registre cobros y consulte o exporte facturas.";
+            else
+                lblEstado.Text = "Su cargo todavía no está habilitado. Solicite al administrador que seleccione Mesero o Cajero en Empleados y vuelva a iniciar sesión.";
         }
 
         private void pedidosToolStripMenuItem_Click(object sender, EventArgs e)

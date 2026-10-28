@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
@@ -40,7 +40,7 @@ namespace SistemaPedidoRestaurante.UICompartida
         {
             if (DesignMode || LicenseManager.UsageMode == LicenseUsageMode.Designtime)
                 return;
-            if (!AccesoFormulario.Permitir(this, rolPermitido))
+            if (!AccesoFormulario.PermitirOperacion(this, rolPermitido, Permisos.PuedeCobrar))
             {
                 Close();
                 return;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using SistemaPedidoRestaurante.DAL;
@@ -12,7 +12,7 @@ namespace SistemaPedidoRestaurante.BLL
 
         public DataTable ListarFacturas()
         {
-            Permisos.ExigirPersonal();
+            Permisos.ExigirCobro();
             try
             {
                 return facturaDAL.ListarFacturas(SesionActual.IdUsuario);
@@ -29,6 +29,11 @@ namespace SistemaPedidoRestaurante.BLL
                 throw new UnauthorizedAccessException("Inicie sesion para consultar documentos.");
             if (pedido <= 0)
                 throw new ArgumentException("Seleccione un pedido para consultar el documento.");
+            if (SesionActual.TieneRol(2))
+            {
+                if (factura) Permisos.ExigirCobro();
+                else Permisos.ExigirPersonal();
+            }
             DataSet tablas;
             try
             {

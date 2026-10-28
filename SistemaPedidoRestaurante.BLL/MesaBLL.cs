@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -81,7 +81,7 @@ namespace SistemaPedidoRestaurante.BLL
 
         public DataTable ListarMesas()
         {
-            Permisos.ExigirPersonal();
+            Permisos.ExigirAtencion();
             try
             {
                 return mesaDAL.ListarMesas(SesionActual.IdUsuario);
@@ -94,7 +94,7 @@ namespace SistemaPedidoRestaurante.BLL
 
         public void CambiarMesa(int mesa, string anterior)
         {
-            Permisos.ExigirPersonal();
+            Permisos.ExigirAtencion();
             if (mesa <= 0 || (anterior != "Ocupada" && anterior != "En limpieza"))
                 throw new ArgumentException("Seleccione una mesa ocupada o en limpieza.");
             try
@@ -109,7 +109,7 @@ namespace SistemaPedidoRestaurante.BLL
 
         public void AsignarMesa(int pedido, int mesa)
         {
-            Permisos.ExigirPersonal();
+            Permisos.ExigirAtencion();
             if (pedido <= 0 || mesa <= 0)
                 throw new ArgumentException("Seleccione pedido y mesa.");
             try

@@ -60,6 +60,16 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             Close();
         }
 
+        private void btnRegistrarPersona_Click(object sender, EventArgs e)
+        {
+            using (var formulario = new FrmRegistrarPersona())
+            {
+                if (formulario.ShowDialog(this) != DialogResult.OK) return;
+            }
+
+            btnRecargar_Click(sender, e);
+        }
+
         private void FrmUsuarios_CargarDatos(object sender, EventArgs e)
         {
             if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime || this.Site?.DesignMode == true)

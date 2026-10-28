@@ -11,6 +11,10 @@ namespace SistemaPedidoRestaurante.UICompartida
     {
         public static FrmBandejaOperaciones CrearBandeja(string tipo, bool seleccionar = false, string filtro = "")
         {
+            if (tipo == "Pedidos" && !Permisos.PuedeConsultarPedidos ||
+                (tipo == "Mesas" || tipo == "Reservas") && !Permisos.PuedeAtender ||
+                tipo == "Facturas" && !Permisos.PuedeCobrar)
+                throw new UnauthorizedAccessException("Su cargo no tiene acceso a esta pantalla.");
             if (SesionActual.TieneRol(1))
             {
                 switch (tipo)
@@ -37,6 +41,7 @@ namespace SistemaPedidoRestaurante.UICompartida
 
         public static Form CrearPedido(int cliente = 0)
         {
+            Permisos.ExigirAtencion();
             if (SesionActual.TieneRol(1)) return new FrmPedidoAdministracion(cliente);
             if (SesionActual.TieneRol(2)) return new FrmPedido(cliente);
             throw new UnauthorizedAccessException("Solo el personal puede registrar pedidos para otros clientes.");
@@ -44,6 +49,7 @@ namespace SistemaPedidoRestaurante.UICompartida
 
         public static Form CrearCobro(int pedido = 0)
         {
+            Permisos.ExigirCobro();
             if (SesionActual.TieneRol(1)) return new FrmPagoAdministracion(pedido);
             if (SesionActual.TieneRol(2)) return new FrmPago(pedido);
             throw new UnauthorizedAccessException("Solo el personal puede abrir cobros.");
@@ -51,6 +57,7 @@ namespace SistemaPedidoRestaurante.UICompartida
 
         public static Form CrearFactura(int pedido = 0)
         {
+            Permisos.ExigirCobro();
             if (SesionActual.TieneRol(1)) return new FrmFacturasAdministracion(pedido);
             if (SesionActual.TieneRol(2)) return new FrmFacturas(pedido);
             throw new UnauthorizedAccessException("Use Mis pedidos para consultar sus propios documentos.");

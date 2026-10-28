@@ -81,11 +81,13 @@ namespace SistemaPedidoRestaurante.BLL
 
         public Empleados ObtenerEmpleados()
         {
+            ExigirAdministrador();
             return _empleadoDAL.Listar();
         }
 
         public Empleados BuscarEmpleados(string filtro)
         {
+            ExigirAdministrador();
             Empleados empleados = _empleadoDAL.Listar();
             if (string.IsNullOrWhiteSpace(filtro))
             {

@@ -43,6 +43,7 @@
             this.masGestionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registrarPersonaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mesasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inventarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuracionRestauranteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -161,6 +162,9 @@
             this.usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
             this.usuariosToolStripMenuItem.Text = "Usuarios";
             this.usuariosToolStripMenuItem.Click += new System.EventHandler(this.usuariosToolStripMenuItem_Click);
+            this.registrarPersonaToolStripMenuItem.Name = "registrarPersonaToolStripMenuItem";
+            this.registrarPersonaToolStripMenuItem.Text = "Registrar persona";
+            this.registrarPersonaToolStripMenuItem.Click += new System.EventHandler(this.registrarPersonaToolStripMenuItem_Click);
             // mesasToolStripMenuItem
             this.mesasToolStripMenuItem.Name = "mesasToolStripMenuItem";
             this.mesasToolStripMenuItem.Text = "Mesas";
@@ -198,7 +202,7 @@
             this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
             this.cerrarSesionToolStripMenuItem.Text = "Cerrar sesión";
             this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem_Click);
-            this.masGestionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.clientesToolStripMenuItem, this.usuariosToolStripMenuItem, this.mesasToolStripMenuItem, this.inventarioToolStripMenuItem, this.configuracionRestauranteToolStripMenuItem, this.reservasPersonalToolStripMenuItem, this.separadorOperaciones, this.operacionesToolStripMenuItem });
+            this.masGestionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.clientesToolStripMenuItem, this.usuariosToolStripMenuItem, this.registrarPersonaToolStripMenuItem, this.mesasToolStripMenuItem, this.inventarioToolStripMenuItem, this.configuracionRestauranteToolStripMenuItem, this.reservasPersonalToolStripMenuItem, this.separadorOperaciones, this.operacionesToolStripMenuItem });
             this.operacionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.pedidosToolStripMenuItem, this.pagosToolStripMenuItem, this.facturasToolStripMenuItem });
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -234,6 +238,7 @@
         private System.Windows.Forms.ToolStripMenuItem masGestionesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuariosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registrarPersonaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mesasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inventarioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem configuracionRestauranteToolStripMenuItem;

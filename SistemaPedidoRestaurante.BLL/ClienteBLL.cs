@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -32,7 +32,14 @@ namespace SistemaPedidoRestaurante.BLL
             new UsuarioValidacion().ValidarCredenciales(usuario.NombreUsuario, usuario.Contrasena);
             usuario.NombreUsuario = CamposValidacion.Usuario(usuario.NombreUsuario);
             validacion.ValidarRegistro(cliente, usuario.Contrasena, confirmarContrasena);
-            clienteDAL.InsertarCliente(cliente, usuario);
+            try
+            {
+                clienteDAL.InsertarCliente(cliente, usuario);
+            }
+            catch (SqlException error)
+            {
+                throw OperacionDatos.Traducir(error, "La cédula o el nombre de usuario ya están registrados. Revise la gestión de clientes y el listado de usuarios.");
+            }
         }
 
         public DataTable Listar()
@@ -124,7 +131,7 @@ namespace SistemaPedidoRestaurante.BLL
 
         public DataTable ListarClientes()
         {
-            Permisos.ExigirPersonal();
+            Permisos.ExigirAtencion();
             try
             {
                 return clienteDAL.ListarClientes(SesionActual.IdUsuario);

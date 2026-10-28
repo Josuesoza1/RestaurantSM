@@ -50,6 +50,8 @@
     <PackageReference Include="QuestPDF" Version="2026.9.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UIAdministracion\FrmRegistrarPersona.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="UIAdministracion\FrmRegistrarPersona.Designer.cs"><DependentUpon>FrmRegistrarPersona.cs</DependentUpon></Compile>
     <Compile Include="UIAdministracion\FrmConsultaFacturasAdministracion.Designer.cs"><DependentUpon>FrmConsultaFacturasAdministracion.cs</DependentUpon></Compile>
     <Compile Include="UIAdministracion\FrmConsultaFacturasAdministracion.cs"><SubType>Form</SubType></Compile>
     <Compile Include="UIEmpleado\FrmConsultaFacturasEmpleado.Designer.cs"><DependentUpon>FrmConsultaFacturasEmpleado.cs</DependentUpon></Compile>
