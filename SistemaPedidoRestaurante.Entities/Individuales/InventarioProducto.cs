@@ -7,6 +7,7 @@
         public int StockMinimo { get; set; }
         public bool Activo { get; set; }
         public int Revision { get; set; }
+        public byte[] Version { get; set; }
 
 
         public string Producto { get; set; }

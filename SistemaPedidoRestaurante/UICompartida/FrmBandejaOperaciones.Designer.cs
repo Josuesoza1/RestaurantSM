@@ -44,9 +44,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.listado)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.detalle)).BeginInit();
             this.SuspendLayout();
-            // 
-            // titulo
-            // 
             this.titulo.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.titulo.Dock = System.Windows.Forms.DockStyle.Top;
             this.titulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
@@ -58,9 +55,6 @@
             this.titulo.TabIndex = 3;
             this.titulo.Text = "BANDEJA DE PEDIDOS";
             this.titulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // buscar
-            // 
             this.buscar.Controls.Add(this.txtBuscar);
             this.buscar.Controls.Add(this.etiquetaBuscar);
             this.buscar.Dock = System.Windows.Forms.DockStyle.Top;
@@ -70,9 +64,6 @@
             this.buscar.Padding = new System.Windows.Forms.Padding(16, 10, 16, 10);
             this.buscar.Size = new System.Drawing.Size(1445, 55);
             this.buscar.TabIndex = 2;
-            // 
-            // txtBuscar
-            // 
             this.txtBuscar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtBuscar.Location = new System.Drawing.Point(103, 10);
             this.txtBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -80,9 +71,6 @@
             this.txtBuscar.Size = new System.Drawing.Size(1326, 22);
             this.txtBuscar.TabIndex = 0;
             this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
-            // 
-            // etiquetaBuscar
-            // 
             this.etiquetaBuscar.Dock = System.Windows.Forms.DockStyle.Left;
             this.etiquetaBuscar.Location = new System.Drawing.Point(16, 10);
             this.etiquetaBuscar.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -91,9 +79,6 @@
             this.etiquetaBuscar.TabIndex = 1;
             this.etiquetaBuscar.Text = "Buscar:";
             this.etiquetaBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // acciones
-            // 
             this.acciones.AutoSize = true;
             this.acciones.Controls.Add(this.btnSeleccionar);
             this.acciones.Controls.Add(this.btnNuevo);
@@ -116,9 +101,6 @@
             this.acciones.Padding = new System.Windows.Forms.Padding(11, 10, 11, 10);
             this.acciones.Size = new System.Drawing.Size(1445, 124);
             this.acciones.TabIndex = 1;
-            // 
-            // btnSeleccionar
-            // 
             this.btnSeleccionar.AutoSize = true;
             this.btnSeleccionar.Location = new System.Drawing.Point(15, 14);
             this.btnSeleccionar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -129,9 +111,6 @@
             this.btnSeleccionar.Text = "Seleccionar";
             this.btnSeleccionar.Visible = false;
             this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click);
-            // 
-            // btnNuevo
-            // 
             this.btnNuevo.AutoSize = true;
             this.btnNuevo.Location = new System.Drawing.Point(155, 14);
             this.btnNuevo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -141,9 +120,6 @@
             this.btnNuevo.TabIndex = 1;
             this.btnNuevo.Text = "Nuevo pedido";
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
-            // 
-            // btnMesa
-            // 
             this.btnMesa.AutoSize = true;
             this.btnMesa.Location = new System.Drawing.Point(314, 14);
             this.btnMesa.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -153,9 +129,6 @@
             this.btnMesa.TabIndex = 2;
             this.btnMesa.Text = "Asignar mesa";
             this.btnMesa.Click += new System.EventHandler(this.btnMesa_Click);
-            // 
-            // btnMesas
-            // 
             this.btnMesas.AutoSize = true;
             this.btnMesas.Location = new System.Drawing.Point(469, 14);
             this.btnMesas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -165,9 +138,6 @@
             this.btnMesas.TabIndex = 3;
             this.btnMesas.Text = "Mesas y limpieza";
             this.btnMesas.Click += new System.EventHandler(this.btnMesas_Click);
-            // 
-            // btnAvanzar
-            // 
             this.btnAvanzar.AutoSize = true;
             this.btnAvanzar.Location = new System.Drawing.Point(652, 14);
             this.btnAvanzar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -177,9 +147,6 @@
             this.btnAvanzar.TabIndex = 4;
             this.btnAvanzar.Text = "Avanzar estado";
             this.btnAvanzar.Click += new System.EventHandler(this.btnAvanzar_Click);
-            // 
-            // btnCobrar
-            // 
             this.btnCobrar.AutoSize = true;
             this.btnCobrar.Location = new System.Drawing.Point(821, 14);
             this.btnCobrar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -189,9 +156,6 @@
             this.btnCobrar.TabIndex = 5;
             this.btnCobrar.Text = "Cobrar";
             this.btnCobrar.Click += new System.EventHandler(this.btnCobrar_Click);
-            // 
-            // btnAtendida
-            // 
             this.btnAtendida.AutoSize = true;
             this.btnAtendida.Location = new System.Drawing.Point(929, 14);
             this.btnAtendida.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -202,9 +166,6 @@
             this.btnAtendida.Text = "Atendida";
             this.btnAtendida.Visible = false;
             this.btnAtendida.Click += new System.EventHandler(this.btnAtendida_Click);
-            // 
-            // btnAusencia
-            // 
             this.btnAusencia.AutoSize = true;
             this.btnAusencia.Location = new System.Drawing.Point(1045, 14);
             this.btnAusencia.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -215,9 +176,6 @@
             this.btnAusencia.Text = "No asistio";
             this.btnAusencia.Visible = false;
             this.btnAusencia.Click += new System.EventHandler(this.btnAusencia_Click);
-            // 
-            // btnCancelar
-            // 
             this.btnCancelar.AutoSize = true;
             this.btnCancelar.Location = new System.Drawing.Point(1169, 14);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -227,9 +185,6 @@
             this.btnCancelar.TabIndex = 8;
             this.btnCancelar.Text = "Cancelar pendiente";
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
-            // btnPedidoPdf
-            // 
             this.btnPedidoPdf.AutoSize = true;
             this.btnPedidoPdf.Location = new System.Drawing.Point(15, 66);
             this.btnPedidoPdf.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -239,9 +194,6 @@
             this.btnPedidoPdf.TabIndex = 9;
             this.btnPedidoPdf.Text = "PDF del pedido";
             this.btnPedidoPdf.Click += new System.EventHandler(this.btnPedidoPdf_Click);
-            // 
-            // btnFacturaPdf
-            // 
             this.btnFacturaPdf.AutoSize = true;
             this.btnFacturaPdf.Location = new System.Drawing.Point(186, 66);
             this.btnFacturaPdf.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -251,9 +203,6 @@
             this.btnFacturaPdf.TabIndex = 10;
             this.btnFacturaPdf.Text = "PDF de factura";
             this.btnFacturaPdf.Click += new System.EventHandler(this.btnFacturaPdf_Click);
-            // 
-            // btnLimpiarMesa
-            // 
             this.btnLimpiarMesa.AutoSize = true;
             this.btnLimpiarMesa.Location = new System.Drawing.Point(349, 66);
             this.btnLimpiarMesa.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -264,9 +213,6 @@
             this.btnLimpiarMesa.Text = "Avanzar limpieza";
             this.btnLimpiarMesa.Visible = false;
             this.btnLimpiarMesa.Click += new System.EventHandler(this.btnLimpiarMesa_Click);
-            // 
-            // btnRecargar
-            // 
             this.btnRecargar.AutoSize = true;
             this.btnRecargar.Location = new System.Drawing.Point(529, 66);
             this.btnRecargar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -276,9 +222,6 @@
             this.btnRecargar.TabIndex = 12;
             this.btnRecargar.Text = "Recargar";
             this.btnRecargar.Click += new System.EventHandler(this.btnRecargar_Click);
-            // 
-            // btnVolver
-            // 
             this.btnVolver.AutoSize = true;
             this.btnVolver.Location = new System.Drawing.Point(649, 66);
             this.btnVolver.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -288,29 +231,17 @@
             this.btnVolver.TabIndex = 13;
             this.btnVolver.Text = "Volver";
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
-            // 
-            // paneles
-            // 
             this.paneles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.paneles.Location = new System.Drawing.Point(0, 135);
             this.paneles.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.paneles.Name = "paneles";
             this.paneles.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // paneles.Panel1
-            // 
             this.paneles.Panel1.Controls.Add(this.listado);
-            // 
-            // paneles.Panel2
-            // 
             this.paneles.Panel2.Controls.Add(this.detalle);
             this.paneles.Size = new System.Drawing.Size(1445, 555);
             this.paneles.SplitterDistance = 333;
             this.paneles.SplitterWidth = 5;
             this.paneles.TabIndex = 0;
-            // 
-            // listado
-            // 
             this.listado.AllowUserToAddRows = false;
             this.listado.AllowUserToDeleteRows = false;
             this.listado.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -327,9 +258,6 @@
             this.listado.Size = new System.Drawing.Size(1445, 333);
             this.listado.TabIndex = 0;
             this.listado.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.listado_CellClick);
-            // 
-            // detalle
-            // 
             this.detalle.AllowUserToAddRows = false;
             this.detalle.AllowUserToDeleteRows = false;
             this.detalle.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -345,9 +273,6 @@
             this.detalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.detalle.Size = new System.Drawing.Size(1445, 217);
             this.detalle.TabIndex = 0;
-            // 
-            // FrmBandejaOperaciones
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;

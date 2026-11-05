@@ -28,20 +28,17 @@
             this.cerrarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mesasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SuspendLayout();
-            // pnlEncabezado
             this.pnlEncabezado.BackColor = System.Drawing.Color.MidnightBlue;
             this.pnlEncabezado.Controls.Add(this.lblTitulo);
             this.pnlEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlEncabezado.Name = "pnlEncabezado";
             this.pnlEncabezado.Size = new System.Drawing.Size(672, 86);
-            // lblTitulo
             this.lblTitulo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTitulo.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Text = "EMPLEADOS";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // menuStrip1
             this.menuStrip1.BackColor = System.Drawing.Color.LightSteelBlue;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 this.operacionesToolStripMenuItem,
@@ -49,8 +46,6 @@
                 this.salirToolStripMenuItem });
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.TabIndex = 0;
-            // pedidosToolStripMenuItem
-            // operacionesToolStripMenuItem
             this.operacionesToolStripMenuItem.Name = "operacionesToolStripMenuItem";
             this.operacionesToolStripMenuItem.Text = "Operaciones";
             this.operacionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -60,34 +55,27 @@
             this.pedidosToolStripMenuItem.Name = "pedidosToolStripMenuItem";
             this.pedidosToolStripMenuItem.Text = "Pedidos";
             this.pedidosToolStripMenuItem.Click += new System.EventHandler(this.pedidosToolStripMenuItem_Click);
-            // pagosToolStripMenuItem
             this.pagosToolStripMenuItem.Name = "pagosToolStripMenuItem";
             this.pagosToolStripMenuItem.Text = "Cobros";
             this.pagosToolStripMenuItem.Click += new System.EventHandler(this.pagosToolStripMenuItem_Click);
-            // facturasToolStripMenuItem
             this.facturasToolStripMenuItem.Name = "facturasToolStripMenuItem";
             this.facturasToolStripMenuItem.Text = "Facturas";
             this.facturasToolStripMenuItem.Click += new System.EventHandler(this.facturasToolStripMenuItem_Click);
-            // salirToolStripMenuItem
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
-            // lblEstado
             this.lblEstado.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblEstado.Font = new System.Drawing.Font("Arial", 11F);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Padding = new System.Windows.Forms.Padding(24);
             this.lblEstado.Text = "Consulte pedidos, avance su preparacion y registre cobros desde Operaciones.";
             this.lblEstado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // FrmMenuEmpleado
-            // reservasToolStripMenuItem
             this.reservasToolStripMenuItem.Name = "reservasToolStripMenuItem";
             this.reservasToolStripMenuItem.Text = "Reservas";
             this.reservasToolStripMenuItem.Click += new System.EventHandler(this.reservas_Click);
             this.mesasToolStripMenuItem.Name = "mesasToolStripMenuItem";
             this.mesasToolStripMenuItem.Text = "Mesas y limpieza";
             this.mesasToolStripMenuItem.Click += new System.EventHandler(this.mesas_Click);
-            // cerrarSesionToolStripMenuItem
             this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
             this.cerrarSesionToolStripMenuItem.Text = "Cerrar sesión";
             this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem_Click);

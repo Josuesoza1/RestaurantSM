@@ -2,15 +2,8 @@
 {
     partial class FrmPedidoCliente
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,10 +15,6 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.pnlEncabezado = new System.Windows.Forms.Panel();
@@ -68,9 +57,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).BeginInit();
             this.SuspendLayout();
-            //
-            // pnlEncabezado
-            //
             this.pnlEncabezado.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.pnlEncabezado.Controls.Add(this.lblTitulo);
             this.pnlEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
@@ -79,9 +65,6 @@
             this.pnlEncabezado.Name = "pnlEncabezado";
             this.pnlEncabezado.Size = new System.Drawing.Size(1045, 86);
             this.pnlEncabezado.TabIndex = 1;
-            //
-            // lblTitulo
-            //
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
@@ -91,9 +74,6 @@
             this.lblTitulo.Size = new System.Drawing.Size(171, 35);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "MI PEDIDO\r\n";
-            //
-            // grpDatosCliente
-            //
             this.grpDatosCliente.Controls.Add(this.lblCedulaCliente);
             this.grpDatosCliente.Controls.Add(this.txtEmail);
             this.grpDatosCliente.Controls.Add(this.txtCedula);
@@ -112,9 +92,6 @@
             this.grpDatosCliente.TabIndex = 2;
             this.grpDatosCliente.TabStop = false;
             this.grpDatosCliente.Text = "Mis datos";
-            //
-            // lblCedulaCliente
-            //
             this.lblCedulaCliente.AutoSize = true;
             this.lblCedulaCliente.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblCedulaCliente.Location = new System.Drawing.Point(28, 66);
@@ -123,45 +100,30 @@
             this.lblCedulaCliente.Size = new System.Drawing.Size(59, 16);
             this.lblCedulaCliente.TabIndex = 14;
             this.lblCedulaCliente.Text = "Cédula:";
-            //
-            // txtEmail
-            //
             this.txtEmail.Location = new System.Drawing.Point(101, 132);
             this.txtEmail.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.ReadOnly = true;
             this.txtEmail.Size = new System.Drawing.Size(267, 23);
             this.txtEmail.TabIndex = 13;
-            //
-            // txtCedula
-            //
             this.txtCedula.Location = new System.Drawing.Point(101, 63);
             this.txtCedula.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtCedula.Name = "txtCedula";
             this.txtCedula.ReadOnly = true;
             this.txtCedula.Size = new System.Drawing.Size(267, 23);
             this.txtCedula.TabIndex = 12;
-            //
-            // txtTelefono
-            //
             this.txtTelefono.Location = new System.Drawing.Point(101, 100);
             this.txtTelefono.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.ReadOnly = true;
             this.txtTelefono.Size = new System.Drawing.Size(267, 23);
             this.txtTelefono.TabIndex = 8;
-            //
-            // txtCliente
-            //
             this.txtCliente.Location = new System.Drawing.Point(101, 23);
             this.txtCliente.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtCliente.Name = "txtCliente";
             this.txtCliente.ReadOnly = true;
             this.txtCliente.Size = new System.Drawing.Size(267, 23);
             this.txtCliente.TabIndex = 7;
-            //
-            // lblEmail
-            //
             this.lblEmail.AutoSize = true;
             this.lblEmail.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblEmail.Location = new System.Drawing.Point(40, 135);
@@ -170,9 +132,6 @@
             this.lblEmail.Size = new System.Drawing.Size(48, 16);
             this.lblEmail.TabIndex = 6;
             this.lblEmail.Text = "Email:";
-            //
-            // lblTelefono
-            //
             this.lblTelefono.AutoSize = true;
             this.lblTelefono.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblTelefono.Location = new System.Drawing.Point(16, 103);
@@ -181,9 +140,6 @@
             this.lblTelefono.Size = new System.Drawing.Size(72, 16);
             this.lblTelefono.TabIndex = 5;
             this.lblTelefono.Text = "Telefono:";
-            //
-            // lblCiente
-            //
             this.lblCiente.AutoSize = true;
             this.lblCiente.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblCiente.Location = new System.Drawing.Point(28, 27);
@@ -193,9 +149,6 @@
             this.lblCiente.TabIndex = 0;
             this.lblCiente.Text = "Cliente:";
             this.lblCiente.Click += new System.EventHandler(this.lblPnombre_Click);
-            //
-            // grpProducto
-            //
             this.grpProducto.Controls.Add(this.cmbCategoria);
             this.grpProducto.Controls.Add(this.cmbPrecio);
             this.grpProducto.Controls.Add(this.cmbProducto);
@@ -216,9 +169,6 @@
             this.grpProducto.TabIndex = 3;
             this.grpProducto.TabStop = false;
             this.grpProducto.Text = "Producto";
-            //
-            // cmbCategoria
-            //
             this.cmbCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCategoria.FormattingEnabled = true;
             this.cmbCategoria.Location = new System.Drawing.Point(127, 25);
@@ -226,9 +176,6 @@
             this.cmbCategoria.Name = "cmbCategoria";
             this.cmbCategoria.Size = new System.Drawing.Size(425, 24);
             this.cmbCategoria.TabIndex = 23;
-            //
-            // cmbPrecio
-            //
             this.cmbPrecio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPrecio.Enabled = false;
             this.cmbPrecio.FormattingEnabled = true;
@@ -237,9 +184,6 @@
             this.cmbPrecio.Name = "cmbPrecio";
             this.cmbPrecio.Size = new System.Drawing.Size(212, 24);
             this.cmbPrecio.TabIndex = 22;
-            //
-            // cmbProducto
-            //
             this.cmbProducto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbProducto.FormattingEnabled = true;
             this.cmbProducto.Location = new System.Drawing.Point(127, 68);
@@ -247,9 +191,6 @@
             this.cmbProducto.Name = "cmbProducto";
             this.cmbProducto.Size = new System.Drawing.Size(425, 24);
             this.cmbProducto.TabIndex = 20;
-            //
-            // btnCancelar
-            //
             this.btnCancelar.BackColor = System.Drawing.Color.Red;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -262,9 +203,6 @@
             this.btnCancelar.TabIndex = 19;
             this.btnCancelar.Text = "Volver";
             this.btnCancelar.UseVisualStyleBackColor = false;
-            //
-            // btnAceptar
-            //
             this.btnAceptar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -277,9 +215,6 @@
             this.btnAceptar.TabIndex = 18;
             this.btnAceptar.Text = "Agregar al pedido";
             this.btnAceptar.UseVisualStyleBackColor = false;
-            //
-            // lblCategoria
-            //
             this.lblCategoria.AutoSize = true;
             this.lblCategoria.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblCategoria.Location = new System.Drawing.Point(16, 31);
@@ -288,9 +223,6 @@
             this.lblCategoria.Size = new System.Drawing.Size(79, 16);
             this.lblCategoria.TabIndex = 15;
             this.lblCategoria.Text = "Categoría:";
-            //
-            // lblCantidadPlato
-            //
             this.lblCantidadPlato.AutoSize = true;
             this.lblCantidadPlato.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblCantidadPlato.Location = new System.Drawing.Point(16, 117);
@@ -299,9 +231,6 @@
             this.lblCantidadPlato.Size = new System.Drawing.Size(73, 16);
             this.lblCantidadPlato.TabIndex = 14;
             this.lblCantidadPlato.Text = "Cantidad:";
-            //
-            // lblPrecioPlato
-            //
             this.lblPrecioPlato.AutoSize = true;
             this.lblPrecioPlato.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblPrecioPlato.Location = new System.Drawing.Point(260, 117);
@@ -310,9 +239,6 @@
             this.lblPrecioPlato.Size = new System.Drawing.Size(56, 16);
             this.lblPrecioPlato.TabIndex = 5;
             this.lblPrecioPlato.Text = "Precio:";
-            //
-            // lblProducto
-            //
             this.lblProducto.AutoSize = true;
             this.lblProducto.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblProducto.Location = new System.Drawing.Point(16, 74);
@@ -321,9 +247,6 @@
             this.lblProducto.Size = new System.Drawing.Size(75, 16);
             this.lblProducto.TabIndex = 0;
             this.lblProducto.Text = "Producto:";
-            //
-            // nudCantidad
-            //
             this.nudCantidad.Location = new System.Drawing.Point(127, 111);
             this.nudCantidad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nudCantidad.Maximum = new decimal(new int[] {
@@ -344,9 +267,6 @@
             0,
             0,
             0});
-            //
-            // dgvDetalle
-            //
             this.dgvDetalle.AllowUserToAddRows = false;
             this.dgvDetalle.AllowUserToDeleteRows = false;
             this.dgvDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -366,9 +286,6 @@
             this.dgvDetalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDetalle.Size = new System.Drawing.Size(1013, 197);
             this.dgvDetalle.TabIndex = 0;
-            //
-            // btnQuitar
-            //
             this.btnQuitar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnQuitar.Location = new System.Drawing.Point(16, 628);
             this.btnQuitar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -377,9 +294,6 @@
             this.btnQuitar.Size = new System.Drawing.Size(193, 39);
             this.btnQuitar.TabIndex = 1;
             this.btnQuitar.Text = "Quitar seleccionado";
-            //
-            // btnVaciar
-            //
             this.btnVaciar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnVaciar.Location = new System.Drawing.Point(220, 628);
             this.btnVaciar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -388,9 +302,6 @@
             this.btnVaciar.Size = new System.Drawing.Size(180, 39);
             this.btnVaciar.TabIndex = 2;
             this.btnVaciar.Text = "Vaciar pedido";
-            //
-            // btnEnviar
-            //
             this.btnEnviar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnEnviar.Enabled = false;
             this.btnEnviar.Location = new System.Drawing.Point(413, 628);
@@ -400,9 +311,6 @@
             this.btnEnviar.Size = new System.Drawing.Size(180, 39);
             this.btnEnviar.TabIndex = 3;
             this.btnEnviar.Text = "Enviar pedido";
-            //
-            // lblTotal
-            //
             this.lblTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTotal.Location = new System.Drawing.Point(653, 628);
             this.lblTotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -410,33 +318,21 @@
             this.lblTotal.Size = new System.Drawing.Size(373, 39);
             this.lblTotal.TabIndex = 4;
             this.lblTotal.Text = "Total estimado: 0.00";
-            //
-            // colProducto
-            //
             this.colProducto.Name = "colProducto";
             this.colProducto.DataPropertyName = "Producto";
             this.colProducto.HeaderText = "Producto";
             this.colProducto.FillWeight = 180F;
             this.colProducto.ReadOnly = true;
-            //
-            // colCantidad
-            //
             this.colCantidad.Name = "colCantidad";
             this.colCantidad.DataPropertyName = "Cantidad";
             this.colCantidad.HeaderText = "Cantidad";
             this.colCantidad.FillWeight = 70F;
             this.colCantidad.ReadOnly = true;
-            //
-            // colPrecio
-            //
             this.colPrecio.Name = "colPrecio";
             this.colPrecio.DataPropertyName = "PrecioUnitario";
             this.colPrecio.HeaderText = "Precio unitario";
             this.colPrecio.FillWeight = 100F;
             this.colPrecio.ReadOnly = true;
-            //
-            // colSubtotal
-            //
             this.colSubtotal.Name = "colSubtotal";
             this.colSubtotal.DataPropertyName = "Subtotal";
             this.colSubtotal.HeaderText = "Subtotal";
@@ -446,17 +342,11 @@
             estiloSubtotal.Format = "N2";
             this.colPrecio.DefaultCellStyle = estiloPrecio;
             this.colSubtotal.DefaultCellStyle = estiloSubtotal;
-            //
-            // estadoPerfil
-            //
             this.estadoPerfil.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.estadoPerfil.Location = new System.Drawing.Point(16, 365);
             this.estadoPerfil.Name = "estadoPerfil";
             this.estadoPerfil.Size = new System.Drawing.Size(1013, 32);
             this.estadoPerfil.Text = "Selecciona productos para preparar tu pedido. Todavía no se ha enviado.";
-            //
-            // FrmPedidoCliente
-            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;

@@ -87,7 +87,6 @@ namespace SistemaPedidoRestaurante.UICompartida
             ConfigurarOpciones();
             try
             {
-                new ConfiguracionRestauranteBLL().VerificarInstalacion();
                 Recargar();
             }
             catch (Exception error)
@@ -183,7 +182,7 @@ namespace SistemaPedidoRestaurante.UICompartida
             bool puedeAvanzar = estado == "Pendiente" || estado == "En preparación" || estado == "Listo";
             bool reservaAbierta = estado == "Pendiente" || estado == "Confirmada";
             btnSeleccionar.Enabled = fila != null;
-            btnMesa.Enabled = fila != null && puedeAvanzar;
+            btnMesa.Enabled = fila != null && puedeAvanzar && (!fila.Table.Columns.Contains("IdTipoEntrega") || Convert.ToInt32(fila["IdTipoEntrega"]) <= 1);
             btnAvanzar.Enabled = fila != null && puedeAvanzar;
             btnCobrar.Enabled = fila != null && estado == "Entregado";
             btnCancelar.Enabled = fila != null && (tipo == "Reservas" ? reservaAbierta : estado == "Pendiente");
@@ -397,7 +396,7 @@ namespace SistemaPedidoRestaurante.UICompartida
         {
             foreach (DataGridViewColumn columna in grid.Columns)
             {
-                if (columna.Name == "IdMesa" || columna.Name == "IdCategoria")
+                if (columna.Name == "IdMesa" || columna.Name == "IdCategoria" || columna.Name == "IdTipoEntrega")
                     columna.Visible = false;
                 if (tipo == "Mesas" && columna.Name == "Nombre")
                     columna.Visible = false;

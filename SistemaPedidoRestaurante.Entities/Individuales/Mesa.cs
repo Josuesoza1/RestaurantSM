@@ -6,5 +6,6 @@
         public int Numero { get; set; }
         public int Capacidad { get; set; }
         public string Estado { get; set; }
+        public bool Activa { get; set; }
     }
 }

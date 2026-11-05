@@ -2,15 +2,8 @@
 {
     partial class FrmMenuCliente
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,10 +15,6 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.grpAdmin = new System.Windows.Forms.GroupBox();
@@ -42,9 +31,6 @@
             this.misDatosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SuspendLayout();
-            // 
-            // grpAdmin
-            // 
             this.grpAdmin.BackColor = System.Drawing.Color.LightSteelBlue;
             this.grpAdmin.Controls.Add(this.menuStrip1);
             this.grpAdmin.ForeColor = System.Drawing.SystemColors.HotTrack;
@@ -56,9 +42,6 @@
             this.grpAdmin.Size = new System.Drawing.Size(649, 316);
             this.grpAdmin.TabIndex = 13;
             this.grpAdmin.TabStop = false;
-            // 
-            // menuStrip1
-            // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 this.hacerPedidoToolStripMenuItem,
@@ -73,41 +56,26 @@
             this.menuStrip1.Size = new System.Drawing.Size(641, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // hacerPedidoToolStripMenuItem
-            // 
             this.hacerPedidoToolStripMenuItem.Name = "hacerPedidoToolStripMenuItem";
             this.hacerPedidoToolStripMenuItem.Size = new System.Drawing.Size(112, 24);
             this.hacerPedidoToolStripMenuItem.Text = "Mi pedido";
             this.hacerPedidoToolStripMenuItem.Click += new System.EventHandler(this.hacerPedidoToolStripMenuItem_Click);
             this.hacerPedidoToolStripMenuItem.ToolTipText = "Elegir productos y enviar mi pedido.";
-            // 
-            // reservarMesaToolStripMenuItem
-            // 
             this.reservarMesaToolStripMenuItem.Name = "reservarMesaToolStripMenuItem";
             this.reservarMesaToolStripMenuItem.Size = new System.Drawing.Size(118, 24);
             this.reservarMesaToolStripMenuItem.Text = "Reservar Mesa";
             this.reservarMesaToolStripMenuItem.Click += new System.EventHandler(this.reservarMesaToolStripMenuItem_Click);
             this.reservarMesaToolStripMenuItem.ToolTipText = "Crear, consultar, editar y cancelar mis reservas.";
-            // 
-            // verComprasToolStripMenuItem
-            // 
             this.verComprasToolStripMenuItem.Name = "verComprasToolStripMenuItem";
             this.verComprasToolStripMenuItem.Size = new System.Drawing.Size(104, 24);
             this.verComprasToolStripMenuItem.Text = "Mis pedidos";
             this.verComprasToolStripMenuItem.Click += new System.EventHandler(this.verComprasToolStripMenuItem_Click);
             this.verComprasToolStripMenuItem.ToolTipText = "Consultar, editar y cancelar mis pedidos pendientes.";
-            // 
-            // salirToolStripMenuItem
-            // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             this.salirToolStripMenuItem.Size = new System.Drawing.Size(52, 24);
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             this.salirToolStripMenuItem.ToolTipText = "Salir del programa.";
-            // 
-            // pnlEncabezado
-            // 
             this.pnlEncabezado.BackColor = System.Drawing.Color.MidnightBlue;
             this.pnlEncabezado.Controls.Add(this.lblTitulo);
             this.pnlEncabezado.Location = new System.Drawing.Point(12, 3);
@@ -116,9 +84,6 @@
             this.pnlEncabezado.Name = "pnlEncabezado";
             this.pnlEncabezado.Size = new System.Drawing.Size(649, 86);
             this.pnlEncabezado.TabIndex = 12;
-            // 
-            // lblTitulo
-            // 
             this.lblTitulo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTitulo.AutoSize = false;
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -130,14 +95,9 @@
             this.lblTitulo.Size = new System.Drawing.Size(163, 35);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "CLIENTES";
-            // 
-            // FrmMenuCliente
-            // 
-            // misDatosToolStripMenuItem
             this.misDatosToolStripMenuItem.Name = "misDatosToolStripMenuItem";
             this.misDatosToolStripMenuItem.Text = "Mis datos";
             this.misDatosToolStripMenuItem.Click += new System.EventHandler(this.misDatosToolStripMenuItem_Click);
-            // cerrarSesionToolStripMenuItem
             this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
             this.cerrarSesionToolStripMenuItem.Text = "Cerrar sesión";
             this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem_Click);

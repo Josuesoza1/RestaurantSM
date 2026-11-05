@@ -16,16 +16,7 @@
             this.paneles.Panel2.SuspendLayout();
             this.paneles.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // titulo
-            // 
             this.titulo.Text = "PEDIDOS — EMPLEADO";
-            // 
-            // paneles
-            // 
-            // 
-            // FrmPedidosEmpleado
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.ClientSize = new System.Drawing.Size(1445, 814);
             this.Name = "FrmPedidosEmpleado";

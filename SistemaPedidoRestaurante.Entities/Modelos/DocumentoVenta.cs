@@ -12,10 +12,16 @@ namespace SistemaPedidoRestaurante.Entities
         public DateTime Fecha { get; set; }
         public string Cliente { get; set; }
         public string Cedula { get; set; }
-        public string Empleado { get; set; }
         public string Estado { get; set; }
         public string Mesa { get; set; }
         public string TipoPedido { get; set; }
+        public string OrigenPedido { get; set; }
+        public string RegistradoPor { get; set; }
+        public string AtendidoPor { get; set; }
+        public string CobradoPor { get; set; }
+        public string DireccionEntrega { get; set; }
+        public string ReferenciaEntrega { get; set; }
+        public string TelefonoContacto { get; set; }
         public string Metodo { get; set; }
         public decimal Subtotal { get; set; }
         public decimal CostoEnvio { get; set; }

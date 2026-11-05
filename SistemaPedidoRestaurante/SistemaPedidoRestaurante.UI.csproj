@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -34,7 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,54 +52,68 @@
     <PackageReference Include="QuestPDF" Version="2026.9.1" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UIAdministracion\FrmRegistrarPersona.cs"><SubType>Form</SubType></Compile>
-    <Compile Include="UIAdministracion\FrmRegistrarPersona.Designer.cs"><DependentUpon>FrmRegistrarPersona.cs</DependentUpon></Compile>
-    <Compile Include="UIAdministracion\FrmConsultaFacturasAdministracion.Designer.cs"><DependentUpon>FrmConsultaFacturasAdministracion.cs</DependentUpon></Compile>
-    <Compile Include="UIAdministracion\FrmConsultaFacturasAdministracion.cs"><SubType>Form</SubType></Compile>
-    <Compile Include="UIEmpleado\FrmConsultaFacturasEmpleado.Designer.cs"><DependentUpon>FrmConsultaFacturasEmpleado.cs</DependentUpon></Compile>
-    <Compile Include="UIEmpleado\FrmConsultaFacturasEmpleado.cs"><SubType>Form</SubType></Compile>
-    <Compile Include="UICompartida\PantallasPersonal.cs"></Compile>
-    <Compile Include="UICompartida\AccesoFormulario.cs"></Compile>
-    <Compile Include="UIAdministracion\FrmAjusteInventario.cs">
+    <Compile Include="UIAdministracion\Personas\FrmRegistrarPersona.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIAdministracion\FrmAjusteInventario.Designer.cs">
+    <Compile Include="UIAdministracion\Personas\FrmRegistrarPersona.Designer.cs">
+      <DependentUpon>FrmRegistrarPersona.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIAdministracion\Operaciones\FrmConsultaFacturasAdministracion.Designer.cs">
+      <DependentUpon>FrmConsultaFacturasAdministracion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIAdministracion\Operaciones\FrmConsultaFacturasAdministracion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIEmpleado\FrmConsultaFacturasEmpleado.Designer.cs">
+      <DependentUpon>FrmConsultaFacturasEmpleado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIEmpleado\FrmConsultaFacturasEmpleado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UICompartida\Navegacion\PantallasPersonal.cs">
+    </Compile>
+    <Compile Include="UICompartida\Navegacion\AccesoFormulario.cs">
+    </Compile>
+    <Compile Include="UIAdministracion\Operaciones\FrmAjusteInventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIAdministracion\Operaciones\FrmAjusteInventario.Designer.cs">
       <DependentUpon>FrmAjusteInventario.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIAdministracion\FrmCategoria.cs">
+    <Compile Include="UIAdministracion\Catalogos\FrmCategoria.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIAdministracion\FrmCategoria.Designer.cs">
+    <Compile Include="UIAdministracion\Catalogos\FrmCategoria.Designer.cs">
       <DependentUpon>FrmCategoria.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIAdministracion\FrmClientes.cs">
+    <Compile Include="UIAdministracion\Personas\FrmClientes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIAdministracion\FrmClientes.Designer.cs">
+    <Compile Include="UIAdministracion\Personas\FrmClientes.Designer.cs">
       <DependentUpon>FrmClientes.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIAdministracion\FrmConfiguracionRestaurante.cs">
+    <Compile Include="UIAdministracion\Configuracion\FrmConfiguracionRestaurante.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIAdministracion\FrmConfiguracionRestaurante.Designer.cs">
+    <Compile Include="UIAdministracion\Configuracion\FrmConfiguracionRestaurante.Designer.cs">
       <DependentUpon>FrmConfiguracionRestaurante.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIAdministracion\FrmEmpleados.cs">
+    <Compile Include="UIAdministracion\Personas\FrmEmpleados.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIAdministracion\FrmEmpleados.Designer.cs">
+    <Compile Include="UIAdministracion\Personas\FrmEmpleados.Designer.cs">
       <DependentUpon>FrmEmpleados.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIAdministracion\FrmFacturasAdministracion.cs">
+    <Compile Include="UIAdministracion\Operaciones\FrmFacturasAdministracion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIAdministracion\FrmFacturasAdministracion.Designer.cs">
+    <Compile Include="UIAdministracion\Operaciones\FrmFacturasAdministracion.Designer.cs">
       <DependentUpon>FrmFacturasAdministracion.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIAdministracion\FrmInventario.cs">
+    <Compile Include="UIAdministracion\Catalogos\FrmInventario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIAdministracion\FrmInventario.Designer.cs">
+    <Compile Include="UIAdministracion\Catalogos\FrmInventario.Designer.cs">
       <DependentUpon>FrmInventario.cs</DependentUpon>
     </Compile>
     <Compile Include="UIAdministracion\FrmMenuAdministracion.cs">
@@ -106,64 +122,64 @@
     <Compile Include="UIAdministracion\FrmMenuAdministracion.Designer.cs">
       <DependentUpon>FrmMenuAdministracion.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIAdministracion\FrmMesas.cs">
+    <Compile Include="UIAdministracion\Catalogos\FrmMesas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIAdministracion\FrmMesas.Designer.cs">
+    <Compile Include="UIAdministracion\Catalogos\FrmMesas.Designer.cs">
       <DependentUpon>FrmMesas.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIAdministracion\FrmMesasAdministracion.cs">
+    <Compile Include="UIAdministracion\Operaciones\FrmMesasAdministracion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIAdministracion\FrmMesasAdministracion.Designer.cs">
+    <Compile Include="UIAdministracion\Operaciones\FrmMesasAdministracion.Designer.cs">
       <DependentUpon>FrmMesasAdministracion.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIAdministracion\FrmMovimientosAdministracion.cs">
+    <Compile Include="UIAdministracion\Operaciones\FrmMovimientosAdministracion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIAdministracion\FrmMovimientosAdministracion.Designer.cs">
+    <Compile Include="UIAdministracion\Operaciones\FrmMovimientosAdministracion.Designer.cs">
       <DependentUpon>FrmMovimientosAdministracion.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIAdministracion\FrmPagoAdministracion.cs">
+    <Compile Include="UIAdministracion\Operaciones\FrmPagoAdministracion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIAdministracion\FrmPagoAdministracion.Designer.cs">
+    <Compile Include="UIAdministracion\Operaciones\FrmPagoAdministracion.Designer.cs">
       <DependentUpon>FrmPagoAdministracion.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIAdministracion\FrmPedidoAdministracion.cs">
+    <Compile Include="UIAdministracion\Operaciones\FrmPedidoAdministracion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIAdministracion\FrmPedidoAdministracion.Designer.cs">
+    <Compile Include="UIAdministracion\Operaciones\FrmPedidoAdministracion.Designer.cs">
       <DependentUpon>FrmPedidoAdministracion.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIAdministracion\FrmPedidosAdministracion.cs">
+    <Compile Include="UIAdministracion\Operaciones\FrmPedidosAdministracion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIAdministracion\FrmPedidosAdministracion.Designer.cs">
+    <Compile Include="UIAdministracion\Operaciones\FrmPedidosAdministracion.Designer.cs">
       <DependentUpon>FrmPedidosAdministracion.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIAdministracion\FrmProducto.cs">
+    <Compile Include="UIAdministracion\Catalogos\FrmProducto.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIAdministracion\FrmProducto.Designer.cs">
+    <Compile Include="UIAdministracion\Catalogos\FrmProducto.Designer.cs">
       <DependentUpon>FrmProducto.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIAdministracion\FrmReservasAdministracion.cs">
+    <Compile Include="UIAdministracion\Operaciones\FrmReservasAdministracion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIAdministracion\FrmReservasAdministracion.Designer.cs">
+    <Compile Include="UIAdministracion\Operaciones\FrmReservasAdministracion.Designer.cs">
       <DependentUpon>FrmReservasAdministracion.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIAdministracion\FrmRoles.cs">
+    <Compile Include="UIAdministracion\Catalogos\FrmRoles.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIAdministracion\FrmRoles.Designer.cs">
+    <Compile Include="UIAdministracion\Catalogos\FrmRoles.Designer.cs">
       <DependentUpon>FrmRoles.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIAdministracion\FrmUsuarios.cs">
+    <Compile Include="UIAdministracion\Personas\FrmUsuarios.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIAdministracion\FrmUsuarios.Designer.cs">
+    <Compile Include="UIAdministracion\Personas\FrmUsuarios.Designer.cs">
       <DependentUpon>FrmUsuarios.cs</DependentUpon>
     </Compile>
     <Compile Include="UIEmpleado\FrmFacturas.cs">
@@ -256,22 +272,28 @@
     <Compile Include="UICompartida\FrmElegirMesa.Designer.cs">
       <DependentUpon>FrmElegirMesa.cs</DependentUpon>
     </Compile>
-    <Compile Include="UICompartida\FrmFacturasBase.cs">
+    <Compile Include="UICompartida\Bases\FrmFacturasBase.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UICompartida\FrmFacturasBase.Designer.cs">
+    <Compile Include="UICompartida\Bases\FrmFacturasBase.Designer.cs">
       <DependentUpon>FrmFacturasBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="UICompartida\FrmPagoBase.cs">
+    <Compile Include="UICompartida\Bases\FrmPagoBase.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UICompartida\FrmPagoBase.Designer.cs">
+    <Compile Include="UICompartida\Bases\FrmPagoBase.Designer.cs">
       <DependentUpon>FrmPagoBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="UICompartida\FrmPedidoLocalBase.cs">
+    <Compile Include="UICompartida\FrmEntregaPedido.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UICompartida\FrmPedidoLocalBase.Designer.cs">
+    <Compile Include="UICompartida\FrmEntregaPedido.Designer.cs">
+      <DependentUpon>FrmEntregaPedido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UICompartida\Bases\FrmPedidoLocalBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UICompartida\Bases\FrmPedidoLocalBase.Designer.cs">
       <DependentUpon>FrmPedidoLocalBase.cs</DependentUpon>
     </Compile>
     <Compile Include="UICompartida\FrmSeleccionCliente.cs">
@@ -280,12 +302,18 @@
     <Compile Include="UICompartida\FrmSeleccionCliente.Designer.cs">
       <DependentUpon>FrmSeleccionCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIPrincipal\DocumentoPdf.cs" />
+    <Compile Include="UIPrincipal\Documentos\DocumentoPdf.cs" />
     <Compile Include="Login\FrmCrearCuenta.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Login\FrmCrearCuenta.Designer.cs">
       <DependentUpon>FrmCrearCuenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\FrmElegirPerfil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\FrmElegirPerfil.Designer.cs">
+      <DependentUpon>FrmElegirPerfil.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\FrmLogin.cs">
       <SubType>Form</SubType>
@@ -294,14 +322,14 @@
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="UIPrincipal\MenuSesion.cs" />
-    <Compile Include="UIPrincipal\MenuAdaptable.cs" />
-    <Compile Include="UIPrincipal\PantallaPendiente.cs" />
-    <Compile Include="UIPrincipal\VistaGestion.cs" />
-    <Compile Include="UIPrincipal\ValidacionEntradaUI.cs" />
+    <Compile Include="UIPrincipal\Navegacion\MenuSesion.cs" />
+    <Compile Include="UIPrincipal\Navegacion\MenuAdaptable.cs" />
+    <Compile Include="UIPrincipal\Presentacion\PantallaPendiente.cs" />
+    <Compile Include="UIPrincipal\Presentacion\VistaGestion.cs" />
+    <Compile Include="UIPrincipal\Validacion\ValidacionEntradaUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UIAdministracion\ModoFormulario.cs" />
-    <Compile Include="UIPrincipal\TemaUI.cs" />
+    <Compile Include="UIPrincipal\Presentacion\ModoFormulario.cs" />
+    <Compile Include="UIPrincipal\Presentacion\TemaUI.cs" />
     <EmbeddedResource Include="Login\FrmCrearCuenta.resx">
       <DependentUpon>FrmCrearCuenta.cs</DependentUpon>
     </EmbeddedResource>
@@ -359,55 +387,55 @@
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UIAdministracion\FrmAjusteInventario.resx">
+    <EmbeddedResource Include="UIAdministracion\Operaciones\FrmAjusteInventario.resx">
       <DependentUpon>FrmAjusteInventario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIAdministracion\FrmCategoria.resx">
+    <EmbeddedResource Include="UIAdministracion\Catalogos\FrmCategoria.resx">
       <DependentUpon>FrmCategoria.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIAdministracion\FrmClientes.resx">
+    <EmbeddedResource Include="UIAdministracion\Personas\FrmClientes.resx">
       <DependentUpon>FrmClientes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIAdministracion\FrmConfiguracionRestaurante.resx">
+    <EmbeddedResource Include="UIAdministracion\Configuracion\FrmConfiguracionRestaurante.resx">
       <DependentUpon>FrmConfiguracionRestaurante.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIAdministracion\FrmEmpleados.resx">
+    <EmbeddedResource Include="UIAdministracion\Personas\FrmEmpleados.resx">
       <DependentUpon>FrmEmpleados.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIAdministracion\FrmFacturasAdministracion.resx">
+    <EmbeddedResource Include="UIAdministracion\Operaciones\FrmFacturasAdministracion.resx">
       <DependentUpon>FrmFacturasAdministracion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIAdministracion\FrmInventario.resx">
+    <EmbeddedResource Include="UIAdministracion\Catalogos\FrmInventario.resx">
       <DependentUpon>FrmInventario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UIAdministracion\FrmMenuAdministracion.resx">
       <DependentUpon>FrmMenuAdministracion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIAdministracion\FrmMesas.resx">
+    <EmbeddedResource Include="UIAdministracion\Catalogos\FrmMesas.resx">
       <DependentUpon>FrmMesas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIAdministracion\FrmMesasAdministracion.resx">
+    <EmbeddedResource Include="UIAdministracion\Operaciones\FrmMesasAdministracion.resx">
       <DependentUpon>FrmMesasAdministracion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIAdministracion\FrmMovimientosAdministracion.resx">
+    <EmbeddedResource Include="UIAdministracion\Operaciones\FrmMovimientosAdministracion.resx">
       <DependentUpon>FrmMovimientosAdministracion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIAdministracion\FrmPagoAdministracion.resx">
+    <EmbeddedResource Include="UIAdministracion\Operaciones\FrmPagoAdministracion.resx">
       <DependentUpon>FrmPagoAdministracion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIAdministracion\FrmPedidoAdministracion.resx">
+    <EmbeddedResource Include="UIAdministracion\Operaciones\FrmPedidoAdministracion.resx">
       <DependentUpon>FrmPedidoAdministracion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIAdministracion\FrmPedidosAdministracion.resx">
+    <EmbeddedResource Include="UIAdministracion\Operaciones\FrmPedidosAdministracion.resx">
       <DependentUpon>FrmPedidosAdministracion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIAdministracion\FrmProducto.resx">
+    <EmbeddedResource Include="UIAdministracion\Catalogos\FrmProducto.resx">
       <DependentUpon>FrmProducto.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIAdministracion\FrmReservasAdministracion.resx">
+    <EmbeddedResource Include="UIAdministracion\Operaciones\FrmReservasAdministracion.resx">
       <DependentUpon>FrmReservasAdministracion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIAdministracion\FrmRoles.resx">
+    <EmbeddedResource Include="UIAdministracion\Catalogos\FrmRoles.resx">
       <DependentUpon>FrmRoles.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UIEmpleado\FrmFacturas.resx">
@@ -449,13 +477,13 @@
     <EmbeddedResource Include="UICompartida\FrmElegirMesa.resx">
       <DependentUpon>FrmElegirMesa.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UICompartida\FrmFacturasBase.resx">
+    <EmbeddedResource Include="UICompartida\Bases\FrmFacturasBase.resx">
       <DependentUpon>FrmFacturasBase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UICompartida\FrmPagoBase.resx">
+    <EmbeddedResource Include="UICompartida\Bases\FrmPagoBase.resx">
       <DependentUpon>FrmPagoBase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UICompartida\FrmPedidoLocalBase.resx">
+    <EmbeddedResource Include="UICompartida\Bases\FrmPedidoLocalBase.resx">
       <DependentUpon>FrmPedidoLocalBase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UICompartida\FrmSeleccionCliente.resx">
@@ -463,10 +491,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UIEmpleado\FrmConsultaFacturasEmpleado.resx"><DependentUpon>FrmConsultaFacturasEmpleado.cs</DependentUpon></EmbeddedResource>
+    <EmbeddedResource Include="UIEmpleado\FrmConsultaFacturasEmpleado.resx">
+      <DependentUpon>FrmConsultaFacturasEmpleado.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UIAdministracion\FrmConsultaFacturasAdministracion.resx"><DependentUpon>FrmConsultaFacturasAdministracion.cs</DependentUpon></EmbeddedResource>
+    <EmbeddedResource Include="UIAdministracion\Operaciones\FrmConsultaFacturasAdministracion.resx">
+      <DependentUpon>FrmConsultaFacturasAdministracion.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

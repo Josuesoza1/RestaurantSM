@@ -45,9 +45,6 @@
             this.campos.SuspendLayout();
             this.acciones.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // raiz
-            // 
             this.raiz.ColumnCount = 1;
             this.raiz.Controls.Add(this.titulo, 0, 0);
             this.raiz.Controls.Add(this.campos, 0, 1);
@@ -63,9 +60,6 @@
             this.raiz.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
             this.raiz.Size = new System.Drawing.Size(1093, 738);
             this.raiz.TabIndex = 0;
-            // 
-            // titulo
-            // 
             this.titulo.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.titulo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.titulo.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold);
@@ -77,9 +71,6 @@
             this.titulo.TabIndex = 0;
             this.titulo.Text = "MIS DATOS";
             this.titulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // campos
-            // 
             this.campos.AutoScroll = true;
             this.campos.ColumnCount = 2;
             this.campos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
@@ -113,9 +104,6 @@
             this.campos.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
             this.campos.Size = new System.Drawing.Size(1053, 561);
             this.campos.TabIndex = 1;
-            // 
-            // lblCampo0
-            // 
             this.lblCampo0.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCampo0.AutoSize = true;
             this.lblCampo0.Location = new System.Drawing.Point(4, 16);
@@ -124,18 +112,12 @@
             this.lblCampo0.Size = new System.Drawing.Size(95, 16);
             this.lblCampo0.TabIndex = 0;
             this.lblCampo0.Text = "Primer nombre";
-            // 
-            // txtNombre
-            // 
             this.txtNombre.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtNombre.Location = new System.Drawing.Point(204, 4);
             this.txtNombre.Margin = new System.Windows.Forms.Padding(4);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(845, 22);
             this.txtNombre.TabIndex = 1;
-            // 
-            // lblCampo1
-            // 
             this.lblCampo1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCampo1.AutoSize = true;
             this.lblCampo1.Location = new System.Drawing.Point(4, 65);
@@ -144,18 +126,12 @@
             this.lblCampo1.Size = new System.Drawing.Size(111, 16);
             this.lblCampo1.TabIndex = 2;
             this.lblCampo1.Text = "Segundo nombre";
-            // 
-            // txtSegundoNombre
-            // 
             this.txtSegundoNombre.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtSegundoNombre.Location = new System.Drawing.Point(204, 53);
             this.txtSegundoNombre.Margin = new System.Windows.Forms.Padding(4);
             this.txtSegundoNombre.Name = "txtSegundoNombre";
             this.txtSegundoNombre.Size = new System.Drawing.Size(845, 22);
             this.txtSegundoNombre.TabIndex = 3;
-            // 
-            // lblCampo2
-            // 
             this.lblCampo2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCampo2.AutoSize = true;
             this.lblCampo2.Location = new System.Drawing.Point(4, 114);
@@ -164,18 +140,12 @@
             this.lblCampo2.Size = new System.Drawing.Size(98, 16);
             this.lblCampo2.TabIndex = 4;
             this.lblCampo2.Text = "Primer apellido";
-            // 
-            // txtApellido
-            // 
             this.txtApellido.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtApellido.Location = new System.Drawing.Point(204, 102);
             this.txtApellido.Margin = new System.Windows.Forms.Padding(4);
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(845, 22);
             this.txtApellido.TabIndex = 5;
-            // 
-            // lblCampo3
-            // 
             this.lblCampo3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCampo3.AutoSize = true;
             this.lblCampo3.Location = new System.Drawing.Point(4, 163);
@@ -184,18 +154,12 @@
             this.lblCampo3.Size = new System.Drawing.Size(114, 16);
             this.lblCampo3.TabIndex = 6;
             this.lblCampo3.Text = "Segundo apellido";
-            // 
-            // txtSegundoApellido
-            // 
             this.txtSegundoApellido.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtSegundoApellido.Location = new System.Drawing.Point(204, 151);
             this.txtSegundoApellido.Margin = new System.Windows.Forms.Padding(4);
             this.txtSegundoApellido.Name = "txtSegundoApellido";
             this.txtSegundoApellido.Size = new System.Drawing.Size(845, 22);
             this.txtSegundoApellido.TabIndex = 7;
-            // 
-            // lblCampo4
-            // 
             this.lblCampo4.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCampo4.AutoSize = true;
             this.lblCampo4.Location = new System.Drawing.Point(4, 212);
@@ -204,18 +168,12 @@
             this.lblCampo4.Size = new System.Drawing.Size(50, 16);
             this.lblCampo4.TabIndex = 8;
             this.lblCampo4.Text = "Cédula";
-            // 
-            // txtCedula
-            // 
             this.txtCedula.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtCedula.Location = new System.Drawing.Point(204, 200);
             this.txtCedula.Margin = new System.Windows.Forms.Padding(4);
             this.txtCedula.Name = "txtCedula";
             this.txtCedula.Size = new System.Drawing.Size(845, 22);
             this.txtCedula.TabIndex = 9;
-            // 
-            // lblCampo5
-            // 
             this.lblCampo5.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCampo5.AutoSize = true;
             this.lblCampo5.Location = new System.Drawing.Point(4, 261);
@@ -224,18 +182,12 @@
             this.lblCampo5.Size = new System.Drawing.Size(61, 16);
             this.lblCampo5.TabIndex = 10;
             this.lblCampo5.Text = "Teléfono";
-            // 
-            // txtTelefono
-            // 
             this.txtTelefono.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtTelefono.Location = new System.Drawing.Point(204, 249);
             this.txtTelefono.Margin = new System.Windows.Forms.Padding(4);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(845, 22);
             this.txtTelefono.TabIndex = 11;
-            // 
-            // lblCampo6
-            // 
             this.lblCampo6.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCampo6.AutoSize = true;
             this.lblCampo6.Location = new System.Drawing.Point(4, 310);
@@ -244,18 +196,12 @@
             this.lblCampo6.Size = new System.Drawing.Size(48, 16);
             this.lblCampo6.TabIndex = 12;
             this.lblCampo6.Text = "Correo";
-            // 
-            // txtEmail
-            // 
             this.txtEmail.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtEmail.Location = new System.Drawing.Point(204, 298);
             this.txtEmail.Margin = new System.Windows.Forms.Padding(4);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(845, 22);
             this.txtEmail.TabIndex = 13;
-            // 
-            // lblCampo7
-            // 
             this.lblCampo7.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCampo7.AutoSize = true;
             this.lblCampo7.Location = new System.Drawing.Point(4, 444);
@@ -264,9 +210,6 @@
             this.lblCampo7.Size = new System.Drawing.Size(52, 16);
             this.lblCampo7.TabIndex = 14;
             this.lblCampo7.Text = "Género";
-            // 
-            // cmbGenero
-            // 
             this.cmbGenero.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGenero.Items.AddRange(new object[] {
             "M",
@@ -277,9 +220,6 @@
             this.cmbGenero.Name = "cmbGenero";
             this.cmbGenero.Size = new System.Drawing.Size(57, 24);
             this.cmbGenero.TabIndex = 15;
-            // 
-            // acciones
-            // 
             this.acciones.AutoScroll = true;
             this.acciones.Controls.Add(this.btnGuardar);
             this.acciones.Controls.Add(this.btnVolver);
@@ -289,9 +229,6 @@
             this.acciones.Name = "acciones";
             this.acciones.Size = new System.Drawing.Size(1053, 51);
             this.acciones.TabIndex = 2;
-            // 
-            // btnGuardar
-            // 
             this.btnGuardar.Location = new System.Drawing.Point(4, 4);
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(4);
             this.btnGuardar.Name = "btnGuardar";
@@ -299,9 +236,6 @@
             this.btnGuardar.TabIndex = 0;
             this.btnGuardar.Text = "Guardar datos";
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
-            // 
-            // btnVolver
-            // 
             this.btnVolver.Location = new System.Drawing.Point(179, 4);
             this.btnVolver.Margin = new System.Windows.Forms.Padding(4);
             this.btnVolver.Name = "btnVolver";
@@ -309,9 +243,6 @@
             this.btnVolver.TabIndex = 1;
             this.btnVolver.Text = "Volver";
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
-            // 
-            // FrmMisDatos
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;

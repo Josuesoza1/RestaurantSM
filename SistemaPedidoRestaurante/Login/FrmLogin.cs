@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.Entities;
@@ -46,31 +46,35 @@ namespace SistemaPedidoRestaurante.Loggin
 
         private void AbrirSesion(Usuario usuario)
         {
-            using (Form menu = CrearMenuSegunRol(usuario.IdRol))
+            bool salir = false;
+            try
             {
-                SesionActual.Iniciar(usuario);
-                this.Hide();
-                bool salir = false;
-                try
+                int perfil = usuario.AccesoPersonal ? usuario.IdRol : RolesSistema.Cliente;
+                SesionActual.Iniciar(usuario, perfil);
+                if (usuario.IdRol != RolesSistema.Cliente)
                 {
+                    using (FrmElegirPerfil elegir = new FrmElegirPerfil(usuario))
+                    {
+                        if (elegir.ShowDialog(this) != DialogResult.OK) return;
+                        usuario = elegir.Cuenta;
+                        perfil = elegir.RolElegido;
+                    }
+                }
+                SesionActual.Iniciar(usuario, perfil);
+                using (Form menu = CrearMenuSegunRol(perfil))
+                {
+                    Hide();
                     salir = menu.ShowDialog(this) == DialogResult.Abort;
                 }
-                finally
+            }
+            finally
+            {
+                SesionActual.Cerrar();
+                if (!IsDisposed && !Disposing)
                 {
-                    SesionActual.Cerrar();
-                    if (!this.IsDisposed && !this.Disposing)
-                    {
-                        txtContrasena.Clear();
-                        if (salir)
-                        {
-                            this.Close();
-                        }
-                        else
-                        {
-                            this.Show();
-                            txtUsuario.Focus();
-                        }
-                    }
+                    txtContrasena.Clear();
+                    if (salir) Close();
+                    else { Show(); txtUsuario.Focus(); }
                 }
             }
         }

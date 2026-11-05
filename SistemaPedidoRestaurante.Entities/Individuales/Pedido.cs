@@ -7,8 +7,11 @@ namespace SistemaPedidoRestaurante.Entities
         public int IdPedido { get; set; }
         public int IdCliente { get; set; }
         public int? IdMesa { get; set; }
-        public int? IdEmpleado { get; set; }
-        public int? IdRepartidor { get; set; }
+        public int? IdEmpleadoAtiende { get; set; }
+        public int? IdUsuarioRegistro { get; set; }
+        public int IdOrigenPedido { get; set; }
+        public int IdTipoEntrega { get; set; }
+        public int? IdEmpleadoRepartidor { get; set; }
         public string Direccion { get; set; }
         public string Referencia { get; set; }
         public string TelefonoDeContacto { get; set; }
@@ -18,5 +21,6 @@ namespace SistemaPedidoRestaurante.Entities
         public decimal CostoEnvio { get; set; }
         public decimal Subtotal { get; set; }
         public decimal Total { get; set; }
+        public Guid? Solicitud { get; set; }
     }
 }

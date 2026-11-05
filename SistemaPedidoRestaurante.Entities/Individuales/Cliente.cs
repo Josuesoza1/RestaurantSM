@@ -1,16 +1,9 @@
-﻿
-namespace SistemaPedidoRestaurante.Entities
+﻿namespace SistemaPedidoRestaurante.Entities
 {
-    public class Cliente 
+    public class Cliente : Persona
     {
-        public int Id { get; set; }
-        public string PrimerNombre { get; set; }
-        public string SegundoNombre { get; set; }
-        public string PrimerApellido { get; set; }
-        public string SegundoApellido { get; set; }
-        public string Genero { get; set; }
-        public string Telefono { get; set; }
-        public string Email { get; set; }
-        public string Cedula { get; set; }
+        public int IdCliente { get; set; }
+        public int? IdUsuario { get; set; }
+        public bool Activo { get; set; }
     }
 }

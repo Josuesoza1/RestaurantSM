@@ -2,15 +2,8 @@
 {
     partial class FrmCrearCuenta
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,10 +15,6 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.pnlEncabezado = new System.Windows.Forms.Panel();
@@ -64,9 +53,6 @@
             this.grpDatosClientes.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pnlEncabezado
-            // 
             this.pnlEncabezado.BackColor = System.Drawing.Color.MidnightBlue;
             this.pnlEncabezado.Controls.Add(this.lblSubtitulo);
             this.pnlEncabezado.Controls.Add(this.lblTitulo);
@@ -76,9 +62,6 @@
             this.pnlEncabezado.Name = "pnlEncabezado";
             this.pnlEncabezado.Size = new System.Drawing.Size(956, 130);
             this.pnlEncabezado.TabIndex = 3;
-            // 
-            // lblSubtitulo
-            // 
             this.lblSubtitulo.AutoSize = true;
             this.lblSubtitulo.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSubtitulo.ForeColor = System.Drawing.Color.White;
@@ -88,9 +71,6 @@
             this.lblSubtitulo.Size = new System.Drawing.Size(378, 35);
             this.lblSubtitulo.TabIndex = 1;
             this.lblSubtitulo.Text = "SISTEMA RESTAURANTE";
-            // 
-            // lblTitulo
-            // 
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
@@ -100,9 +80,6 @@
             this.lblTitulo.Size = new System.Drawing.Size(253, 35);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "CREAR CUENTA";
-            // 
-            // grpDatosClientes
-            // 
             this.grpDatosClientes.Controls.Add(this.lblGenero);
             this.grpDatosClientes.Controls.Add(this.cmbGenero);
             this.grpDatosClientes.Controls.Add(this.txtEmail);
@@ -127,17 +104,11 @@
             this.grpDatosClientes.TabIndex = 0;
             this.grpDatosClientes.TabStop = false;
             this.grpDatosClientes.Text = "Datos Personales";
-            //
-            // lblGenero
-            //
             this.lblGenero.AutoSize = true;
             this.lblGenero.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblGenero.Location = new System.Drawing.Point(96, 267);
             this.lblGenero.Name = "lblGenero";
             this.lblGenero.Text = "Género:";
-            //
-            // cmbGenero
-            //
             this.cmbGenero.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGenero.FormattingEnabled = true;
             this.cmbGenero.Items.AddRange(new object[] { "Masculino", "Femenino", "Otro" });
@@ -145,25 +116,16 @@
             this.cmbGenero.Name = "cmbGenero";
             this.cmbGenero.Size = new System.Drawing.Size(198, 24);
             this.cmbGenero.TabIndex = 6;
-            // 
-            // txtEmail
-            // 
             this.txtEmail.Location = new System.Drawing.Point(188, 225);
             this.txtEmail.Margin = new System.Windows.Forms.Padding(4);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(198, 23);
             this.txtEmail.TabIndex = 5;
-            // 
-            // mtxtTelefono
-            // 
             this.mtxtTelefono.Location = new System.Drawing.Point(188, 180);
             this.mtxtTelefono.MaxLength = 20;
             this.mtxtTelefono.Name = "mtxtTelefono";
             this.mtxtTelefono.Size = new System.Drawing.Size(198, 23);
             this.mtxtTelefono.TabIndex = 4;
-            // 
-            // lblEmail
-            // 
             this.lblEmail.AutoSize = true;
             this.lblEmail.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblEmail.Location = new System.Drawing.Point(112, 228);
@@ -172,41 +134,26 @@
             this.lblEmail.Size = new System.Drawing.Size(48, 16);
             this.lblEmail.TabIndex = 13;
             this.lblEmail.Text = "Email:";
-            // 
-            // txtSnombre
-            // 
             this.txtSnombre.Location = new System.Drawing.Point(188, 68);
             this.txtSnombre.Margin = new System.Windows.Forms.Padding(4);
             this.txtSnombre.Name = "txtSnombre";
             this.txtSnombre.Size = new System.Drawing.Size(198, 23);
             this.txtSnombre.TabIndex = 1;
-            // 
-            // txtSapellido
-            // 
             this.txtSapellido.Location = new System.Drawing.Point(188, 140);
             this.txtSapellido.Margin = new System.Windows.Forms.Padding(4);
             this.txtSapellido.Name = "txtSapellido";
             this.txtSapellido.Size = new System.Drawing.Size(198, 23);
             this.txtSapellido.TabIndex = 3;
-            // 
-            // txtPapellido
-            // 
             this.txtPapellido.Location = new System.Drawing.Point(188, 102);
             this.txtPapellido.Margin = new System.Windows.Forms.Padding(4);
             this.txtPapellido.Name = "txtPapellido";
             this.txtPapellido.Size = new System.Drawing.Size(198, 23);
             this.txtPapellido.TabIndex = 2;
-            // 
-            // txtPnombre
-            // 
             this.txtPnombre.Location = new System.Drawing.Point(188, 28);
             this.txtPnombre.Margin = new System.Windows.Forms.Padding(4);
             this.txtPnombre.Name = "txtPnombre";
             this.txtPnombre.Size = new System.Drawing.Size(198, 23);
             this.txtPnombre.TabIndex = 0;
-            // 
-            // lblTelefono
-            // 
             this.lblTelefono.AutoSize = true;
             this.lblTelefono.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblTelefono.Location = new System.Drawing.Point(87, 187);
@@ -215,9 +162,6 @@
             this.lblTelefono.Size = new System.Drawing.Size(71, 16);
             this.lblTelefono.TabIndex = 5;
             this.lblTelefono.Text = "Teléfono:";
-            // 
-            // lblSapellido
-            // 
             this.lblSapellido.AutoSize = true;
             this.lblSapellido.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblSapellido.Location = new System.Drawing.Point(27, 144);
@@ -226,9 +170,6 @@
             this.lblSapellido.Size = new System.Drawing.Size(130, 16);
             this.lblSapellido.TabIndex = 3;
             this.lblSapellido.Text = "Segundo Apelido:";
-            // 
-            // lblPapellido
-            // 
             this.lblPapellido.AutoSize = true;
             this.lblPapellido.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblPapellido.Location = new System.Drawing.Point(37, 106);
@@ -237,9 +178,6 @@
             this.lblPapellido.Size = new System.Drawing.Size(117, 16);
             this.lblPapellido.TabIndex = 2;
             this.lblPapellido.Text = "Primer Apellido:";
-            // 
-            // lblSnombre
-            // 
             this.lblSnombre.AutoSize = true;
             this.lblSnombre.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblSnombre.Location = new System.Drawing.Point(23, 71);
@@ -248,9 +186,6 @@
             this.lblSnombre.Size = new System.Drawing.Size(133, 16);
             this.lblSnombre.TabIndex = 1;
             this.lblSnombre.Text = "Segundo Nombre:";
-            // 
-            // lblPnombre
-            // 
             this.lblPnombre.AutoSize = true;
             this.lblPnombre.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblPnombre.Location = new System.Drawing.Point(37, 32);
@@ -259,9 +194,6 @@
             this.lblPnombre.Size = new System.Drawing.Size(116, 16);
             this.lblPnombre.TabIndex = 0;
             this.lblPnombre.Text = "Primer Nombre:";
-            // 
-            // groupBox1
-            // 
             this.groupBox1.Controls.Add(this.mtxtCedula);
             this.groupBox1.Controls.Add(this.txtContrasena);
             this.groupBox1.Controls.Add(this.txtUsuario);
@@ -280,42 +212,27 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de Acceso";
-            // 
-            // mtxtCedula
-            // 
             this.mtxtCedula.Location = new System.Drawing.Point(43, 44);
             this.mtxtCedula.Mask = "000-000000-0000L";
             this.mtxtCedula.Name = "mtxtCedula";
             this.mtxtCedula.Size = new System.Drawing.Size(340, 23);
             this.mtxtCedula.TabIndex = 0;
-            // 
-            // txtContrasena
-            // 
             this.txtContrasena.Location = new System.Drawing.Point(43, 155);
             this.txtContrasena.Margin = new System.Windows.Forms.Padding(4);
             this.txtContrasena.Name = "txtContrasena";
             this.txtContrasena.PasswordChar = '*';
             this.txtContrasena.Size = new System.Drawing.Size(340, 23);
             this.txtContrasena.TabIndex = 2;
-            // 
-            // txtUsuario
-            // 
             this.txtUsuario.Location = new System.Drawing.Point(43, 98);
             this.txtUsuario.Margin = new System.Windows.Forms.Padding(4);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(340, 23);
             this.txtUsuario.TabIndex = 1;
-            // 
-            // txtConfirmarContrasena
-            // 
             this.txtConfirmarContrasena.Location = new System.Drawing.Point(43, 217);
             this.txtConfirmarContrasena.Margin = new System.Windows.Forms.Padding(4);
             this.txtConfirmarContrasena.Name = "txtConfirmarContrasena";
             this.txtConfirmarContrasena.Size = new System.Drawing.Size(340, 23);
             this.txtConfirmarContrasena.TabIndex = 3;
-            // 
-            // lblConfirmarContraseña
-            // 
             this.lblConfirmarContraseña.AutoSize = true;
             this.lblConfirmarContraseña.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblConfirmarContraseña.Location = new System.Drawing.Point(39, 190);
@@ -324,9 +241,6 @@
             this.lblConfirmarContraseña.Size = new System.Drawing.Size(165, 16);
             this.lblConfirmarContraseña.TabIndex = 5;
             this.lblConfirmarContraseña.Text = "Confirmar Contraseña:";
-            // 
-            // lblContraseña
-            // 
             this.lblContraseña.AutoSize = true;
             this.lblContraseña.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblContraseña.Location = new System.Drawing.Point(39, 132);
@@ -335,9 +249,6 @@
             this.lblContraseña.Size = new System.Drawing.Size(92, 16);
             this.lblContraseña.TabIndex = 3;
             this.lblContraseña.Text = "Contraseña:";
-            // 
-            // lblUsuario
-            // 
             this.lblUsuario.AutoSize = true;
             this.lblUsuario.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblUsuario.Location = new System.Drawing.Point(39, 78);
@@ -346,9 +257,6 @@
             this.lblUsuario.Size = new System.Drawing.Size(65, 16);
             this.lblUsuario.TabIndex = 2;
             this.lblUsuario.Text = "Usuario:";
-            // 
-            // lblCedula
-            // 
             this.lblCedula.AutoSize = true;
             this.lblCedula.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblCedula.Location = new System.Drawing.Point(39, 25);
@@ -357,9 +265,6 @@
             this.lblCedula.Size = new System.Drawing.Size(59, 16);
             this.lblCedula.TabIndex = 0;
             this.lblCedula.Text = "Cédula:";
-            // 
-            // btnCrearCuenta
-            // 
             this.btnCrearCuenta.BackColor = System.Drawing.Color.Aquamarine;
             this.btnCrearCuenta.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCrearCuenta.ForeColor = System.Drawing.Color.Black;
@@ -371,9 +276,6 @@
             this.btnCrearCuenta.Text = "CREAR CUENTA";
             this.btnCrearCuenta.UseVisualStyleBackColor = false;
             this.btnCrearCuenta.Click += new System.EventHandler(this.btnCrearCuenta_Click);
-            // 
-            // btnCancelar
-            // 
             this.btnCancelar.BackColor = System.Drawing.Color.LightCoral;
             this.btnCancelar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.Black;
@@ -385,9 +287,6 @@
             this.btnCancelar.Text = "CANCELAR";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
-            // btnLimpiar
-            // 
             this.btnLimpiar.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnLimpiar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLimpiar.ForeColor = System.Drawing.Color.Black;
@@ -399,9 +298,6 @@
             this.btnLimpiar.Text = "LIMPIAR";
             this.btnLimpiar.UseVisualStyleBackColor = false;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            // 
-            // btnIniciarSesion
-            // 
             this.btnIniciarSesion.BackColor = System.Drawing.Color.Aquamarine;
             this.btnIniciarSesion.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIniciarSesion.ForeColor = System.Drawing.Color.Black;
@@ -413,9 +309,6 @@
             this.btnIniciarSesion.Text = "INICIAR SESIÓN";
             this.btnIniciarSesion.UseVisualStyleBackColor = false;
             this.btnIniciarSesion.Click += new System.EventHandler(this.btnIniciarSesion_Click);
-            // 
-            // lblPregunta
-            // 
             this.lblPregunta.AutoSize = true;
             this.lblPregunta.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.lblPregunta.Location = new System.Drawing.Point(392, 594);
@@ -424,9 +317,6 @@
             this.lblPregunta.Size = new System.Drawing.Size(145, 16);
             this.lblPregunta.TabIndex = 25;
             this.lblPregunta.Text = "¿Ya tienes una cuenta?";
-            // 
-            // FrmCrearCuenta
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSlateBlue;

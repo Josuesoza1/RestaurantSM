@@ -29,7 +29,9 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             else if (Permisos.PuedeCobrar)
                 lblEstado.Text = "Consulte los pedidos entregados, registre cobros y consulte o exporte facturas.";
             else
-                lblEstado.Text = "Su cargo todavía no está habilitado. Solicite al administrador que seleccione Mesero o Cajero en Empleados y vuelva a iniciar sesión.";
+                lblEstado.Text = SesionActual.Cargo == SistemaPedidoRestaurante.Entities.CargosPersonal.Repartidor
+                    ? "Las opciones de reparto todavía no están disponibles. Su perfil de personal está registrado."
+                    : "Su cargo todavía no está habilitado. Solicite al administrador que revise su registro en Empleados y vuelva a iniciar sesión.";
         }
 
         private void pedidosToolStripMenuItem_Click(object sender, EventArgs e)

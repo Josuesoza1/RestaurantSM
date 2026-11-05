@@ -13,6 +13,7 @@ namespace SistemaPedidoRestaurante.UICliente
         private Productos catalogo = new Productos();
         private bool perfilValido;
         private readonly int idPedido;
+        private EntregaPedido entrega;
         private readonly Guid solicitud = Guid.NewGuid();
         public FrmPedidoCliente() : this(0)
         {
@@ -189,10 +190,15 @@ namespace SistemaPedidoRestaurante.UICliente
         {
             try
             {
+                using (UICompartida.FrmEntregaPedido confirmar = new UICompartida.FrmEntregaPedido(borrador.Total, idPedido, txtTelefono.Text, entrega))
+                {
+                    if (confirmar.ShowDialog(this) != DialogResult.OK) return;
+                    entrega = confirmar.Entrega;
+                }
                 btnEnviar.Enabled = false;
                 try
                 {
-                    int numero = new ComprasClienteBLL().Guardar(borrador, solicitud, idPedido);
+                    int numero = new ComprasClienteBLL().Guardar(borrador, solicitud, idPedido, entrega);
                     MessageBox.Show(this, "Pedido " + numero + " guardado. Puede consultarlo en la lista de pedidos.", "Mi pedido");
                     DialogResult = DialogResult.OK;
                     Close();

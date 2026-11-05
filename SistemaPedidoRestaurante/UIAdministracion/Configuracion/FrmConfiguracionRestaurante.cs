@@ -1,0 +1,63 @@
+﻿using System;
+using System.Data;
+using System.Drawing;
+using System.Windows.Forms;
+using SistemaPedidoRestaurante.BLL;
+
+namespace SistemaPedidoRestaurante.UIAdministracion
+{
+    public partial class FrmConfiguracionRestaurante : Form
+    {
+
+        private ConfiguracionRestauranteBLL servicio = new ConfiguracionRestauranteBLL();
+        public FrmConfiguracionRestaurante()
+        {
+            InitializeComponent();
+        }
+
+        private void cargar(object sender, EventArgs e)
+        {
+            if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
+                return;
+            if (!SesionActual.TieneRol(1))
+            {
+                Close();
+                return;
+            }
+
+            try
+            {
+                DataRow datos = servicio.ObtenerConfiguracion().Rows[0];
+                nombre.Text = Convert.ToString(datos["Nombre"]);
+                tasa.Value = Convert.ToDecimal(datos["TasaImpuesto"]);
+                habilitarEnvio.Checked = datos["TarifaEnvio"] != DBNull.Value;
+                tarifaEnvio.Value = habilitarEnvio.Checked ? Convert.ToDecimal(datos["TarifaEnvio"]) : 0;
+                tarifaEnvio.Enabled = habilitarEnvio.Checked;
+            }
+            catch (Exception error)
+            {
+                guardar.Enabled = false;
+                MessageBox.Show(this, error.Message);
+            }
+        }
+
+        private void guardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                servicio.GuardarConfiguracion(nombre.Text, tasa.Value, habilitarEnvio.Checked ? (decimal?)tarifaEnvio.Value : null, true);
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(this, error.Message);
+            }
+        }
+
+        private void habilitarEnvio_CheckedChanged(object sender, EventArgs e)
+        {
+            tarifaEnvio.Enabled = habilitarEnvio.Checked;
+        }
+    }
+}

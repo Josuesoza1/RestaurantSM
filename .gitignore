@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Copias locales de la base; contienen datos de usuarios.
+/respaldos-locales/

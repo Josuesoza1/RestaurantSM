@@ -2,7 +2,6 @@
 
 namespace SistemaPedidoRestaurante.UIEmpleado
 {
-    // Los controles y eventos comunes se heredan; el acceso pertenece a este rol.
     public partial class FrmReservasEmpleado : FrmBandejaOperaciones
     {
         public FrmReservasEmpleado() : this(false, "") { }
