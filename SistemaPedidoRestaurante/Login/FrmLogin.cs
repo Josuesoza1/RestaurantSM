@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.Entities;
 using SistemaPedidoRestaurante.UIAdministracion;
-using SistemaPedidoRestaurante.UICliente;
 using SistemaPedidoRestaurante.UIEmpleado;
 
 namespace SistemaPedidoRestaurante.Loggin
@@ -49,19 +48,8 @@ namespace SistemaPedidoRestaurante.Loggin
             bool salir = false;
             try
             {
-                int perfil = usuario.AccesoPersonal ? usuario.IdRol : RolesSistema.Cliente;
-                SesionActual.Iniciar(usuario, perfil);
-                if (usuario.IdRol != RolesSistema.Cliente)
-                {
-                    using (FrmElegirPerfil elegir = new FrmElegirPerfil(usuario))
-                    {
-                        if (elegir.ShowDialog(this) != DialogResult.OK) return;
-                        usuario = elegir.Cuenta;
-                        perfil = elegir.RolElegido;
-                    }
-                }
-                SesionActual.Iniciar(usuario, perfil);
-                using (Form menu = CrearMenuSegunRol(perfil))
+                SesionActual.Iniciar(usuario);
+                using (Form menu = CrearMenuSegunRol(usuario.IdRol))
                 {
                     Hide();
                     salir = menu.ShowDialog(this) == DialogResult.Abort;
@@ -87,8 +75,6 @@ namespace SistemaPedidoRestaurante.Loggin
                     return new FrmMenuAdministracion();
                 case 2:
                     return new FrmMenuEmpleado();
-                case 3:
-                    return new FrmMenuCliente();
                 default:
                     throw new UnauthorizedAccessException("El usuario no tiene un rol de acceso válido.");
             }
@@ -99,23 +85,6 @@ namespace SistemaPedidoRestaurante.Loggin
             this.Close();
         }
 
-        private void btnCrearCuenta_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            try
-            {
-                using (FrmCrearCuenta crearCuenta = new FrmCrearCuenta())
-                {
-                    crearCuenta.ShowDialog(this);
-                }
-            }
-            finally
-            {
-                if (!this.IsDisposed && !this.Disposing)
-                {
-                    this.Show();
-                }
-            }
-        }
+
     }
 }

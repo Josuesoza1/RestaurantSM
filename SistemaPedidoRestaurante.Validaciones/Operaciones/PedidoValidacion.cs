@@ -6,31 +6,6 @@ namespace SistemaPedidoRestaurante.Validaciones
 {
     public static class PedidoValidacion
     {
-        public static void Entrega(EntregaPedido entrega)
-        {
-            if (entrega == null || entrega.IdTipoEntrega < 1 || entrega.IdTipoEntrega > 3)
-            {
-                throw new ArgumentException("Seleccione como recibira el pedido.");
-            }
-            CamposValidacion.Importe(entrega.CostoEnvioEsperado, "costo de envío", true);
-            if (entrega.IdTipoEntrega == EntregaPedido.Domicilio)
-            {
-                entrega.Direccion = CamposValidacion.Texto(entrega.Direccion, 250, "direccion de entrega", true);
-                entrega.Referencia = CamposValidacion.Texto(entrega.Referencia, 150, "referencia");
-                entrega.TelefonoContacto = CamposValidacion.Telefono(entrega.TelefonoContacto, true);
-            }
-            else
-            {
-                entrega.Direccion = null;
-                entrega.Referencia = null;
-                entrega.TelefonoContacto = null;
-                if (entrega.CostoEnvioEsperado != 0)
-                {
-                    throw new ArgumentException("Solo los pedidos a domicilio tienen costo de envio.");
-                }
-            }
-        }
-
         public static void Contenido(IReadOnlyList<LineaPedidoBorrador> lineas, Guid solicitud)
         {
             if (lineas == null || lineas.Count < 1 || lineas.Count > 200 || solicitud == Guid.Empty)

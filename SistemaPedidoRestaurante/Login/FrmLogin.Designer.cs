@@ -27,8 +27,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lblSnombre = new System.Windows.Forms.Label();
             this.btnSalir = new System.Windows.Forms.Button();
-            this.lblPregunta = new System.Windows.Forms.Label();
-            this.btnCrearCuenta = new System.Windows.Forms.Button();
             this.pnlEncabezado.SuspendLayout();
             this.grpAcciones.SuspendLayout();
             this.SuspendLayout();
@@ -133,35 +131,10 @@
             this.btnSalir.Text = "SALIR";
             this.btnSalir.UseVisualStyleBackColor = false;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
-            this.lblPregunta.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblPregunta.AutoSize = true;
-            this.lblPregunta.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblPregunta.Location = new System.Drawing.Point(252, 444);
-            this.lblPregunta.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblPregunta.Name = "lblPregunta";
-            this.lblPregunta.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lblPregunta.Size = new System.Drawing.Size(146, 16);
-            this.lblPregunta.TabIndex = 14;
-            this.lblPregunta.Text = "¿No tienes una cuenta?";
-            this.lblPregunta.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnCrearCuenta.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnCrearCuenta.BackColor = System.Drawing.Color.Aquamarine;
-            this.btnCrearCuenta.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCrearCuenta.ForeColor = System.Drawing.Color.Black;
-            this.btnCrearCuenta.Location = new System.Drawing.Point(235, 475);
-            this.btnCrearCuenta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnCrearCuenta.Name = "btnCrearCuenta";
-            this.btnCrearCuenta.Size = new System.Drawing.Size(211, 44);
-            this.btnCrearCuenta.TabIndex = 23;
-            this.btnCrearCuenta.Text = "CREAR CUENTA";
-            this.btnCrearCuenta.UseVisualStyleBackColor = false;
-            this.btnCrearCuenta.Click += new System.EventHandler(this.btnCrearCuenta_Click);
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSlateBlue;
-            this.ClientSize = new System.Drawing.Size(711, 548);
-            this.Controls.Add(this.btnCrearCuenta);
-            this.Controls.Add(this.lblPregunta);
+            this.ClientSize = new System.Drawing.Size(711, 435);
             this.Controls.Add(this.grpAcciones);
             this.Controls.Add(this.lblSubtitulo);
             this.Controls.Add(this.pnlEncabezado);
@@ -192,7 +165,5 @@
         private System.Windows.Forms.TextBox txtContrasena;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblSnombre;
-        private System.Windows.Forms.Label lblPregunta;
-        private System.Windows.Forms.Button btnCrearCuenta;
     }
 }

@@ -17,6 +17,7 @@ namespace SistemaPedidoRestaurante.UICompartida
         public FrmSeleccionCliente()
         {
             InitializeComponent();
+            VistaGestion.PermitirOrden(listado);
         }
 
         private void cargar(object sender, EventArgs e)
@@ -43,6 +44,13 @@ namespace SistemaPedidoRestaurante.UICompartida
                 listado.DataSource = BusquedaLINQ.Filtrar(clientes, buscar.Text);
                 listado.ClearSelection();
             }
+        }
+
+        private void sinCliente_Click(object sender, EventArgs e)
+        {
+            Cliente = null;
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void elegir_Click(object sender, EventArgs e)

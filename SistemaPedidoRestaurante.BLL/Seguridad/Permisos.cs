@@ -7,36 +7,38 @@ namespace SistemaPedidoRestaurante.BLL
     {
         public static bool PuedeAtender
         {
-            get { return SesionActual.TieneRol(1) || SesionActual.TieneRol(2) && SesionActual.Cargo == CargosPersonal.Mesero; }
+            get { return SesionActual.TieneRol(1) || SesionActual.TieneRol(2) && SesionActual.Cargo == CargosPersonal.Despachador; }
         }
 
         public static bool PuedeCobrar
         {
-            get { return SesionActual.TieneRol(1) || SesionActual.TieneRol(2) && SesionActual.Cargo == CargosPersonal.Cajero; }
+            get { return PuedeAtender; }
         }
 
         public static bool PuedeConsultarPedidos
         {
-            get { return PuedeAtender || PuedeCobrar; }
+            get { return PuedeAtender; }
         }
+
+        public static bool PuedeVerHistorial => SesionActual.TieneRol(RolesSistema.Administrador);
 
         public static void ExigirAtencion()
         {
             if (!PuedeAtender)
-                throw new UnauthorizedAccessException("Esta operación requiere un mesero o administrador.");
+                throw new UnauthorizedAccessException("Esta operación requiere un despachador o administrador.");
         }
 
         public static void ExigirCobro()
         {
             if (!PuedeCobrar)
-                throw new UnauthorizedAccessException("Esta operación requiere un cajero o administrador.");
+                throw new UnauthorizedAccessException("Esta operación requiere un despachador o administrador.");
         }
 
         internal static void ExigirPersonal()
         {
             if (!PuedeConsultarPedidos)
             {
-                throw new UnauthorizedAccessException("Su cuenta necesita un cargo habilitado: Mesero o Cajero. Solicite al administrador que revise su registro.");
+                throw new UnauthorizedAccessException("Su cuenta necesita el cargo de Despachador.");
             }
         }
         internal static void ExigirRol(int rol)

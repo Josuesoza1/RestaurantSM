@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Drawing;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.Entities;
@@ -38,6 +39,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
             dgvProductoInventario.Columns[3].DefaultCellStyle.Format = "N2";
             VistaGestion.Columna(dgvProductoInventario, "Activo", "Control activo");
+            VistaGestion.Columna(dgvProductoInventario, "EstadoStock", "Estado de stock");
+            dgvProductoInventario.CellFormatting += dgvProductoInventario_CellFormatting;
             txtPrecioVenta.ReadOnly = txtUnidad.ReadOnly = true;
             cmbCategoriaInventario.Enabled = false;
             cmbProductoInventario.DisplayMember = "Nombre";
@@ -57,7 +60,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 catalogo = new ProductoBLL().ObtenerProductos();
                 cmbProductoInventario.DataSource = catalogo;
                 inventario = servicio.Listar();
-                dgvProductoInventario.DataSource = inventario;
+                int cantidadBajos = inventario.Count(item => item.StockBajo);
+                bajos.Text = "Solo existencias bajas (" + cantidadBajos + ")";
+                Text = cantidadBajos > 0 ? "Inventario — " + cantidadBajos + " con stock bajo" : "Inventario";
+                Filtrar();
             }
             finally
             {
@@ -65,11 +71,24 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             }
         }
 
+        private void dgvProductoInventario_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            var item = dgvProductoInventario.Rows[e.RowIndex].DataBoundItem as InventarioProducto;
+            if (item != null && item.StockBajo)
+            {
+                e.CellStyle.BackColor = Color.MistyRose;
+                e.CellStyle.ForeColor = Color.DarkRed;
+            }
+        }
+
         private void Filtrar()
         {
             try
             {
-                dgvProductoInventario.DataSource = servicio.Buscar(inventario, textBox2.Text, bajos.Checked);
+                VistaGestion.Vincular(dgvProductoInventario, servicio.Buscar(inventario, textBox2.Text, bajos.Checked));
             }
             catch (Exception error)
             {

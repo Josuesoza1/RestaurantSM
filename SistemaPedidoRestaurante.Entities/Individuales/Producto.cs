@@ -12,5 +12,7 @@
         public string Descripcion { get; set; }
         public string Codigo { get; set; }
         public bool Disponible { get; set; }
+        public int StockActual { get; set; }
+        public int StockMinimo { get; set; }
     }
 }

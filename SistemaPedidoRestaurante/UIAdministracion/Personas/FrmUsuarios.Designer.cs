@@ -91,9 +91,9 @@
             this.colNombreUsuario.DataPropertyName = "NombreUsuario";
             this.colNombreUsuario.HeaderText = "Usuario";
             this.colNombreUsuario.Name = "colNombreUsuario";
-            this.colNombreRol.DataPropertyName = "PerfilesDisponibles";
+            this.colNombreRol.DataPropertyName = "EstadoAcceso";
             this.colNombreRol.FillWeight = 70F;
-            this.colNombreRol.HeaderText = "Perfiles";
+            this.colNombreRol.HeaderText = "Acceso";
             this.colNombreRol.Name = "colNombreRol";
             this.pnlAcciones.Size = new System.Drawing.Size(900, 58);
             this.pnlAcciones.Controls.Add(this.lblCantidad);

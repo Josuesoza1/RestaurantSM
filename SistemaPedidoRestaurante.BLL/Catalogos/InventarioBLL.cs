@@ -48,8 +48,7 @@ namespace SistemaPedidoRestaurante.BLL
             var coincidencias = inventario.Where(item => CoincideProducto(item, filtro));
             if (soloBajos)
             {
-                coincidencias = coincidencias.Where(item =>
-                    item.Activo && item.StockActual <= item.StockMinimo);
+                coincidencias = coincidencias.Where(item => item.StockBajo);
             }
             resultado.AddRange(coincidencias);
             return resultado;

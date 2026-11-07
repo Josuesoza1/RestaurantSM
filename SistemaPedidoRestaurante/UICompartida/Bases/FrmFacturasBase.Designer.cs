@@ -38,6 +38,7 @@
             this.lblFechaFactura = new System.Windows.Forms.Label();
             this.lblNumeroFactura = new System.Windows.Forms.Label();
             this.btnGuardarProducto = new System.Windows.Forms.Button();
+            this.btnAnular = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.grpDetalleFactura = new System.Windows.Forms.GroupBox();
@@ -200,7 +201,7 @@
             this.btnGuardarProducto.Name = "btnGuardarProducto";
             this.btnGuardarProducto.Size = new System.Drawing.Size(81, 31);
             this.btnGuardarProducto.TabIndex = 4;
-            this.btnGuardarProducto.Text = "PDF";
+            this.btnGuardarProducto.Text = "Ver factura";
             this.btnGuardarProducto.UseVisualStyleBackColor = false;
             this.btnLimpiar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -223,6 +224,12 @@
             this.btnCancelar.TabIndex = 6;
             this.btnCancelar.Text = "Volver";
             this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnAnular.Location = new System.Drawing.Point(19, 415);
+            this.btnAnular.Name = "btnAnular";
+            this.btnAnular.Size = new System.Drawing.Size(146, 29);
+            this.btnAnular.Text = "Anular venta";
+            this.btnAnular.Enabled = false;
+            this.btnAnular.Click += new System.EventHandler(this.btnAnular_Click);
             this.grpDetalleFactura.Controls.Add(this.dataGridView1);
             this.grpDetalleFactura.Location = new System.Drawing.Point(285, 312);
             this.grpDetalleFactura.Name = "grpDetalleFactura";
@@ -360,6 +367,7 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnGuardarProducto);
+            this.Controls.Add(this.btnAnular);
             this.Controls.Add(this.grpDatosFactura);
             this.Controls.Add(this.pnlEncabezado);
             this.Controls.Add(this.menuStrip1);
@@ -402,6 +410,7 @@
         protected System.Windows.Forms.Label lblTitulo;
         protected System.Windows.Forms.GroupBox grpDatosFactura;
         protected System.Windows.Forms.Button btnGuardarProducto;
+        private System.Windows.Forms.Button btnAnular;
         protected System.Windows.Forms.Button btnLimpiar;
         protected System.Windows.Forms.Button btnCancelar;
         protected System.Windows.Forms.GroupBox grpDetalleFactura;

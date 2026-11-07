@@ -15,29 +15,22 @@ namespace SistemaPedidoRestaurante.BLL
 
         public static void Iniciar(Usuario usuario)
         {
-            Iniciar(usuario, usuario == null ? 0 : usuario.IdRol);
-        }
-
-        public static void Iniciar(Usuario usuario, int perfil)
-        {
-            if (usuario == null || usuario.IdUsuario <= 0 || string.IsNullOrWhiteSpace(usuario.NombreUsuario) || usuario.IdRol < 1 || usuario.IdRol > 3)
+            if (usuario == null || usuario.IdUsuario <= 0 || !usuario.AccesoPersonal ||
+                (usuario.IdRol != RolesSistema.Administrador && usuario.IdRol != RolesSistema.Empleado))
             {
-                throw new UnauthorizedAccessException("El usuario no tiene un acceso válido.");
+                throw new UnauthorizedAccessException("El acceso está reservado al personal del local.");
             }
-            bool permitido = false;
-            if (perfil == RolesSistema.Cliente)
-                permitido = usuario.ClienteActivo;
-            else if (perfil == usuario.IdRol && (perfil == RolesSistema.Administrador || perfil == RolesSistema.Empleado))
-                permitido = usuario.AccesoPersonal;
-            if (!permitido)
-                throw new UnauthorizedAccessException("El perfil seleccionado no esta habilitado en su cuenta.");
+
+            string cargo = CargosPersonal.Normalizar(usuario.Cargo);
+            if (usuario.IdRol == RolesSistema.Empleado && cargo != CargosPersonal.Despachador)
+                throw new UnauthorizedAccessException("La cuenta necesita el cargo de Despachador.");
 
             IdUsuario = usuario.IdUsuario;
             IdPersona = usuario.IdPersona;
             NombreUsuario = usuario.NombreUsuario;
-            IdRol = perfil;
-            NombreRol = RolesSistema.Nombre(perfil);
-            Cargo = perfil == RolesSistema.Cliente ? null : CargosPersonal.Normalizar(usuario.Cargo);
+            IdRol = usuario.IdRol;
+            NombreRol = RolesSistema.Nombre(usuario.IdRol);
+            Cargo = cargo;
         }
 
         public static bool TieneRol(int idRol)

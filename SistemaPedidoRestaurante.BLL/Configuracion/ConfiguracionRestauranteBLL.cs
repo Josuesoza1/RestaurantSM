@@ -22,14 +22,13 @@ namespace SistemaPedidoRestaurante.BLL
             }
         }
 
-        public void GuardarConfiguracion(string nombre, decimal tasa, decimal? tarifaEnvio = null, bool actualizarEnvio = false)
+        public void GuardarConfiguracion(string nombre, decimal tasa)
         {
             Permisos.ExigirRol(1);
             nombre = ConfiguracionValidacion.Validar(nombre, tasa);
-            ConfiguracionValidacion.ValidarTarifa(tarifaEnvio);
             try
             {
-                configuracionDAL.GuardarConfiguracion(SesionActual.IdUsuario, nombre, tasa, tarifaEnvio, actualizarEnvio);
+                configuracionDAL.GuardarConfiguracion(SesionActual.IdUsuario, nombre, tasa);
             }
             catch (SqlException error)
             {

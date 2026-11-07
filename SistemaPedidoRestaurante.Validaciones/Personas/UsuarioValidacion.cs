@@ -23,8 +23,8 @@ namespace SistemaPedidoRestaurante.Validaciones
                 throw new ArgumentException("Las contraseñas no coinciden.");
             }
             if (usuario.IdRol != RolesSistema.Administrador &&
-                usuario.IdRol != RolesSistema.Empleado && usuario.IdRol != RolesSistema.Cliente)
-                throw new ArgumentException("Seleccione Cliente, Empleado o Administrador.");
+                usuario.IdRol != RolesSistema.Empleado)
+                throw new ArgumentException("Seleccione Empleado o Administrador.");
         }
 
         public void ValidarCredenciales(string nombreUsuario, string contrasena)

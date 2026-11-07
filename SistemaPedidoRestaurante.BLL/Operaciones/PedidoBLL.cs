@@ -11,44 +11,19 @@ namespace SistemaPedidoRestaurante.BLL
     public class PedidoBLL
     {
         private readonly PedidoDAL pedidoDAL = new PedidoDAL();
-        public DataTable OpcionesEntrega(int pedido = 0)
-        {
-            if (!SesionActual.TieneRol(3)) Permisos.ExigirPersonal();
-            try { return pedidoDAL.OpcionesEntrega(SesionActual.IdUsuario, pedido, SesionActual.TieneRol(3)); }
-            catch (SqlException error) { throw OperacionDatos.Traducir(error, "No se pudieron consultar las opciones de entrega."); }
-        }
 
-        public EntregaPedido ObtenerEntrega(int pedido)
+        public DataTable ListarPedidos(bool soloEntregados = false)
         {
-            if (!SesionActual.TieneRol(3)) Permisos.ExigirPersonal();
+            Permisos.ExigirPersonal();
             try
             {
-                DataTable tabla = pedidoDAL.ObtenerEntrega(SesionActual.IdUsuario, pedido, SesionActual.TieneRol(3));
-                if (tabla.Rows.Count != 1) throw new ArgumentException("No existe el pedido.");
-                DataRow fila = tabla.Rows[0];
-                return new EntregaPedido
+                DataTable tabla = pedidoDAL.ListarPedidos(SesionActual.IdUsuario);
+                if (soloEntregados)
                 {
-                    IdTipoEntrega = Convert.ToInt32(fila["IdTipoEntrega"]),
-                    Direccion = Convert.ToString(fila["Direccion"]),
-                    Referencia = Convert.ToString(fila["Referencia"]),
-                    TelefonoContacto = Convert.ToString(fila["TelefonoContacto"]),
-                    CostoEnvioEsperado = Convert.ToDecimal(fila["CostoEnvio"])
-                };
-            }
-            catch (SqlException error) { throw OperacionDatos.Traducir(error, "No se pudo consultar la entrega."); }
-        }
-        public List<Pedido> ObtenerPedidosAbiertos()
-        {
-            Permisos.ExigirPersonal();
-            return pedidoDAL.ListarAbiertos(SesionActual.IdUsuario);
-        }
-
-        public DataTable ListarPedidos()
-        {
-            Permisos.ExigirPersonal();
-            try
-            {
-                return pedidoDAL.ListarPedidos(SesionActual.IdUsuario);
+                    foreach (DataRow fila in tabla.Select("Estado <> 'Entregado'"))
+                        tabla.Rows.Remove(fila);
+                }
+                return tabla;
             }
             catch (SqlException error)
             {
@@ -69,17 +44,26 @@ namespace SistemaPedidoRestaurante.BLL
             }
         }
 
-        public int GuardarPedido(int cliente, PedidoBorrador pedido, Guid solicitud, EntregaPedido entrega = null)
+        public DataTable FiltrarHistorialPorMes(DataTable historial, string filtro, DateTime mes)
+        {
+            Permisos.ExigirRol(RolesSistema.Administrador);
+            DataTable resultado = BusquedaLINQ.Filtrar(historial, filtro);
+            for (int i = resultado.Rows.Count - 1; i >= 0; i--)
+            {
+                DateTime? fecha = resultado.Rows[i].Field<DateTime?>("Fecha");
+                if (!fecha.HasValue || fecha.Value.Year != mes.Year || fecha.Value.Month != mes.Month)
+                    resultado.Rows.RemoveAt(i);
+            }
+            return resultado;
+        }
+
+        public int GuardarPedido(int cliente, PedidoBorrador pedido, Guid solicitud)
         {
             Permisos.ExigirAtencion();
-            if (cliente <= 0)
-                throw new ArgumentException("Seleccione un cliente.");
             PedidoValidacion.Contenido(pedido == null ? null : pedido.Lineas, solicitud);
-            entrega = entrega ?? new EntregaPedido { IdTipoEntrega = EntregaPedido.EnMesa };
-            PedidoValidacion.Entrega(entrega);
             try
             {
-                return pedidoDAL.Guardar(SesionActual.IdUsuario, cliente, 0, solicitud, pedido.Lineas, entrega);
+                return pedidoDAL.Guardar(SesionActual.IdUsuario, cliente, solicitud, pedido.Lineas);
             }
             catch (SqlException error)
             {
@@ -87,28 +71,25 @@ namespace SistemaPedidoRestaurante.BLL
             }
         }
 
-        public void AvanzarPedido(int pedido, string estado)
+        public void DespacharPedido(int pedido, string estado)
         {
             Permisos.ExigirAtencion();
-            string nuevo;
-            switch (estado)
-            {
-                case "Pendiente":
-                    nuevo = "En preparación";
-                    break;
-                case "En preparación":
-                    nuevo = "Listo";
-                    break;
-                case "Listo":
-                    nuevo = "Entregado";
-                    break;
-                default:
-                    throw new ArgumentException("El pedido no tiene una transicion pendiente.");
-            }
+            CambiarEstado(pedido, estado, "Entregado");
+        }
 
+        public void VolverAPendiente(int pedido)
+        {
+            Permisos.ExigirRol(1);
+            CambiarEstado(pedido, "Entregado", "Pendiente");
+        }
+
+        private void CambiarEstado(int pedido, string anterior, string nuevo)
+        {
+            if (pedido <= 0)
+                throw new ArgumentException("Seleccione un pedido.");
             try
             {
-                pedidoDAL.CambiarEstadoPedido(SesionActual.IdUsuario, pedido, estado, nuevo);
+                pedidoDAL.CambiarEstadoPedido(SesionActual.IdUsuario, pedido, anterior, nuevo);
             }
             catch (SqlException error)
             {

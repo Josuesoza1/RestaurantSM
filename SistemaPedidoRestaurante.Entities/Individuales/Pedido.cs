@@ -5,7 +5,7 @@ namespace SistemaPedidoRestaurante.Entities
     public class Pedido
     {
         public int IdPedido { get; set; }
-        public int IdCliente { get; set; }
+        public int? IdCliente { get; set; }
         public int? IdMesa { get; set; }
         public int? IdEmpleadoAtiende { get; set; }
         public int? IdUsuarioRegistro { get; set; }

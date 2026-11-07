@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Data;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
@@ -41,12 +40,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
             VistaGestion.Columna(dgvClientes, "Genero", "Género");
             VistaGestion.Columna(dgvClientes, "Activo", "Activo");
-            btnEliminar.Text = "Eliminar";
-            btnEliminar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold);
-            dgvClientes.CellClick += dgvClientes_CellClick;
             CambiarModo(ModoFormulario.Neutral);
             TemaUI.Aplicar(this);
-            Load += FrmClientes_CargarDatos;
         }
 
         private void Recargar()
@@ -108,11 +103,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         }
 
-        private void FrmClientes_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void btnVolver_Click(object sender, EventArgs e)
+        private void volverMenu_Click(object sender, EventArgs e)
         {
             Close();
         }
@@ -124,10 +115,16 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             if (modoActual == ModoFormulario.Editar) id = anterior;
         }
 
-        private void btnNuevo_Click(object s, EventArgs e)
+        private void agregarMenu_Click(object sender, EventArgs e)
         {
             Nuevo();
-            CambiarModo(modoActual == ModoFormulario.Neutral ? ModoFormulario.Nuevo : ModoFormulario.Neutral);
+            CambiarModo(ModoFormulario.Nuevo);
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Nuevo();
+            CambiarModo(ModoFormulario.Neutral);
         }
 
         private void btnGuardar_Click(object s, EventArgs e)
@@ -151,7 +148,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             }
         }
 
-        private void btnEliminar_Click(object s, EventArgs e)
+        private void eliminarMenu_Click(object sender, EventArgs e)
         {
             IniciarSeleccion(ModoFormulario.Eliminar);
         }
@@ -168,18 +165,19 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             }
         }
 
-        private void btnDesactivar_Click(object sender, EventArgs e)
+        private void desactivarMenu_Click(object sender, EventArgs e)
         {
             try
             {
-                if (id == 0)
+                DataRow fila = VistaGestion.Fila(dgvClientes);
+                if (fila == null)
                 {
                     throw new ArgumentException("Seleccione un cliente del listado.");
                 }
 
                 if (VistaGestion.Confirmar(this, "¿Desactivar al cliente conservando su historial?"))
                 {
-                    servicio.Desactivar(id);
+                    servicio.Desactivar(Convert.ToInt32(fila["Id"]));
                     Recargar();
                     Nuevo();
                 }
@@ -242,8 +240,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             dgvClientes.Enabled = txtTextoBuscar.Enabled = btnBuscar.Enabled = !operacion;
             btnGuardar.Enabled = operacion;
             btnLimpiar.Enabled = edicion;
-            btnNuevo.Text = operacion ? "Cancelar" : "Nuevo cliente";
-            btnEliminar.Enabled = btnDesactivar.Enabled = !operacion;
+            btnCancelar.Enabled = operacion;
             editarMenu.Enabled = eliminarMenu.Enabled = desactivarMenu.Enabled = agregarMenu.Enabled = !operacion;
         }
     }

@@ -13,6 +13,7 @@ namespace SistemaPedidoRestaurante.Entities
         public string Cliente { get; set; }
         public string Cedula { get; set; }
         public string Estado { get; set; }
+        public string MotivoAnulacion { get; set; }
         public string Mesa { get; set; }
         public string TipoPedido { get; set; }
         public string OrigenPedido { get; set; }

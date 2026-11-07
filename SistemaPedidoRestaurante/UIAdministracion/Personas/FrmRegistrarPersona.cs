@@ -121,9 +121,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             switch (cmbTipo.SelectedIndex)
             {
-                case 0: return RolesSistema.Cliente;
-                case 1: return RolesSistema.Empleado;
-                case 2: return RolesSistema.Administrador;
+                case 0: return RolesSistema.Empleado;
+                case 1: return RolesSistema.Administrador;
                 default: return 0;
             }
         }
@@ -136,33 +135,16 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private void CambiarTipo()
         {
             int rol = ObtenerRol();
-            bool cliente = rol == RolesSistema.Cliente;
             grpPersona.Enabled = grpCuenta.Enabled = btnGuardar.Enabled = rol != 0;
-            lblCorreo.Visible = txtCorreo.Visible = cliente;
-            lblCargo.Visible = cmbCargo.Visible = rol != 0 && !cliente;
+            lblCorreo.Visible = txtCorreo.Visible = false;
+            lblCargo.Visible = cmbCargo.Visible = rol != 0;
             cmbCargo.Items.Clear();
             cmbCargo.Items.AddRange(CargosPersonal.ParaRol(rol));
-            cmbCargo.SelectedIndex = -1;
-            lblIndicacion.Text = "Seleccione el tipo de persona para comenzar. Los campos con * son obligatorios.";
-            if (cliente)
-                lblIndicacion.Text = "Cliente: podrá ingresar para gestionar sus propios pedidos, reservas y datos.";
-            else if (rol == RolesSistema.Empleado)
-                lblIndicacion.Text = "Empleado: seleccione el cargo que desempeña la persona.";
-            else if (rol == RolesSistema.Administrador)
-                lblIndicacion.Text = "Administrador: tendrá acceso completo a las gestiones y operaciones del restaurante.";
+            cmbCargo.SelectedIndex = cmbCargo.Items.Count == 1 ? 0 : -1;
+            lblIndicacion.Text = rol == RolesSistema.Empleado
+                ? "Despachador: registra, despacha y cobra ventas locales."
+                : "El administrador tiene acceso a todas las gestiones.";
             ActualizarCuenta();
-        }
-
-        private void cmbCargo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ObtenerRol() != RolesSistema.Empleado) return;
-            lblIndicacion.Text = cmbCargo.Text == CargosPersonal.Mesero
-                ? "Mesero: registra y atiende pedidos, reservas, asignación y limpieza de mesas."
-                : cmbCargo.Text == CargosPersonal.Cajero
-                ? "Cajero: consulta pedidos, registra cobros y consulta o exporta facturas."
-                : cmbCargo.Text == CargosPersonal.Repartidor
-                ? "Repartidor: registra sus datos como personal. Las opciones de reparto quedan pendientes."
-                : "Empleado: seleccione el cargo que desempeña la persona.";
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -182,39 +164,22 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                     IdRol = ObtenerRol()
                 };
                 string genero = cmbGenero.SelectedIndex < 0 ? null : new[] { "M", "F", "O" }[cmbGenero.SelectedIndex];
-                if (cuenta.IdRol == RolesSistema.Cliente)
-                {
-                    Cliente cliente = new Cliente
-                    {
-                        IdPersona = personaSeleccionada == null ? 0 : personaSeleccionada.IdPersona,
-                        PrimerNombre = txtPrimerNombre.Text, SegundoNombre = txtSegundoNombre.Text,
-                        PrimerApellido = txtPrimerApellido.Text, SegundoApellido = txtSegundoApellido.Text,
-                        Genero = genero, Cedula = txtCedula.Text, Telefono = txtTelefono.Text,
-                        Email = txtCorreo.Text
-                    };
-                    if (cuentaExistente != null)
-                        servicio.HabilitarCliente(cuentaExistente.IdUsuario, cliente.Email, cliente.Telefono);
-                    else servicio.RegistrarCliente(cliente, cuenta, txtConfirmar.Text);
-                }
-                else
-                {
-                    if (cuenta.IdRol == RolesSistema.Administrador && MessageBox.Show(this,
-                        "Esta cuenta podrá administrar usuarios, personal, inventario y configuración. ¿Desea otorgarle acceso de administrador?",
-                        "Confirmar acceso", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                        MessageBoxDefaultButton.Button2) != DialogResult.Yes)
-                        return;
+                if (cuenta.IdRol == RolesSistema.Administrador && MessageBox.Show(this,
+                    "Esta cuenta podrá administrar usuarios, personal, inventario y configuración. ¿Desea otorgarle acceso de administrador?",
+                    "Confirmar acceso", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+                    return;
 
-                    Empleado empleado = new Empleado
-                    {
-                        IdPersona = personaSeleccionada == null ? 0 : personaSeleccionada.IdPersona,
-                        PrimerNombre = txtPrimerNombre.Text, SegundoNombre = txtSegundoNombre.Text,
-                        PrimerApellido = txtPrimerApellido.Text, SegundoApellido = txtSegundoApellido.Text,
-                        Genero = genero, Cedula = txtCedula.Text, Telefono = txtTelefono.Text,
-                        Cargo = cmbCargo.Text.Trim()
-                    };
-                    if (cuentaExistente != null) servicio.AgregarPerfilPersonal(empleado, cuenta);
-                    else servicio.RegistrarPersonal(empleado, cuenta, txtConfirmar.Text);
-                }
+                Empleado empleado = new Empleado
+                {
+                    IdPersona = personaSeleccionada == null ? 0 : personaSeleccionada.IdPersona,
+                    PrimerNombre = txtPrimerNombre.Text, SegundoNombre = txtSegundoNombre.Text,
+                    PrimerApellido = txtPrimerApellido.Text, SegundoApellido = txtSegundoApellido.Text,
+                    Genero = genero, Cedula = txtCedula.Text, Telefono = txtTelefono.Text,
+                    Cargo = cmbCargo.Text.Trim()
+                };
+                if (cuentaExistente != null) servicio.AgregarPerfilPersonal(empleado, cuenta);
+                else servicio.RegistrarPersonal(empleado, cuenta, txtConfirmar.Text);
 
                 txtContrasena.Clear();
                 txtConfirmar.Clear();

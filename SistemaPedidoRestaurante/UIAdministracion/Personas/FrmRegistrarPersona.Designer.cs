@@ -128,7 +128,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.cmbTipo.Location = new System.Drawing.Point(156, 13);
             this.cmbTipo.Size = new System.Drawing.Size(240, 21);
             this.cmbTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTipo.Items.AddRange(new object[] { "Cliente", "Empleado", "Administrador" });
+            this.cmbTipo.Items.AddRange(new object[] { "Empleado", "Administrador" });
             this.cmbTipo.TabIndex = 0;
             this.cmbTipo.SelectedIndexChanged += new System.EventHandler(this.cmbTipo_SelectedIndexChanged);
             this.chkPersonaExistente.Name = "chkPersonaExistente";
@@ -264,7 +264,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.cmbCargo.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             this.cmbCargo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCargo.TabIndex = 7;
-            this.cmbCargo.SelectedIndexChanged += new System.EventHandler(this.cmbCargo_SelectedIndexChanged);
             this.tblPersona.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblPersona.Controls.Add(this.lblFormato, 0, 8);
             this.tblPersona.SetColumnSpan(this.lblFormato, 2);

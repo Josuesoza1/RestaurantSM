@@ -18,12 +18,6 @@ namespace SistemaPedidoRestaurante.Validaciones
             return nombre;
         }
 
-        public static void ValidarTarifa(decimal? tarifa)
-        {
-            if (tarifa.HasValue)
-            {
-                CamposValidacion.Importe(tarifa.Value, "tarifa de envío", true);
-            }
-        }
+
     }
 }

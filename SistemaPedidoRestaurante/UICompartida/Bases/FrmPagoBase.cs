@@ -41,7 +41,7 @@ namespace SistemaPedidoRestaurante.UICompartida
             {
                 if (pedido == 0)
                 {
-                    using (FrmBandejaOperaciones elegir = PantallasPersonal.CrearBandeja("Pedidos", true, "Entregado"))
+                    using (FrmBandejaOperaciones elegir = PantallasPersonal.CrearBandeja("Pedidos", true))
                     {
                         if (elegir.ShowDialog(this) != DialogResult.OK)
                         {
@@ -79,7 +79,20 @@ namespace SistemaPedidoRestaurante.UICompartida
                     btnRegistrarPago.Enabled = false;
                     DataRow resultado = servicio.Cobrar(pedido, metodo, confirmar.Recibido, total, solicitud, txtNotas.Text);
                     pagado = true;
-                    MessageBox.Show(this, "Pago registrado. Factura " + resultado["IdFactura"] + ". Cambio: C$ " + Convert.ToDecimal(resultado["Cambio"]).ToString("N2") + ". Puede guardar el PDF desde Facturas.");
+                    DialogResult verFactura = MessageBox.Show(this, "Pago registrado. Factura " + resultado["IdFactura"] + ". Cambio: C$ " + Convert.ToDecimal(resultado["Cambio"]).ToString("N2") + ". ¿Ver la factura de esta venta?",
+                        "Cobro confirmado", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (verFactura == DialogResult.Yes)
+                    {
+                        try
+                        {
+                            var documento = new FacturaBLL().ObtenerDocumento(pedido, true, solicitud);
+                            DocumentoPdf.MostrarVistaPrevia(this, documento);
+                        }
+                        catch (Exception error)
+                        {
+                            MessageBox.Show(this, "El cobro se guardó. No se pudo mostrar la factura: " + error.Message);
+                        }
+                    }
                     DialogResult = DialogResult.OK;
                     Close();
                 }

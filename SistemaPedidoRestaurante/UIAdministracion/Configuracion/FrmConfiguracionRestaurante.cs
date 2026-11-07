@@ -30,9 +30,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 DataRow datos = servicio.ObtenerConfiguracion().Rows[0];
                 nombre.Text = Convert.ToString(datos["Nombre"]);
                 tasa.Value = Convert.ToDecimal(datos["TasaImpuesto"]);
-                habilitarEnvio.Checked = datos["TarifaEnvio"] != DBNull.Value;
-                tarifaEnvio.Value = habilitarEnvio.Checked ? Convert.ToDecimal(datos["TarifaEnvio"]) : 0;
-                tarifaEnvio.Enabled = habilitarEnvio.Checked;
             }
             catch (Exception error)
             {
@@ -45,7 +42,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             try
             {
-                servicio.GuardarConfiguracion(nombre.Text, tasa.Value, habilitarEnvio.Checked ? (decimal?)tarifaEnvio.Value : null, true);
+                servicio.GuardarConfiguracion(nombre.Text, tasa.Value);
                 DialogResult = DialogResult.OK;
                 Close();
             }
@@ -55,9 +52,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             }
         }
 
-        private void habilitarEnvio_CheckedChanged(object sender, EventArgs e)
-        {
-            tarifaEnvio.Enabled = habilitarEnvio.Checked;
-        }
+
     }
 }

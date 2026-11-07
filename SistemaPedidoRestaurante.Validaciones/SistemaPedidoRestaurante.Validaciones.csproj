@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Personas\ClienteValidacion.cs" />
     <Compile Include="Personas\PersonaValidacion.cs" />
     <Compile Include="Operaciones\PagoValidacion.cs" />
     <Compile Include="Operaciones\PedidoValidacion.cs" />

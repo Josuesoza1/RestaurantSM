@@ -11,26 +11,10 @@ namespace SistemaPedidoRestaurante.BLL
     {
         private readonly UsuarioDAL _usuarioDAL = new UsuarioDAL();
         private readonly UsuarioValidacion _validacion = new UsuarioValidacion();
-        public Usuario ObtenerAccesosActuales()
-        {
-            if (!SesionActual.EstaAutenticado) throw new UnauthorizedAccessException("Inicie sesion.");
-            return _usuarioDAL.ConsultarAccesos(SesionActual.IdUsuario);
-        }
-
         public Usuario CuentaParaPerfil(int persona, int rol)
         {
             Permisos.ExigirRol(RolesSistema.Administrador);
             return _usuarioDAL.CuentaParaPerfil(SesionActual.IdUsuario, persona, rol);
-        }
-
-        public void HabilitarCliente(int usuario, string correo, string telefono)
-        {
-            if (!SesionActual.EstaAutenticado || usuario != SesionActual.IdUsuario && !SesionActual.TieneRol(1))
-                throw new UnauthorizedAccessException("Solo puede habilitar su perfil o gestionar perfiles como administrador.");
-            correo = CamposValidacion.Correo(correo, true);
-            telefono = CamposValidacion.Telefono(telefono, true);
-            try { _usuarioDAL.HabilitarCliente(SesionActual.IdUsuario, usuario, correo, telefono); }
-            catch (SqlException error) { throw OperacionDatos.Traducir(error, "El correo ya pertenece a otra persona."); }
         }
 
         public void AgregarPerfilPersonal(Empleado empleado, Usuario cuenta)
@@ -43,19 +27,6 @@ namespace SistemaPedidoRestaurante.BLL
             try { new EmpleadoDAL().Guardar(empleado, cuenta, SesionActual.IdUsuario, true, cuenta.IdUsuario); }
             catch (SqlException error) { throw OperacionDatos.Traducir(error, "Ya existe una cuenta o perfil con esos datos."); }
         }
-        public void RegistrarCliente(Cliente cliente, Usuario usuario, string confirmarContrasena)
-        {
-            Permisos.ExigirRol(RolesSistema.Administrador);
-            _validacion.ValidarRegistro(usuario, confirmarContrasena);
-            if (usuario.IdRol != RolesSistema.Cliente)
-                throw new ArgumentException("El perfil de cliente debe tener el rol Cliente.");
-            if (cliente == null || cliente.IdCliente != 0 || usuario.IdUsuario != 0)
-                throw new ArgumentException("Este formulario registra personas nuevas. Para modificar una, utilice su gestión.");
-
-            cliente.Telefono = CamposValidacion.Telefono(cliente.Telefono, true);
-            new ClienteBLL().InsertarCliente(cliente, usuario, confirmarContrasena);
-        }
-
         public void RegistrarPersonal(Empleado empleado, Usuario usuario, string confirmarContrasena)
         {
             Permisos.ExigirRol(RolesSistema.Administrador);
@@ -81,7 +52,8 @@ namespace SistemaPedidoRestaurante.BLL
             {
                 throw new ArgumentException("No se pudieron leer los datos de la cuenta.", error);
             }
-            if (usuarioLogin == null)
+            if (usuarioLogin == null || !usuarioLogin.AccesoPersonal ||
+                (usuarioLogin.IdRol != RolesSistema.Administrador && usuarioLogin.IdRol != RolesSistema.Empleado))
             {
                 throw new UnauthorizedAccessException("Usuario o contraseña incorrectos.");
             }
@@ -107,7 +79,7 @@ namespace SistemaPedidoRestaurante.BLL
             Usuarios resultado = new Usuarios();
             var coincidencias = usuarios.Where(usuario =>
                 BusquedaLINQ.Contiene(usuario.NombreUsuario, filtro) ||
-                BusquedaLINQ.Contiene(usuario.PerfilesDisponibles, filtro) ||
+                BusquedaLINQ.Contiene(usuario.EstadoAcceso, filtro) ||
                 BusquedaLINQ.Contiene(usuario.IdUsuario.ToString(), filtro));
             resultado.AddRange(coincidencias);
             return resultado;

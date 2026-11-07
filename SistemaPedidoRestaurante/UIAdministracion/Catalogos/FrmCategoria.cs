@@ -20,6 +20,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             dgvCategorias.AllowUserToAddRows = false;
             dgvCategorias.MultiSelect = false;
             dgvCategorias.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            VistaGestion.PermitirOrden(dgvCategorias);
             CambiarModo(ModoFormulario.Neutral);
             TemaUI.Aplicar(this);
         }
@@ -30,7 +31,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             dgvCategorias.Columns[1].DataPropertyName = "Nombre";
             dgvCategorias.Columns[2].DataPropertyName = "Descripcion";
             dgvCategorias.Columns[3].DataPropertyName = "Activa";
-            dgvCategorias.DataSource = _categoriaBLL.ObtenerCategorias();
+            VistaGestion.Vincular(dgvCategorias, _categoriaBLL.ObtenerCategorias());
         }
         private void FrmCategoria_Load(object sender, EventArgs e)
         {
@@ -235,7 +236,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             {
                 string filtro = txtTextoBuscar.Text;
                 Categorias resultado = _categoriaBLL.BuscarCategorias(filtro);
-                dgvCategorias.DataSource = resultado;
+                VistaGestion.Vincular(dgvCategorias, resultado);
             }
             catch (Exception ex)
             {

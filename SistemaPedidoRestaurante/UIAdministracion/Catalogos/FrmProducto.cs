@@ -25,6 +25,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             dgvProductos.AllowUserToAddRows = false;
             dgvProductos.MultiSelect = false;
             dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            VistaGestion.PermitirOrden(dgvProductos);
             dgvProductos.CellClick += dgvProductos_CellClick;
             cmbCategoria.SelectedValueChanged += cmbCategoria_SelectedValueChanged;
             CambiarModo(ModoFormulario.Neutral);
@@ -51,7 +52,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             }
 
             dgvProductos.Columns[3].DefaultCellStyle.Format = "N2";
-            dgvProductos.DataSource = _productoBLL.ObtenerProductos();
+            VistaGestion.Vincular(dgvProductos, _productoBLL.ObtenerProductos());
         }
 
         private void CargarListas()
@@ -271,7 +272,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             try
             {
-                dgvProductos.DataSource = _productoBLL.BuscarProductos(txtTextoBuscar.Text);
+                VistaGestion.Vincular(dgvProductos, _productoBLL.BuscarProductos(txtTextoBuscar.Text));
             }
             catch (Exception ex)
             {

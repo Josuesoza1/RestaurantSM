@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="QuestPDF" Version="2026.9.1" />
+    <PackageReference Include="ClosedXML" Version="0.105.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="UIAdministracion\Personas\FrmRegistrarPersona.cs">
@@ -62,12 +63,6 @@
       <DependentUpon>FrmConsultaFacturasAdministracion.cs</DependentUpon>
     </Compile>
     <Compile Include="UIAdministracion\Operaciones\FrmConsultaFacturasAdministracion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UIEmpleado\FrmConsultaFacturasEmpleado.Designer.cs">
-      <DependentUpon>FrmConsultaFacturasEmpleado.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UIEmpleado\FrmConsultaFacturasEmpleado.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UICompartida\Navegacion\PantallasPersonal.cs">
@@ -182,12 +177,6 @@
     <Compile Include="UIAdministracion\Personas\FrmUsuarios.Designer.cs">
       <DependentUpon>FrmUsuarios.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIEmpleado\FrmFacturas.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UIEmpleado\FrmFacturas.Designer.cs">
-      <DependentUpon>FrmFacturas.cs</DependentUpon>
-    </Compile>
     <Compile Include="UIEmpleado\FrmMenuEmpleado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -218,47 +207,14 @@
     <Compile Include="UIEmpleado\FrmPedidosEmpleado.Designer.cs">
       <DependentUpon>FrmPedidosEmpleado.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIEmpleado\FrmReservasEmpleado.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UIEmpleado\FrmReservasEmpleado.Designer.cs">
-      <DependentUpon>FrmReservasEmpleado.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UICliente\FrmMenuCliente.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UICliente\FrmMenuCliente.Designer.cs">
-      <DependentUpon>FrmMenuCliente.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UICliente\FrmMisCompras.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UICliente\FrmMisCompras.Designer.cs">
-      <DependentUpon>FrmMisCompras.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UICliente\FrmMisDatos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UICliente\FrmMisDatos.Designer.cs">
-      <DependentUpon>FrmMisDatos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UICliente\FrmMisReservas.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UICliente\FrmMisReservas.Designer.cs">
-      <DependentUpon>FrmMisReservas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UICliente\FrmPedidoCliente.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UICliente\FrmPedidoCliente.Designer.cs">
-      <DependentUpon>FrmPedidoCliente.cs</DependentUpon>
-    </Compile>
     <Compile Include="UICompartida\FrmBandejaOperaciones.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UICompartida\FrmBandejaOperaciones.Designer.cs">
       <DependentUpon>FrmBandejaOperaciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UICompartida\FrmAnularVenta.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="UICompartida\FrmConfirmarCobro.cs">
       <SubType>Form</SubType>
@@ -284,12 +240,6 @@
     <Compile Include="UICompartida\Bases\FrmPagoBase.Designer.cs">
       <DependentUpon>FrmPagoBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="UICompartida\FrmEntregaPedido.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UICompartida\FrmEntregaPedido.Designer.cs">
-      <DependentUpon>FrmEntregaPedido.cs</DependentUpon>
-    </Compile>
     <Compile Include="UICompartida\Bases\FrmPedidoLocalBase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -303,17 +253,13 @@
       <DependentUpon>FrmSeleccionCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="UIPrincipal\Documentos\DocumentoPdf.cs" />
-    <Compile Include="Login\FrmCrearCuenta.cs">
+    <Compile Include="UIPrincipal\Documentos\ArchivoExportado.cs" />
+    <Compile Include="UIPrincipal\Documentos\ResumenMensualDocumento.cs" />
+    <Compile Include="UIPrincipal\Documentos\FrmVistaPrevia.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login\FrmCrearCuenta.Designer.cs">
-      <DependentUpon>FrmCrearCuenta.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Login\FrmElegirPerfil.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Login\FrmElegirPerfil.Designer.cs">
-      <DependentUpon>FrmElegirPerfil.cs</DependentUpon>
+    <Compile Include="UIPrincipal\Documentos\FrmVistaPrevia.Designer.cs">
+      <DependentUpon>FrmVistaPrevia.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\FrmLogin.cs">
       <SubType>Form</SubType>
@@ -325,14 +271,12 @@
     <Compile Include="UIPrincipal\Navegacion\MenuSesion.cs" />
     <Compile Include="UIPrincipal\Navegacion\MenuAdaptable.cs" />
     <Compile Include="UIPrincipal\Presentacion\PantallaPendiente.cs" />
+    <Compile Include="UIPrincipal\Presentacion\ListaOrdenable.cs" />
     <Compile Include="UIPrincipal\Presentacion\VistaGestion.cs" />
     <Compile Include="UIPrincipal\Validacion\ValidacionEntradaUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UIPrincipal\Presentacion\ModoFormulario.cs" />
     <Compile Include="UIPrincipal\Presentacion\TemaUI.cs" />
-    <EmbeddedResource Include="Login\FrmCrearCuenta.resx">
-      <DependentUpon>FrmCrearCuenta.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Login\FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -438,9 +382,6 @@
     <EmbeddedResource Include="UIAdministracion\Catalogos\FrmRoles.resx">
       <DependentUpon>FrmRoles.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIEmpleado\FrmFacturas.resx">
-      <DependentUpon>FrmFacturas.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UIEmpleado\FrmMesasEmpleado.resx">
       <DependentUpon>FrmMesasEmpleado.cs</DependentUpon>
     </EmbeddedResource>
@@ -452,21 +393,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UIEmpleado\FrmPedidosEmpleado.resx">
       <DependentUpon>FrmPedidosEmpleado.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UIEmpleado\FrmReservasEmpleado.resx">
-      <DependentUpon>FrmReservasEmpleado.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UICliente\FrmMenuCliente.resx">
-      <DependentUpon>FrmMenuCliente.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UICliente\FrmMisCompras.resx">
-      <DependentUpon>FrmMisCompras.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UICliente\FrmMisDatos.resx">
-      <DependentUpon>FrmMisDatos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UICliente\FrmPedidoCliente.resx">
-      <DependentUpon>FrmPedidoCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UICompartida\FrmBandejaOperaciones.resx">
       <DependentUpon>FrmBandejaOperaciones.cs</DependentUpon>
@@ -491,9 +417,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UIEmpleado\FrmConsultaFacturasEmpleado.resx">
-      <DependentUpon>FrmConsultaFacturasEmpleado.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UIAdministracion\Operaciones\FrmConsultaFacturasAdministracion.resx">

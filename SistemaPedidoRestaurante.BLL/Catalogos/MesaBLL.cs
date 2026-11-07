@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using SistemaPedidoRestaurante.DAL;
 using SistemaPedidoRestaurante.Entities;
 using SistemaPedidoRestaurante.Validaciones;
@@ -41,22 +40,6 @@ namespace SistemaPedidoRestaurante.BLL
         {
             Permisos.ExigirRol(1);
             return mesaDAL.ListarGestion();
-        }
-
-        public DataTable ListarParaReservar()
-        {
-            Permisos.ExigirRol(3);
-            DataTable mesas = mesaDAL.ListarGestion();
-            var disponibles = mesas.AsEnumerable().Where(mesa =>
-                mesa.Field<bool>("Activa") &&
-                (mesa.Field<string>("Estado") == "Disponible" ||
-                 mesa.Field<string>("Estado") == "Reservada")).ToArray();
-
-            if (disponibles.Length == 0)
-            {
-                return mesas.Clone();
-            }
-            return disponibles.CopyToDataTable();
         }
 
         public DataTable Buscar(DataTable tabla, string filtro)

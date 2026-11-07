@@ -55,8 +55,6 @@
     <Compile Include="Operaciones\PedidoBorrador.cs" />
     <Compile Include="Catalogos\ProductoBLL.cs" />
     <Compile Include="Catalogos\InventarioBLL.cs" />
-    <Compile Include="Operaciones\ComprasClienteBLL.cs" />
-    <Compile Include="Operaciones\ReservasClienteBLL.cs" />
     <Compile Include="Seguridad\Permisos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Seguridad\RolBLL.cs" />

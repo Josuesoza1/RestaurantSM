@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using SistemaPedidoRestaurante.DAL;
 using SistemaPedidoRestaurante.Entities;
+using SistemaPedidoRestaurante.Validaciones;
 
 namespace SistemaPedidoRestaurante.BLL
 {
@@ -10,9 +11,25 @@ namespace SistemaPedidoRestaurante.BLL
     {
         private readonly FacturaDAL facturaDAL = new FacturaDAL();
 
+        public void AnularVenta(int pedido, string motivo, bool reponerInventario)
+        {
+            Permisos.ExigirRol(1);
+            if (pedido <= 0)
+                throw new ArgumentException("Seleccione una factura.");
+            motivo = CamposValidacion.Texto(motivo, 200, "motivo de anulación", true);
+            try
+            {
+                facturaDAL.AnularVenta(SesionActual.IdUsuario, pedido, motivo, reponerInventario);
+            }
+            catch (SqlException error)
+            {
+                throw OperacionDatos.Traducir(error, "No se pudo anular la venta.");
+            }
+        }
+
         public DataTable ListarFacturas()
         {
-            Permisos.ExigirCobro();
+            Permisos.ExigirRol(1);
             try
             {
                 return facturaDAL.ListarFacturas(SesionActual.IdUsuario);
@@ -23,21 +40,32 @@ namespace SistemaPedidoRestaurante.BLL
             }
         }
 
-        public DocumentoVenta ObtenerDocumento(int pedido, bool factura)
+        public DataTable ConsultarResumenMensual(DateTime mes)
         {
-            if (!SesionActual.EstaAutenticado)
-                throw new UnauthorizedAccessException("Inicie sesion para consultar documentos.");
+            Permisos.ExigirRol(RolesSistema.Administrador);
+            DateTime inicio = new DateTime(mes.Year, mes.Month, 1);
+            try
+            {
+                return facturaDAL.ConsultarResumenMensual(SesionActual.IdUsuario, inicio, inicio.AddMonths(1));
+            }
+            catch (SqlException error)
+            {
+                throw OperacionDatos.Traducir(error, "No se pudo consultar el resumen mensual.");
+            }
+        }
+
+        public DocumentoVenta ObtenerDocumento(int pedido, bool factura, Guid? solicitudCobro = null)
+        {
+            Permisos.ExigirPersonal();
             if (pedido <= 0)
                 throw new ArgumentException("Seleccione un pedido para consultar el documento.");
-            if (SesionActual.TieneRol(2))
-            {
-                if (factura) Permisos.ExigirCobro();
-                else Permisos.ExigirPersonal();
-            }
+            if (!Permisos.PuedeVerHistorial && (!factura || !solicitudCobro.HasValue))
+                throw new UnauthorizedAccessException("El historial de ventas está reservado al administrador.");
+
             DataSet tablas;
             try
             {
-                tablas = facturaDAL.ObtenerDocumento(SesionActual.IdUsuario, pedido, factura, SesionActual.TieneRol(3));
+                tablas = facturaDAL.ObtenerDocumento(SesionActual.IdUsuario, pedido, factura, solicitudCobro);
             }
             catch (SqlException error)
             {
@@ -56,6 +84,8 @@ namespace SistemaPedidoRestaurante.BLL
             documento.Cliente = Convert.ToString(fila["Cliente"]);
             documento.Cedula = Convert.ToString(fila["Cedula"]);
             documento.Estado = Convert.ToString(fila["Estado"]);
+            if (factura)
+                documento.MotivoAnulacion = Convert.ToString(fila["MotivoAnulacion"]);
             documento.Mesa = Convert.ToString(fila["Mesa"]);
             documento.TipoPedido = Convert.ToString(fila["TipoPedido"]);
             documento.OrigenPedido = Convert.ToString(fila["OrigenPedido"]);

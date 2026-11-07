@@ -23,7 +23,7 @@ namespace SistemaPedidoRestaurante.DAL
             }
         }
 
-        public void GuardarConfiguracion(int actor, string nombre, decimal tasa, decimal? tarifaEnvio, bool actualizarEnvio)
+        public void GuardarConfiguracion(int actor, string nombre, decimal tasa)
         {
             using (SqlConnection conexion = ConexionBD.ObtenerConexion())
             {
@@ -36,10 +36,6 @@ namespace SistemaPedidoRestaurante.DAL
                     impuesto.Precision = 5;
                     impuesto.Scale = 2;
                     impuesto.Value = tasa;
-                    SqlParameter envio = comando.Parameters.Add("@TarifaEnvio", SqlDbType.Decimal);
-                    envio.Precision = 10; envio.Scale = 2;
-                    envio.Value = tarifaEnvio.HasValue ? (object)tarifaEnvio.Value : DBNull.Value;
-                    comando.Parameters.Add("@ActualizarEnvio", SqlDbType.Bit).Value = actualizarEnvio;
                     conexion.Open();
                     comando.ExecuteNonQuery();
                 }

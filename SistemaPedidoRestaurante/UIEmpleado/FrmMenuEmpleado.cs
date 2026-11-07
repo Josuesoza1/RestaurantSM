@@ -18,20 +18,10 @@ namespace SistemaPedidoRestaurante.UIEmpleado
         {
             if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
                 return;
-            if (!SesionActual.TieneRol(2)) return;
-            pedidosToolStripMenuItem.Available = Permisos.PuedeConsultarPedidos;
-            pagosToolStripMenuItem.Available = facturasToolStripMenuItem.Available = Permisos.PuedeCobrar;
-            reservasToolStripMenuItem.Available = mesasToolStripMenuItem.Available = Permisos.PuedeAtender;
-            operacionesToolStripMenuItem.Available = Permisos.PuedeConsultarPedidos;
-            lblTitulo.Text = "EMPLEADOS — " + SesionActual.Cargo.ToUpperInvariant();
-            if (Permisos.PuedeAtender)
-                lblEstado.Text = "Registre y atienda pedidos, asigne mesas y gestione reservas. Los cobros corresponden al cajero.";
-            else if (Permisos.PuedeCobrar)
-                lblEstado.Text = "Consulte los pedidos entregados, registre cobros y consulte o exporte facturas.";
-            else
-                lblEstado.Text = SesionActual.Cargo == SistemaPedidoRestaurante.Entities.CargosPersonal.Repartidor
-                    ? "Las opciones de reparto todavía no están disponibles. Su perfil de personal está registrado."
-                    : "Su cargo todavía no está habilitado. Solicite al administrador que revise su registro en Empleados y vuelva a iniciar sesión.";
+
+            operacionesToolStripMenuItem.Available = Permisos.PuedeAtender;
+            lblTitulo.Text = "DESPACHO LOCAL";
+            lblEstado.Text = "Registre, despache y cobre las ventas pendientes del local.";
         }
 
         private void pedidosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -42,16 +32,6 @@ namespace SistemaPedidoRestaurante.UIEmpleado
         private void pagosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var formulario = new FrmPago()) formulario.ShowDialog(this);
-        }
-
-        private void facturasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var formulario = new FrmFacturas()) formulario.ShowDialog(this);
-        }
-
-        private void reservas_Click(object sender, EventArgs e)
-        {
-            using (FrmReservasEmpleado formulario = new FrmReservasEmpleado()) formulario.ShowDialog(this);
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)

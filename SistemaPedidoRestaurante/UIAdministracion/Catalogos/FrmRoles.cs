@@ -31,7 +31,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 dgvRoles.Columns[0].DataPropertyName = "IdRol";
                 dgvRoles.Columns[1].DataPropertyName = "Nombre";
                 dgvRoles.Columns[2].DataPropertyName = "Descripcion";
-                dgvRoles.DataSource = _rolBLL.ObtenerRoles();
+                VistaGestion.Vincular(dgvRoles, _rolBLL.ObtenerRoles());
             }
             catch (Exception ex)
             {
@@ -192,7 +192,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             try
             {
-                dgvRoles.DataSource = _rolBLL.BuscarRoles(txtTextoBuscar.Text);
+                VistaGestion.Vincular(dgvRoles, _rolBLL.BuscarRoles(txtTextoBuscar.Text));
             }
             catch (Exception ex)
             {

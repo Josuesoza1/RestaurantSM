@@ -56,8 +56,6 @@
     <Compile Include="Catalogos\ProductoDAL.cs" />
     <Compile Include="Catalogos\InventarioDAL.cs" />
     <Compile Include="Conexion\OperacionDatos.cs" />
-    <Compile Include="Operaciones\ComprasClienteDAL.cs" />
-    <Compile Include="Operaciones\ReservasClienteDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Seguridad\RolDAL.cs" />
     <Compile Include="Seguridad\UsuarioDAL.cs" />

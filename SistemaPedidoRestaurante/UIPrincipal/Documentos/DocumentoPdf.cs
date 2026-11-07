@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Globalization;
 using System.Windows.Forms;
 using QuestPDF.Fluent;
@@ -12,49 +11,27 @@ namespace SistemaPedidoRestaurante.UIPrincipal
     public static class DocumentoPdf
     {
 
-        public static void GuardarConDialogo(Form propietario, DocumentoVenta documento)
+        public static void MostrarVistaPrevia(Form propietario, DocumentoVenta documento)
         {
-            using (SaveFileDialog elegir = new SaveFileDialog())
-            {
-                elegir.Filter = "Documento PDF (*.pdf)|*.pdf";
-                elegir.DefaultExt = "pdf";
-                elegir.FileName = documento.Numero + ".pdf";
-                elegir.OverwritePrompt = true;
-                if (elegir.ShowDialog(propietario) != DialogResult.OK)
-                    return;
-                Guardar(documento, elegir.FileName);
-                MessageBox.Show(propietario, "PDF guardado correctamente.");
-            }
+            using (var vista = new FrmVistaPrevia(Crear(documento), documento.Numero))
+                vista.ShowDialog(propietario);
         }
 
         public static void Guardar(DocumentoVenta documento, string archivo)
         {
-            if (documento == null || documento.Detalle == null || documento.Detalle.Count == 0)
-                throw new ArgumentException("El documento no contiene productos.");
             if (string.IsNullOrWhiteSpace(archivo))
                 throw new ArgumentException("Seleccione un archivo PDF.");
 
-            QuestPDF.Settings.License = LicenseType.Community;
-            string destino = Path.GetFullPath(archivo);
-            string temporal = Path.Combine(Path.GetDirectoryName(destino), "." + Guid.NewGuid().ToString("N") + ".pdf");
-            try
-            {
-                Crear(documento).GeneratePdf(temporal);
-
-                if (File.Exists(destino))
-                    File.Replace(temporal, destino, null);
-                else
-                    File.Move(temporal, destino);
-            }
-            finally
-            {
-                if (File.Exists(temporal))
-                    File.Delete(temporal);
-            }
+            IDocument pdf = Crear(documento);
+            ArchivoExportado.Guardar(archivo, ruta => pdf.GeneratePdf(ruta));
         }
 
         private static IDocument Crear(DocumentoVenta datos)
         {
+            if (datos == null || datos.Detalle == null || datos.Detalle.Count == 0)
+                throw new ArgumentException("El documento no contiene productos.");
+
+            QuestPDF.Settings.License = LicenseType.Community;
             return Document.Create(contenedor =>
             {
                 contenedor.Page(pagina =>
@@ -65,7 +42,8 @@ namespace SistemaPedidoRestaurante.UIPrincipal
                     pagina.Header().Column(cabecera =>
                     {
                         cabecera.Item().Text(datos.Restaurante).FontSize(21).Bold();
-                        cabecera.Item().Text(datos.EsFactura ? "FACTURA PAGADA" : "COMPROBANTE DE PEDIDO").FontSize(15).Bold();
+                        string titulo = datos.EsFactura ? "FACTURA " + datos.Estado.ToUpperInvariant() : "COMPROBANTE DE PEDIDO";
+                        cabecera.Item().Text(titulo).FontSize(15).Bold();
                         cabecera.Item().PaddingTop(5).Text(datos.Numero + "  |  " + datos.Fecha.ToString("dd/MM/yyyy HH:mm"));
                     });
                     pagina.Content().PaddingVertical(16).Column(contenido =>
@@ -74,6 +52,8 @@ namespace SistemaPedidoRestaurante.UIPrincipal
                         contenido.Item().Text("Cliente: " + datos.Cliente);
                         contenido.Item().Text("Cedula: " + datos.Cedula);
                         contenido.Item().Text("Estado: " + datos.Estado);
+                        if (!string.IsNullOrWhiteSpace(datos.MotivoAnulacion))
+                            contenido.Item().Text("Motivo de anulación: " + datos.MotivoAnulacion);
                         if (!string.IsNullOrEmpty(datos.Mesa))
                             contenido.Item().Text("Mesa: " + datos.Mesa);
                         contenido.Item().Text("Origen: " + datos.OrigenPedido + "  |  Entrega: " + datos.TipoPedido);

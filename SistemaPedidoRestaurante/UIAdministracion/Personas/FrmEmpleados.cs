@@ -31,6 +31,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             dgvEmpleados.AllowUserToAddRows = false;
             dgvEmpleados.MultiSelect = false;
             dgvEmpleados.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            VistaGestion.PermitirOrden(dgvEmpleados);
             dgvEmpleados.CellClick += dgvEmpleados_CellClick;
             CambiarModo(ModoFormulario.Neutral);
             TemaUI.Aplicar(this);
@@ -58,7 +59,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 dgvEmpleados.Columns[i].DataPropertyName = propiedades[i];
             }
 
-            dgvEmpleados.DataSource = _empleadoBLL.ObtenerEmpleados();
+            VistaGestion.Vincular(dgvEmpleados, _empleadoBLL.ObtenerEmpleados());
         }
 
         private void CargarRoles()
@@ -243,6 +244,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                         usuario.IdPersona = empleado.IdPersona;
                         usuario.NombreRol = "Administrador";
                         usuario.Cargo = empleado.Cargo;
+                        usuario.AccesoPersonal = true;
                         SesionActual.Iniciar(usuario);
                     }
                 }
@@ -330,7 +332,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             try
             {
-                dgvEmpleados.DataSource = _empleadoBLL.BuscarEmpleados(txtTextoBuscar.Text);
+                VistaGestion.Vincular(dgvEmpleados, _empleadoBLL.BuscarEmpleados(txtTextoBuscar.Text));
             }
             catch (Exception ex)
             {

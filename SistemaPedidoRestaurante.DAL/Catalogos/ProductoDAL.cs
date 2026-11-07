@@ -59,7 +59,9 @@ namespace SistemaPedidoRestaurante.DAL
                                 Precio = Convert.ToDecimal(reader["precio"]),
                                 Descripcion = reader["descripcion"] == DBNull.Value ? string.Empty : reader["descripcion"].ToString(),
                                 Codigo = reader["codigo"].ToString(),
-                                Disponible = Convert.ToBoolean(reader["disponible"])
+                                Disponible = Convert.ToBoolean(reader["disponible"]),
+                                StockActual = soloDisponibles ? Convert.ToInt32(reader["stockActual"]) : 0,
+                                StockMinimo = soloDisponibles ? Convert.ToInt32(reader["stockMinimo"]) : 0
                             });
                         }
                     }

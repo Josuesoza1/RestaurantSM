@@ -10,39 +10,7 @@ namespace SistemaPedidoRestaurante.BLL
 {
     public class ClienteBLL
     {
-        public Cliente ObtenerMiPerfil()
-        {
-            if (!SesionActual.TieneRol(3))
-            {
-                throw new System.UnauthorizedAccessException("Este acceso corresponde a una cuenta de cliente.");
-            }
-
-            return clienteDAL.ObtenerPorUsuario(SesionActual.IdUsuario);
-        }
-
         private readonly ClienteDAL clienteDAL = new ClienteDAL();
-        private readonly ClienteValidacion validacion = new ClienteValidacion();
-        public void InsertarCliente(Cliente cliente, Usuario usuario, string confirmarContrasena)
-        {
-            if (usuario == null)
-            {
-                throw new System.ArgumentException("Ingrese los datos de la cuenta.");
-            }
-
-            new UsuarioValidacion().ValidarCredenciales(usuario.NombreUsuario, usuario.Contrasena);
-            usuario.NombreUsuario = CamposValidacion.Usuario(usuario.NombreUsuario);
-            validacion.ValidarRegistro(cliente, usuario.Contrasena, confirmarContrasena);
-            if (cliente.IdPersona > 0) Permisos.ExigirRol(RolesSistema.Administrador);
-            try
-            {
-                clienteDAL.InsertarCliente(cliente, usuario, SesionActual.IdUsuario);
-            }
-            catch (SqlException error)
-            {
-                throw OperacionDatos.Traducir(error, "La cédula, el correo o el nombre de usuario ya están registrados. Para añadir otro perfil, seleccione una persona ya registrada desde Administración.");
-            }
-        }
-
         public DataTable Listar()
         {
             Permisos.ExigirRol(1);
@@ -100,21 +68,6 @@ namespace SistemaPedidoRestaurante.BLL
         {
             Permisos.ExigirRol(1);
             return GuardarValidado(cliente, activo);
-        }
-
-        public int ActualizarMiPerfil(Cliente cliente)
-        {
-            Permisos.ExigirRol(3);
-            if (cliente == null)
-                throw new ArgumentException("Ingrese los datos del cliente.");
-            Cliente perfil = ObtenerMiPerfil();
-            if (perfil == null)
-                throw new ArgumentException("No existe un perfil asociado.");
-
-            cliente.IdCliente = perfil.IdCliente;
-            cliente.IdPersona = perfil.IdPersona;
-            cliente.IdUsuario = perfil.IdUsuario;
-            return GuardarValidado(cliente, true);
         }
 
         private int GuardarValidado(Cliente cliente, bool activo)

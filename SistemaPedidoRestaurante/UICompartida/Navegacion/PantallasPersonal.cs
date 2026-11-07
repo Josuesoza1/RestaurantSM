@@ -11,8 +11,8 @@ namespace SistemaPedidoRestaurante.UICompartida
         public static FrmBandejaOperaciones CrearBandeja(string tipo, bool seleccionar = false, string filtro = "")
         {
             if (tipo == "Pedidos" && !Permisos.PuedeConsultarPedidos ||
-                (tipo == "Mesas" || tipo == "Reservas") && !Permisos.PuedeAtender ||
-                tipo == "Facturas" && !Permisos.PuedeCobrar)
+                tipo == "Mesas" && !Permisos.PuedeAtender ||
+                (tipo == "Reservas" || tipo == "Facturas" || tipo == "Movimientos") && !Permisos.PuedeVerHistorial)
                 throw new UnauthorizedAccessException("Su cargo no tiene acceso a esta pantalla.");
             if (SesionActual.TieneRol(1))
             {
@@ -30,15 +30,13 @@ namespace SistemaPedidoRestaurante.UICompartida
                 switch (tipo)
                 {
                     case "Pedidos": return new FrmPedidosEmpleado(seleccionar, filtro);
-                    case "Reservas": return new FrmReservasEmpleado(seleccionar, filtro);
                     case "Mesas": return new FrmMesasEmpleado(seleccionar, filtro);
-                    case "Facturas": return new FrmConsultaFacturasEmpleado(seleccionar, filtro);
                 }
             }
             throw new UnauthorizedAccessException("La sesión no tiene acceso a esta pantalla.");
         }
 
-        public static Form CrearPedido(int cliente = 0)
+        public static FrmPedidoLocalBase CrearPedido(int cliente = 0)
         {
             Permisos.ExigirAtencion();
             if (SesionActual.TieneRol(1)) return new FrmPedidoAdministracion(cliente);
@@ -54,12 +52,6 @@ namespace SistemaPedidoRestaurante.UICompartida
             throw new UnauthorizedAccessException("Solo el personal puede abrir cobros.");
         }
 
-        public static Form CrearFactura(int pedido = 0)
-        {
-            Permisos.ExigirCobro();
-            if (SesionActual.TieneRol(1)) return new FrmFacturasAdministracion(pedido);
-            if (SesionActual.TieneRol(2)) return new FrmFacturas(pedido);
-            throw new UnauthorizedAccessException("Use Mis pedidos para consultar sus propios documentos.");
-        }
+
     }
 }

@@ -18,7 +18,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void CargarUsuarios()
         {
-            dgvUsuarios.DataSource = servicio.ObtenerTodosLosUsuarios();
+            VistaGestion.Vincular(dgvUsuarios, servicio.ObtenerTodosLosUsuarios());
             dgvUsuarios.ClearSelection();
             ActualizarCantidad();
         }
@@ -32,7 +32,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             try
             {
-                dgvUsuarios.DataSource = servicio.BuscarUsuarios(txtBuscar.Text);
+                VistaGestion.Vincular(dgvUsuarios, servicio.BuscarUsuarios(txtBuscar.Text));
                 dgvUsuarios.ClearSelection();
                 ActualizarCantidad();
             }

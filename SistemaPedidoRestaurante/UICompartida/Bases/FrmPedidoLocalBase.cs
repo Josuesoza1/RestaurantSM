@@ -1,9 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.Entities;
+using SistemaPedidoRestaurante.UIPrincipal;
 
 namespace SistemaPedidoRestaurante.UICompartida
 {
@@ -14,8 +16,10 @@ namespace SistemaPedidoRestaurante.UICompartida
         private bool perfilValido;
         private int clienteDelLocal;
         private readonly int rolPermitido;
-        private EntregaPedido entrega;
         private readonly Guid solicitud = Guid.NewGuid();
+
+        public int PedidoRegistrado { get; private set; }
+
         public FrmPedidoLocalBase() : this(0, 0)
         {
         }
@@ -25,8 +29,10 @@ namespace SistemaPedidoRestaurante.UICompartida
             this.clienteDelLocal = clienteDelLocal;
             rolPermitido = rol;
             InitializeComponent();
-            Text = "Nuevo pedido en el local";
-            grpDatosCliente.Text = "Cliente del pedido";
+            VistaGestion.PermitirOrden(dgvDetalle);
+            Text = "Nueva venta local";
+            grpDatosCliente.Text = "Cliente (opcional)";
+            btnEnviar.Text = "Registrar venta";
             txtCliente.ReadOnly = txtCedula.ReadOnly = txtTelefono.ReadOnly = txtEmail.ReadOnly = true;
             cmbProducto.DropDownStyle = cmbCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPrecio.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -36,6 +42,7 @@ namespace SistemaPedidoRestaurante.UICompartida
             btnCancelar.Text = "Volver";
             cmbCategoria.SelectedValueChanged += cmbCategoria_SelectedValueChanged;
             cmbProducto.SelectedValueChanged += cmbProducto_SelectedValueChanged;
+            nudCantidad.ValueChanged += nudCantidad_ValueChanged;
             Load += CargarPantalla;
             FormClosing += FrmPedidoLocalBase_FormClosing;
             ActualizarDetalle();
@@ -57,56 +64,48 @@ namespace SistemaPedidoRestaurante.UICompartida
 
             try
             {
-                if (clienteDelLocal <= 0)
+                System.Data.DataRow cliente = null;
+                if (clienteDelLocal == 0)
                 {
                     using (FrmSeleccionCliente elegir = new FrmSeleccionCliente())
                     {
-                        if (elegir.ShowDialog(this) != DialogResult.OK) { Close(); return; }
-                        clienteDelLocal = Convert.ToInt32(elegir.Cliente["IdCliente"]);
+                        if (elegir.ShowDialog(this) != DialogResult.OK)
+                        {
+                            Close();
+                            return;
+                        }
+                        cliente = elegir.Cliente;
                     }
                 }
-                Cliente cliente;
-                if (clienteDelLocal > 0)
+                else
                 {
                     System.Data.DataRow[] filas = new ClienteBLL().ListarClientes().Select("IdCliente=" + clienteDelLocal);
                     if (filas.Length != 1) throw new ArgumentException("Seleccione un cliente activo.");
-                    System.Data.DataRow fila = filas[0];
-                    cliente = new Cliente();
-                    cliente.PrimerNombre = Convert.ToString(fila["Nombre"]);
-                    cliente.Cedula = Convert.ToString(fila["Cedula"]);
-                    cliente.Telefono = Convert.ToString(fila["Telefono"]);
-                    cliente.Email = Convert.ToString(fila["Email"]);
-                }
-                else throw new ArgumentException("Seleccione un cliente activo.");
-                perfilValido = cliente != null;
-                if (cliente != null)
-                {
-                    txtCliente.Text = string.Join(" ", new[]
-                    {
-                        cliente.PrimerNombre,
-                        cliente.SegundoNombre,
-                        cliente.PrimerApellido,
-                        cliente.SegundoApellido
-                    }.Where(n => !string.IsNullOrWhiteSpace(n)));
-                    txtCedula.Text = cliente.Cedula;
-                    txtTelefono.Text = cliente.Telefono;
-                    txtEmail.Text = cliente.Email;
+                    cliente = filas[0];
                 }
 
+                if (cliente == null)
+                {
+                    txtCliente.Text = "Consumidor final";
+                }
+                else
+                {
+                    clienteDelLocal = Convert.ToInt32(cliente["IdCliente"]);
+                    txtCliente.Text = Convert.ToString(cliente["Nombre"]);
+                    txtCedula.Text = Convert.ToString(cliente["Cedula"]);
+                    txtTelefono.Text = Convert.ToString(cliente["Telefono"]);
+                    txtEmail.Text = Convert.ToString(cliente["Email"]);
+                }
+                perfilValido = true;
                 CargarCatalogo(new ProductoBLL().ObtenerDisponiblesParaPedido());
 
-
                 ActualizarDetalle();
-                if (!perfilValido)
-                {
-                    estadoPerfil.Text = "Seleccione un cliente activo antes de registrar el pedido.";
-                }
             }
             catch (Exception)
             {
                 perfilValido = false;
                 btnAceptar.Enabled = btnEnviar.Enabled = false;
-                estadoPerfil.Text = "No se pudieron cargar el cliente o el catálogo. Cierre la pantalla y vuelva a seleccionar un cliente activo.";
+                estadoPerfil.Text = "No se pudo cargar el catálogo o los datos del cliente.";
             }
         }
 
@@ -153,7 +152,41 @@ namespace SistemaPedidoRestaurante.UICompartida
                 cmbPrecio.SelectedIndex = 0;
             }
 
-            btnAceptar.Enabled = perfilValido && producto != null;
+            ActualizarAvisoStock();
+        }
+
+        private int CantidadDisponible(Producto producto)
+        {
+            var linea = borrador.Lineas.FirstOrDefault(item => item.IdProducto == producto.IdProducto);
+            return producto.StockActual - (linea == null ? 0 : linea.Cantidad);
+        }
+
+        private void ActualizarAvisoStock()
+        {
+            var producto = cmbProducto.SelectedItem as Producto;
+            if (!perfilValido || producto == null)
+            {
+                btnAceptar.Enabled = false;
+                if (perfilValido)
+                    estadoPerfil.Text = "No hay productos con existencias en esta categoría.";
+                return;
+            }
+
+            int disponible = CantidadDisponible(producto);
+            int restante = disponible - (int)nudCantidad.Value;
+            btnAceptar.Enabled = restante >= 0;
+            estadoPerfil.ForeColor = restante <= producto.StockMinimo ? Color.DarkRed : SystemColors.ControlText;
+            if (restante < 0)
+                estadoPerfil.Text = "Existencias insuficientes. Disponible para agregar: " + disponible + ".";
+            else if (restante <= producto.StockMinimo)
+                estadoPerfil.Text = "Stock bajo. Con esta cantidad quedarían " + restante + " unidades. Mínimo: " + producto.StockMinimo + ".";
+            else
+                estadoPerfil.Text = "Disponible para agregar: " + disponible + " unidades.";
+        }
+
+        private void nudCantidad_ValueChanged(object sender, EventArgs e)
+        {
+            ActualizarAvisoStock();
         }
 
         private void AgregarAlPedido(object sender, EventArgs e)
@@ -165,7 +198,11 @@ namespace SistemaPedidoRestaurante.UICompartida
                     throw new ArgumentException("Inicie sesión con una cuenta del personal.");
                 }
 
-                borrador.Agregar(cmbProducto.SelectedItem as Producto, (int)nudCantidad.Value);
+                var producto = cmbProducto.SelectedItem as Producto;
+                int cantidad = (int)nudCantidad.Value;
+                if (producto != null && cantidad > CantidadDisponible(producto))
+                    throw new ArgumentException("La cantidad supera las existencias disponibles.");
+                borrador.Agregar(producto, cantidad);
                 ActualizarDetalle();
             }
             catch (ArgumentException ex)
@@ -188,26 +225,22 @@ namespace SistemaPedidoRestaurante.UICompartida
 
         private void ActualizarDetalle()
         {
-            dgvDetalle.DataSource = borrador.Lineas.ToList();
+            VistaGestion.Vincular(dgvDetalle, borrador.Lineas);
             lblTotal.Text = "Total estimado: " + borrador.Total.ToString("N2");
             btnQuitar.Enabled = btnVaciar.Enabled = borrador.Lineas.Count > 0;
             btnEnviar.Enabled = perfilValido && borrador.Lineas.Count > 0;
+            ActualizarAvisoStock();
         }
 
         private void Enviar()
         {
             try
             {
-                using (UICompartida.FrmEntregaPedido confirmar = new UICompartida.FrmEntregaPedido(borrador.Total, 0, txtTelefono.Text, entrega))
-                {
-                    if (confirmar.ShowDialog(this) != DialogResult.OK) return;
-                    entrega = confirmar.Entrega;
-                }
                 btnEnviar.Enabled = false;
                 try
                 {
-                    int numero = new PedidoBLL().GuardarPedido(clienteDelLocal, borrador, solicitud, entrega);
-                    MessageBox.Show(this, "Pedido " + numero + " guardado. Puede consultarlo en la lista de pedidos.", "Mi pedido");
+                    PedidoRegistrado = new PedidoBLL().GuardarPedido(clienteDelLocal, borrador, solicitud);
+                    MessageBox.Show(this, "Venta " + PedidoRegistrado + " registrada.", "Venta local");
                     DialogResult = DialogResult.OK;
                     Close();
                 }

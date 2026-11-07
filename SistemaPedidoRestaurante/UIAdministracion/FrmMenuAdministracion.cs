@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.UIAdministracion;
-using SistemaPedidoRestaurante.UICliente;
 using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.UIPrincipal;
 

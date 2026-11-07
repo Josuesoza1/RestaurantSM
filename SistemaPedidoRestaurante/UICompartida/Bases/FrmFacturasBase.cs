@@ -12,6 +12,7 @@ namespace SistemaPedidoRestaurante.UICompartida
         private readonly int rolPermitido;
         private readonly FacturaBLL servicio = new FacturaBLL();
         private DocumentoVenta documento;
+        private int pedidoConsultado;
         private readonly int pedidoInicial;
         public FrmFacturasBase() : this(0, 0)
         {
@@ -40,7 +41,7 @@ namespace SistemaPedidoRestaurante.UICompartida
         {
             if (DesignMode || LicenseManager.UsageMode == LicenseUsageMode.Designtime)
                 return;
-            if (!AccesoFormulario.PermitirOperacion(this, rolPermitido, Permisos.PuedeCobrar))
+            if (!AccesoFormulario.PermitirOperacion(this, rolPermitido, Permisos.PuedeVerHistorial))
             {
                 Close();
                 return;
@@ -77,6 +78,8 @@ namespace SistemaPedidoRestaurante.UICompartida
         private void CargarDocumento(int pedido)
         {
             documento = servicio.ObtenerDocumento(pedido, true);
+            pedidoConsultado = pedido;
+            Text = "Factura " + documento.Numero + " — " + documento.Estado;
             txtNumeroFactura.Text = documento.Numero;
             txtClienteFactura.Text = documento.Cliente;
             txtEmpleadoFactura.Text = documento.CobradoPor;
@@ -90,8 +93,33 @@ namespace SistemaPedidoRestaurante.UICompartida
             txtDescuentoFactura.Text = documento.Descuento.ToString("N2");
             txtTotalFactura.Text = documento.Total.ToString("N2");
             txtMetodoPago.Text = documento.Metodo;
-            dataGridView1.DataSource = documento.Detalle;
+            VistaGestion.Vincular(dataGridView1, documento.Detalle);
             btnGuardarProducto.Enabled = true;
+            btnAnular.Enabled = Permisos.PuedeVerHistorial && documento.Estado == "Pagada"
+                && documento.OrigenPedido == "En el local";
+        }
+
+        private void btnAnular_Click(object sender, EventArgs e)
+        {
+            if (!btnAnular.Enabled || documento == null)
+                return;
+
+            try
+            {
+                using (var confirmar = new FrmAnularVenta(documento))
+                {
+                    if (confirmar.ShowDialog(this) != DialogResult.OK)
+                        return;
+                    servicio.AnularVenta(pedidoConsultado, confirmar.Motivo, confirmar.ReponerInventario);
+                }
+                btnAnular.Enabled = false;
+                MessageBox.Show(this, "La venta quedó anulada y se conservó su comprobante.", Text);
+                CargarDocumento(pedidoConsultado);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(this, error.Message, Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void guardarPdf_Click(object sender, EventArgs e)
@@ -99,7 +127,10 @@ namespace SistemaPedidoRestaurante.UICompartida
             try
             {
                 if (documento != null)
-                    DocumentoPdf.GuardarConDialogo(this, documento);
+                {
+                    CargarDocumento(pedidoConsultado);
+                    DocumentoPdf.MostrarVistaPrevia(this, documento);
+                }
             }
             catch (Exception error)
             {
@@ -110,6 +141,9 @@ namespace SistemaPedidoRestaurante.UICompartida
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             documento = null;
+            pedidoConsultado = 0;
+            btnAnular.Enabled = false;
+            btnGuardarProducto.Enabled = false;
             txtNumeroFactura.Clear();
             txtClienteFactura.Clear();
             txtEmpleadoFactura.Clear();
@@ -129,7 +163,7 @@ namespace SistemaPedidoRestaurante.UICompartida
 
         private void ayuda_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(this, "Busque una factura pagada por numero, cliente o fecha. Sus importes y productos se conservan como fueron emitidos. Guardar PDF permite generar otra copia.");
+            MessageBox.Show(this, "Busque una factura por número, cliente o fecha. Si la venta está pagada, puede registrar una anulación. Las facturas anuladas siguen disponibles para consulta y PDF.");
         }
     }
 }

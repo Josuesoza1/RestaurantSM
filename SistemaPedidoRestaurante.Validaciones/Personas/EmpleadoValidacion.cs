@@ -23,8 +23,8 @@ namespace SistemaPedidoRestaurante.Validaciones
 
             empleado.Cargo = CargosPersonal.Normalizar(empleado.Cargo);
             if (usuario.IdRol == RolesSistema.Empleado &&
-                empleado.Cargo != CargosPersonal.Mesero && empleado.Cargo != CargosPersonal.Cajero && empleado.Cargo != CargosPersonal.Repartidor)
-                throw new ArgumentException("Seleccione Mesero, Cajero o Repartidor como cargo del empleado.");
+                empleado.Cargo != CargosPersonal.Despachador)
+                throw new ArgumentException("Seleccione Despachador como cargo del empleado.");
         }
 
         private void ValidarTexto(string valor, string campo, int longitud, bool obligatorio)

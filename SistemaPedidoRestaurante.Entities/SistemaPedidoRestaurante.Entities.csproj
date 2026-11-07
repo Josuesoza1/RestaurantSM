@@ -44,7 +44,6 @@
     <Compile Include="Constantes\RolesSistema.cs" />
     <Compile Include="Constantes\CargosPersonal.cs" />
     <Compile Include="Modelos\DocumentoVenta.cs" />
-    <Compile Include="Modelos\EntregaPedido.cs" />
     <Compile Include="Individuales\InventarioProducto.cs" />
     <Compile Include="Colecciones\InventarioProductos.cs" />
     <Compile Include="Individuales\Categoria.cs" />

@@ -17,6 +17,7 @@
             this.listado = new System.Windows.Forms.DataGridView();
             this.buscar = new System.Windows.Forms.TextBox();
             this.elegir = new System.Windows.Forms.Button();
+            this.sinCliente = new System.Windows.Forms.Button();
             this.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listado)).BeginInit();
             this.listado.Name = "listado";
@@ -35,7 +36,13 @@
             this.elegir.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.elegir.Height = 40;
             this.elegir.Click += new System.EventHandler(this.elegir_Click);
+            this.sinCliente.Name = "sinCliente";
+            this.sinCliente.Text = "Continuar sin cliente";
+            this.sinCliente.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.sinCliente.Height = 40;
+            this.sinCliente.Click += new System.EventHandler(this.sinCliente_Click);
             this.Controls.Add(this.listado);
+            this.Controls.Add(this.sinCliente);
             this.Controls.Add(this.buscar);
             this.Controls.Add(this.elegir);
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -54,5 +61,6 @@
         private System.Windows.Forms.DataGridView listado;
         private System.Windows.Forms.TextBox buscar;
         private System.Windows.Forms.Button elegir;
+        private System.Windows.Forms.Button sinCliente;
     }
 }
