@@ -13,7 +13,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             InitializeComponent();
             VistaGestion.Listado(dgvUsuarios);
             TemaUI.Aplicar(this);
-            Load += FrmUsuarios_CargarDatos;
         }
 
         private void CargarUsuarios()
@@ -44,6 +43,11 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void btnRecargar_Click(object sender, EventArgs e)
         {
+            RecargarUsuarios();
+        }
+
+        private void RecargarUsuarios()
+        {
             try
             {
                 txtBuscar.Clear();
@@ -58,16 +62,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private void btnVolver_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void btnRegistrarPersona_Click(object sender, EventArgs e)
-        {
-            using (var formulario = new FrmRegistrarPersona())
-            {
-                if (formulario.ShowDialog(this) != DialogResult.OK) return;
-            }
-
-            btnRecargar_Click(sender, e);
         }
 
         private void FrmUsuarios_CargarDatos(object sender, EventArgs e)

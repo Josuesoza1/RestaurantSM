@@ -5,7 +5,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
     public partial class FrmPedidosAdministracion : FrmBandejaOperaciones
     {
         public FrmPedidosAdministracion() : this(false, "") { }
-        public FrmPedidosAdministracion(bool seleccionar, string filtro = "") : base(1, "Pedidos", seleccionar, filtro)
+        public FrmPedidosAdministracion(bool seleccionar, string filtro = "", bool historial = false)
+            : base(1, "Pedidos", seleccionar, filtro, historial)
         {
             InitializeComponent();
             ConfigurarOpciones();

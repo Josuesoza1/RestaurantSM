@@ -10,14 +10,14 @@ namespace SistemaPedidoRestaurante.BLL
     {
         private readonly PagoDAL pagoDAL = new PagoDAL();
 
-        public DataRow Cotizar(int pedido)
+        public DataRow Cotizar(int pedido, bool desdeMostrador = false)
         {
             Permisos.ExigirCobro();
             if (pedido <= 0)
                 throw new ArgumentException("Seleccione un pedido para cobrar.");
             try
             {
-                DataTable tabla = pagoDAL.Cotizar(SesionActual.IdUsuario, pedido);
+                DataTable tabla = pagoDAL.Cotizar(SesionActual.IdUsuario, pedido, desdeMostrador);
                 if (tabla.Rows.Count != 1)
                     throw new ArgumentException("No se encontro el pedido.");
                 return tabla.Rows[0];
@@ -28,13 +28,16 @@ namespace SistemaPedidoRestaurante.BLL
             }
         }
 
-        public DataRow Cobrar(int pedido, string metodo, decimal recibido, decimal total, Guid solicitud, string notas)
+        public DataRow Cobrar(int pedido, string metodo, decimal recibido, decimal total, Guid solicitud, string notas,
+            bool desdeMostrador = false, string nombreComprobante = null)
         {
             Permisos.ExigirCobro();
             notas = PagoValidacion.Validar(pedido, metodo, recibido, total, solicitud, notas);
+            nombreComprobante = PagoValidacion.NombreParaComprobante(nombreComprobante);
             try
             {
-                DataTable tabla = pagoDAL.Cobrar(SesionActual.IdUsuario, pedido, metodo, recibido, total, solicitud, notas);
+                DataTable tabla = pagoDAL.Cobrar(SesionActual.IdUsuario, pedido, metodo, recibido, total, solicitud, notas,
+                    desdeMostrador, nombreComprobante);
                 if (tabla.Rows.Count != 1)
                     throw new InvalidOperationException("No se recibió la confirmación del cobro. Consulte el pedido antes de intentarlo nuevamente.");
                 return tabla.Rows[0];

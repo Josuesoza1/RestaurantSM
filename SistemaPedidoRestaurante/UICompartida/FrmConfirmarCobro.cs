@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
+using SistemaPedidoRestaurante.Validaciones;
 
 namespace SistemaPedidoRestaurante.UICompartida
 {
     public partial class FrmConfirmarCobro : Form
     {
         private readonly decimal total;
+        private readonly bool esEfectivo;
 
-        public decimal Recibido
-        {
-            get
-            {
-                return monto.Value;
-            }
-        }
+        public decimal Recibido { get; private set; }
 
         public FrmConfirmarCobro() : this(0, "Efectivo")
         {
@@ -23,25 +18,61 @@ namespace SistemaPedidoRestaurante.UICompartida
         public FrmConfirmarCobro(decimal total, string metodo)
         {
             this.total = total;
+            esEfectivo = metodo == "Efectivo";
             InitializeComponent();
             resumen.Text = metodo + " — Total: C$ " + total.ToString("N2");
-            monto.Value = total;
-            monto.Enabled = metodo == "Efectivo";
+            monto.ReadOnly = !esEfectivo;
+            pagoExacto.Visible = esEfectivo;
+            cambio.Visible = esEfectivo;
+            if (!esEfectivo)
+            {
+                lblRecibido.Text = "Importe a cobrar";
+                monto.Text = total.ToString("F2");
+                Recibido = total;
+                confirmar.Enabled = true;
+            }
         }
 
-        private void monto_ValueChanged(object sender, EventArgs e)
+        private void monto_TextChanged(object sender, EventArgs e)
         {
-            cambio.Text = "Cambio: C$ " + (monto.Value - total).ToString("N2");
+            if (esEfectivo)
+                ActualizarCambio();
+        }
+
+        private void pagoExacto_Click(object sender, EventArgs e)
+        {
+            monto.Text = total.ToString("F2");
+        }
+
+        private void ActualizarCambio()
+        {
+            Recibido = 0;
+            confirmar.Enabled = false;
+            if (string.IsNullOrWhiteSpace(monto.Text))
+            {
+                cambio.Text = "Ingrese el monto recibido o elija Pago exacto.";
+                return;
+            }
+
+            if (!PagoValidacion.IntentarLeerRecibido(monto.Text, out decimal recibido))
+            {
+                cambio.Text = "Ingrese un monto válido, con hasta dos decimales.";
+                return;
+            }
+
+            if (recibido < total)
+            {
+                cambio.Text = "Faltan C$ " + (total - recibido).ToString("N2");
+                return;
+            }
+
+            Recibido = recibido;
+            cambio.Text = "Cambio: C$ " + (recibido - total).ToString("N2");
+            confirmar.Enabled = true;
         }
 
         private void confirmar_Click(object sender, EventArgs e)
         {
-            if (monto.Value < total)
-            {
-                MessageBox.Show(this, "El importe recibido no cubre el total.");
-                return;
-            }
-
             DialogResult = DialogResult.OK;
             Close();
         }

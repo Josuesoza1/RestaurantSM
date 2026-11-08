@@ -120,7 +120,7 @@
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(71, 38);
             this.btnBuscar.TabIndex = 8;
-            this.btnBuscar.Text = "⌕";
+            this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             this.lblBuscar.AutoSize = true;
@@ -173,10 +173,10 @@
             this.ColSnombre.ReadOnly = true;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editarToolStripMenuItem,
-            this.eliminarToolStripMenuItem,
-            this.desactivarToolStripMenuItem,
             this.nuevoToolStripMenuItem,
+            this.editarToolStripMenuItem,
+            this.desactivarToolStripMenuItem,
+            this.eliminarToolStripMenuItem,
             this.volverToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -205,7 +205,7 @@
             this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
             this.volverToolStripMenuItem.Name = "volverToolStripMenuItem";
             this.volverToolStripMenuItem.Size = new System.Drawing.Size(182, 24);
-            this.volverToolStripMenuItem.Text = "Volver al Menú Príncipal";
+            this.volverToolStripMenuItem.Text = "Volver";
             this.volverToolStripMenuItem.Click += new System.EventHandler(this.volverToolStripMenuItem_Click);
             this.lblOperacion.AutoSize = true;
             this.lblOperacion.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -294,6 +294,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(807, 627);
+            this.MinimumSize = new System.Drawing.Size(812, 603);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.grpListadoCliente);
             this.Controls.Add(this.groupBox2);

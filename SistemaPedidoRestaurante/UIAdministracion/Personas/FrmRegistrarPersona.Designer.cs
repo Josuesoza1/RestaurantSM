@@ -38,8 +38,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.txtCedula = new System.Windows.Forms.TextBox();
             this.lblTelefono = new System.Windows.Forms.Label();
             this.txtTelefono = new System.Windows.Forms.TextBox();
-            this.lblCorreo = new System.Windows.Forms.Label();
-            this.txtCorreo = new System.Windows.Forms.TextBox();
             this.lblCargo = new System.Windows.Forms.Label();
             this.cmbCargo = new System.Windows.Forms.ComboBox();
             this.lblFormato = new System.Windows.Forms.Label();
@@ -89,8 +87,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.txtCedula.Name = "txtCedula";
             this.lblTelefono.Name = "lblTelefono";
             this.txtTelefono.Name = "txtTelefono";
-            this.lblCorreo.Name = "lblCorreo";
-            this.txtCorreo.Name = "txtCorreo";
             this.lblCargo.Name = "lblCargo";
             this.cmbCargo.Name = "cmbCargo";
             this.lblFormato.Name = "lblFormato";
@@ -110,7 +106,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.pnlEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlEncabezado.Height = 72;
             this.pnlEncabezado.Controls.Add(this.lblTitulo);
-            this.lblTitulo.Text = "REGISTRAR PERSONA";
+            this.lblTitulo.Text = "ALTA DE PERSONAL";
             this.lblTitulo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
             this.lblTitulo.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold);
@@ -122,7 +118,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.pnlTipo.Controls.Add(this.chkPersonaExistente);
             this.pnlTipo.Controls.Add(this.cmbPersona);
             this.pnlTipo.Controls.Add(this.lblIndicacion);
-            this.lblTipo.Text = "Tipo de persona *:";
+            this.lblTipo.Text = "Rol de acceso *:";
             this.lblTipo.AutoSize = true;
             this.lblTipo.Location = new System.Drawing.Point(16, 17);
             this.cmbTipo.Location = new System.Drawing.Point(156, 13);
@@ -150,7 +146,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.lblIndicacion.Location = new System.Drawing.Point(16, 83);
             this.lblIndicacion.Size = new System.Drawing.Size(806, 36);
             this.lblIndicacion.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            this.lblIndicacion.Text = "Seleccione el tipo de persona. Los campos con * son obligatorios.";
+            this.lblIndicacion.Text = "Los campos con * son obligatorios.";
             this.tblContenido.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblContenido.Padding = new System.Windows.Forms.Padding(12, 0, 12, 8);
             this.tblContenido.ColumnCount = 2;
@@ -244,21 +240,11 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.txtTelefono.TabIndex = 6;
             this.txtTelefono.MaxLength = 20;
             this.tblPersona.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tblPersona.Controls.Add(this.lblCorreo, 0, 7);
-            this.tblPersona.Controls.Add(this.txtCorreo, 1, 7);
-            this.lblCorreo.Text = "Correo *:";
-            this.lblCorreo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblCorreo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.txtCorreo.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            this.txtCorreo.TabIndex = 7;
-            this.txtCorreo.MaxLength = 120;
             this.cmbGenero.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGenero.Items.AddRange(new object[] { "Masculino", "Femenino", "Otro" });
             this.tblPersona.Controls.Add(this.lblCargo, 0, 7);
             this.tblPersona.Controls.Add(this.cmbCargo, 1, 7);
             this.lblCargo.Text = "Cargo *:";
-            this.lblCargo.Visible = false;
-            this.cmbCargo.Visible = false;
             this.lblCargo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCargo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cmbCargo.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
@@ -312,7 +298,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.chkMostrar.CheckedChanged += new System.EventHandler(this.chkMostrar_CheckedChanged);
             this.lblCuenta.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCuenta.ForeColor = System.Drawing.Color.DimGray;
-            this.lblCuenta.Text = "La persona y su cuenta se guardan juntas.\n\nPara añadir otro perfil, seleccione una persona ya registrada y elija un usuario nuevo.\n\nSus datos personales se comparten entre sus perfiles.";
+            this.lblCuenta.Text = "Los datos personales y la cuenta de acceso se guardan juntos.";
             this.pnlAcciones.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlAcciones.Height = 60;
             this.pnlAcciones.Padding = new System.Windows.Forms.Padding(12, 10, 12, 10);
@@ -350,7 +336,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.Controls.Add(this.pnlTipo);
             this.Controls.Add(this.pnlEncabezado);
             this.Name = "FrmRegistrarPersona";
-            this.Text = "Registrar persona";
+            this.Text = "Alta de personal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Load += new System.EventHandler(this.FrmRegistrarPersona_Load);
             this.pnlEncabezado.ResumeLayout(false);
@@ -399,8 +385,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private System.Windows.Forms.TextBox txtCedula;
         private System.Windows.Forms.Label lblTelefono;
         private System.Windows.Forms.TextBox txtTelefono;
-        private System.Windows.Forms.Label lblCorreo;
-        private System.Windows.Forms.TextBox txtCorreo;
         private System.Windows.Forms.Label lblCargo;
         private System.Windows.Forms.ComboBox cmbCargo;
         private System.Windows.Forms.Label lblFormato;

@@ -79,7 +79,10 @@ namespace SistemaPedidoRestaurante.BLL
                 throw new UnauthorizedAccessException("Inicie sesión para consultar los productos disponibles.");
             }
 
-            return _productoDAL.ListarDisponibles();
+            Productos disponibles = new Productos();
+            disponibles.AddRange(_productoDAL.Listar().Where(producto => producto.PuedeVenderse)
+                .OrderBy(producto => producto.CategoriaNombre).ThenBy(producto => producto.Nombre));
+            return disponibles;
         }
 
         public Productos BuscarProductos(string filtro)
@@ -96,6 +99,7 @@ namespace SistemaPedidoRestaurante.BLL
                 BusquedaLINQ.Contiene(producto.Nombre, filtro) ||
                 BusquedaLINQ.Contiene(producto.CategoriaNombre, filtro) ||
                 BusquedaLINQ.Contiene(producto.Codigo, filtro) ||
+                BusquedaLINQ.Contiene(producto.EstadoVenta, filtro) ||
                 BusquedaLINQ.Contiene(producto.Descripcion, filtro));
             resultado.AddRange(coincidencias);
             return resultado;

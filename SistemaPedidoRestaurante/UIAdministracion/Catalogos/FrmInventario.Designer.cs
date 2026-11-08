@@ -41,6 +41,8 @@
             this.ColPrecioVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColStockActual = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColSrockMinimo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColEstadoStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColEstadoVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grpAgregarProducto = new System.Windows.Forms.GroupBox();
             this.cmbCategoriaInventario = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -64,6 +66,7 @@
             this.grpAgregarProducto.SuspendLayout();
             this.panel1.SuspendLayout();
             this.movimientos = new System.Windows.Forms.ToolStripMenuItem();
+            this.registro = new System.Windows.Forms.ToolStripMenuItem();
             this.entradaSalida = new System.Windows.Forms.ToolStripMenuItem();
             this.historial = new System.Windows.Forms.ToolStripMenuItem();
             this.bajos = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,15 +76,17 @@
             this.SuspendLayout();
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.agregarToolStripMenuItem,
-                this.eliminarToolStripMenuItem,
-                this.desactivarToolStripMenuItem,
-                this.editarToolStripMenuItem,
-                this.volverToolStripMenuItem,
-                this.ayudaToolStripMenuItem,
-                this.bajos,
+                this.registro,
                 this.movimientos,
-                this.actualizar });
+                this.bajos,
+                this.actualizar,
+                this.ayudaToolStripMenuItem,
+                this.volverToolStripMenuItem });
+            this.registro.Name = "registro";
+            this.registro.Text = "Control de inventario";
+            this.registro.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                this.agregarToolStripMenuItem, this.editarToolStripMenuItem,
+                this.desactivarToolStripMenuItem, this.eliminarToolStripMenuItem });
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1025, 28);
@@ -89,10 +94,10 @@
             this.menuStrip1.Text = "menuStrip1";
             this.agregarToolStripMenuItem.Name = "agregarToolStripMenuItem";
             this.agregarToolStripMenuItem.Size = new System.Drawing.Size(77, 24);
-            this.agregarToolStripMenuItem.Text = "Agregar";
+            this.agregarToolStripMenuItem.Text = "Agregar control";
             this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
             this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(77, 24);
-            this.eliminarToolStripMenuItem.Text = "Eliminar";
+            this.eliminarToolStripMenuItem.Text = "Eliminar registro";
             this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
             this.desactivarToolStripMenuItem.Name = "desactivarToolStripMenuItem";
             this.desactivarToolStripMenuItem.Size = new System.Drawing.Size(118, 24);
@@ -100,7 +105,7 @@
             this.desactivarToolStripMenuItem.Click += new System.EventHandler(this.desactivarToolStripMenuItem_Click);
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
             this.editarToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
-            this.editarToolStripMenuItem.Text = "Editar";
+            this.editarToolStripMenuItem.Text = "Editar control";
             this.volverToolStripMenuItem.Name = "volverToolStripMenuItem";
             this.volverToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
             this.volverToolStripMenuItem.Text = "Volver";
@@ -130,7 +135,7 @@
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.ForeColor = System.Drawing.Color.Black;
-            this.btnBuscar.Location = new System.Drawing.Point(228, 156);
+            this.btnBuscar.Location = new System.Drawing.Point(228, 118);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(89, 36);
@@ -141,7 +146,7 @@
             this.textBox2.Location = new System.Drawing.Point(84, 124);
             this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(232, 25);
+            this.textBox2.Size = new System.Drawing.Size(135, 25);
             this.textBox2.TabIndex = 11;
             this.lblBuscar.AutoSize = true;
             this.lblBuscar.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -206,7 +211,9 @@
             this.ColUnidad,
             this.ColPrecioVenta,
             this.ColStockActual,
-            this.ColSrockMinimo});
+            this.ColSrockMinimo,
+            this.ColEstadoStock,
+            this.ColEstadoVenta});
             this.dgvProductoInventario.Location = new System.Drawing.Point(27, 25);
             this.dgvProductoInventario.Margin = new System.Windows.Forms.Padding(4);
             this.dgvProductoInventario.Name = "dgvProductoInventario";
@@ -237,6 +244,15 @@
             this.ColSrockMinimo.HeaderText = "Stock Mínimo";
             this.ColSrockMinimo.MinimumWidth = 6;
             this.ColSrockMinimo.Name = "ColSrockMinimo";
+            this.ColEstadoStock.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColEstadoStock.DataPropertyName = "EstadoStock";
+            this.ColEstadoStock.HeaderText = "Estado de stock";
+            this.ColEstadoStock.Name = "ColEstadoStock";
+            this.ColEstadoVenta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColEstadoVenta.DataPropertyName = "EstadoVenta";
+            this.ColEstadoVenta.FillWeight = 150F;
+            this.ColEstadoVenta.HeaderText = "En caja";
+            this.ColEstadoVenta.Name = "ColEstadoVenta";
             this.grpAgregarProducto.Controls.Add(this.cmbCategoriaInventario);
             this.grpAgregarProducto.Controls.Add(this.label1);
             this.grpAgregarProducto.Controls.Add(this.txtPrecioVenta);
@@ -259,7 +275,7 @@
             this.grpAgregarProducto.Size = new System.Drawing.Size(627, 219);
             this.grpAgregarProducto.TabIndex = 17;
             this.grpAgregarProducto.TabStop = false;
-            this.grpAgregarProducto.Text = "Agregar Producto";
+            this.grpAgregarProducto.Text = "Existencias del producto";
             this.cmbCategoriaInventario.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCategoriaInventario.FormattingEnabled = true;
             this.cmbCategoriaInventario.Location = new System.Drawing.Point(161, 89);
@@ -391,6 +407,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1025, 549);
+            this.MinimumSize = new System.Drawing.Size(1025, 550);
             this.Controls.Add(this.grpListaProductos);
             this.Controls.Add(this.grpAcciones);
             this.Controls.Add(this.grpAgregarProducto);
@@ -400,7 +417,9 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmInventario";
             this.Text = "GESTION DE INVENTARIO";
-            this.Load += new System.EventHandler(this.FrmInventario_Load);
+            this.Load += new System.EventHandler(this.FrmInventario_CargarDatos);
+            this.cmbProductoInventario.SelectedValueChanged += new System.EventHandler(this.cmbProductoInventario_SelectedValueChanged);
+            this.dgvProductoInventario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductoInventario_CellClick);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.grpAcciones.ResumeLayout(false);
@@ -470,9 +489,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColPrecioVenta;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColStockActual;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColSrockMinimo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColEstadoStock;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColEstadoVenta;
         private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
 
         private System.Windows.Forms.ToolStripMenuItem movimientos;
+        private System.Windows.Forms.ToolStripMenuItem registro;
         private System.Windows.Forms.ToolStripMenuItem entradaSalida;
         private System.Windows.Forms.ToolStripMenuItem historial;
         private System.Windows.Forms.ToolStripMenuItem bajos;

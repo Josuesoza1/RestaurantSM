@@ -92,14 +92,15 @@
             this.cmbCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCategoria.Size = new System.Drawing.Size(185, 24);
             this.cmbCategoria.TabIndex = 7;
-            this.cmbCategoria.SelectedIndexChanged += new System.EventHandler(this.cmbBuscar_SelectedIndexChanged);
+            this.cmbCategoria.SelectedValueChanged += new System.EventHandler(this.cmbCategoria_SelectedValueChanged);
+            this.dgvProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductos_CellClick);
             this.grpListadoCliente.Controls.Add(this.dgvProductos);
             this.grpListadoCliente.ForeColor = System.Drawing.Color.DarkOrchid;
-            this.grpListadoCliente.Location = new System.Drawing.Point(26, 609);
+            this.grpListadoCliente.Location = new System.Drawing.Point(26, 591);
             this.grpListadoCliente.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpListadoCliente.Name = "grpListadoCliente";
             this.grpListadoCliente.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.grpListadoCliente.Size = new System.Drawing.Size(928, 150);
+            this.grpListadoCliente.Size = new System.Drawing.Size(928, 168);
             this.grpListadoCliente.TabIndex = 7;
             this.grpListadoCliente.TabStop = false;
             this.grpListadoCliente.Text = "Listado de Productos";
@@ -142,7 +143,8 @@
             this.ColSapellido.MinimumWidth = 8;
             this.ColSapellido.Name = "ColSapellido";
             this.ColSapellido.ReadOnly = true;
-            this.Colcedula.HeaderText = "Disponible";
+            this.Colcedula.HeaderText = "En caja";
+            this.Colcedula.FillWeight = 145F;
             this.Colcedula.MinimumWidth = 8;
             this.Colcedula.Name = "Colcedula";
             this.Colcedula.ReadOnly = true;
@@ -194,7 +196,7 @@
             this.ColSubcategoria.Name = "ColSubcategoria";
             this.ColSubcategoria.HeaderText = "Subcategoría";
             this.chkDisponible.AutoSize = true;
-            this.chkDisponible.Location = new System.Drawing.Point(135, 202);
+            this.chkDisponible.Location = new System.Drawing.Point(175, 202);
             this.chkDisponible.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chkDisponible.Name = "chkDisponible";
             this.chkDisponible.Size = new System.Drawing.Size(18, 17);
@@ -207,7 +209,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(86, 16);
             this.label1.TabIndex = 13;
-            this.label1.Text = "Disponible:";
+            this.label1.Text = "Ofrecer en caja:";
             this.txtNombre.Location = new System.Drawing.Point(135, 77);
             this.txtNombre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtNombre.Name = "txtNombre";
@@ -259,10 +261,10 @@
             this.lblPnombre.Text = "Categoría:";
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editarToolStripMenuItem,
-            this.eliminarToolStripMenuItem,
-            this.desactivarToolStripMenuItem,
             this.agregarToolStripMenuItem,
+            this.editarToolStripMenuItem,
+            this.desactivarToolStripMenuItem,
+            this.eliminarToolStripMenuItem,
             this.volverAlMenúPríncipalToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -290,7 +292,7 @@
             this.agregarToolStripMenuItem.Click += new System.EventHandler(this.agregarToolStripMenuItem_Click);
             this.volverAlMenúPríncipalToolStripMenuItem.Name = "volverAlMenúPríncipalToolStripMenuItem";
             this.volverAlMenúPríncipalToolStripMenuItem.Size = new System.Drawing.Size(182, 24);
-            this.volverAlMenúPríncipalToolStripMenuItem.Text = "Volver al Menú Príncipal";
+            this.volverAlMenúPríncipalToolStripMenuItem.Text = "Volver";
             this.volverAlMenúPríncipalToolStripMenuItem.Click += new System.EventHandler(this.volverAlMenúPríncipalToolStripMenuItem_Click);
             this.grpAcciones.Controls.Add(this.btnCancelar);
             this.grpAcciones.Controls.Add(this.btnLimpiar);
@@ -363,7 +365,7 @@
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(71, 38);
             this.btnBuscar.TabIndex = 8;
-            this.btnBuscar.Text = "⌕";
+            this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             this.lblBuscar.AutoSize = true;
@@ -393,6 +395,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(976, 771);
+            this.MinimumSize = new System.Drawing.Size(946, 720);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.grpAcciones);

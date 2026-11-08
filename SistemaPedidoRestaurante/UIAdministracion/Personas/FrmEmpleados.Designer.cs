@@ -92,7 +92,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.pnlEncabezado.Name = "pnlEncabezado";
             this.pnlEncabezado.Size = new System.Drawing.Size(1334, 86);
             this.pnlEncabezado.TabIndex = 3;
-            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblTitulo.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
             this.lblTitulo.Location = new System.Drawing.Point(464, 23);
@@ -103,11 +104,13 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.lblTitulo.Text = "GESTIÓN DE EMPLEADOS";
             this.grpListadoCliente.Controls.Add(this.dgvEmpleados);
             this.grpListadoCliente.ForeColor = System.Drawing.Color.DarkOrchid;
-            this.grpListadoCliente.Location = new System.Drawing.Point(75, 536);
+            this.grpListadoCliente.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom |
+                System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.grpListadoCliente.Location = new System.Drawing.Point(28, 553);
             this.grpListadoCliente.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpListadoCliente.Name = "grpListadoCliente";
             this.grpListadoCliente.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.grpListadoCliente.Size = new System.Drawing.Size(1157, 160);
+            this.grpListadoCliente.Size = new System.Drawing.Size(984, 168);
             this.grpListadoCliente.TabIndex = 7;
             this.grpListadoCliente.TabStop = false;
             this.grpListadoCliente.Text = "Listado de Empleados";
@@ -127,12 +130,14 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.ColActivo});
             this.dgvEmpleados.GridColor = System.Drawing.SystemColors.AppWorkspace;
             this.dgvEmpleados.Location = new System.Drawing.Point(24, 25);
+            this.dgvEmpleados.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvEmpleados.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dgvEmpleados.Name = "dgvEmpleados";
             this.dgvEmpleados.ReadOnly = true;
             this.dgvEmpleados.RowHeadersWidth = 62;
             this.dgvEmpleados.Size = new System.Drawing.Size(1104, 119);
             this.dgvEmpleados.TabIndex = 0;
+            this.dgvEmpleados.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmpleados_CellClick);
             this.ColID.HeaderText = "ID";
             this.ColID.MinimumWidth = 8;
             this.ColID.Name = "ColID";
@@ -187,7 +192,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.grpDatosClientes.Controls.Add(this.lblPnombre);
             this.grpDatosClientes.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpDatosClientes.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.grpDatosClientes.Location = new System.Drawing.Point(28, 189);
+            this.grpDatosClientes.Location = new System.Drawing.Point(28, 169);
             this.grpDatosClientes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpDatosClientes.Name = "grpDatosClientes";
             this.grpDatosClientes.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -233,7 +238,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.txtSnombre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtSnombre.Name = "txtSnombre";
             this.txtSnombre.Size = new System.Drawing.Size(199, 23);
-            this.txtSnombre.TabIndex = 12;
+            this.txtSnombre.TabIndex = 8;
             this.txtSapellido.Location = new System.Drawing.Point(173, 126);
             this.txtSapellido.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtSapellido.Name = "txtSapellido";
@@ -248,7 +253,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.txtTelefono.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(199, 23);
-            this.txtTelefono.TabIndex = 8;
+            this.txtTelefono.TabIndex = 11;
             this.txtPnombre.Location = new System.Drawing.Point(173, 26);
             this.txtPnombre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtPnombre.Name = "txtPnombre";
@@ -305,7 +310,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.groupBox1.Location = new System.Drawing.Point(477, 189);
+            this.groupBox1.Location = new System.Drawing.Point(461, 169);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -381,10 +386,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.label7.Text = "Rol:";
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editarToolStripMenuItem,
-            this.eliminarToolStripMenuItem,
-            this.desactivarToolStripMenuItem,
             this.agregarToolStripMenuItem,
+            this.editarToolStripMenuItem,
+            this.desactivarToolStripMenuItem,
+            this.eliminarToolStripMenuItem,
             this.volverAlMenúPríncipalToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -408,11 +413,11 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.agregarToolStripMenuItem.ForeColor = System.Drawing.Color.SeaGreen;
             this.agregarToolStripMenuItem.Name = "agregarToolStripMenuItem";
             this.agregarToolStripMenuItem.Size = new System.Drawing.Size(77, 24);
-            this.agregarToolStripMenuItem.Text = "Agregar";
+            this.agregarToolStripMenuItem.Text = "Agregar personal";
             this.agregarToolStripMenuItem.Click += new System.EventHandler(this.agregarToolStripMenuItem_Click);
             this.volverAlMenúPríncipalToolStripMenuItem.Name = "volverAlMenúPríncipalToolStripMenuItem";
             this.volverAlMenúPríncipalToolStripMenuItem.Size = new System.Drawing.Size(182, 24);
-            this.volverAlMenúPríncipalToolStripMenuItem.Text = "Volver al Menú Príncipal";
+            this.volverAlMenúPríncipalToolStripMenuItem.Text = "Volver";
             this.volverAlMenúPríncipalToolStripMenuItem.Click += new System.EventHandler(this.volverAlMenúPríncipalToolStripMenuItem_Click);
             this.panel1.Controls.Add(this.lblOperacion);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -433,18 +438,18 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.groupBox3.Controls.Add(this.btnBuscar);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.groupBox3.Location = new System.Drawing.Point(937, 311);
+            this.groupBox3.Location = new System.Drawing.Point(28, 494);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox3.Size = new System.Drawing.Size(365, 57);
-            this.groupBox3.TabIndex = 19;
+            this.groupBox3.Size = new System.Drawing.Size(365, 52);
+            this.groupBox3.TabIndex = 18;
             this.groupBox3.TabStop = false;
             this.txtTextoBuscar.Location = new System.Drawing.Point(77, 18);
             this.txtTextoBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtTextoBuscar.Name = "txtTextoBuscar";
             this.txtTextoBuscar.Size = new System.Drawing.Size(203, 22);
-            this.txtTextoBuscar.TabIndex = 9;
+            this.txtTextoBuscar.TabIndex = 0;
             this.btnBuscar.BackColor = System.Drawing.Color.SlateGray;
             this.btnBuscar.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.ForeColor = System.Drawing.Color.Black;
@@ -452,8 +457,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(71, 38);
-            this.btnBuscar.TabIndex = 8;
-            this.btnBuscar.Text = "⌕";
+            this.btnBuscar.TabIndex = 1;
+            this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             this.label2.AutoSize = true;
@@ -470,21 +475,21 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.groupBox4.Controls.Add(this.btnAccion);
             this.groupBox4.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold);
             this.groupBox4.ForeColor = System.Drawing.Color.Green;
-            this.groupBox4.Location = new System.Drawing.Point(937, 189);
+            this.groupBox4.Location = new System.Drawing.Point(461, 494);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox4.Size = new System.Drawing.Size(365, 99);
-            this.groupBox4.TabIndex = 18;
+            this.groupBox4.Size = new System.Drawing.Size(428, 52);
+            this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Acciones";
             this.btnCancelar.BackColor = System.Drawing.Color.Crimson;
             this.btnCancelar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.Black;
-            this.btnCancelar.Location = new System.Drawing.Point(236, 27);
+            this.btnCancelar.Location = new System.Drawing.Point(300, 18);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(99, 48);
+            this.btnCancelar.Size = new System.Drawing.Size(106, 29);
             this.btnCancelar.TabIndex = 5;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
@@ -492,10 +497,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.btnLimpiar.BackColor = System.Drawing.Color.MediumSpringGreen;
             this.btnLimpiar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLimpiar.ForeColor = System.Drawing.Color.Black;
-            this.btnLimpiar.Location = new System.Drawing.Point(131, 27);
+            this.btnLimpiar.Location = new System.Drawing.Point(176, 18);
             this.btnLimpiar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(99, 46);
+            this.btnLimpiar.Size = new System.Drawing.Size(106, 29);
             this.btnLimpiar.TabIndex = 4;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = false;
@@ -503,10 +508,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.btnAccion.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.btnAccion.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAccion.ForeColor = System.Drawing.Color.Black;
-            this.btnAccion.Location = new System.Drawing.Point(25, 26);
+            this.btnAccion.Location = new System.Drawing.Point(18, 18);
             this.btnAccion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAccion.Name = "btnAccion";
-            this.btnAccion.Size = new System.Drawing.Size(99, 48);
+            this.btnAccion.Size = new System.Drawing.Size(140, 29);
             this.btnAccion.TabIndex = 1;
             this.btnAccion.Text = "Guardar";
             this.btnAccion.UseVisualStyleBackColor = false;
@@ -514,7 +519,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(1334, 737);
+            this.ClientSize = new System.Drawing.Size(1040, 737);
+            this.MinimumSize = new System.Drawing.Size(935, 695);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.panel1);

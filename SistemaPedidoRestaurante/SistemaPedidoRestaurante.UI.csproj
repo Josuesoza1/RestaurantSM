@@ -216,6 +216,9 @@
     <Compile Include="UICompartida\FrmAnularVenta.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UICompartida\FrmAnularVenta.Designer.cs">
+      <DependentUpon>FrmAnularVenta.cs</DependentUpon>
+    </Compile>
     <Compile Include="UICompartida\FrmConfirmarCobro.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -246,15 +249,10 @@
     <Compile Include="UICompartida\Bases\FrmPedidoLocalBase.Designer.cs">
       <DependentUpon>FrmPedidoLocalBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="UICompartida\FrmSeleccionCliente.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UICompartida\FrmSeleccionCliente.Designer.cs">
-      <DependentUpon>FrmSeleccionCliente.cs</DependentUpon>
-    </Compile>
     <Compile Include="UIPrincipal\Documentos\DocumentoPdf.cs" />
+    <Compile Include="UIPrincipal\Documentos\DocumentoVentaExportacion.cs" />
     <Compile Include="UIPrincipal\Documentos\ArchivoExportado.cs" />
-    <Compile Include="UIPrincipal\Documentos\ResumenMensualDocumento.cs" />
+    <Compile Include="UIPrincipal\Documentos\ResumenVentasDocumento.cs" />
     <Compile Include="UIPrincipal\Documentos\FrmVistaPrevia.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -270,7 +268,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="UIPrincipal\Navegacion\MenuSesion.cs" />
     <Compile Include="UIPrincipal\Navegacion\MenuAdaptable.cs" />
-    <Compile Include="UIPrincipal\Presentacion\PantallaPendiente.cs" />
     <Compile Include="UIPrincipal\Presentacion\ListaOrdenable.cs" />
     <Compile Include="UIPrincipal\Presentacion\VistaGestion.cs" />
     <Compile Include="UIPrincipal\Validacion\ValidacionEntradaUI.cs" />
@@ -411,9 +408,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UICompartida\Bases\FrmPedidoLocalBase.resx">
       <DependentUpon>FrmPedidoLocalBase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UICompartida\FrmSeleccionCliente.resx">
-      <DependentUpon>FrmSeleccionCliente.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

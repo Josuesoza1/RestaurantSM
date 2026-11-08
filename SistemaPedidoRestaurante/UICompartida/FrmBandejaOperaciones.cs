@@ -12,29 +12,30 @@ namespace SistemaPedidoRestaurante.UICompartida
     {
         private readonly PedidoBLL pedidos = new PedidoBLL();
         private readonly ReservaBLL reservas = new ReservaBLL();
-        private readonly PagoBLL pagos = new PagoBLL();
         private readonly FacturaBLL facturas = new FacturaBLL();
         private readonly InventarioBLL inventario = new InventarioBLL();
         private readonly MesaBLL mesas = new MesaBLL();
         private readonly int rolPermitido;
         private readonly string tipo;
         private readonly bool seleccionar;
+        private readonly bool historial;
         private DataTable registros;
         private bool actualizandoListado;
 
         public int PedidoSeleccionado { get; private set; }
 
-        private bool TieneFiltroMensual => rolPermitido == RolesSistema.Administrador && tipo == "Pedidos" && !seleccionar;
+        private bool TieneHistorialVentas => historial && rolPermitido == RolesSistema.Administrador && tipo == "Pedidos" && !seleccionar;
 
         public FrmBandejaOperaciones() : this(0, "Pedidos")
         {
         }
 
-        protected FrmBandejaOperaciones(int rol, string tipo, bool seleccionar = false, string filtro = "")
+        protected FrmBandejaOperaciones(int rol, string tipo, bool seleccionar = false, string filtro = "", bool historial = false)
         {
             rolPermitido = rol;
             this.tipo = tipo;
             this.seleccionar = seleccionar;
+            this.historial = historial;
             InitializeComponent();
             VistaGestion.PermitirOrden(listado);
             VistaGestion.PermitirOrden(detalle);
@@ -53,39 +54,35 @@ namespace SistemaPedidoRestaurante.UICompartida
                 Text = "Seleccione un registro";
                 titulo.Text = Text.ToUpperInvariant();
             }
-            bool pedidos = !seleccionar && tipo == "Pedidos";
-            bool reservas = !seleccionar && tipo == "Reservas";
-            filtroMes.Visible = TieneFiltroMensual;
-            btnResumenMensual.Visible = TieneFiltroMensual;
+            bool pedidos = !seleccionar && tipo == "Pedidos" && !historial;
+            if (!seleccionar && tipo == "Pedidos")
+            {
+                Text = historial ? "Historial de ventas" : "Ventas abiertas";
+                titulo.Text = Text.ToUpperInvariant();
+            }
+            filtroMes.Visible = TieneHistorialVentas;
+            btnResumenMensual.Visible = TieneHistorialVentas;
+            panelResumenDiario.Visible = TieneHistorialVentas;
             btnSeleccionar.Visible = seleccionar;
             btnNuevo.Visible = pedidos;
             btnMesa.Visible = pedidos;
-            btnMesas.Visible = pedidos || reservas;
             btnAvanzar.Visible = pedidos;
             btnAvanzar.Text = "Despachar";
             btnCobrar.Visible = pedidos;
-            btnCancelar.Visible = pedidos || reservas;
-            btnCancelar.Text = reservas ? "Cancelar reserva" : "Cancelar pendiente";
-            btnPedidoPdf.Visible = pedidos;
-            btnFacturaPdf.Visible = pedidos || (!seleccionar && tipo == "Facturas");
-            btnAtendida.Visible = reservas;
-            btnAusencia.Visible = reservas;
+            btnCancelar.Visible = pedidos;
+            btnPedidoPdf.Visible = TieneHistorialVentas;
+            btnFacturaPdf.Visible = TieneHistorialVentas || (!seleccionar && tipo == "Facturas");
             btnLimpiarMesa.Visible = !seleccionar && tipo == "Mesas";
-            acciones.Controls.SetChildIndex(btnMesas, reservas ? 9 : 3);
             paneles.Panel2Collapsed = tipo != "Pedidos";
             if (System.ComponentModel.LicenseManager.UsageMode != System.ComponentModel.LicenseUsageMode.Designtime)
             {
                 btnNuevo.Visible = btnMesa.Visible = btnAvanzar.Visible = pedidos && Permisos.PuedeAtender;
-                btnMesas.Visible = (pedidos || reservas) && Permisos.PuedeAtender;
-                btnCancelar.Visible = (pedidos || reservas) && Permisos.PuedeAtender;
+                btnCancelar.Visible = pedidos && Permisos.PuedeAtender;
                 btnCobrar.Visible = pedidos && Permisos.PuedeCobrar;
-                btnPedidoPdf.Visible = pedidos && Permisos.PuedeVerHistorial;
-                btnFacturaPdf.Visible = (pedidos || (!seleccionar && tipo == "Facturas")) && Permisos.PuedeVerHistorial;
-                if (SesionActual.TieneRol(2) && pedidos)
-                {
-                    Text = "Ventas abiertas";
-                    titulo.Text = "VENTAS ABIERTAS";
-                }
+                btnUltimoComprobante.Visible = pedidos && Permisos.PuedeCobrar;
+                btnResumenMensual.Visible = panelResumenDiario.Visible = TieneHistorialVentas && Permisos.PuedeVerHistorial;
+                btnPedidoPdf.Visible = TieneHistorialVentas && Permisos.PuedeVerHistorial;
+                btnFacturaPdf.Visible = (TieneHistorialVentas || (!seleccionar && tipo == "Facturas")) && Permisos.PuedeVerHistorial;
             }
         }
 
@@ -110,7 +107,7 @@ namespace SistemaPedidoRestaurante.UICompartida
         private void Recargar(int idPedido = 0)
         {
             if (tipo == "Pedidos")
-                registros = pedidos.ListarPedidos(seleccionar);
+                registros = pedidos.ListarPedidos(seleccionar, soloAbiertas: !historial);
             else if (tipo == "Reservas")
                 registros = reservas.ListarReservas();
             else if (tipo == "Facturas")
@@ -142,7 +139,7 @@ namespace SistemaPedidoRestaurante.UICompartida
             actualizandoListado = true;
             try
             {
-                listado.DataSource = TieneFiltroMensual && chkFiltrarMes.Checked
+                listado.DataSource = TieneHistorialVentas && chkFiltrarMes.Checked
                     ? pedidos.FiltrarHistorialPorMes(registros, txtBuscar.Text, mesVenta.Value)
                     : BusquedaLINQ.Filtrar(registros, txtBuscar.Text);
                 FormatearColumnas(listado);
@@ -213,24 +210,42 @@ namespace SistemaPedidoRestaurante.UICompartida
             DataRow fila = VistaGestion.Fila(listado);
             string estado = fila != null && fila.Table.Columns.Contains("Estado") ? Convert.ToString(fila["Estado"]) : "";
             bool puedeAvanzar = estado == "Pendiente" || estado == "En preparación" || estado == "Listo";
-            bool puedeReabrir = PuedeVolverAPendiente(fila);
-            bool reservaAbierta = estado == "Pendiente" || estado == "Confirmada";
+            bool puedeDeshacer = PuedeDeshacerDespacho(fila);
+            bool cobroMostrador = PuedeCobrarEnMostrador(fila);
             btnSeleccionar.Enabled = fila != null;
             btnMesa.Enabled = fila != null && puedeAvanzar && (!fila.Table.Columns.Contains("IdTipoEntrega") || Convert.ToInt32(fila["IdTipoEntrega"]) <= 2);
-            btnAvanzar.Text = puedeReabrir ? "Volver a pendiente" : "Despachar";
-            btnAvanzar.Enabled = puedeAvanzar || puedeReabrir;
-            btnCobrar.Enabled = fila != null && estado == "Entregado";
-            btnCancelar.Enabled = fila != null && (tipo == "Reservas" ? reservaAbierta : estado == "Pendiente");
+            btnAvanzar.Text = puedeDeshacer ? "Deshacer despacho" : "Despachar";
+            btnAvanzar.Enabled = puedeAvanzar || puedeDeshacer;
+            btnCobrar.Text = cobroMostrador ? "Cobrar ahora" : "Cobrar";
+            btnCobrar.Enabled = Permisos.PuedeCobrar && (estado == "Entregado" || cobroMostrador);
+            btnCancelar.Enabled = estado == "Pendiente";
             btnPedidoPdf.Enabled = fila != null;
             btnFacturaPdf.Enabled = fila != null && (tipo == "Facturas" || estado == "Pagado" ||
                 tipo == "Pedidos" && Convert.ToString(fila["Pago"]) == "Anulado");
-            btnAtendida.Enabled = btnAusencia.Enabled = fila != null && reservaAbierta;
             btnLimpiarMesa.Enabled = fila != null && (estado == "Ocupada" || estado == "En limpieza");
+            bool ventaActiva = !seleccionar && !historial && tipo == "Pedidos" && Permisos.PuedeAtender;
+            btnEditarVenta.Visible = ventaActiva;
+            btnEditarVenta.Enabled = ventaActiva && estado == "Pendiente";
+            btnMesa.Visible = ventaActiva && btnMesa.Enabled;
+            btnAvanzar.Visible = ventaActiva && btnAvanzar.Enabled;
+            btnCobrar.Visible = ventaActiva && btnCobrar.Enabled;
+            btnCancelar.Visible = ventaActiva && btnCancelar.Enabled;
+            btnPedidoPdf.Visible = TieneHistorialVentas && Permisos.PuedeVerHistorial && btnPedidoPdf.Enabled;
+            btnFacturaPdf.Visible = !seleccionar && (TieneHistorialVentas || tipo == "Facturas") &&
+                Permisos.PuedeVerHistorial && btnFacturaPdf.Enabled;
         }
 
-        private bool PuedeVolverAPendiente(DataRow fila)
+        private static bool PuedeCobrarEnMostrador(DataRow fila)
         {
-            if (tipo != "Pedidos" || seleccionar || !Permisos.PuedeVerHistorial || fila == null)
+            return fila != null && fila.Table.Columns.Contains("Entrega") &&
+                Convert.ToString(fila["Entrega"]) == "Mostrador" &&
+                Convert.ToString(fila["Estado"]) == "Pendiente" &&
+                fila.IsNull("IdMesa");
+        }
+
+        private bool PuedeDeshacerDespacho(DataRow fila)
+        {
+            if (tipo != "Pedidos" || seleccionar || historial || !Permisos.PuedeAtender || fila == null)
                 return false;
 
             int tipoEntrega = Convert.ToInt32(fila["IdTipoEntrega"]);
@@ -274,21 +289,46 @@ namespace SistemaPedidoRestaurante.UICompartida
             }
         }
 
+        private void btnEditarVenta_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DataRow fila = Seleccion();
+                int id = Convert.ToInt32(fila["IdPedido"]);
+                using (FrmPedidoLocalBase formulario = PantallasPersonal.CrearPedido())
+                {
+                    formulario.PrepararEdicion(id, Convert.ToString(fila["Cliente"]));
+                    if (formulario.ShowDialog(this) == DialogResult.OK)
+                        Recargar(id);
+                }
+            }
+            catch (Exception error)
+            {
+                MostrarError(error);
+            }
+        }
+
         private void btnAvanzar_Click(object sender, EventArgs e)
         {
             try
             {
                 DataRow fila = Seleccion();
                 string estado = Convert.ToString(fila["Estado"]);
-                bool reabrir = PuedeVolverAPendiente(fila);
-                string mensaje = reabrir ? "¿Volver esta venta a pendiente?" : "¿Confirmar el despacho del pedido?";
-                if (!VistaGestion.Confirmar(this, mensaje))
-                    return;
+                bool deshacer = PuedeDeshacerDespacho(fila);
                 int idPedido = Convert.ToInt32(fila["IdPedido"]);
-                if (reabrir)
-                    pedidos.VolverAPendiente(idPedido);
+                if (deshacer)
+                {
+                    if (MessageBox.Show(this, "¿Deshacer el despacho de la venta " + idPedido + "? Volverá a quedar pendiente.",
+                        Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+                        return;
+                    pedidos.DeshacerDespacho(idPedido);
+                }
                 else
+                {
+                    if (!VistaGestion.Confirmar(this, "¿Confirmar el despacho del pedido?"))
+                        return;
                     pedidos.DespacharPedido(idPedido, estado);
+                }
                 txtBuscar.Clear();
                 Recargar(idPedido);
             }
@@ -302,9 +342,9 @@ namespace SistemaPedidoRestaurante.UICompartida
         {
             try
             {
-                int pedido = Convert.ToInt32(Seleccion()["IdPedido"]);
-                pagos.Cotizar(pedido);
-                using (Form formulario = PantallasPersonal.CrearCobro(pedido))
+                DataRow fila = Seleccion();
+                int pedido = Convert.ToInt32(fila["IdPedido"]);
+                using (Form formulario = PantallasPersonal.CrearCobro(pedido, PuedeCobrarEnMostrador(fila)))
                     formulario.ShowDialog(this);
                 Recargar();
             }
@@ -316,15 +356,14 @@ namespace SistemaPedidoRestaurante.UICompartida
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            if (tipo != "Pedidos" || seleccionar || historial)
+                return;
             try
             {
                 DataRow fila = Seleccion();
-                if (!VistaGestion.Confirmar(this, "¿Confirmar la cancelacion del registro seleccionado?"))
+                if (!VistaGestion.Confirmar(this, "¿Cancelar la venta pendiente seleccionada?"))
                     return;
-                if (tipo == "Reservas")
-                    reservas.CambiarReserva(Convert.ToInt32(fila["IdReserva"]), Convert.ToString(fila["Estado"]), "Cancelada");
-                else
-                    pedidos.CancelarPedido(Convert.ToInt32(fila["IdPedido"]));
+                pedidos.CancelarPedido(Convert.ToInt32(fila["IdPedido"]));
                 Recargar();
             }
             catch (Exception error)
@@ -333,32 +372,18 @@ namespace SistemaPedidoRestaurante.UICompartida
             }
         }
 
-        private void CambiarReserva(string estado)
-        {
-            DataRow fila = Seleccion();
-            if (!VistaGestion.Confirmar(this, "¿Marcar la reserva como " + estado + "?"))
-                return;
-            reservas.CambiarReserva(Convert.ToInt32(fila["IdReserva"]), Convert.ToString(fila["Estado"]), estado);
-            Recargar();
-        }
-
-        private void btnAtendida_Click(object sender, EventArgs e)
+        private void btnUltimoComprobante_Click(object sender, EventArgs e)
         {
             try
             {
-                CambiarReserva("Atendida");
-            }
-            catch (Exception error)
-            {
-                MostrarError(error);
-            }
-        }
+                DocumentoVenta documento = facturas.ObtenerUltimoComprobantePropio();
+                if (documento == null)
+                {
+                    MessageBox.Show(this, "Esta cuenta aún no tiene comprobantes de ventas locales vigentes.", Text);
+                    return;
+                }
 
-        private void btnAusencia_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                CambiarReserva("No asistio");
+                DocumentoPdf.MostrarVistaPrevia(this, documento);
             }
             catch (Exception error)
             {
@@ -373,7 +398,17 @@ namespace SistemaPedidoRestaurante.UICompartida
 
         private void btnFacturaPdf_Click(object sender, EventArgs e)
         {
-            Exportar(true);
+            try
+            {
+                int pedido = Convert.ToInt32(Seleccion()["IdPedido"]);
+                using (var formulario = new UIAdministracion.FrmFacturasAdministracion(pedido))
+                    formulario.ShowDialog(this);
+                Recargar(pedido);
+            }
+            catch (Exception error)
+            {
+                MostrarError(error);
+            }
         }
 
         private void Exportar(bool factura)
@@ -394,9 +429,7 @@ namespace SistemaPedidoRestaurante.UICompartida
             try
             {
                 DateTime mes = chkFiltrarMes.Checked ? mesVenta.Value : DateTime.Today;
-                var reporte = new ResumenMensualDocumento(mes, facturas.ConsultarResumenMensual(mes));
-                using (var vista = new FrmVistaPrevia(reporte.CrearPdf(), reporte.NombreArchivo, reporte.GuardarExcel))
-                    vista.ShowDialog(this);
+                MostrarResumen(new ResumenVentasDocumento(mes, facturas.ConsultarResumenMensual(mes), diario: false));
             }
             catch (Exception error)
             {
@@ -404,7 +437,32 @@ namespace SistemaPedidoRestaurante.UICompartida
             }
         }
 
+        private void btnResumenDiario_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DateTime dia = diaCaja.Value.Date;
+                MostrarResumen(new ResumenVentasDocumento(dia, facturas.ConsultarResumenDiario(dia), diario: true));
+            }
+            catch (Exception error)
+            {
+                MostrarError(error);
+            }
+        }
+
+        private void MostrarResumen(ResumenVentasDocumento reporte)
+        {
+            using (var vista = new FrmVistaPrevia(reporte.CrearPdf(), reporte.NombreArchivo, reporte.GuardarExcel,
+                reporte.TituloVista, reporte.DetalleVista(), ResumenVentasDocumento.NotaFechas))
+                vista.ShowDialog(this);
+        }
+
         private void btnRecargar_Click(object sender, EventArgs e)
+        {
+            RecargarListado();
+        }
+
+        private void RecargarListado()
         {
             try
             {
@@ -440,16 +498,6 @@ namespace SistemaPedidoRestaurante.UICompartida
             }
         }
 
-        private void btnMesas_Click(object sender, EventArgs e)
-        {
-            using (FrmBandejaOperaciones formulario = PantallasPersonal.CrearBandeja("Mesas"))
-            {
-                formulario.ShowDialog(this);
-            }
-
-            btnRecargar_Click(sender, e);
-        }
-
         private void btnLimpiarMesa_Click(object sender, EventArgs e)
         {
             try
@@ -472,7 +520,11 @@ namespace SistemaPedidoRestaurante.UICompartida
         {
             foreach (DataGridViewColumn columna in grid.Columns)
             {
-                if (columna.Name == "IdMesa" || columna.Name == "IdCategoria" || columna.Name == "IdTipoEntrega")
+                bool datosDeHistorial = columna.Name == "Origen" || columna.Name == "RegistradoPor" ||
+                    columna.Name == "AtendidoPor" || columna.Name == "Pago";
+                if (columna.Name == "IdMesa" || columna.Name == "IdCategoria" || columna.Name == "IdTipoEntrega" ||
+                    columna.Name == "Envio" || columna.Name == "Direccion" || columna.Name == "Contacto" ||
+                    tipo == "Pedidos" && !historial && datosDeHistorial)
                     columna.Visible = false;
                 if (tipo == "Mesas" && columna.Name == "Nombre")
                     columna.Visible = false;
@@ -480,7 +532,9 @@ namespace SistemaPedidoRestaurante.UICompartida
                     columna.DefaultCellStyle.Format = "N2";
                 if (columna.ValueType == typeof(DateTime))
                     columna.DefaultCellStyle.Format = "dd/MM/yyyy HH:mm";
-                columna.MinimumWidth = 70;
+                if (columna.Name == "IdPedido")
+                    columna.HeaderText = "Venta";
+                columna.MinimumWidth = columna.ValueType == typeof(DateTime) ? 132 : 70;
             }
         }
     }

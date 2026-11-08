@@ -158,6 +158,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             try
             {
                 dgvClientes.DataSource = servicio.Buscar(clientes, txtTextoBuscar.Text);
+                Nuevo();
             }
             catch (Exception error)
             {

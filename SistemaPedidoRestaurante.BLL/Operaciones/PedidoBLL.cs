@@ -12,12 +12,17 @@ namespace SistemaPedidoRestaurante.BLL
     {
         private readonly PedidoDAL pedidoDAL = new PedidoDAL();
 
-        public DataTable ListarPedidos(bool soloEntregados = false)
+        public DataTable ListarPedidos(bool soloEntregados = false, bool soloAbiertas = false)
         {
             Permisos.ExigirPersonal();
             try
             {
                 DataTable tabla = pedidoDAL.ListarPedidos(SesionActual.IdUsuario);
+                if (soloAbiertas)
+                {
+                    foreach (DataRow fila in tabla.Select("Origen <> 'En el local' OR IdTipoEntrega NOT IN (1, 2) OR Estado IN ('Pagado', 'Cancelado')"))
+                        tabla.Rows.Remove(fila);
+                }
                 if (soloEntregados)
                 {
                     foreach (DataRow fila in tabla.Select("Estado <> 'Entregado'"))
@@ -71,16 +76,52 @@ namespace SistemaPedidoRestaurante.BLL
             }
         }
 
+        public List<LineaPedidoBorrador> ObtenerDetallePendiente(int pedido)
+        {
+            Permisos.ExigirAtencion();
+            try
+            {
+                return pedidoDAL.ObtenerDetallePendiente(SesionActual.IdUsuario, pedido);
+            }
+            catch (SqlException error)
+            {
+                throw OperacionDatos.Traducir(error, "No se pudo abrir la venta pendiente.");
+            }
+        }
+
+        public void EditarPendiente(int pedido, IReadOnlyList<LineaPedidoBorrador> original, PedidoBorrador borrador)
+        {
+            Permisos.ExigirAtencion();
+            PedidoValidacion.Contenido(borrador?.Lineas);
+            try
+            {
+                pedidoDAL.EditarPendiente(SesionActual.IdUsuario, pedido, original, borrador.Lineas);
+            }
+            catch (SqlException error)
+            {
+                throw OperacionDatos.Traducir(error, "No se pudo guardar la corrección de la venta.");
+            }
+        }
+
         public void DespacharPedido(int pedido, string estado)
         {
             Permisos.ExigirAtencion();
             CambiarEstado(pedido, estado, "Entregado");
         }
 
-        public void VolverAPendiente(int pedido)
+        public void DeshacerDespacho(int pedido)
         {
-            Permisos.ExigirRol(1);
-            CambiarEstado(pedido, "Entregado", "Pendiente");
+            Permisos.ExigirAtencion();
+            if (pedido <= 0)
+                throw new ArgumentException("Seleccione una venta.");
+            try
+            {
+                pedidoDAL.DeshacerDespacho(SesionActual.IdUsuario, pedido);
+            }
+            catch (SqlException error)
+            {
+                throw OperacionDatos.Traducir(error, "No se pudo deshacer el despacho.");
+            }
         }
 
         private void CambiarEstado(int pedido, string anterior, string nuevo)

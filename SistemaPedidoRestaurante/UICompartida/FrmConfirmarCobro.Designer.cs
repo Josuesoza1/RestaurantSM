@@ -17,14 +17,14 @@
             this.panel = new System.Windows.Forms.TableLayoutPanel();
             this.resumen = new System.Windows.Forms.Label();
             this.lblRecibido = new System.Windows.Forms.Label();
-            this.monto = new System.Windows.Forms.NumericUpDown();
+            this.monto = new System.Windows.Forms.TextBox();
             this.cambio = new System.Windows.Forms.Label();
             this.botones = new System.Windows.Forms.FlowLayoutPanel();
             this.confirmar = new System.Windows.Forms.Button();
+            this.pagoExacto = new System.Windows.Forms.Button();
             this.cancelar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             this.panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.monto)).BeginInit();
             this.botones.SuspendLayout();
             this.panel.Name = "panel";
             this.resumen.Name = "resumen";
@@ -33,6 +33,7 @@
             this.cambio.Name = "cambio";
             this.botones.Name = "botones";
             this.confirmar.Name = "confirmar";
+            this.pagoExacto.Name = "pagoExacto";
             this.cancelar.Name = "cancelar";
             this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel.Padding = new System.Windows.Forms.Padding(20);
@@ -42,19 +43,27 @@
             this.resumen.AutoSize = true;
             this.lblRecibido.Text = "Monto recibido";
             this.lblRecibido.AutoSize = true;
-            this.monto.DecimalPlaces = 2;
-            this.monto.Maximum = new decimal(new int[] { 1410065407, 2, 0, 131072 });
             this.monto.Dock = System.Windows.Forms.DockStyle.Top;
-            this.monto.ValueChanged += new System.EventHandler(this.monto_ValueChanged);
+            this.monto.TabIndex = 0;
+            this.monto.TextChanged += new System.EventHandler(this.monto_TextChanged);
             this.cambio.AutoSize = true;
-            this.cambio.Text = "Cambio: C$ 0.00";
+            this.cambio.Text = "Ingrese el monto recibido o elija Pago exacto.";
+            this.pagoExacto.Text = "Pago exacto";
+            this.pagoExacto.AutoSize = true;
+            this.pagoExacto.TabIndex = 0;
+            this.pagoExacto.Click += new System.EventHandler(this.pagoExacto_Click);
             this.confirmar.Text = "Confirmar cobro";
             this.confirmar.AutoSize = true;
+            this.confirmar.Enabled = false;
+            this.confirmar.TabIndex = 1;
             this.confirmar.Click += new System.EventHandler(this.confirmar_Click);
             this.cancelar.Text = "Volver";
+            this.cancelar.TabIndex = 2;
             this.cancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelar.Click += new System.EventHandler(this.cancelar_Click);
             this.botones.AutoSize = true;
+            this.botones.TabIndex = 1;
+            this.botones.Controls.Add(this.pagoExacto);
             this.botones.Controls.Add(this.confirmar);
             this.botones.Controls.Add(this.cancelar);
             this.panel.Controls.Add(this.resumen, 0, 0);
@@ -74,7 +83,6 @@
             this.Text = "Confirmar cobro";
             this.panel.ResumeLayout(false);
             this.panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.monto)).EndInit();
             this.botones.ResumeLayout(false);
             this.botones.PerformLayout();
             this.ResumeLayout(false);
@@ -84,10 +92,11 @@
         private System.Windows.Forms.TableLayoutPanel panel;
         private System.Windows.Forms.Label resumen;
         private System.Windows.Forms.Label lblRecibido;
-        private System.Windows.Forms.NumericUpDown monto;
+        private System.Windows.Forms.TextBox monto;
         private System.Windows.Forms.Label cambio;
         private System.Windows.Forms.FlowLayoutPanel botones;
         private System.Windows.Forms.Button confirmar;
+        private System.Windows.Forms.Button pagoExacto;
         private System.Windows.Forms.Button cancelar;
     }
 }

@@ -36,19 +36,19 @@ namespace SistemaPedidoRestaurante.UICompartida
             throw new UnauthorizedAccessException("La sesión no tiene acceso a esta pantalla.");
         }
 
-        public static FrmPedidoLocalBase CrearPedido(int cliente = 0)
+        public static FrmPedidoLocalBase CrearPedido()
         {
             Permisos.ExigirAtencion();
-            if (SesionActual.TieneRol(1)) return new FrmPedidoAdministracion(cliente);
-            if (SesionActual.TieneRol(2)) return new FrmPedido(cliente);
-            throw new UnauthorizedAccessException("Solo el personal puede registrar pedidos para otros clientes.");
+            if (SesionActual.TieneRol(1)) return new FrmPedidoAdministracion();
+            if (SesionActual.TieneRol(2)) return new FrmPedido();
+            throw new UnauthorizedAccessException("Solo el personal puede registrar ventas.");
         }
 
-        public static Form CrearCobro(int pedido = 0)
+        public static Form CrearCobro(int pedido = 0, bool desdeMostrador = false)
         {
             Permisos.ExigirCobro();
-            if (SesionActual.TieneRol(1)) return new FrmPagoAdministracion(pedido);
-            if (SesionActual.TieneRol(2)) return new FrmPago(pedido);
+            if (SesionActual.TieneRol(1)) return new FrmPagoAdministracion(pedido, desdeMostrador);
+            if (SesionActual.TieneRol(2)) return new FrmPago(pedido, desdeMostrador);
             throw new UnauthorizedAccessException("Solo el personal puede abrir cobros.");
         }
 

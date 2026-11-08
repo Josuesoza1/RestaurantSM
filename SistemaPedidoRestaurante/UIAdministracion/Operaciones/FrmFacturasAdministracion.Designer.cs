@@ -18,8 +18,6 @@
             // 
             // FrmFacturasAdministracion
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Name = "FrmFacturasAdministracion";
             this.pnlEncabezado.ResumeLayout(false);
             this.pnlEncabezado.PerformLayout();

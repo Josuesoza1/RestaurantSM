@@ -14,6 +14,8 @@
         public string Categoria { get; set; }
         public string Unidad { get; set; }
         public decimal PrecioVenta { get; set; }
+        public bool TieneControl { get; set; }
+        public string EstadoVenta { get; set; }
 
         public bool StockBajo => Activo && StockActual <= StockMinimo;
 
@@ -21,6 +23,7 @@
         {
             get
             {
+                if (!TieneControl) return "Sin inventario";
                 if (!Activo) return "Inactivo";
                 if (StockActual == 0) return "Agotado";
                 return StockBajo ? "Stock bajo" : "Disponible";

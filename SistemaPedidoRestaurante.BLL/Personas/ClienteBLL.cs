@@ -83,18 +83,5 @@ namespace SistemaPedidoRestaurante.BLL
                 throw OperacionDatos.Traducir(error, "Ya existe un registro con ese código, nombre o dato único.");
             }
         }
-
-        public DataTable ListarClientes()
-        {
-            Permisos.ExigirAtencion();
-            try
-            {
-                return clienteDAL.ListarClientes(SesionActual.IdUsuario);
-            }
-            catch (SqlException error)
-            {
-                throw OperacionDatos.Traducir(error, "No se pudo consultar el listado.");
-            }
-        }
     }
 }

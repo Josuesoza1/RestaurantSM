@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using SistemaPedidoRestaurante.Entities;
 
 namespace SistemaPedidoRestaurante.DAL
@@ -75,6 +76,155 @@ namespace SistemaPedidoRestaurante.DAL
             }
         }
 
+        public List<LineaPedidoBorrador> ObtenerDetallePendiente(int actor, int pedido)
+        {
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+                conexion.Open();
+                return LeerDetallePendiente(conexion, null, actor, pedido);
+            }
+        }
+
+        public void EditarPendiente(int actor, int pedido, IReadOnlyList<LineaPedidoBorrador> original,
+            IReadOnlyList<LineaPedidoBorrador> corregido)
+        {
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+                conexion.Open();
+                using (SqlTransaction transaccion = conexion.BeginTransaction(IsolationLevel.Serializable))
+                {
+                    List<LineaPedidoBorrador> actual = LeerDetallePendiente(conexion, transaccion, actor, pedido);
+                    if (CoincideDetalle(actual, corregido))
+                    {
+                        transaccion.Commit();
+                        return;
+                    }
+                    if (!CoincideDetalle(actual, original))
+                        throw new ArgumentException("Otra caja cambió esta venta. Vuelva a abrirla antes de editar.");
+
+                    var productos = actual.Select(linea => linea.IdProducto)
+                        .Union(corregido.Select(linea => linea.IdProducto)).OrderBy(id => id);
+                    foreach (int producto in productos)
+                    {
+                        var anterior = actual.FirstOrDefault(linea => linea.IdProducto == producto);
+                        var nueva = corregido.FirstOrDefault(linea => linea.IdProducto == producto);
+                        if (anterior != null && nueva != null && anterior.Cantidad == nueva.Cantidad &&
+                            anterior.PrecioUnitario == nueva.PrecioUnitario)
+                            continue;
+
+                        ActualizarLinea(conexion, transaccion, actor, pedido, producto, nueva);
+                    }
+
+                    const string actualizarTotal = @"
+                        DECLARE @Subtotal decimal(18,2);
+                        SELECT @Subtotal = SUM(total) FROM dbo.detallePedido WHERE idPedido = @Pedido;
+                        UPDATE dbo.pedido SET subtotal = @Subtotal, total = @Subtotal + costoEnvio
+                        WHERE idPedido = @Pedido;";
+                    using (SqlCommand comando = new SqlCommand(actualizarTotal, conexion, transaccion))
+                    {
+                        comando.Parameters.Add("@Pedido", SqlDbType.Int).Value = pedido;
+                        comando.ExecuteNonQuery();
+                    }
+                    transaccion.Commit();
+                }
+            }
+        }
+
+        private static List<LineaPedidoBorrador> LeerDetallePendiente(SqlConnection conexion, SqlTransaction transaccion, int actor, int pedido)
+        {
+            const string consulta = @"
+                EXEC dbo.sp_Operacion_ExigirPersonal @Actor;
+                IF NOT EXISTS (SELECT 1 FROM dbo.pedido WITH (UPDLOCK)
+                    WHERE idPedido = @Pedido AND idOrigenPedido = 2 AND idTipoEntrega IN (1, 2) AND estado = 'Pendiente')
+                    OR EXISTS (SELECT 1 FROM dbo.factura WHERE idPedido = @Pedido)
+                    THROW 50704, N'Solo puede editar una venta local pendiente y sin factura.', 1;
+
+                SELECT d.idProducto, p.nombre, d.precioUnitario, d.cantidad
+                FROM dbo.detallePedido d JOIN dbo.producto p ON p.idProducto = d.idProducto
+                WHERE d.idPedido = @Pedido ORDER BY d.idDetalle;";
+            var detalle = new List<LineaPedidoBorrador>();
+            using (SqlCommand comando = new SqlCommand(consulta, conexion, transaccion))
+            {
+                comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
+                comando.Parameters.Add("@Pedido", SqlDbType.Int).Value = pedido;
+                using (SqlDataReader lector = comando.ExecuteReader())
+                {
+                    while (lector.Read())
+                    {
+                        detalle.Add(new LineaPedidoBorrador(lector.GetInt32(0), lector.GetString(1),
+                            lector.GetDecimal(2), lector.GetInt32(3)));
+                    }
+                }
+            }
+            return detalle;
+        }
+
+        private static bool CoincideDetalle(IReadOnlyList<LineaPedidoBorrador> actual, IReadOnlyList<LineaPedidoBorrador> otro)
+        {
+            return otro != null && actual.Count == otro.Count && actual.All(linea =>
+                otro.Any(copia => copia.IdProducto == linea.IdProducto && copia.Cantidad == linea.Cantidad &&
+                    copia.PrecioUnitario == linea.PrecioUnitario));
+        }
+
+        private static void ActualizarLinea(SqlConnection conexion, SqlTransaction transaccion, int actor,
+            int pedido, int producto, LineaPedidoBorrador nueva)
+        {
+            const string consulta = @"
+                DECLARE @CantidadAnterior int = 0, @PrecioAnterior decimal(10,2), @Control bit = 1;
+                SELECT @CantidadAnterior = cantidad, @PrecioAnterior = precioUnitario, @Control = controlInventario
+                FROM dbo.detallePedido WHERE idPedido = @Pedido AND idProducto = @Producto;
+
+                IF @CantidadAnterior > 0 AND @Cantidad > 0 AND @Precio <> @PrecioAnterior
+                    THROW 50707, N'El producto debe conservar el precio original de la venta.', 1;
+
+                DECLARE @Diferencia int = @Cantidad - @CantidadAnterior;
+                IF @Diferencia > 0
+                BEGIN
+                    IF @Control = 0
+                        THROW 50708, N'Este producto se registró sin control de inventario. Quite la línea y guarde antes de agregarlo de nuevo.', 1;
+                    IF NOT EXISTS (SELECT 1 FROM dbo.producto p JOIN dbo.categoria c ON c.idCategoria = p.idCategoria
+                        WHERE p.idProducto = @Producto AND p.disponible = 1 AND c.activa = 1
+                            AND (@CantidadAnterior > 0 OR p.precio = @Precio))
+                        THROW 50707, N'Cambió el precio o la disponibilidad. Vuelva a abrir la venta.', 1;
+                END;
+
+                IF @Diferencia <> 0 AND @Control = 1
+                BEGIN
+                    DECLARE @Stock int;
+                    SELECT @Stock = stockActual FROM dbo.inventarioProducto WITH (UPDLOCK) WHERE idProducto = @Producto;
+                    UPDATE dbo.inventarioProducto
+                    SET stockActual = stockActual - @Diferencia, revision = revision + 1
+                    WHERE idProducto = @Producto AND (@Diferencia < 0 OR (activo = 1 AND stockActual >= @Diferencia));
+                    IF @@ROWCOUNT = 0
+                        THROW 50708, N'No se pudo ajustar el inventario del producto. Revise sus existencias.', 1;
+
+                    DECLARE @Unidades int = ABS(@Diferencia);
+                    DECLARE @Tipo varchar(20) = CASE WHEN @Diferencia > 0 THEN 'Salida' ELSE 'Entrada' END;
+                    EXEC dbo.sp_Inventario_RegistrarMovimiento @Actor, @Producto, @Stock, @Unidades, @Tipo, N'Edición de venta pendiente';
+                END;
+
+                IF @Cantidad = 0
+                    DELETE FROM dbo.detallePedido WHERE idPedido = @Pedido AND idProducto = @Producto;
+                ELSE IF @CantidadAnterior = 0
+                    INSERT dbo.detallePedido (idPedido, idProducto, cantidad, precioUnitario, subtotal, total, controlInventario)
+                    VALUES (@Pedido, @Producto, @Cantidad, @Precio, @Cantidad * @Precio, @Cantidad * @Precio, 1);
+                ELSE
+                    UPDATE dbo.detallePedido SET cantidad = @Cantidad, subtotal = @Cantidad * @Precio, total = @Cantidad * @Precio
+                    WHERE idPedido = @Pedido AND idProducto = @Producto;";
+            using (SqlCommand comando = new SqlCommand(consulta, conexion, transaccion))
+            {
+                comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
+                comando.Parameters.Add("@Pedido", SqlDbType.Int).Value = pedido;
+                comando.Parameters.Add("@Producto", SqlDbType.Int).Value = producto;
+                comando.Parameters.Add("@Cantidad", SqlDbType.Int).Value = nueva?.Cantidad ?? 0;
+                SqlParameter precio = comando.Parameters.Add("@Precio", SqlDbType.Decimal);
+                precio.Precision = 10;
+                precio.Scale = 2;
+                precio.Value = nueva?.PrecioUnitario ?? 0m;
+                comando.ExecuteNonQuery();
+            }
+        }
+
         public DataTable ListarPedidos(int actor)
         {
             using (SqlConnection conexion = ConexionBD.ObtenerConexion())
@@ -125,6 +275,37 @@ namespace SistemaPedidoRestaurante.DAL
                     comando.Parameters.Add("@Nuevo", SqlDbType.VarChar, 20).Value = nuevo;
                     conexion.Open();
                     comando.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void DeshacerDespacho(int actor, int pedido)
+        {
+            const string consulta = @"
+                EXEC dbo.sp_Operacion_ExigirPersonal @Actor;
+
+                UPDATE dbo.pedido
+                SET estado = 'Pendiente'
+                WHERE idPedido = @Pedido AND estado = 'Entregado' AND idOrigenPedido = 2
+                    AND idTipoEntrega IN (1, 2)
+                    AND NOT EXISTS (SELECT 1 FROM dbo.factura WHERE idPedido = @Pedido);
+
+                IF @@ROWCOUNT = 0
+                    THROW 50512, N'Solo se puede deshacer el despacho de una venta local entregada y sin factura.', 1;
+
+                INSERT dbo.historialPedido (idPedido, estadoAnterior, estadoNuevo, idUsuario)
+                VALUES (@Pedido, 'Entregado', 'Pendiente', @Actor);";
+
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+                conexion.Open();
+                using (SqlTransaction transaccion = conexion.BeginTransaction(IsolationLevel.Serializable))
+                using (SqlCommand comando = new SqlCommand(consulta, conexion, transaccion))
+                {
+                    comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
+                    comando.Parameters.Add("@Pedido", SqlDbType.Int).Value = pedido;
+                    comando.ExecuteNonQuery();
+                    transaccion.Commit();
                 }
             }
         }

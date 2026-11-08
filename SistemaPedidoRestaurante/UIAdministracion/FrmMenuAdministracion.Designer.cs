@@ -23,24 +23,23 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.categoríasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.productosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.empleadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlEncabezado.SuspendLayout();
             this.grpAdmin.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.masGestionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.personalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.historialVentasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.estadoMesasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registrarPersonaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mesasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inventarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuracionRestauranteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reservasPersonalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.separadorOperaciones = new System.Windows.Forms.ToolStripSeparator();
             this.operacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pagosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SuspendLayout();
@@ -77,11 +76,10 @@
             this.grpAdmin.TabStop = false;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.categoríasToolStripMenuItem,
-                this.productosToolStripMenuItem,
-                this.rolesToolStripMenuItem,
-                this.empleadosToolStripMenuItem,
+                this.operacionesToolStripMenuItem,
                 this.masGestionesToolStripMenuItem,
+                this.personalToolStripMenuItem,
+                this.archivoToolStripMenuItem,
                 this.cerrarSesionToolStripMenuItem,
                 this.salirToolStripMenuItem });
             this.menuStrip1.Location = new System.Drawing.Point(3, 16);
@@ -98,58 +96,61 @@
             this.productosToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
             this.productosToolStripMenuItem.Text = "Productos";
             this.productosToolStripMenuItem.Click += new System.EventHandler(this.productosToolStripMenuItem_Click);
-            this.rolesToolStripMenuItem.Name = "rolesToolStripMenuItem";
-            this.rolesToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-            this.rolesToolStripMenuItem.Text = "Roles";
-            this.rolesToolStripMenuItem.Click += new System.EventHandler(this.rolesToolStripMenuItem_Click);
             this.empleadosToolStripMenuItem.Name = "empleadosToolStripMenuItem";
             this.empleadosToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
-            this.empleadosToolStripMenuItem.Text = "Empleados";
+            this.empleadosToolStripMenuItem.Text = "Empleados y acceso";
             this.empleadosToolStripMenuItem.Click += new System.EventHandler(this.empleadosToolStripMenuItem_Click);
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             this.salirToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             this.masGestionesToolStripMenuItem.Name = "masGestionesToolStripMenuItem";
-            this.masGestionesToolStripMenuItem.Text = "Más opciones";
-            this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
-            this.clientesToolStripMenuItem.Text = "Clientes";
-            this.clientesToolStripMenuItem.Click += new System.EventHandler(this.clientesToolStripMenuItem_Click);
+            this.masGestionesToolStripMenuItem.Text = "Catálogo";
             this.usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            this.usuariosToolStripMenuItem.Text = "Usuarios";
+            this.usuariosToolStripMenuItem.Text = "Consultar usuarios";
             this.usuariosToolStripMenuItem.Click += new System.EventHandler(this.usuariosToolStripMenuItem_Click);
-            this.registrarPersonaToolStripMenuItem.Name = "registrarPersonaToolStripMenuItem";
-            this.registrarPersonaToolStripMenuItem.Text = "Registrar persona";
-            this.registrarPersonaToolStripMenuItem.Click += new System.EventHandler(this.registrarPersonaToolStripMenuItem_Click);
             this.mesasToolStripMenuItem.Name = "mesasToolStripMenuItem";
-            this.mesasToolStripMenuItem.Text = "Mesas";
+            this.mesasToolStripMenuItem.Text = "Configurar mesas";
             this.mesasToolStripMenuItem.Click += new System.EventHandler(this.mesasToolStripMenuItem_Click);
             this.inventarioToolStripMenuItem.Name = "inventarioToolStripMenuItem";
             this.inventarioToolStripMenuItem.Text = "Inventario";
             this.inventarioToolStripMenuItem.Click += new System.EventHandler(this.inventarioToolStripMenuItem_Click);
             this.configuracionRestauranteToolStripMenuItem.Name = "configuracionRestauranteToolStripMenuItem";
-            this.configuracionRestauranteToolStripMenuItem.Text = "Configuracion";
+            this.configuracionRestauranteToolStripMenuItem.Text = "Configuración";
             this.configuracionRestauranteToolStripMenuItem.Click += new System.EventHandler(this.configuracionRestauranteToolStripMenuItem_Click);
             this.reservasPersonalToolStripMenuItem.Name = "reservasPersonalToolStripMenuItem";
-            this.reservasPersonalToolStripMenuItem.Text = "Reservas";
+            this.reservasPersonalToolStripMenuItem.Text = "Reservas anteriores";
             this.reservasPersonalToolStripMenuItem.Click += new System.EventHandler(this.reservasPersonalToolStripMenuItem_Click);
-            this.separadorOperaciones.Name = "separadorOperaciones";
             this.operacionesToolStripMenuItem.Name = "operacionesToolStripMenuItem";
-            this.operacionesToolStripMenuItem.Text = "Operaciones";
+            this.operacionesToolStripMenuItem.Text = "Ventas";
             this.pedidosToolStripMenuItem.Name = "pedidosToolStripMenuItem";
-            this.pedidosToolStripMenuItem.Text = "Pedidos";
+            this.pedidosToolStripMenuItem.Text = "Ventas abiertas";
             this.pedidosToolStripMenuItem.Click += new System.EventHandler(this.pedidosToolStripMenuItem_Click);
-            this.pagosToolStripMenuItem.Name = "pagosToolStripMenuItem";
-            this.pagosToolStripMenuItem.Text = "Cobros";
-            this.pagosToolStripMenuItem.Click += new System.EventHandler(this.pagosToolStripMenuItem_Click);
             this.facturasToolStripMenuItem.Name = "facturasToolStripMenuItem";
             this.facturasToolStripMenuItem.Text = "Facturas";
             this.facturasToolStripMenuItem.Click += new System.EventHandler(this.facturasToolStripMenuItem_Click);
             this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
             this.cerrarSesionToolStripMenuItem.Text = "Cerrar sesión";
             this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem_Click);
-            this.masGestionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.clientesToolStripMenuItem, this.usuariosToolStripMenuItem, this.registrarPersonaToolStripMenuItem, this.mesasToolStripMenuItem, this.inventarioToolStripMenuItem, this.configuracionRestauranteToolStripMenuItem, this.reservasPersonalToolStripMenuItem, this.separadorOperaciones, this.operacionesToolStripMenuItem });
-            this.operacionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.pedidosToolStripMenuItem, this.pagosToolStripMenuItem, this.facturasToolStripMenuItem });
+            this.personalToolStripMenuItem.Name = "personalToolStripMenuItem";
+            this.personalToolStripMenuItem.Text = "Personal";
+            this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
+            this.archivoToolStripMenuItem.Text = "Archivo";
+            this.historialVentasToolStripMenuItem.Name = "historialVentasToolStripMenuItem";
+            this.historialVentasToolStripMenuItem.Text = "Historial de ventas";
+            this.historialVentasToolStripMenuItem.Click += new System.EventHandler(this.historialVentasToolStripMenuItem_Click);
+            this.estadoMesasToolStripMenuItem.Name = "estadoMesasToolStripMenuItem";
+            this.estadoMesasToolStripMenuItem.Text = "Estado de mesas";
+            this.estadoMesasToolStripMenuItem.Click += new System.EventHandler(this.estadoMesasToolStripMenuItem_Click);
+            this.operacionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                this.pedidosToolStripMenuItem, this.historialVentasToolStripMenuItem, this.facturasToolStripMenuItem, this.estadoMesasToolStripMenuItem });
+            this.masGestionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                this.productosToolStripMenuItem, this.categoríasToolStripMenuItem, this.inventarioToolStripMenuItem,
+                this.mesasToolStripMenuItem, this.configuracionRestauranteToolStripMenuItem });
+            this.personalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                this.empleadosToolStripMenuItem, this.usuariosToolStripMenuItem });
+            this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                this.reservasPersonalToolStripMenuItem });
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
@@ -177,22 +178,21 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem categoríasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem productosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rolesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem empleadosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
 
         private System.Windows.Forms.ToolStripMenuItem masGestionesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem personalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem historialVentasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem estadoMesasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuariosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem registrarPersonaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mesasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inventarioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem configuracionRestauranteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reservasPersonalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator separadorOperaciones;
         private System.Windows.Forms.ToolStripMenuItem operacionesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pedidosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pagosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem facturasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cerrarSesionToolStripMenuItem;
     }

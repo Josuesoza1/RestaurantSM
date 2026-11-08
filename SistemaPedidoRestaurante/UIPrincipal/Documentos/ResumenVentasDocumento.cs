@@ -10,23 +10,27 @@ using QuestPDF.Infrastructure;
 
 namespace SistemaPedidoRestaurante.UIPrincipal
 {
-    internal sealed class ResumenMensualDocumento
+    internal sealed class ResumenVentasDocumento
     {
-        private const string Titulo = "Resumen mensual de ventas";
-        private const string SinMovimientos = "Sin cobros ni anulaciones registrados en este mes.";
+        internal const string NotaFechas = "Cobros por fecha de pago. Devoluciones por fecha de anulación.";
+        private const string SinMovimientos = "Sin cobros ni devoluciones registrados en este período.";
         private const string Azul = "#263650";
         private const string FondoTotal = "#E8EEF5";
         private static readonly string[] Encabezados = { "Moneda", "Medio de pago", "Cobrado", "Devuelto", "Neto" };
         private static readonly CultureInfo Cultura = CultureInfo.GetCultureInfo("es-NI");
+        private readonly string titulo;
         private readonly string periodo;
         private readonly List<FilaResumen> filas = new List<FilaResumen>();
 
         internal string NombreArchivo { get; }
+        internal string TituloVista => titulo + " - " + periodo + (filas.Count == 0 ? " (sin movimientos)" : "");
 
-        internal ResumenMensualDocumento(DateTime mes, DataTable resumen)
+        internal ResumenVentasDocumento(DateTime fecha, DataTable resumen, bool diario)
         {
-            periodo = mes.ToString("MMMM yyyy", Cultura);
-            NombreArchivo = "Resumen-ventas-" + mes.ToString("yyyy-MM", CultureInfo.InvariantCulture);
+            titulo = diario ? "Resumen diario de caja" : "Resumen mensual de ventas";
+            periodo = fecha.ToString(diario ? "dd/MM/yyyy" : "MMMM yyyy", Cultura);
+            string formatoArchivo = diario ? "yyyy-MM-dd" : "yyyy-MM";
+            NombreArchivo = "Resumen-ventas-" + fecha.ToString(formatoArchivo, CultureInfo.InvariantCulture);
             foreach (var moneda in resumen.AsEnumerable().GroupBy(fila => fila.Field<string>("Moneda")))
             {
                 filas.Add(new FilaResumen
@@ -52,6 +56,18 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             }
         }
 
+        internal DataTable DetalleVista()
+        {
+            var tabla = new DataTable();
+            tabla.Columns.Add(Encabezados[0], typeof(string));
+            tabla.Columns.Add(Encabezados[1], typeof(string));
+            for (int columna = 2; columna < Encabezados.Length; columna++)
+                tabla.Columns.Add(Encabezados[columna], typeof(decimal));
+            foreach (FilaResumen fila in filas)
+                tabla.Rows.Add(fila.Moneda, fila.Medio, fila.Cobrado, fila.Devuelto, fila.Neto);
+            return tabla;
+        }
+
         internal IDocument CrearPdf()
         {
             QuestPDF.Settings.License = LicenseType.Community;
@@ -62,8 +78,9 @@ namespace SistemaPedidoRestaurante.UIPrincipal
                 pagina.DefaultTextStyle(estilo => estilo.FontSize(10));
                 pagina.Header().Column(cabecera =>
                 {
-                    cabecera.Item().Text(Titulo).FontSize(21).Bold().FontColor(Azul);
+                    cabecera.Item().Text(titulo).FontSize(21).Bold().FontColor(Azul);
                     cabecera.Item().PaddingTop(5).Text(periodo).FontSize(13);
+                    cabecera.Item().PaddingTop(5).Text(NotaFechas);
                 });
                 if (filas.Count == 0)
                     pagina.Content().PaddingTop(18).Text(SinMovimientos);
@@ -114,13 +131,14 @@ namespace SistemaPedidoRestaurante.UIPrincipal
         {
             using (var libro = new XLWorkbook())
             {
-                var hoja = libro.Worksheets.Add("Resumen mensual");
-                hoja.Range("A1:E1").Merge().Value = Titulo;
+                var hoja = libro.Worksheets.Add("Resumen de ventas");
+                hoja.Range("A1:E1").Merge().Value = titulo;
                 hoja.Cell("A1").Style.Font.Bold = true;
                 hoja.Cell("A1").Style.Font.FontSize = 18;
                 hoja.Cell("A1").Style.Font.FontColor = XLColor.FromHtml(Azul);
                 hoja.Row(1).Height = 28;
                 hoja.Range("A2:E2").Merge().Value = periodo;
+                hoja.Range("A3:E3").Merge().Value = NotaFechas;
 
                 for (int columna = 0; columna < Encabezados.Length; columna++)
                     hoja.Cell(4, columna + 1).Value = Encabezados[columna];

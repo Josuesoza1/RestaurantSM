@@ -8,7 +8,15 @@ namespace SistemaPedidoRestaurante.Validaciones
     {
         public static void Contenido(IReadOnlyList<LineaPedidoBorrador> lineas, Guid solicitud)
         {
-            if (lineas == null || lineas.Count < 1 || lineas.Count > 200 || solicitud == Guid.Empty)
+            if (solicitud == Guid.Empty)
+                throw new ArgumentException("No se pudo identificar la solicitud del pedido.");
+
+            Contenido(lineas);
+        }
+
+        public static void Contenido(IReadOnlyList<LineaPedidoBorrador> lineas)
+        {
+            if (lineas == null || lineas.Count < 1 || lineas.Count > 200)
             {
                 throw new ArgumentException("Agregue entre 1 y 200 productos diferentes antes de guardar.");
             }

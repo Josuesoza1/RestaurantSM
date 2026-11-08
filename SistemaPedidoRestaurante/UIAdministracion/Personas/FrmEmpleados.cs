@@ -32,7 +32,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             dgvEmpleados.MultiSelect = false;
             dgvEmpleados.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             VistaGestion.PermitirOrden(dgvEmpleados);
-            dgvEmpleados.CellClick += dgvEmpleados_CellClick;
             CambiarModo(ModoFormulario.Neutral);
             TemaUI.Aplicar(this);
         }
@@ -124,16 +123,13 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private void CambiarModo(ModoFormulario nuevoModo)
         {
             modoActual = nuevoModo;
-            bool puedeEditar = nuevoModo == ModoFormulario.Nuevo || nuevoModo == ModoFormulario.Editar;
+            bool puedeEditar = nuevoModo == ModoFormulario.Editar;
             bool hayOperacion = nuevoModo != ModoFormulario.Neutral;
             switch (nuevoModo)
             {
                 case ModoFormulario.Neutral:
                     lblOperacion.Text = "Operación actual: Seleccione una operación";
-                    btnAccion.Text = "Acción"; panel1.BackColor = Color.Gainsboro; break;
-                case ModoFormulario.Nuevo:
-                    lblOperacion.Text = "Operación actual: Nuevo empleado";
-                    btnAccion.Text = "Guardar"; panel1.BackColor = Color.LightGreen; break;
+                    btnAccion.Text = "Guardar"; panel1.BackColor = Color.Gainsboro; break;
                 case ModoFormulario.Editar:
                     lblOperacion.Text = "Operación actual: Editar empleado";
                     btnAccion.Text = "Guardar cambios"; panel1.BackColor = Color.LightSkyBlue; break;
@@ -148,6 +144,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             btnAccion.Enabled = btnCancelar.Enabled = hayOperacion;
             btnLimpiar.Enabled = puedeEditar;
             dgvEmpleados.Enabled = btnBuscar.Enabled = txtTextoBuscar.Enabled = !hayOperacion;
+            agregarToolStripMenuItem.Enabled = !hayOperacion;
         }
 
         private void editarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -168,9 +165,23 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void agregarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            empleadoSeleccionado = null;
-            LimpiarCampos();
-            CambiarModo(ModoFormulario.Nuevo);
+            using (var formulario = new FrmRegistrarPersona())
+            {
+                if (formulario.ShowDialog(this) != DialogResult.OK)
+                    return;
+            }
+
+            try
+            {
+                empleadoSeleccionado = null;
+                txtTextoBuscar.Clear();
+                LimpiarCampos();
+                CargarDatos();
+            }
+            catch (Exception error)
+            {
+                MostrarError(error);
+            }
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -237,7 +248,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                         Contrasena = txtContrasena.Text.Trim(),
                         IdRol = cmbRol.SelectedValue == null ? 0 : Convert.ToInt32(cmbRol.SelectedValue)
                     };
-                    _empleadoBLL.GuardarEmpleado(empleado, usuario, modoActual == ModoFormulario.Nuevo);
+                    _empleadoBLL.GuardarEmpleado(empleado, usuario, nuevo: false);
                     if (empleado.IdUsuario == SesionActual.IdUsuario)
                     {
                         usuario.IdUsuario = SesionActual.IdUsuario;

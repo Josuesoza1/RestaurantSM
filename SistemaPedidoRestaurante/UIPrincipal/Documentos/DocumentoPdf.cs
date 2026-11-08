@@ -13,7 +13,10 @@ namespace SistemaPedidoRestaurante.UIPrincipal
 
         public static void MostrarVistaPrevia(Form propietario, DocumentoVenta documento)
         {
-            using (var vista = new FrmVistaPrevia(Crear(documento), documento.Numero))
+            IDocument pdf = Crear(documento);
+            var exportacion = new DocumentoVentaExportacion(documento);
+            using (var vista = new FrmVistaPrevia(pdf, documento.Numero, exportacion.GuardarExcel,
+                exportacion.Titulo, exportacion.Detalle, exportacion.DatosVista(), exportacion.ImportesVista()))
                 vista.ShowDialog(propietario);
         }
 
@@ -100,6 +103,8 @@ namespace SistemaPedidoRestaurante.UIPrincipal
                             contenido.Item().AlignRight().Text("Productos: " + Dinero(datos, datos.Subtotal));
                         if (datos.CostoEnvio != 0)
                             contenido.Item().AlignRight().Text("Envio: " + Dinero(datos, datos.CostoEnvio));
+                        if (datos.EsFactura && datos.Descuento != 0)
+                            contenido.Item().AlignRight().Text("Descuento: " + Dinero(datos, datos.Descuento));
                         contenido.Item().AlignRight().Text("TOTAL: " + Dinero(datos, datos.Total)).FontSize(15).Bold();
                         if (datos.EsFactura)
                         {

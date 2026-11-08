@@ -39,7 +39,7 @@ namespace SistemaPedidoRestaurante.DAL
             }
         }
 
-        public DataTable ConsultarResumenMensual(int actor, DateTime inicio, DateTime fin)
+        public DataTable ConsultarResumen(int actor, DateTime inicio, DateTime fin)
         {
             const string consulta = @"
                 EXEC dbo.sp_Catalogo_ExigirAdministrador @Actor;
@@ -93,6 +93,37 @@ namespace SistemaPedidoRestaurante.DAL
             }
         }
 
+        public DataSet ObtenerUltimoComprobantePropio(int actor)
+        {
+            const string consulta = @"
+                EXEC dbo.sp_Operacion_ExigirPersonal @Actor;
+                DECLARE @Pedido int, @Solicitud uniqueidentifier;
+
+                SELECT TOP (1) @Pedido = f.idPedido, @Solicitud = p.solicitud
+                FROM dbo.pago p
+                JOIN dbo.factura f ON f.idFactura = p.idFactura
+                JOIN dbo.pedido v ON v.idPedido = f.idPedido
+                WHERE p.idUsuario = @Actor AND p.solicitud IS NOT NULL AND f.estado = 'Pagada'
+                    AND v.idOrigenPedido = 2 AND v.idTipoEntrega IN (1, 2)
+                ORDER BY p.fechaPago DESC, p.idPago DESC;
+
+                IF @Pedido IS NOT NULL
+                    EXEC dbo.sp_Documento_Obtener @Actor, @Pedido, 1, @Solicitud;";
+
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+                conexion.Open();
+                using (SqlTransaction transaccion = conexion.BeginTransaction(IsolationLevel.Serializable))
+                using (SqlCommand comando = new SqlCommand(consulta, conexion, transaccion))
+                {
+                    comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
+                    DataSet datos = LeerTablas(comando);
+                    transaccion.Commit();
+                    return datos;
+                }
+            }
+        }
+
         public DataSet ObtenerDocumento(int actor, int pedido, bool factura, Guid? solicitudCobro)
         {
             using (SqlConnection conexion = ConexionBD.ObtenerConexion())
@@ -104,13 +135,18 @@ namespace SistemaPedidoRestaurante.DAL
                     comando.Parameters.Add("@IdPedido", SqlDbType.Int).Value = pedido;
                     comando.Parameters.Add("@Factura", SqlDbType.Bit).Value = factura;
                     comando.Parameters.Add("@SolicitudCobro", SqlDbType.UniqueIdentifier).Value = (object)solicitudCobro ?? DBNull.Value;
-                    using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
-                    {
-                        DataSet datos = new DataSet();
-                        adaptador.Fill(datos);
-                        return datos;
-                    }
+                    return LeerTablas(comando);
                 }
+            }
+        }
+
+        private static DataSet LeerTablas(SqlCommand comando)
+        {
+            using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+            {
+                DataSet datos = new DataSet();
+                adaptador.Fill(datos);
+                return datos;
             }
         }
     }

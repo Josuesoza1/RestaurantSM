@@ -30,43 +30,53 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             if (LicenseManager.UsageMode == LicenseUsageMode.Designtime || DesignMode)
                 return;
             if (!AccesoFormulario.Permitir(this, RolesSistema.Administrador)) return;
-            try
-            {
-                cmbPersona.DisplayMember = "NombreCompleto";
-                cmbPersona.DataSource = new PersonaBLL().ObtenerPersonas();
-                cmbPersona.SelectedIndex = -1;
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show(this, error.Message, Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                btnGuardar.Enabled = false;
-            }
+            cmbTipo.SelectedIndex = 0;
         }
 
         private void chkPersonaExistente_CheckedChanged(object sender, EventArgs e)
         {
-            cmbPersona.Enabled = chkPersonaExistente.Checked;
-            cmbPersona.SelectedIndex = -1;
             personaSeleccionada = null;
             LimpiarPersona();
+            LimpiarCuenta();
+            if (chkPersonaExistente.Checked)
+            {
+                try
+                {
+                    cmbPersona.DisplayMember = "NombreCompleto";
+                    cmbPersona.DataSource = new PersonaBLL().ObtenerPersonasParaAlta();
+                }
+                catch (Exception error)
+                {
+                    MessageBox.Show(this, error.Message, Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cmbPersona.DataSource = null;
+                }
+            }
+
+            cmbPersona.Enabled = chkPersonaExistente.Checked;
+            cmbPersona.SelectedIndex = -1;
             ActualizarCuenta();
         }
 
         private void cmbPersona_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!chkPersonaExistente.Checked) return;
+            if (!chkPersonaExistente.Checked || !cmbPersona.Enabled) return;
             personaSeleccionada = cmbPersona.SelectedItem as Persona;
-            if (personaSeleccionada == null) { LimpiarPersona(); ActualizarCuenta(); return; }
+            LimpiarCuenta();
+            if (personaSeleccionada == null)
+            {
+                LimpiarPersona();
+                ActualizarCuenta();
+                return;
+            }
             txtPrimerNombre.Text = personaSeleccionada.PrimerNombre;
             txtSegundoNombre.Text = personaSeleccionada.SegundoNombre;
             txtPrimerApellido.Text = personaSeleccionada.PrimerApellido;
             txtSegundoApellido.Text = personaSeleccionada.SegundoApellido;
             txtCedula.Text = personaSeleccionada.Cedula;
             txtTelefono.Text = personaSeleccionada.Telefono;
-            txtCorreo.Text = personaSeleccionada.Email;
             cmbGenero.SelectedIndex = Array.IndexOf(new[] { "M", "F", "O" }, personaSeleccionada.Genero);
             foreach (TextBox campo in new[] { txtPrimerNombre, txtSegundoNombre, txtPrimerApellido,
-                txtSegundoApellido, txtCedula, txtTelefono, txtCorreo })
+                txtSegundoApellido, txtCedula, txtTelefono })
                 campo.ReadOnly = !string.IsNullOrWhiteSpace(campo.Text);
             cmbGenero.Enabled = cmbGenero.SelectedIndex < 0;
             ActualizarCuenta();
@@ -76,7 +86,19 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             cuentaExistente = null;
             int rol = ObtenerRol();
-            if (personaSeleccionada != null && rol != 0 && SesionActual.TieneRol(1))
+            bool puedeGuardar = rol != 0 && (!chkPersonaExistente.Checked || personaSeleccionada != null);
+            grpPersona.Enabled = grpCuenta.Enabled = btnGuardar.Enabled = puedeGuardar;
+            lblIndicacion.Text = rol == RolesSistema.Administrador
+                ? "Administrador: acceso a todas las gestiones."
+                : "Despachador: registra, despacha y cobra ventas locales.";
+            if (chkPersonaExistente.Checked && personaSeleccionada == null)
+            {
+                lblIndicacion.Text = cmbPersona.Items.Count > 0
+                    ? "Seleccione la persona a la que desea dar acceso."
+                    : "No hay personas disponibles para vincular.";
+            }
+
+            if (personaSeleccionada != null && puedeGuardar && SesionActual.TieneRol(RolesSistema.Administrador))
             {
                 try { cuentaExistente = servicio.CuentaParaPerfil(personaSeleccionada.IdPersona, rol); }
                 catch (Exception error)
@@ -86,16 +108,17 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                     return;
                 }
             }
-            grpCuenta.Enabled = rol != 0 && cuentaExistente == null;
-            txtUsuario.Text = cuentaExistente == null ? "" : cuentaExistente.NombreUsuario;
-            txtContrasena.Clear(); txtConfirmar.Clear();
+            txtUsuario.ReadOnly = cuentaExistente != null;
+            txtContrasena.Enabled = txtConfirmar.Enabled = chkMostrar.Enabled = cuentaExistente == null;
+            lblCuenta.Text = "Datos para ingresar con una cuenta nueva.";
             if (cuentaExistente != null)
             {
-                lblIndicacion.Text = "Se agregara el perfil a la cuenta «" + cuentaExistente.NombreUsuario +
-                    "». Se conserva su contraseña y su historial; no necesita otra cuenta.";
-                lblCuenta.Text = "Cuenta existente. No se modifica su contraseña.";
+                txtUsuario.Text = cuentaExistente.NombreUsuario;
+                txtContrasena.Clear();
+                txtConfirmar.Clear();
+                chkMostrar.Checked = false;
+                lblCuenta.Text = "Se conserva la cuenta existente, su contraseña y su historial.";
             }
-            else lblCuenta.Text = "Datos para ingresar con una cuenta nueva.";
         }
 
         private void cmbPersona_Format(object sender, ListControlConvertEventArgs e)
@@ -108,13 +131,21 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private void LimpiarPersona()
         {
             foreach (TextBox campo in new[] { txtPrimerNombre, txtSegundoNombre, txtPrimerApellido,
-                txtSegundoApellido, txtCedula, txtTelefono, txtCorreo })
+                txtSegundoApellido, txtCedula, txtTelefono })
             {
                 campo.ReadOnly = false;
                 campo.Clear();
             }
             cmbGenero.SelectedIndex = -1;
             cmbGenero.Enabled = true;
+        }
+
+        private void LimpiarCuenta()
+        {
+            txtUsuario.Clear();
+            txtContrasena.Clear();
+            txtConfirmar.Clear();
+            chkMostrar.Checked = false;
         }
 
         private int ObtenerRol()
@@ -135,21 +166,16 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private void CambiarTipo()
         {
             int rol = ObtenerRol();
-            grpPersona.Enabled = grpCuenta.Enabled = btnGuardar.Enabled = rol != 0;
-            lblCorreo.Visible = txtCorreo.Visible = false;
-            lblCargo.Visible = cmbCargo.Visible = rol != 0;
             cmbCargo.Items.Clear();
             cmbCargo.Items.AddRange(CargosPersonal.ParaRol(rol));
-            cmbCargo.SelectedIndex = cmbCargo.Items.Count == 1 ? 0 : -1;
-            lblIndicacion.Text = rol == RolesSistema.Empleado
-                ? "Despachador: registra, despacha y cobra ventas locales."
-                : "El administrador tiene acceso a todas las gestiones.";
+            cmbCargo.SelectedIndex = cmbCargo.Items.Count > 0 ? 0 : -1;
+            cmbCargo.Enabled = rol == RolesSistema.Administrador;
             ActualizarCuenta();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (guardando) return;
+            if (guardando || !btnGuardar.Enabled) return;
             guardando = true;
             btnGuardar.Enabled = false;
             try
@@ -185,8 +211,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 txtConfirmar.Clear();
                 MessageBox.Show(this, cuentaExistente != null
                     ? "Perfil agregado a la cuenta «" + cuenta.NombreUsuario + "». Se conserva su contraseña actual."
-                    : "Persona y cuenta registradas correctamente. El usuario «" + cuenta.NombreUsuario +
-                    "» ya puede iniciar sesión como " + RolesSistema.Nombre(cuenta.IdRol) + ".",
+                    : "El usuario «" + cuenta.NombreUsuario + "» ya puede iniciar sesión como " +
+                    RolesSistema.Nombre(cuenta.IdRol) + ".",
                     "Registro completado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();
@@ -207,10 +233,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             chkPersonaExistente.Checked = false;
             personaSeleccionada = null;
             LimpiarPersona();
-            cmbCargo.SelectedIndex = -1;
-            txtUsuario.Clear(); txtContrasena.Clear(); txtConfirmar.Clear();
-            cmbGenero.SelectedIndex = -1;
-            chkMostrar.Checked = false;
+            LimpiarCuenta();
+            CambiarTipo();
             txtPrimerNombre.Focus();
         }
 

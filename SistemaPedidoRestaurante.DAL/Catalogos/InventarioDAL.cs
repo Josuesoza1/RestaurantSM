@@ -30,30 +30,35 @@ namespace SistemaPedidoRestaurante.DAL
             }
         }
 
-        public InventarioProductos Listar(int idAdministrador)
+        public InventarioProductos Listar(int idAdministrador, bool incluirSinControl)
         {
+            const string consulta = "EXEC dbo.sp_Catalogo_ExigirAdministrador @Actor; " + ProductoDAL.ConsultaCatalogo +
+                " WHERE @IncluirSinControl = 1 OR i.idProducto IS NOT NULL ORDER BY p.nombre;";
             InventarioProductos inventario = new InventarioProductos();
             using (var conexion = ConexionBD.ObtenerConexion())
             {
-                using (SqlCommand comando = new SqlCommand("sp_Inventario_Listar", conexion))
+                using (SqlCommand comando = new SqlCommand(consulta, conexion))
                 {
-                    comando.CommandType = CommandType.StoredProcedure;
                     comando.Parameters.Add("@Actor", SqlDbType.Int).Value = idAdministrador;
+                    comando.Parameters.Add("@IncluirSinControl", SqlDbType.Bit).Value = incluirSinControl;
                     conexion.Open();
                     using (var lector = comando.ExecuteReader())
                     {
                         while (lector.Read())
                         {
+                            Producto producto = ProductoDAL.LeerProducto(lector);
                             inventario.Add(new InventarioProducto
                             {
-                                IdProducto = Convert.ToInt32(lector["IdProducto"]),
-                                Producto = lector["Producto"].ToString(),
-                                Categoria = lector["Categoria"].ToString(),
-                                Unidad = lector["Unidad"].ToString(),
-                                PrecioVenta = Convert.ToDecimal(lector["PrecioVenta"]),
-                                StockActual = Convert.ToInt32(lector["StockActual"]),
-                                StockMinimo = Convert.ToInt32(lector["StockMinimo"]),
-                                Activo = Convert.ToBoolean(lector["Activo"]),
+                                IdProducto = producto.IdProducto,
+                                Producto = producto.Nombre,
+                                Categoria = producto.CategoriaNombre,
+                                Unidad = "Unidad",
+                                PrecioVenta = producto.Precio,
+                                StockActual = producto.StockActual,
+                                StockMinimo = producto.StockMinimo,
+                                Activo = producto.InventarioActivo == true,
+                                TieneControl = producto.InventarioActivo.HasValue,
+                                EstadoVenta = producto.EstadoVenta,
                                 Revision = Convert.ToInt32(lector["Revision"])
                             });
                         }

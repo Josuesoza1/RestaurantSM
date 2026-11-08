@@ -9,6 +9,17 @@ namespace SistemaPedidoRestaurante.DAL
 {
     public class ProductoDAL
     {
+        internal const string ConsultaCatalogo = @"
+            SELECT p.idProducto, p.idCategoria, p.idSubcategoria, p.nombre, p.precio,
+                   p.descripcion, p.codigo, p.disponible, c.nombre AS CategoriaNombre,
+                   s.nombre AS SubcategoriaNombre, c.activa AS CategoriaActiva, i.activo AS InventarioActivo,
+                   COALESCE(i.stockActual, 0) AS stockActual, COALESCE(i.stockMinimo, 0) AS stockMinimo,
+                   COALESCE(i.revision, 0) AS revision
+            FROM dbo.producto p
+            JOIN dbo.categoria c ON c.idCategoria = p.idCategoria
+            LEFT JOIN dbo.subcategoria s ON s.idSubcategoria = p.idSubcategoria
+            LEFT JOIN dbo.inventarioProducto i ON i.idProducto = p.idProducto";
+
         public void Eliminar(int idProducto, int idAdministrador)
         {
             using (SqlConnection conexion = ConexionBD.ObtenerConexion())
@@ -26,49 +37,40 @@ namespace SistemaPedidoRestaurante.DAL
 
         public Productos Listar()
         {
-            return Consultar(false);
-        }
-
-        public Productos ListarDisponibles()
-        {
-            return Consultar(true);
-        }
-
-        private Productos Consultar(bool soloDisponibles)
-        {
             Productos lista = new Productos();
             using (SqlConnection connection = ConexionBD.ObtenerConexion())
+            using (SqlCommand command = new SqlCommand(ConsultaCatalogo + " ORDER BY p.nombre;", connection))
             {
-                string consulta = soloDisponibles ? "sp_Producto_Disponibles" : "sp_Producto_Listar";
-                using (SqlCommand command = new SqlCommand(consulta, connection))
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-                    connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            lista.Add(new Producto
-                            {
-                                IdProducto = Convert.ToInt32(reader["idProducto"]),
-                                IdCategoria = Convert.ToInt32(reader["idCategoria"]),
-                                IdSubcategoria = reader["idSubcategoria"] == DBNull.Value ? (int? )null : Convert.ToInt32(reader["idSubcategoria"]),
-                                CategoriaNombre = reader["CategoriaNombre"].ToString(),
-                                SubcategoriaNombre = reader["SubcategoriaNombre"].ToString(),
-                                Nombre = reader["nombre"].ToString(),
-                                Precio = Convert.ToDecimal(reader["precio"]),
-                                Descripcion = reader["descripcion"] == DBNull.Value ? string.Empty : reader["descripcion"].ToString(),
-                                Codigo = reader["codigo"].ToString(),
-                                Disponible = Convert.ToBoolean(reader["disponible"]),
-                                StockActual = soloDisponibles ? Convert.ToInt32(reader["stockActual"]) : 0,
-                                StockMinimo = soloDisponibles ? Convert.ToInt32(reader["stockMinimo"]) : 0
-                            });
-                        }
-                    }
+                    while (reader.Read())
+                        lista.Add(LeerProducto(reader));
                 }
             }
 
             return lista;
+        }
+
+        internal static Producto LeerProducto(SqlDataReader reader)
+        {
+            return new Producto
+            {
+                IdProducto = Convert.ToInt32(reader["idProducto"]),
+                IdCategoria = Convert.ToInt32(reader["idCategoria"]),
+                IdSubcategoria = reader["idSubcategoria"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["idSubcategoria"]),
+                CategoriaNombre = reader["CategoriaNombre"].ToString(),
+                SubcategoriaNombre = reader["SubcategoriaNombre"].ToString(),
+                Nombre = reader["nombre"].ToString(),
+                Precio = Convert.ToDecimal(reader["precio"]),
+                Descripcion = reader["descripcion"].ToString(),
+                Codigo = reader["codigo"].ToString(),
+                Disponible = Convert.ToBoolean(reader["disponible"]),
+                CategoriaActiva = Convert.ToBoolean(reader["CategoriaActiva"]),
+                InventarioActivo = reader["InventarioActivo"] == DBNull.Value ? (bool?)null : Convert.ToBoolean(reader["InventarioActivo"]),
+                StockActual = Convert.ToInt32(reader["stockActual"]),
+                StockMinimo = Convert.ToInt32(reader["stockMinimo"])
+            };
         }
 
         public List<Subcategoria> ListarSubcategorias()

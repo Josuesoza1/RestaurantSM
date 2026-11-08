@@ -17,11 +17,6 @@
 
         private void InitializeComponent()
         {
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.agregarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.volverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlEncabezado = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.grpDatosFactura = new System.Windows.Forms.GroupBox();
@@ -39,7 +34,6 @@
             this.lblNumeroFactura = new System.Windows.Forms.Label();
             this.btnGuardarProducto = new System.Windows.Forms.Button();
             this.btnAnular = new System.Windows.Forms.Button();
-            this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.grpDetalleFactura = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -58,44 +52,16 @@
             this.txtImpuestoFactura = new System.Windows.Forms.TextBox();
             this.lblImpuestos = new System.Windows.Forms.Label();
             this.lblSubtotal = new System.Windows.Forms.Label();
-            this.txtBuscarFactura = new System.Windows.Forms.TextBox();
-            this.lblBuscarFactura = new System.Windows.Forms.Label();
-            this.btnBuscarFactura = new System.Windows.Forms.Button();
-            this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1.SuspendLayout();
             this.pnlEncabezado.SuspendLayout();
             this.grpDatosFactura.SuspendLayout();
             this.grpDetalleFactura.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.grpInformacionAdicional.SuspendLayout();
             this.SuspendLayout();
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.agregarToolStripMenuItem,
-            this.eliminarToolStripMenuItem,
-            this.editarToolStripMenuItem,
-            this.volverToolStripMenuItem,
-            this.ayudaToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
-            this.agregarToolStripMenuItem.Name = "agregarToolStripMenuItem";
-            this.agregarToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.agregarToolStripMenuItem.Text = "Consultar";
-            this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
-            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
-            this.eliminarToolStripMenuItem.Text = "Eliminar";
-            this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
-            this.editarToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
-            this.editarToolStripMenuItem.Text = "Recargar";
-            this.volverToolStripMenuItem.Name = "volverToolStripMenuItem";
-            this.volverToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
-            this.volverToolStripMenuItem.Text = "Volver";
             this.pnlEncabezado.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.pnlEncabezado.Controls.Add(this.lblTitulo);
             this.pnlEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlEncabezado.Location = new System.Drawing.Point(0, 24);
+            this.pnlEncabezado.Location = new System.Drawing.Point(0, 0);
             this.pnlEncabezado.Name = "pnlEncabezado";
             this.pnlEncabezado.Size = new System.Drawing.Size(800, 70);
             this.pnlEncabezado.TabIndex = 2;
@@ -106,7 +72,7 @@
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(298, 29);
             this.lblTitulo.TabIndex = 0;
-            this.lblTitulo.Text = "GESTION DE FACTURAS\r\n";
+            this.lblTitulo.Text = "Detalle de factura";
             this.grpDatosFactura.Controls.Add(this.cmbTipoPedido);
             this.grpDatosFactura.Controls.Add(this.dtpFechaFactura);
             this.grpDatosFactura.Controls.Add(this.txtClienteFactura);
@@ -120,7 +86,7 @@
             this.grpDatosFactura.Controls.Add(this.lblFechaFactura);
             this.grpDatosFactura.Controls.Add(this.lblNumeroFactura);
             this.grpDatosFactura.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpDatosFactura.Location = new System.Drawing.Point(12, 100);
+            this.grpDatosFactura.Location = new System.Drawing.Point(12, 84);
             this.grpDatosFactura.Name = "grpDatosFactura";
             this.grpDatosFactura.Size = new System.Drawing.Size(267, 273);
             this.grpDatosFactura.TabIndex = 3;
@@ -132,6 +98,8 @@
             this.cmbTipoPedido.Size = new System.Drawing.Size(96, 25);
             this.cmbTipoPedido.TabIndex = 13;
             this.dtpFechaFactura.Location = new System.Drawing.Point(99, 63);
+            this.dtpFechaFactura.CustomFormat = " ";
+            this.dtpFechaFactura.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpFechaFactura.Name = "dtpFechaFactura";
             this.dtpFechaFactura.Size = new System.Drawing.Size(100, 24);
             this.dtpFechaFactura.TabIndex = 12;
@@ -197,43 +165,38 @@
             this.btnGuardarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarProducto.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarProducto.ForeColor = System.Drawing.Color.Black;
-            this.btnGuardarProducto.Location = new System.Drawing.Point(19, 379);
+            this.btnGuardarProducto.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            this.btnGuardarProducto.Location = new System.Drawing.Point(12, 561);
             this.btnGuardarProducto.Name = "btnGuardarProducto";
-            this.btnGuardarProducto.Size = new System.Drawing.Size(81, 31);
+            this.btnGuardarProducto.Size = new System.Drawing.Size(204, 34);
             this.btnGuardarProducto.TabIndex = 4;
-            this.btnGuardarProducto.Text = "Ver factura";
+            this.btnGuardarProducto.Text = "Vista previa y exportación";
             this.btnGuardarProducto.UseVisualStyleBackColor = false;
-            this.btnLimpiar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLimpiar.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLimpiar.ForeColor = System.Drawing.Color.Black;
-            this.btnLimpiar.Location = new System.Drawing.Point(95, 379);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(81, 31);
-            this.btnLimpiar.TabIndex = 5;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = false;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             this.btnCancelar.BackColor = System.Drawing.Color.Red;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.Black;
-            this.btnCancelar.Location = new System.Drawing.Point(171, 379);
+            this.btnCancelar.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            this.btnCancelar.Location = new System.Drawing.Point(695, 561);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(81, 31);
             this.btnCancelar.TabIndex = 6;
             this.btnCancelar.Text = "Volver";
             this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnAnular.Location = new System.Drawing.Point(19, 415);
+            this.btnAnular.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            this.btnAnular.Location = new System.Drawing.Point(228, 561);
             this.btnAnular.Name = "btnAnular";
             this.btnAnular.Size = new System.Drawing.Size(146, 29);
             this.btnAnular.Text = "Anular venta";
             this.btnAnular.Enabled = false;
+            this.btnAnular.Visible = false;
             this.btnAnular.Click += new System.EventHandler(this.btnAnular_Click);
             this.grpDetalleFactura.Controls.Add(this.dataGridView1);
-            this.grpDetalleFactura.Location = new System.Drawing.Point(285, 312);
+            this.grpDetalleFactura.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom |
+                System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            this.grpDetalleFactura.Location = new System.Drawing.Point(12, 365);
             this.grpDetalleFactura.Name = "grpDetalleFactura";
-            this.grpDetalleFactura.Size = new System.Drawing.Size(503, 100);
+            this.grpDetalleFactura.Size = new System.Drawing.Size(776, 183);
             this.grpDetalleFactura.TabIndex = 7;
             this.grpDetalleFactura.TabStop = false;
             this.grpDetalleFactura.Text = "Detalle de la Factura";
@@ -244,6 +207,8 @@
             this.ColPrecioUnitario,
             this.ColSubtotal});
             this.dataGridView1.Location = new System.Drawing.Point(6, 19);
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(491, 75);
             this.dataGridView1.TabIndex = 0;
@@ -270,7 +235,7 @@
             this.grpInformacionAdicional.Controls.Add(this.lblImpuestos);
             this.grpInformacionAdicional.Controls.Add(this.lblSubtotal);
             this.grpInformacionAdicional.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpInformacionAdicional.Location = new System.Drawing.Point(305, 100);
+            this.grpInformacionAdicional.Location = new System.Drawing.Point(305, 84);
             this.grpInformacionAdicional.Name = "grpInformacionAdicional";
             this.grpInformacionAdicional.Size = new System.Drawing.Size(248, 202);
             this.grpInformacionAdicional.TabIndex = 8;
@@ -331,50 +296,19 @@
             this.lblSubtotal.Size = new System.Drawing.Size(57, 15);
             this.lblSubtotal.TabIndex = 6;
             this.lblSubtotal.Text = "Subtotal:";
-            this.txtBuscarFactura.Location = new System.Drawing.Point(559, 147);
-            this.txtBuscarFactura.Name = "txtBuscarFactura";
-            this.txtBuscarFactura.Size = new System.Drawing.Size(231, 20);
-            this.txtBuscarFactura.TabIndex = 11;
-            this.lblBuscarFactura.AutoSize = true;
-            this.lblBuscarFactura.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBuscarFactura.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblBuscarFactura.Location = new System.Drawing.Point(559, 115);
-            this.lblBuscarFactura.Name = "lblBuscarFactura";
-            this.lblBuscarFactura.Size = new System.Drawing.Size(48, 14);
-            this.lblBuscarFactura.TabIndex = 12;
-            this.lblBuscarFactura.Text = "Buscar:";
-            this.btnBuscarFactura.BackColor = System.Drawing.Color.Cyan;
-            this.btnBuscarFactura.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuscarFactura.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscarFactura.ForeColor = System.Drawing.Color.Black;
-            this.btnBuscarFactura.Location = new System.Drawing.Point(637, 193);
-            this.btnBuscarFactura.Name = "btnBuscarFactura";
-            this.btnBuscarFactura.Size = new System.Drawing.Size(67, 29);
-            this.btnBuscarFactura.TabIndex = 13;
-            this.btnBuscarFactura.Text = "Buscar";
-            this.btnBuscarFactura.UseVisualStyleBackColor = false;
-            this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
-            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
-            this.ayudaToolStripMenuItem.Text = "Ayuda";
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnBuscarFactura);
-            this.Controls.Add(this.lblBuscarFactura);
-            this.Controls.Add(this.txtBuscarFactura);
+            this.ClientSize = new System.Drawing.Size(800, 610);
+            this.MinimumSize = new System.Drawing.Size(720, 550);
             this.Controls.Add(this.grpInformacionAdicional);
             this.Controls.Add(this.grpDetalleFactura);
             this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnGuardarProducto);
             this.Controls.Add(this.btnAnular);
             this.Controls.Add(this.grpDatosFactura);
             this.Controls.Add(this.pnlEncabezado);
-            this.Controls.Add(this.menuStrip1);
             this.Name = "FrmFacturasBase";
-            this.Text = "GESTION DE FACTURAS";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.Text = "Detalle de factura";
             this.pnlEncabezado.ResumeLayout(false);
             this.pnlEncabezado.PerformLayout();
             this.grpDatosFactura.ResumeLayout(false);
@@ -383,17 +317,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.grpInformacionAdicional.ResumeLayout(false);
             this.grpInformacionAdicional.PerformLayout();
-            this.agregarToolStripMenuItem.Click += new System.EventHandler(this.consultar_Click);
-            this.editarToolStripMenuItem.Click += new System.EventHandler(this.consultar_Click);
-            this.volverToolStripMenuItem.Click += new System.EventHandler(this.volver_Click);
-            this.ayudaToolStripMenuItem.Click += new System.EventHandler(this.ayuda_Click);
-            this.btnBuscarFactura.Click += new System.EventHandler(this.consultar_Click);
             this.btnGuardarProducto.Click += new System.EventHandler(this.guardarPdf_Click);
             this.btnCancelar.Click += new System.EventHandler(this.volver_Click);
             this.btnGuardarProducto.Enabled = false;
-            this.eliminarToolStripMenuItem.Enabled = false;
-            this.eliminarToolStripMenuItem.Visible = false;
-            this.eliminarToolStripMenuItem.ToolTipText = "Las facturas pagadas conservan su historial.";
+            this.Load += new System.EventHandler(this.FrmFacturasBase_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -401,17 +328,11 @@
 
         #endregion
 
-        protected System.Windows.Forms.MenuStrip menuStrip1;
-        protected System.Windows.Forms.ToolStripMenuItem agregarToolStripMenuItem;
-        protected System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
-        protected System.Windows.Forms.ToolStripMenuItem editarToolStripMenuItem;
-        protected System.Windows.Forms.ToolStripMenuItem volverToolStripMenuItem;
         protected System.Windows.Forms.Panel pnlEncabezado;
         protected System.Windows.Forms.Label lblTitulo;
         protected System.Windows.Forms.GroupBox grpDatosFactura;
         protected System.Windows.Forms.Button btnGuardarProducto;
         private System.Windows.Forms.Button btnAnular;
-        protected System.Windows.Forms.Button btnLimpiar;
         protected System.Windows.Forms.Button btnCancelar;
         protected System.Windows.Forms.GroupBox grpDetalleFactura;
         protected System.Windows.Forms.DataGridView dataGridView1;
@@ -440,11 +361,7 @@
         protected System.Windows.Forms.TextBox txtMetodoPago;
         protected System.Windows.Forms.TextBox txtTotalFactura;
         protected System.Windows.Forms.TextBox txtSubtotalFactura;
-        protected System.Windows.Forms.TextBox txtBuscarFactura;
-        protected System.Windows.Forms.Label lblBuscarFactura;
-        protected System.Windows.Forms.Button btnBuscarFactura;
         protected System.Windows.Forms.ComboBox cmbTipoPedido;
         protected System.Windows.Forms.DateTimePicker dtpFechaFactura;
-        protected System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
     }
 }

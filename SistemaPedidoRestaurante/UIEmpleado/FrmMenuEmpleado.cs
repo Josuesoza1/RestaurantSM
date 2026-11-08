@@ -29,11 +29,6 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             using (var formulario = new FrmPedidosEmpleado()) formulario.ShowDialog(this);
         }
 
-        private void pagosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var formulario = new FrmPago()) formulario.ShowDialog(this);
-        }
-
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Abort;

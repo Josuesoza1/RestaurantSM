@@ -26,8 +26,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             dgvProductos.MultiSelect = false;
             dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             VistaGestion.PermitirOrden(dgvProductos);
-            dgvProductos.CellClick += dgvProductos_CellClick;
-            cmbCategoria.SelectedValueChanged += cmbCategoria_SelectedValueChanged;
             CambiarModo(ModoFormulario.Neutral);
             TemaUI.Aplicar(this);
         }
@@ -43,7 +41,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 "Nombre",
                 "Precio",
                 "Codigo",
-                "Disponible",
+                "EstadoVenta",
                 "SubcategoriaNombre"
             };
             for (int i = 0; i < campos.Length; i++)
@@ -107,10 +105,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             }
         }
 
-        private void cmbBuscar_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
         private void CambiarModo(ModoFormulario nuevoModo)
         {
             modoActual = nuevoModo;
@@ -118,7 +112,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             bool operacion = nuevoModo != ModoFormulario.Neutral;
             switch (nuevoModo)
             {
-                case ModoFormulario.Neutral: lblOperacion.Text = "Operación actual: Seleccione una operación"; btnAccion.Text = "Acción"; panel1.BackColor = Color.Gainsboro; break;
+                case ModoFormulario.Neutral: lblOperacion.Text = "Operación actual: Seleccione una operación"; btnAccion.Text = "Guardar"; panel1.BackColor = Color.Gainsboro; break;
                 case ModoFormulario.Nuevo: lblOperacion.Text = "Operación actual: Nuevo producto"; btnAccion.Text = "Guardar"; panel1.BackColor = Color.LightGreen; break;
                 case ModoFormulario.Editar: lblOperacion.Text = "Operación actual: Editar producto"; btnAccion.Text = "Guardar cambios"; panel1.BackColor = Color.LightSkyBlue; break;
                 case ModoFormulario.Eliminar: lblOperacion.Text = "Operación actual: Eliminar producto"; btnAccion.Text = "Eliminar"; panel1.BackColor = Color.LightCoral; break;
@@ -236,6 +230,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                     return;
                 }
 
+                string mensaje = "Operación realizada correctamente.";
                 if (modoActual == ModoFormulario.Eliminar)
                 {
                     if (productoSeleccionado == null)
@@ -252,7 +247,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 }
                 else
                 {
-                    _productoBLL.GuardarProducto(ObtenerProductoDesdeFormulario());
+                    Producto producto = ObtenerProductoDesdeFormulario();
+                    _productoBLL.GuardarProducto(producto);
+                    if (modoActual == ModoFormulario.Nuevo && producto.Disponible)
+                        mensaje = "Producto guardado. Agregue su control y existencias en Inventario para que aparezca en caja.";
                 }
 
                 productoSeleccionado = null;
@@ -260,7 +258,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 LimpiarCampos();
                 CambiarModo(ModoFormulario.Neutral);
                 CargarDatos();
-                MessageBox.Show("Operación realizada correctamente.", "Productos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(mensaje, "Productos", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

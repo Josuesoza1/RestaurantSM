@@ -7,12 +7,15 @@ namespace SistemaPedidoRestaurante.UIPrincipal
 {
     internal static class MenuSesion
     {
-        public static void Configurar(Form formulario, MenuStrip menu, int idRol)
+        public static void Configurar(Form formulario, MenuStrip menu, int idRol, bool expandirOpciones = true)
         {
             if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
                 return;
 
-            MenuAdaptable.Configurar(formulario, menu);
+            if (expandirOpciones)
+                MenuAdaptable.Configurar(formulario, menu);
+            else
+                TemaUI.AjustarMenu(formulario, menu);
 
             formulario.Load += (sender, e) =>
             {

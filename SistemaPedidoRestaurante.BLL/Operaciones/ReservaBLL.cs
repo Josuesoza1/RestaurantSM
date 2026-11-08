@@ -22,23 +22,5 @@ namespace SistemaPedidoRestaurante.BLL
             }
         }
 
-        public void CambiarReserva(int reserva, string anterior, string nuevo)
-        {
-            Permisos.ExigirRol(1);
-            if (reserva <= 0)
-                throw new ArgumentException("Seleccione una reserva.");
-            if (anterior != "Pendiente" && anterior != "Confirmada")
-                throw new ArgumentException("La reserva ya está cerrada. Recargue el listado.");
-            if (nuevo != "Atendida" && nuevo != "No asistio" && nuevo != "Cancelada")
-                throw new ArgumentException("Seleccione una acción de reserva válida.");
-            try
-            {
-                reservasDAL.CambiarEstadoReserva(SesionActual.IdUsuario, reserva, anterior, nuevo);
-            }
-            catch (SqlException error)
-            {
-                throw OperacionDatos.Traducir(error, "No se pudo actualizar la reserva.");
-            }
-        }
     }
 }

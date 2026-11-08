@@ -18,11 +18,8 @@
             this.btnSeleccionar.Visible = false;
             this.btnNuevo.Visible = true;
             this.btnMesa.Visible = true;
-            this.btnMesas.Visible = true;
             this.btnAvanzar.Visible = true;
             this.btnCobrar.Visible = true;
-            this.btnAtendida.Visible = false;
-            this.btnAusencia.Visible = false;
             this.btnCancelar.Visible = true;
             this.btnPedidoPdf.Visible = true;
             this.btnFacturaPdf.Visible = true;

@@ -34,7 +34,7 @@ namespace SistemaPedidoRestaurante.BLL
             if (usuario.IdRol != RolesSistema.Administrador && usuario.IdRol != RolesSistema.Empleado)
                 throw new ArgumentException("El personal debe tener el rol Empleado o Administrador.");
             if (empleado == null || empleado.IdEmpleado != 0 || empleado.IdUsuario.HasValue || usuario.IdUsuario != 0)
-                throw new ArgumentException("Este formulario registra personas nuevas. Para modificar una, utilice su gestión.");
+                throw new ArgumentException("Para editar una cuenta de personal, utilice Empleados y acceso.");
 
             empleado.Activo = true;
             new EmpleadoBLL().GuardarEmpleado(empleado, usuario, true);

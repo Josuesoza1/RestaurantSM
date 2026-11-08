@@ -24,21 +24,5 @@ namespace SistemaPedidoRestaurante.DAL
             }
         }
 
-        public void CambiarEstadoReserva(int actor, int reserva, string anterior, string nuevo)
-        {
-            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
-            {
-                using (SqlCommand comando = new SqlCommand("sp_Operacion_EstadoReserva", conexion))
-                {
-                    comando.CommandType = CommandType.StoredProcedure;
-                    comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
-                    comando.Parameters.Add("@IdReserva", SqlDbType.Int).Value = reserva;
-                    comando.Parameters.Add("@Anterior", SqlDbType.VarChar, 20).Value = anterior;
-                    comando.Parameters.Add("@Nuevo", SqlDbType.VarChar, 20).Value = nuevo;
-                    conexion.Open();
-                    comando.ExecuteNonQuery();
-                }
-            }
-        }
     }
 }

@@ -78,7 +78,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             {
                 case ModoFormulario.Neutral:
                     lblOperacion.Text = "Operación actual: Seleccione una operación";
-                    btnAccion.Text = "Acción";
+                    btnAccion.Text = "Guardar";
                     panel1.BackColor = Color.Gainsboro;
                     break;
                 case ModoFormulario.Nuevo:

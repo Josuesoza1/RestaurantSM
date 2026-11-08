@@ -42,15 +42,40 @@ namespace SistemaPedidoRestaurante.BLL
 
         public DataTable ConsultarResumenMensual(DateTime mes)
         {
-            Permisos.ExigirRol(RolesSistema.Administrador);
             DateTime inicio = new DateTime(mes.Year, mes.Month, 1);
+            return ConsultarResumen(inicio, inicio.AddMonths(1));
+        }
+
+        public DataTable ConsultarResumenDiario(DateTime dia)
+        {
+            DateTime inicio = dia.Date;
+            return ConsultarResumen(inicio, inicio.AddDays(1));
+        }
+
+        private DataTable ConsultarResumen(DateTime inicio, DateTime fin)
+        {
+            Permisos.ExigirRol(RolesSistema.Administrador);
             try
             {
-                return facturaDAL.ConsultarResumenMensual(SesionActual.IdUsuario, inicio, inicio.AddMonths(1));
+                return facturaDAL.ConsultarResumen(SesionActual.IdUsuario, inicio, fin);
             }
             catch (SqlException error)
             {
-                throw OperacionDatos.Traducir(error, "No se pudo consultar el resumen mensual.");
+                throw OperacionDatos.Traducir(error, "No se pudo consultar el resumen de caja.");
+            }
+        }
+
+        public DocumentoVenta ObtenerUltimoComprobantePropio()
+        {
+            Permisos.ExigirCobro();
+            try
+            {
+                DataSet tablas = facturaDAL.ObtenerUltimoComprobantePropio(SesionActual.IdUsuario);
+                return tablas.Tables.Count == 0 ? null : LeerDocumento(tablas, true);
+            }
+            catch (SqlException error)
+            {
+                throw OperacionDatos.Traducir(error, "No se pudo consultar el último comprobante.");
             }
         }
 
@@ -72,6 +97,11 @@ namespace SistemaPedidoRestaurante.BLL
                 throw OperacionDatos.Traducir(error, "No se pudo consultar el documento.");
             }
 
+            return LeerDocumento(tablas, factura);
+        }
+
+        private static DocumentoVenta LeerDocumento(DataSet tablas, bool factura)
+        {
             if (tablas.Tables.Count < 2 || tablas.Tables[0].Rows.Count != 1 || tablas.Tables[1].Rows.Count == 0)
                 throw new ArgumentException("El documento no tiene cabecera o detalle completo.");
             DataRow fila = tablas.Tables[0].Rows[0];

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
@@ -12,41 +13,46 @@ namespace SistemaPedidoRestaurante.UICompartida
     public partial class FrmPedidoLocalBase : Form
     {
         private readonly PedidoBorrador borrador = new PedidoBorrador();
+        private readonly PedidoBLL pedidos = new PedidoBLL();
+        private List<LineaPedidoBorrador> detalleOriginal = new List<LineaPedidoBorrador>();
         private Productos catalogo = new Productos();
         private bool perfilValido;
-        private int clienteDelLocal;
+        private int pedidoEnEdicion;
+        private bool detalleModificado;
         private readonly int rolPermitido;
         private readonly Guid solicitud = Guid.NewGuid();
 
         public int PedidoRegistrado { get; private set; }
 
-        public FrmPedidoLocalBase() : this(0, 0)
+        public FrmPedidoLocalBase() : this(0)
         {
         }
 
-        protected FrmPedidoLocalBase(int rol, int clienteDelLocal)
+        protected FrmPedidoLocalBase(int rol)
         {
-            this.clienteDelLocal = clienteDelLocal;
             rolPermitido = rol;
             InitializeComponent();
             VistaGestion.PermitirOrden(dgvDetalle);
             Text = "Nueva venta local";
-            grpDatosCliente.Text = "Cliente (opcional)";
-            btnEnviar.Text = "Registrar venta";
-            txtCliente.ReadOnly = txtCedula.ReadOnly = txtTelefono.ReadOnly = txtEmail.ReadOnly = true;
             cmbProducto.DropDownStyle = cmbCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPrecio.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPrecio.Enabled = false;
             btnAceptar.Text = "Agregar al pedido";
             btnAceptar.Enabled = false;
             btnCancelar.Text = "Volver";
-            cmbCategoria.SelectedValueChanged += cmbCategoria_SelectedValueChanged;
-            cmbProducto.SelectedValueChanged += cmbProducto_SelectedValueChanged;
-            nudCantidad.ValueChanged += nudCantidad_ValueChanged;
-            Load += CargarPantalla;
-            FormClosing += FrmPedidoLocalBase_FormClosing;
             ActualizarDetalle();
             UIPrincipal.TemaUI.Aplicar(this);
+        }
+
+        internal void PrepararEdicion(int pedido, string cliente)
+        {
+            pedidoEnEdicion = pedido;
+            Text = "Editar venta " + pedido;
+            lblTitulo.Text = "EDITAR VENTA " + pedido;
+            txtCliente.Text = cliente;
+            lblNombreOpcional.Visible = false;
+            btnEnviar.Visible = btnCobrarAhora.Visible = btnVaciar.Visible = false;
+            btnGuardarCambios.Visible = btnCambiarCantidad.Visible = nudCantidadDetalle.Visible = true;
         }
 
         private void CargarPantalla(object sender, EventArgs e)
@@ -64,53 +70,55 @@ namespace SistemaPedidoRestaurante.UICompartida
 
             try
             {
-                System.Data.DataRow cliente = null;
-                if (clienteDelLocal == 0)
+                if (pedidoEnEdicion > 0)
                 {
-                    using (FrmSeleccionCliente elegir = new FrmSeleccionCliente())
-                    {
-                        if (elegir.ShowDialog(this) != DialogResult.OK)
-                        {
-                            Close();
-                            return;
-                        }
-                        cliente = elegir.Cliente;
-                    }
+                    detalleOriginal = pedidos.ObtenerDetallePendiente(pedidoEnEdicion);
+                    borrador.CargarDetalle(detalleOriginal);
                 }
-                else
-                {
-                    System.Data.DataRow[] filas = new ClienteBLL().ListarClientes().Select("IdCliente=" + clienteDelLocal);
-                    if (filas.Length != 1) throw new ArgumentException("Seleccione un cliente activo.");
-                    cliente = filas[0];
-                }
+            }
+            catch (Exception error)
+            {
+                estadoPerfil.Text = error.Message;
+                return;
+            }
 
-                if (cliente == null)
-                {
-                    txtCliente.Text = "Consumidor final";
-                }
-                else
-                {
-                    clienteDelLocal = Convert.ToInt32(cliente["IdCliente"]);
-                    txtCliente.Text = Convert.ToString(cliente["Nombre"]);
-                    txtCedula.Text = Convert.ToString(cliente["Cedula"]);
-                    txtTelefono.Text = Convert.ToString(cliente["Telefono"]);
-                    txtEmail.Text = Convert.ToString(cliente["Email"]);
-                }
-                perfilValido = true;
-                CargarCatalogo(new ProductoBLL().ObtenerDisponiblesParaPedido());
+            perfilValido = true;
+            btnRecargarCatalogo.Enabled = true;
+            ActualizarDetalle();
+            RecargarCatalogo(inicial: true);
+        }
 
-                ActualizarDetalle();
+        private void btnRecargarCatalogo_Click(object sender, EventArgs e)
+        {
+            RecargarCatalogo(inicial: false);
+        }
+
+        private void RecargarCatalogo(bool inicial)
+        {
+            Productos productos;
+            try
+            {
+                productos = new ProductoBLL().ObtenerDisponiblesParaPedido();
             }
             catch (Exception)
             {
-                perfilValido = false;
-                btnAceptar.Enabled = btnEnviar.Enabled = false;
-                estadoPerfil.Text = "No se pudo cargar el catálogo o los datos del cliente.";
+                lblEstadoCatalogo.ForeColor = Color.DarkRed;
+                lblEstadoCatalogo.Text = "No se pudo recargar el catálogo. Intente de nuevo.";
+                return;
             }
+
+            bool preciosActualizados = borrador.ActualizarPrecios(productos, detalleOriginal);
+            CargarCatalogo(productos);
+            string aviso = inicial ? "" : "Catálogo actualizado.";
+            if (preciosActualizados)
+                aviso = "Se actualizaron los precios del catálogo y el total estimado.";
+            ActualizarDetalle(aviso, actualizarListado: preciosActualizados);
         }
 
         private void CargarCatalogo(Productos productos)
         {
+            int categoria = cmbCategoria.SelectedValue is int ? (int)cmbCategoria.SelectedValue : 0;
+            int producto = cmbProducto.SelectedValue is int ? (int)cmbProducto.SelectedValue : 0;
             catalogo = productos;
             var categorias = catalogo.GroupBy(p => p.IdCategoria).Select(g => new Categoria
             {
@@ -125,20 +133,19 @@ namespace SistemaPedidoRestaurante.UICompartida
             cmbCategoria.DisplayMember = "Nombre";
             cmbCategoria.ValueMember = "IdCategoria";
             cmbCategoria.DataSource = categorias;
-            cmbCategoria.SelectedValue = 0;
-            AplicarFiltro();
-            if (catalogo.Count == 0)
-            {
-                estadoPerfil.Text = "No hay productos disponibles en este momento.";
-            }
+            cmbCategoria.SelectedValue = categorias.Any(c => c.IdCategoria == categoria) ? categoria : 0;
+            AplicarFiltro(producto);
         }
 
-        private void AplicarFiltro()
+        private void AplicarFiltro(int productoPreferido = 0)
         {
             int id = cmbCategoria.SelectedValue is int ? (int)cmbCategoria.SelectedValue : 0;
+            var productos = catalogo.Where(p => id == 0 || p.IdCategoria == id).OrderBy(p => p.Nombre).ToList();
             cmbProducto.DisplayMember = "Nombre";
             cmbProducto.ValueMember = "IdProducto";
-            cmbProducto.DataSource = catalogo.Where(p => id == 0 || p.IdCategoria == id).OrderBy(p => p.Nombre).ToList();
+            cmbProducto.DataSource = productos;
+            if (productos.Any(p => p.IdProducto == productoPreferido))
+                cmbProducto.SelectedValue = productoPreferido;
             MostrarPrecio();
         }
 
@@ -148,17 +155,29 @@ namespace SistemaPedidoRestaurante.UICompartida
             cmbPrecio.Items.Clear();
             if (producto != null)
             {
-                cmbPrecio.Items.Add(producto.Precio.ToString("N2"));
+                var original = BuscarLineaOriginal(producto.IdProducto);
+                cmbPrecio.Items.Add((original?.PrecioUnitario ?? producto.Precio).ToString("N2"));
                 cmbPrecio.SelectedIndex = 0;
             }
 
             ActualizarAvisoStock();
         }
 
-        private int CantidadDisponible(Producto producto)
+        private long CantidadDisponible(Producto producto)
         {
             var linea = borrador.Lineas.FirstOrDefault(item => item.IdProducto == producto.IdProducto);
-            return producto.StockActual - (linea == null ? 0 : linea.Cantidad);
+            return MaximoDisponible(producto.IdProducto, producto.StockActual) - (linea?.Cantidad ?? 0);
+        }
+
+        private LineaPedidoBorrador BuscarLineaOriginal(int producto)
+        {
+            return detalleOriginal.FirstOrDefault(linea => linea.IdProducto == producto);
+        }
+
+        private long MaximoDisponible(int producto, int stockActual)
+        {
+            var original = BuscarLineaOriginal(producto);
+            return (long)stockActual + (original?.Cantidad ?? 0);
         }
 
         private void ActualizarAvisoStock()
@@ -168,16 +187,19 @@ namespace SistemaPedidoRestaurante.UICompartida
             {
                 btnAceptar.Enabled = false;
                 if (perfilValido)
+                {
+                    estadoPerfil.ForeColor = SystemColors.ControlText;
                     estadoPerfil.Text = "No hay productos con existencias en esta categoría.";
+                }
                 return;
             }
 
-            int disponible = CantidadDisponible(producto);
-            int restante = disponible - (int)nudCantidad.Value;
+            long disponible = CantidadDisponible(producto);
+            long restante = disponible - (int)nudCantidad.Value;
             btnAceptar.Enabled = restante >= 0;
             estadoPerfil.ForeColor = restante <= producto.StockMinimo ? Color.DarkRed : SystemColors.ControlText;
             if (restante < 0)
-                estadoPerfil.Text = "Existencias insuficientes. Disponible para agregar: " + disponible + ".";
+                estadoPerfil.Text = "Existencias insuficientes. Disponible para agregar: " + Math.Max(0, disponible) + ".";
             else if (restante <= producto.StockMinimo)
                 estadoPerfil.Text = "Stock bajo. Con esta cantidad quedarían " + restante + " unidades. Mínimo: " + producto.StockMinimo + ".";
             else
@@ -189,7 +211,7 @@ namespace SistemaPedidoRestaurante.UICompartida
             ActualizarAvisoStock();
         }
 
-        private void AgregarAlPedido(object sender, EventArgs e)
+        private void AgregarAlPedido()
         {
             try
             {
@@ -202,7 +224,9 @@ namespace SistemaPedidoRestaurante.UICompartida
                 int cantidad = (int)nudCantidad.Value;
                 if (producto != null && cantidad > CantidadDisponible(producto))
                     throw new ArgumentException("La cantidad supera las existencias disponibles.");
-                borrador.Agregar(producto, cantidad);
+                decimal? precioOriginal = producto == null ? null : BuscarLineaOriginal(producto.IdProducto)?.PrecioUnitario;
+                borrador.Agregar(producto, cantidad, precioOriginal);
+                detalleModificado = true;
                 ActualizarDetalle();
             }
             catch (ArgumentException ex)
@@ -211,59 +235,154 @@ namespace SistemaPedidoRestaurante.UICompartida
             }
         }
 
-        private void QuitarDelPedido(object sender, EventArgs e)
+        private void QuitarDelPedido()
         {
-            var linea = dgvDetalle.CurrentRow?.DataBoundItem as LineaPedidoBorrador;
-            if (linea == null)
-            {
+            if (dgvDetalle.SelectedRows.Count == 0)
                 return;
-            }
 
+            var linea = (LineaPedidoBorrador)dgvDetalle.SelectedRows[0].DataBoundItem;
             borrador.Quitar(linea.IdProducto);
+            detalleModificado = true;
             ActualizarDetalle();
         }
 
-        private void ActualizarDetalle()
+        private void ActualizarDetalle(string aviso = "", bool actualizarListado = true)
         {
-            VistaGestion.Vincular(dgvDetalle, borrador.Lineas);
+            if (actualizarListado)
+            {
+                VistaGestion.Vincular(dgvDetalle, borrador.Lineas);
+                ActualizarBotonQuitar();
+            }
+
             lblTotal.Text = "Total estimado: " + borrador.Total.ToString("N2");
-            btnQuitar.Enabled = btnVaciar.Enabled = borrador.Lineas.Count > 0;
-            btnEnviar.Enabled = perfilValido && borrador.Lineas.Count > 0;
+            btnVaciar.Enabled = borrador.Lineas.Count > 0;
+            string problema = BuscarProblemaDetalle();
+            lblEstadoCatalogo.ForeColor = problema == "" ? SystemColors.ControlText : Color.DarkRed;
+            lblEstadoCatalogo.Text = aviso == "" || problema == "" ? aviso + problema : aviso + Environment.NewLine + problema;
+            bool puedeGuardar = perfilValido && borrador.Lineas.Count > 0 && problema == "";
+            btnEnviar.Enabled = btnCobrarAhora.Enabled = puedeGuardar;
+            btnGuardarCambios.Enabled = puedeGuardar && detalleModificado;
             ActualizarAvisoStock();
         }
 
-        private void Enviar()
+        private string BuscarProblemaDetalle()
         {
+            foreach (LineaPedidoBorrador linea in borrador.Lineas)
+            {
+                var original = BuscarLineaOriginal(linea.IdProducto);
+                int cantidadNueva = linea.Cantidad - (original?.Cantidad ?? 0);
+                if (cantidadNueva <= 0)
+                    continue;
+
+                var producto = catalogo.FirstOrDefault(item => item.IdProducto == linea.IdProducto);
+                if (producto == null)
+                    return linea.Producto + " ya no está disponible para agregar. Revise la línea.";
+                if (producto.StockActual < cantidadNueva)
+                    return linea.Producto + " tiene existencias insuficientes. Disponible: " + producto.StockActual + ".";
+                if (original == null && linea.PrecioUnitario != producto.Precio)
+                    return "Cambió el precio de " + linea.Producto + ". Quite la línea o recargue el catálogo.";
+            }
+
+            return "";
+        }
+
+        private void RegistrarVenta(bool cobrarAhora)
+        {
+            btnEnviar.Enabled = btnCobrarAhora.Enabled = false;
             try
             {
-                btnEnviar.Enabled = false;
-                try
-                {
-                    PedidoRegistrado = new PedidoBLL().GuardarPedido(clienteDelLocal, borrador, solicitud);
-                    MessageBox.Show(this, "Venta " + PedidoRegistrado + " registrada.", "Venta local");
-                    DialogResult = DialogResult.OK;
-                    Close();
-                }
-                finally
-                {
-                    if (!IsDisposed)
-                    {
-                        ActualizarDetalle();
-                    }
-                }
+                PedidoRegistrado = pedidos.GuardarPedido(0, borrador, solicitud);
             }
             catch (Exception error)
             {
                 MessageBox.Show(this, error.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ActualizarDetalle();
+                return;
+            }
+
+            if (cobrarAhora)
+                AbrirCobro();
+            else
+                MessageBox.Show(this, "Venta " + PedidoRegistrado + " guardada como pendiente.", "Venta local");
+
+            DialogResult = DialogResult.OK;
+            Close();
+        }
+
+        private void AbrirCobro()
+        {
+            try
+            {
+                using (Form formulario = PantallasPersonal.CrearCobro(PedidoRegistrado, true))
+                {
+                    if (formulario.ShowDialog(this) == DialogResult.OK)
+                        return;
+                }
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(this, error.Message, "Cobro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            MessageBox.Show(this, "La venta " + PedidoRegistrado +
+                " quedó registrada. Si el cobro sigue pendiente, puedes retomarlo en Ventas abiertas.", "Venta local");
+        }
+
+        private void dgvDetalle_SelectionChanged(object sender, EventArgs e)
+        {
+            ActualizarBotonQuitar();
+        }
+
+        private void ActualizarBotonQuitar()
+        {
+            btnQuitar.Enabled = perfilValido && dgvDetalle.SelectedRows.Count > 0;
+            if (pedidoEnEdicion == 0)
+                return;
+
+            nudCantidadDetalle.Enabled = btnCambiarCantidad.Enabled = btnQuitar.Enabled;
+            if (nudCantidadDetalle.Enabled)
+            {
+                var linea = (LineaPedidoBorrador)dgvDetalle.SelectedRows[0].DataBoundItem;
+                nudCantidadDetalle.Value = Math.Min(linea.Cantidad, nudCantidadDetalle.Maximum);
             }
         }
 
-        private void lblPnombre_Click(object sender, EventArgs e)
+        private void btnCambiarCantidad_Click(object sender, EventArgs e)
         {
+            var linea = (LineaPedidoBorrador)dgvDetalle.SelectedRows[0].DataBoundItem;
+            int cantidad = (int)nudCantidadDetalle.Value;
+            if (cantidad == linea.Cantidad)
+                return;
+
+            try
+            {
+                var producto = catalogo.FirstOrDefault(p => p.IdProducto == linea.IdProducto);
+                if (cantidad > linea.Cantidad && cantidad > MaximoDisponible(linea.IdProducto, producto?.StockActual ?? 0))
+                    throw new ArgumentException("La cantidad supera las existencias disponibles.");
+
+                borrador.CambiarCantidad(linea, cantidad);
+                detalleModificado = true;
+                ActualizarDetalle();
+            }
+            catch (ArgumentException error)
+            {
+                MessageBox.Show(this, error.Message, Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void btnGuardarCambios_Click(object sender, EventArgs e)
         {
+            try
+            {
+                pedidos.EditarPendiente(pedidoEnEdicion, detalleOriginal, borrador);
+                PedidoRegistrado = pedidoEnEdicion;
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(this, error.Message, Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -273,17 +392,22 @@ namespace SistemaPedidoRestaurante.UICompartida
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            AgregarAlPedido(sender, e);
+            AgregarAlPedido();
         }
 
         private void btnEnviar_Click(object sender, EventArgs e)
         {
-            Enviar();
+            RegistrarVenta(false);
+        }
+
+        private void btnCobrarAhora_Click(object sender, EventArgs e)
+        {
+            RegistrarVenta(true);
         }
 
         private void btnQuitar_Click(object sender, EventArgs e)
         {
-            QuitarDelPedido(sender, e);
+            QuitarDelPedido();
         }
 
         private void btnVaciar_Click(object sender, EventArgs e)
@@ -303,7 +427,8 @@ namespace SistemaPedidoRestaurante.UICompartida
         }
         private void FrmPedidoLocalBase_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (DialogResult != DialogResult.OK && borrador.Lineas.Count > 0)
+            bool hayCambios = pedidoEnEdicion > 0 ? detalleModificado : borrador.Lineas.Count > 0;
+            if (DialogResult != DialogResult.OK && hayCambios)
             {
                 e.Cancel = !UIPrincipal.VistaGestion.Confirmar(this, "¿Salir y descartar los cambios del pedido?");
             }

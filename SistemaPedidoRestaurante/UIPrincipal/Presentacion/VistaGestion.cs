@@ -32,7 +32,7 @@ namespace SistemaPedidoRestaurante.UIPrincipal
                 default:
                     estado.Text = "Operación actual: Seleccione una operación";
                     panel.BackColor = System.Drawing.Color.Gainsboro;
-                    accion.Text = "Acción";
+                    accion.Text = "Guardar";
                     break;
             }
         }

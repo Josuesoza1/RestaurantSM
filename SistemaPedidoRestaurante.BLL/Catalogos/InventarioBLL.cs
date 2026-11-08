@@ -29,10 +29,10 @@ namespace SistemaPedidoRestaurante.BLL
             }
         }
 
-        public InventarioProductos Listar()
+        public InventarioProductos Listar(bool incluirSinControl = false)
         {
             Permisos.ExigirRol(1);
-            return inventarioDAL.Listar(SesionActual.IdUsuario);
+            return inventarioDAL.Listar(SesionActual.IdUsuario, incluirSinControl);
         }
 
         public InventarioProductos Buscar(InventarioProductos inventario, string filtro, bool soloBajos = false)
@@ -67,6 +67,8 @@ namespace SistemaPedidoRestaurante.BLL
                 BusquedaLINQ.Contiene(producto.PrecioVenta.ToString(), filtro) ||
                 BusquedaLINQ.Contiene(producto.StockActual.ToString(), filtro) ||
                 BusquedaLINQ.Contiene(producto.StockMinimo.ToString(), filtro) ||
+                BusquedaLINQ.Contiene(producto.EstadoStock, filtro) ||
+                BusquedaLINQ.Contiene(producto.EstadoVenta, filtro) ||
                 BusquedaLINQ.Contiene(producto.Activo.ToString(), filtro);
         }
 

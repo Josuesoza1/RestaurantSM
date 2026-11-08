@@ -4,12 +4,14 @@ using System.Data;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.UIPrincipal;
+using SistemaPedidoRestaurante.Validaciones;
 
 namespace SistemaPedidoRestaurante.UICompartida
 {
     public partial class FrmPagoBase : Form
     {
         private readonly int rolPermitido;
+        private readonly bool desdeMostrador;
         private readonly PagoBLL servicio = new PagoBLL();
         private readonly Guid solicitud = Guid.NewGuid();
         private int pedido;
@@ -19,12 +21,12 @@ namespace SistemaPedidoRestaurante.UICompartida
         {
         }
 
-        protected FrmPagoBase(int rol, int pedido)
+        protected FrmPagoBase(int rol, int pedido, bool desdeMostrador = false)
         {
             this.pedido = pedido;
+            this.desdeMostrador = desdeMostrador;
             rolPermitido = rol;
             InitializeComponent();
-            Load += FrmPagoBase_Load;
         }
 
         private void FrmPagoBase_Load(object sender, EventArgs e)
@@ -53,9 +55,12 @@ namespace SistemaPedidoRestaurante.UICompartida
                     }
                 }
 
-                DataRow cotizacion = servicio.Cotizar(pedido);
+                DataRow cotizacion = servicio.Cotizar(pedido, desdeMostrador);
                 total = Convert.ToDecimal(cotizacion["Total"]);
                 txtMontoTotal.Text = total.ToString("N2");
+                bool nombreOpcional = Convert.ToBoolean(cotizacion["PuedeNombrarComprobante"]);
+                lblNombreComprobante.Visible = txtNombreComprobante.Visible = nombreOpcional;
+                txtNombreComprobante.Enabled = nombreOpcional;
                 Text = "Cobro de pedido " + pedido + " — " + Convert.ToString(cotizacion["Cliente"]);
             }
             catch (Exception error)
@@ -72,12 +77,14 @@ namespace SistemaPedidoRestaurante.UICompartida
             try
             {
                 string metodo = Convert.ToString(cmbTipoPedido.SelectedItem);
+                string nombreComprobante = PagoValidacion.NombreParaComprobante(txtNombreComprobante.Text);
                 using (FrmConfirmarCobro confirmar = new FrmConfirmarCobro(total, metodo))
                 {
                     if (confirmar.ShowDialog(this) != DialogResult.OK)
                         return;
                     btnRegistrarPago.Enabled = false;
-                    DataRow resultado = servicio.Cobrar(pedido, metodo, confirmar.Recibido, total, solicitud, txtNotas.Text);
+                    DataRow resultado = servicio.Cobrar(pedido, metodo, confirmar.Recibido, total, solicitud, txtNotas.Text,
+                        desdeMostrador, nombreComprobante);
                     pagado = true;
                     DialogResult verFactura = MessageBox.Show(this, "Pago registrado. Factura " + resultado["IdFactura"] + ". Cambio: C$ " + Convert.ToDecimal(resultado["Cambio"]).ToString("N2") + ". ¿Ver la factura de esta venta?",
                         "Cobro confirmado", MessageBoxButtons.YesNo, MessageBoxIcon.Information);

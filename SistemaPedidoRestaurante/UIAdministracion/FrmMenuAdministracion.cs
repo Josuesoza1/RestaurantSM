@@ -18,7 +18,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         public FrmMenuAdministracion()
         {
             InitializeComponent();
-            MenuSesion.Configurar(this, menuStrip1, 1);
+            MenuSesion.Configurar(this, menuStrip1, 1, expandirOpciones: false);
         }
         private void categoríasToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -40,36 +40,13 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.DialogResult = DialogResult.Abort;
             this.Close();
         }
-        private void rolesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            {
-                using (var roles = new FrmRoles())
-                    roles.ShowDialog(this);
-            }
-        }
         private void FrmMenuAdministracion_FormClosed(object sender, FormClosedEventArgs e)
         {
             SesionActual.Cerrar();
         }
-        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (Form formulario = new FrmClientes())
-            {
-                formulario.ShowDialog(this);
-            }
-        }
-
         private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (Form formulario = new FrmUsuarios())
-            {
-                formulario.ShowDialog(this);
-            }
-        }
-
-        private void registrarPersonaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var formulario = new FrmRegistrarPersona())
             {
                 formulario.ShowDialog(this);
             }
@@ -115,17 +92,21 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             }
         }
 
-        private void pagosToolStripMenuItem_Click(object sender, EventArgs e)
+        private void historialVentasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (Form formulario = new FrmPagoAdministracion())
-            {
+            using (Form formulario = new FrmPedidosAdministracion(false, historial: true))
                 formulario.ShowDialog(this);
-            }
+        }
+
+        private void estadoMesasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (Form formulario = new FrmMesasAdministracion())
+                formulario.ShowDialog(this);
         }
 
         private void facturasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (Form formulario = new FrmFacturasAdministracion())
+            using (Form formulario = new FrmConsultaFacturasAdministracion())
             {
                 formulario.ShowDialog(this);
             }

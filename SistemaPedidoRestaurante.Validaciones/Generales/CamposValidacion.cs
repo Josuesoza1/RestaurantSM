@@ -5,6 +5,8 @@ namespace SistemaPedidoRestaurante.Validaciones
 {
     public static class CamposValidacion
     {
+        internal const decimal ImporteMaximo = 99999999.99m;
+
         public static bool CaracterEntero(char c)
         {
             return char.IsControl(c) || c >= '0' && c <= '9';
@@ -241,7 +243,7 @@ namespace SistemaPedidoRestaurante.Validaciones
             {
                 throw new ArgumentException("El campo " + campo + " debe ser mayor que cero.");
             }
-            if (numero > 99999999.99m)
+            if (numero > ImporteMaximo)
             {
                 throw new ArgumentException("El campo " + campo + " no puede superar 99999999.99.");
             }
