@@ -14,6 +14,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private int id;
         private bool activa;
         private ModoFormulario modoActual;
+        private (string Numero, string Capacidad, int Estado) datosIniciales;
         public FrmMesas()
         {
             InitializeComponent();
@@ -82,13 +83,18 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                     servicio.Eliminar(id);
                 }
                 else Guardar();
-                Recargar(); Nuevo(); CambiarModo(ModoFormulario.Neutral);
+                Nuevo();
+                CambiarModo(ModoFormulario.Neutral);
+                Recargar();
             }
             catch (Exception error) { MessageBox.Show(this, error.Message, Text, MessageBoxButtons.OK, MessageBoxIcon.Information); }
         }
 
         private void btnLimpiar_Click(object s, EventArgs e)
         {
+            if (!VistaGestion.ConfirmarDescarte(this, HayCambios()))
+                return;
+
             int anterior = id;
             bool estabaActiva = activa;
             object estado = cmbEstadoMesas.SelectedItem;
@@ -103,6 +109,9 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void btnCancelarMesas_Click(object s, EventArgs e)
         {
+            if (!VistaGestion.ConfirmarDescarte(this, HayCambios()))
+                return;
+
             Nuevo(); CambiarModo(ModoFormulario.Neutral);
         }
 
@@ -192,6 +201,22 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             Seleccionar();
             CambiarModo(modo);
         }
+        private (string Numero, string Capacidad, int Estado) DatosIngresados()
+        {
+            return (txtNumeroMesas.Text, txtCapacidadMesas.Text, cmbEstadoMesas.SelectedIndex);
+        }
+
+        private bool HayCambios()
+        {
+            return (modoActual == ModoFormulario.Nuevo || modoActual == ModoFormulario.Editar) && !datosIniciales.Equals(DatosIngresados());
+        }
+
+        private void FrmMesas_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!VistaGestion.ConfirmarDescarte(this, HayCambios()))
+                e.Cancel = true;
+        }
+
         private void CambiarModo(ModoFormulario modo)
         {
             modoActual = modo;
@@ -203,6 +228,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             groupBox1.Enabled = edicion;
             btnGuardarMesas.Enabled = btnCancelarMesas.Enabled = operacion;
             btnLimpiar.Enabled = edicion;
+            if (edicion)
+                datosIniciales = DatosIngresados();
             agregarToolStripMenuItem.Enabled = editarToolStripMenuItem.Enabled = eliminarToolStripMenuItem.Enabled = !operacion;
         }
     }

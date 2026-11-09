@@ -15,6 +15,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private int revision;
         private int seleccionado;
         private ModoFormulario modoActual;
+        private (string Stock, string Minimo, bool ControlActivo) datosIniciales;
         private readonly int productoInicial;
 
         public FrmInventario() : this(0)
@@ -143,13 +144,13 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             desactivarToolStripMenuItem.Enabled = tieneInventario && producto.Activo;
 
             if (producto == null)
-                lblOperacion.Text = "Seleccione un producto del listado para registrar o editar sus existencias.";
+                lblOperacion.Text = "Seleccione un producto para registrar existencias, corregir un conteo o anotar un movimiento.";
             else if (!tieneInventario)
                 lblOperacion.Text = "Sin inventario. Use «Registrar o editar existencias» para ingresar las cantidades iniciales.";
             else if (!producto.Activo)
                 lblOperacion.Text = "Inventario inactivo. Puede reactivarlo al editar sus existencias.";
             else
-                lblOperacion.Text = "Inventario activo. Puede editar sus existencias o registrar una entrada o salida.";
+                lblOperacion.Text = "Para sumar o retirar unidades, abra Movimientos → Entrada o salida.";
         }
 
         private void Guardar(bool activo)
@@ -186,11 +187,17 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void btnLimpiar_Click(object s, EventArgs e)
         {
+            if (!VistaGestion.ConfirmarDescarte(this, HayCambios()))
+                return;
+
             txtStockActual.Clear(); textBox1.Clear();
         }
 
         private void btnCancelar_Click(object s, EventArgs e)
         {
+            if (!VistaGestion.ConfirmarDescarte(this, HayCambios()))
+                return;
+
             CambiarModo(ModoFormulario.Neutral);
         }
 
@@ -265,7 +272,12 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void ayudaToolStripMenuItem_Click(object s, EventArgs e)
         {
-            MessageBox.Show(this, "Seleccione un producto y elija Registrar o editar existencias. Si aparece Sin inventario, ingrese las cantidades iniciales y guarde. La columna En caja indica si el producto se puede vender. Use Movimientos para registrar entradas o salidas con motivo.", "Inventario");
+            MessageBox.Show(this,
+                "Registrar o editar existencias sirve para ingresar el conteo inicial, corregirlo o cambiar el mínimo." +
+                Environment.NewLine + Environment.NewLine +
+                "Movimientos → Entrada o salida sirve para sumar unidades recibidas o retirar unidades por pérdida, devolución u otro motivo." +
+                Environment.NewLine + Environment.NewLine +
+                "La columna En caja indica si el producto se puede vender.", "Inventario");
         }
 
         private void dgvProductoInventario_SelectionChanged(object s, EventArgs e)
@@ -304,8 +316,19 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         }
         private void entradaSalida_Click(object sender, EventArgs e)
         {
-            using (FrmAjusteInventario formulario = new FrmAjusteInventario()) formulario.ShowDialog(this);
-            try { Recargar(); } catch (Exception error) { MessageBox.Show(this, error.Message); }
+            var producto = VistaGestion.RegistroSeleccionado<InventarioProducto>(dgvProductoInventario);
+            try
+            {
+                using (var formulario = new FrmAjusteInventario(producto?.IdProducto ?? 0))
+                    if (formulario.ShowDialog(this) == DialogResult.OK)
+                        Recargar(formulario.ProductoAjustado);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(this, VistaGestion.MensajeParaUsuario(error,
+                    "No se pudo actualizar el listado. Pulse Recargar para revisar las existencias."),
+                    Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
         private void historial_Click(object sender, EventArgs e)
         {
@@ -329,6 +352,22 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             MostrarProducto(producto);
             return true;
         }
+        private (string Stock, string Minimo, bool ControlActivo) DatosIngresados()
+        {
+            return (txtStockActual.Text, textBox1.Text, chkControlActivo.Checked);
+        }
+
+        private bool HayCambios()
+        {
+            return (modoActual == ModoFormulario.Nuevo || modoActual == ModoFormulario.Editar) && !datosIniciales.Equals(DatosIngresados());
+        }
+
+        private void FrmInventario_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!VistaGestion.ConfirmarDescarte(this, HayCambios()))
+                e.Cancel = true;
+        }
+
         private void CambiarModo(ModoFormulario modo)
         {
             modoActual = modo;
@@ -348,6 +387,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             chkControlActivo.Enabled = modo == ModoFormulario.Editar;
             btnGuardarProducto.Enabled = btnCancelar.Enabled = operacion;
             btnLimpiar.Enabled = edicion;
+            if (edicion)
+                datosIniciales = DatosIngresados();
             editarToolStripMenuItem.Enabled = movimientos.Enabled = actualizar.Enabled = !operacion;
             registro.Enabled = !operacion;
             if (!operacion)

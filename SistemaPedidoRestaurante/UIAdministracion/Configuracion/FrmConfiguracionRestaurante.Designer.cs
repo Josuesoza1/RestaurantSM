@@ -116,6 +116,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(536, 439);
             this.Name = "FrmConfiguracionRestaurante";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmConfiguracionRestaurante_FormClosing);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Configuracion del restaurante";
             this.Load += new System.EventHandler(this.cargar);

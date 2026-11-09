@@ -363,6 +363,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(700, 525);
             this.Name = "FrmMesas";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMesas_FormClosing);
             this.Text = "GESTION DE MESAS";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

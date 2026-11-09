@@ -124,6 +124,10 @@ namespace SistemaPedidoRestaurante.BLL
             {
                 inventarioDAL.AjustarInventario(SesionActual.IdUsuario, producto.IdProducto, cantidad, tipo, motivo, producto.Revision);
             }
+            catch (SqlException error) when (error.Number == 50528)
+            {
+                throw new ArgumentException("Las existencias cambiaron. Cierre esta ventana y abra de nuevo Entrada o salida para revisar la cantidad actual.", error);
+            }
             catch (SqlException error)
             {
                 throw OperacionDatos.Traducir(error, "No se pudo ajustar el inventario.");

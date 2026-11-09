@@ -129,7 +129,7 @@
             this.txtTextoBuscar.AccessibleName = "Texto de búsqueda";
             this.txtTextoBuscar.Location = new System.Drawing.Point(58, 15);
             this.txtTextoBuscar.Name = "txtTextoBuscar";
-            this.txtTextoBuscar.Size = new System.Drawing.Size(153, 20);
+            this.txtTextoBuscar.Size = new System.Drawing.Size(145, 20);
             this.txtTextoBuscar.TabIndex = 0;
             this.txtTextoBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTextoBuscar_KeyDown);
             // 
@@ -138,9 +138,9 @@
             this.btnBuscar.BackColor = System.Drawing.Color.SlateGray;
             this.btnBuscar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.ForeColor = System.Drawing.Color.Black;
-            this.btnBuscar.Location = new System.Drawing.Point(215, 8);
+            this.btnBuscar.Location = new System.Drawing.Point(207, 8);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(53, 31);
+            this.btnBuscar.Size = new System.Drawing.Size(61, 31);
             this.btnBuscar.TabIndex = 1;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
@@ -165,7 +165,7 @@
             this.lblGuiaBusqueda.Name = "lblGuiaBusqueda";
             this.lblGuiaBusqueda.Size = new System.Drawing.Size(143, 13);
             this.lblGuiaBusqueda.TabIndex = 6;
-            this.lblGuiaBusqueda.Text = "ID 12, nombre o descripción.";
+            this.lblGuiaBusqueda.Text = "Busque por ID, nombre o descripción.";
             // 
             // btnQuitarFiltro
             // 
@@ -428,6 +428,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(613, 497);
             this.Name = "FrmCategoria";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmCategoria_FormClosing);
             this.Text = "Gestión de Categoría";
             this.Load += new System.EventHandler(this.FrmCategoria_Load);
             this.pnlEncabezado.ResumeLayout(false);

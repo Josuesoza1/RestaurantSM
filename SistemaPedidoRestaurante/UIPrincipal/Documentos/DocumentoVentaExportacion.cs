@@ -12,40 +12,43 @@ namespace SistemaPedidoRestaurante.UIPrincipal
     {
         private static readonly CultureInfo Cultura = CultureInfo.GetCultureInfo("es-NI");
         private readonly List<KeyValuePair<string, object>> datos = new List<KeyValuePair<string, object>>();
+        private readonly List<KeyValuePair<string, object>> datosAdicionales = new List<KeyValuePair<string, object>>();
         private readonly List<KeyValuePair<string, object>> importes = new List<KeyValuePair<string, object>>();
         private readonly string moneda;
+        private readonly string restaurante;
 
         internal string Titulo { get; }
         internal DataTable Detalle { get; } = new DataTable();
+        internal IReadOnlyList<KeyValuePair<string, object>> Datos => datos;
+        internal IReadOnlyList<KeyValuePair<string, object>> DatosAdicionales => datosAdicionales;
+        internal IReadOnlyList<KeyValuePair<string, object>> Importes => importes;
 
         internal DocumentoVentaExportacion(DocumentoVenta venta)
         {
             moneda = venta.Moneda;
-            Titulo = (venta.EsFactura ? "Factura " : "Comprobante de pedido ") + venta.Numero;
-            Agregar(datos, "Restaurante", venta.Restaurante);
-            Agregar(datos, "Fecha", venta.Fecha);
+            restaurante = venta.Restaurante;
+            Titulo = (venta.EsFactura ? "Factura " : "Comprobante de venta ") + venta.Numero;
             Agregar(datos, "Estado", venta.Estado);
+            if (venta.EsFactura)
+                Agregar(datos, "Forma de pago", venta.Metodo);
+            Agregar(datos, venta.EsFactura ? "Fecha de emisión" : "Fecha de registro", venta.Fecha);
             Agregar(datos, "Motivo de anulación", venta.MotivoAnulacion);
             Agregar(datos, "Cliente", venta.Cliente);
-            Agregar(datos, "Cédula", venta.Cedula);
-            Agregar(datos, "Mesa", venta.Mesa);
-            Agregar(datos, "Origen", venta.OrigenPedido);
-            Agregar(datos, "Entrega", venta.TipoPedido);
-            Agregar(datos, "Registrado por", venta.RegistradoPor);
-            Agregar(datos, "Atendido por", venta.AtendidoPor);
-            Agregar(datos, "Dirección", venta.DireccionEntrega);
-            Agregar(datos, "Referencia", venta.ReferenciaEntrega);
-            Agregar(datos, "Contacto", venta.TelefonoContacto);
-            Agregar(datos, "Moneda", moneda);
             if (venta.EsFactura)
-            {
-                Agregar(datos, "Cobrado por", venta.CobradoPor);
-                Agregar(datos, "Medio de pago", venta.Metodo);
-            }
+                AgregarDatoAdicional("Cobrado por", venta.CobradoPor);
             else
-                Agregar(datos, "Uso del documento", "Comprobante de pedido. No acredita un pago.");
+                Agregar(datos, "Uso del documento", "Constancia de los productos solicitados. Para acreditar un pago, use la factura.");
 
-            Agregar(importes, "Total", venta.Total);
+            AgregarDatoAdicional("Cédula", venta.Cedula);
+            AgregarDatoAdicional("Mesa", venta.Mesa);
+            AgregarDatoAdicional("Origen", venta.OrigenPedido);
+            AgregarDatoAdicional("Entrega", venta.TipoPedido);
+            AgregarDatoAdicional("Registrado por", venta.RegistradoPor);
+            AgregarDatoAdicional("Atendido por", venta.AtendidoPor);
+            AgregarDatoAdicional("Dirección", venta.DireccionEntrega);
+            AgregarDatoAdicional("Referencia", venta.ReferenciaEntrega);
+            AgregarDatoAdicional("Contacto", venta.TelefonoContacto);
+
             Agregar(importes, venta.EsFactura ? "Base sin impuesto" : "Productos", venta.Subtotal);
             if (venta.EsFactura)
             {
@@ -54,11 +57,16 @@ namespace SistemaPedidoRestaurante.UIPrincipal
                 Agregar(importes, etiquetaImpuesto, venta.Impuestos);
                 if (venta.Descuento != 0)
                     Agregar(importes, "Descuento", venta.Descuento);
-                Agregar(importes, "Recibido", venta.Recibido);
-                Agregar(importes, "Cambio", venta.Cambio);
             }
             if (venta.CostoEnvio != 0)
                 Agregar(importes, "Envío", venta.CostoEnvio);
+            Agregar(importes, "Total", venta.Total);
+            if (venta.EsFactura && string.Equals(venta.Metodo?.Trim(), "Efectivo", StringComparison.OrdinalIgnoreCase)
+                && venta.Recibido > 0)
+            {
+                Agregar(importes, "Efectivo recibido", venta.Recibido);
+                Agregar(importes, "Vuelto", venta.Cambio);
+            }
 
             Detalle.Columns.Add("Producto", typeof(string));
             Detalle.Columns.Add("Cantidad", typeof(int));
@@ -70,14 +78,40 @@ namespace SistemaPedidoRestaurante.UIPrincipal
 
         internal string DatosVista()
         {
-            return string.Join(Environment.NewLine, datos.Select(campo => campo.Key + ": " +
-                (campo.Value is DateTime fecha ? fecha.ToString("dd/MM/yyyy HH:mm", Cultura) : campo.Value.ToString())));
+            return string.Join(Environment.NewLine, datos
+                .Concat(new[] { new KeyValuePair<string, object>("Restaurante", restaurante) })
+                .Concat(datosAdicionales)
+                .Where(campo => !string.IsNullOrWhiteSpace(Convert.ToString(campo.Value)))
+                .Select(TextoDato));
         }
 
         internal string ImportesVista()
         {
-            return string.Join(Environment.NewLine, importes.Select(campo => campo.Key + ": " + moneda + " " +
-                ((decimal)campo.Value).ToString("N2", Cultura)));
+            return string.Join(Environment.NewLine, importes.OrderBy(campo => campo.Key == "Total" ? 0 : 1)
+                .Select(campo => campo.Key + ": " + Dinero((decimal)campo.Value)));
+        }
+
+        internal static string TextoDato(KeyValuePair<string, object> campo)
+        {
+            return campo.Key + ": " + (campo.Value is DateTime fecha
+                ? fecha.ToString("dd/MM/yyyy HH:mm", Cultura) : campo.Value.ToString());
+        }
+
+        internal string Dinero(decimal importe)
+        {
+            return moneda + " " + importe.ToString("N2", Cultura);
+        }
+
+        internal static bool TieneDatoHistorico(string valor)
+        {
+            return !string.IsNullOrWhiteSpace(valor) &&
+                !string.Equals(valor.Trim(), "Sin registrar", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private void AgregarDatoAdicional(string nombre, string valor)
+        {
+            if (TieneDatoHistorico(valor))
+                Agregar(datosAdicionales, nombre, valor);
         }
 
         internal void GuardarExcel(string archivo)
@@ -92,23 +126,11 @@ namespace SistemaPedidoRestaurante.UIPrincipal
                 hoja.Cell("A1").Style.Font.Bold = true;
                 hoja.Cell("A1").Style.Font.FontSize = 17;
                 hoja.Row(1).Height = 27;
+                hoja.Range("A2:D2").Merge().Value = restaurante ?? "";
 
                 int numero = 3;
                 foreach (var campo in datos)
-                {
-                    hoja.Cell(numero, 1).Value = campo.Key;
-                    hoja.Range(numero, 2, numero, 4).Merge();
-                    var celda = hoja.Cell(numero, 2);
-                    celda.Value = XLCellValue.FromObject(campo.Value, Cultura);
-                    if (campo.Value is DateTime)
-                        celda.Style.DateFormat.Format = "dd/mm/yyyy hh:mm";
-                    else if (campo.Value.ToString().Length > 50)
-                    {
-                        celda.Style.Alignment.WrapText = true;
-                        hoja.Row(numero).Height = 15 * (1 + campo.Value.ToString().Length / 50);
-                    }
-                    numero++;
-                }
+                    EscribirDato(hoja, numero++, campo);
 
                 numero++;
                 foreach (DataColumn columna in Detalle.Columns)
@@ -131,15 +153,38 @@ namespace SistemaPedidoRestaurante.UIPrincipal
                 }
 
                 numero++;
-                hoja.Range(numero, 1, numero, 4).Style.Font.Bold = true;
                 foreach (var campo in importes)
                 {
                     hoja.Cell(numero, 1).Value = campo.Key;
                     hoja.Cell(numero, 4).Value = (decimal)campo.Value;
                     hoja.Cell(numero, 4).Style.NumberFormat.Format = "#,##0.00";
+                    if (campo.Key == "Total")
+                        hoja.Range(numero, 1, numero, 4).Style.Font.Bold = true;
                     numero++;
                 }
+                EscribirDato(hoja, numero++, new KeyValuePair<string, object>("Moneda", moneda ?? ""));
+                if (datosAdicionales.Count > 0)
+                {
+                    numero++;
+                    foreach (var campo in datosAdicionales)
+                        EscribirDato(hoja, numero++, campo);
+                }
                 libro.SaveAs(archivo);
+            }
+        }
+
+        private static void EscribirDato(IXLWorksheet hoja, int numero, KeyValuePair<string, object> campo)
+        {
+            hoja.Cell(numero, 1).Value = campo.Key;
+            hoja.Range(numero, 2, numero, 4).Merge();
+            var celda = hoja.Cell(numero, 2);
+            celda.Value = XLCellValue.FromObject(campo.Value, Cultura);
+            if (campo.Value is DateTime)
+                celda.Style.DateFormat.Format = "dd/mm/yyyy hh:mm";
+            else if (campo.Value.ToString().Length > 50)
+            {
+                celda.Style.Alignment.WrapText = true;
+                hoja.Row(numero).Height = 15 * (1 + campo.Value.ToString().Length / 50);
             }
         }
 

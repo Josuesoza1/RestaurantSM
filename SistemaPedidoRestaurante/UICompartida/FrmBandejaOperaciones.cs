@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.Entities;
@@ -25,6 +26,7 @@ namespace SistemaPedidoRestaurante.UICompartida
         public int PedidoSeleccionado { get; private set; }
 
         private bool TieneHistorialVentas => historial && rolPermitido == RolesSistema.Administrador && tipo == "Pedidos" && !seleccionar;
+        private DateTime MesDelResumen => chkFiltrarMes.Checked ? mesVenta.Value : DateTime.Today;
 
         public FrmBandejaOperaciones() : this(0, "Pedidos")
         {
@@ -62,6 +64,7 @@ namespace SistemaPedidoRestaurante.UICompartida
             }
             filtroMes.Visible = TieneHistorialVentas;
             btnResumenMensual.Visible = TieneHistorialVentas;
+            ActualizarMesDelResumen();
             panelResumenDiario.Visible = TieneHistorialVentas;
             btnSeleccionar.Visible = seleccionar;
             btnNuevo.Visible = pedidos;
@@ -167,6 +170,7 @@ namespace SistemaPedidoRestaurante.UICompartida
 
         private void filtro_Changed(object sender, EventArgs e)
         {
+            ActualizarMesDelResumen();
             try
             {
                 Filtrar();
@@ -181,6 +185,12 @@ namespace SistemaPedidoRestaurante.UICompartida
         {
             mesVenta.Enabled = chkFiltrarMes.Checked;
             filtro_Changed(sender, e);
+        }
+
+        private void ActualizarMesDelResumen()
+        {
+            if (TieneHistorialVentas)
+                btnResumenMensual.Text = "Resumen " + MesDelResumen.ToString("MM/yyyy", CultureInfo.InvariantCulture);
         }
 
         private void listado_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -449,7 +459,7 @@ namespace SistemaPedidoRestaurante.UICompartida
         {
             try
             {
-                DateTime mes = chkFiltrarMes.Checked ? mesVenta.Value : DateTime.Today;
+                DateTime mes = MesDelResumen;
                 MostrarResumen(new ResumenVentasDocumento(mes, facturas.ConsultarResumenMensual(mes), diario: false));
             }
             catch (Exception error)
@@ -542,6 +552,14 @@ namespace SistemaPedidoRestaurante.UICompartida
                     columna.HeaderText = "Venta";
                 if (TieneHistorialVentas && grid == listado && columna.Name == "Fecha")
                     columna.HeaderText = "Fecha de registro";
+                if (columna.Name == "RegistradoPor")
+                    columna.HeaderText = "Registrado por";
+                if (columna.Name == "AtendidoPor")
+                    columna.HeaderText = "Atendido por";
+                if (columna.Name == "IdProducto")
+                    columna.HeaderText = "ID de producto";
+                if (columna.Name == "PrecioUnitario")
+                    columna.HeaderText = "Precio unitario";
                 columna.MinimumWidth = columna.ValueType == typeof(DateTime) ? 132 : 70;
             }
         }

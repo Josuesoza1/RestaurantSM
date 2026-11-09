@@ -11,6 +11,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
     {
         private readonly CategoriaBLL _categoriaBLL = new CategoriaBLL();
         private ModoFormulario modoActual;
+        private (string Nombre, string Descripcion, bool Activa) datosIniciales;
         private Categoria categoriaSeleccionada;
         private string filtroAplicado = "";
 
@@ -91,6 +92,22 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             }
         }
 
+        private (string Nombre, string Descripcion, bool Activa) DatosIngresados()
+        {
+            return (txtNombre.Text, txtDescripcion.Text, chkActiva.Checked);
+        }
+
+        private bool HayCambios()
+        {
+            return (modoActual == ModoFormulario.Nuevo || modoActual == ModoFormulario.Editar) && !datosIniciales.Equals(DatosIngresados());
+        }
+
+        private void FrmCategoria_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!VistaGestion.ConfirmarDescarte(this, HayCambios()))
+                e.Cancel = true;
+        }
+
         private void CambiarModo(ModoFormulario nuevoModo)
         {
             modoActual = nuevoModo;
@@ -124,6 +141,11 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             txtDescripcion.Enabled = puedeEditar;
             chkActiva.Enabled = puedeEditar;
             btnLimpiar.Enabled = puedeEditar;
+            if (puedeEditar)
+            {
+                datosIniciales = DatosIngresados();
+                txtNombre.Focus();
+            }
             btnAccion.Enabled = hayOperacion;
             btnCancelar.Enabled = hayOperacion;
             nuevoToolStripMenuItem.Enabled = editarToolStripMenuItem.Enabled = !hayOperacion;
@@ -153,6 +175,9 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            if (!VistaGestion.ConfirmarDescarte(this, HayCambios()))
+                return;
+
             int id = categoriaSeleccionada?.IdCategoria ?? 0;
             CambiarModo(ModoFormulario.Neutral);
             RestaurarSeleccion(id);
@@ -167,6 +192,9 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
+            if (!VistaGestion.ConfirmarDescarte(this, HayCambios()))
+                return;
+
             LimpiarCampos();
         }
 

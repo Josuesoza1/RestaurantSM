@@ -28,6 +28,10 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             lblTitulo.Text = titulo;
             txtDatos.Text = datos;
             txtImportes.Text = importes;
+            txtImportes.Visible = importes.Length > 0;
+            panelDatos.SetColumnSpan(txtDatos, importes.Length > 0 ? 1 : 2);
+            if (importes.Length == 0)
+                panelDatos.Height = txtDatos.Font.Height * 5 + panelDatos.Padding.Vertical + txtDatos.Margin.Vertical;
             panelDatos.Visible = datos.Length > 0 || importes.Length > 0;
             VistaGestion.PermitirOrden(tablaDetalle);
             tablaDetalle.DataSource = filas;
@@ -78,8 +82,11 @@ namespace SistemaPedidoRestaurante.UIPrincipal
                     if (!string.Equals(Path.GetExtension(elegir.FileName), "." + extension, StringComparison.OrdinalIgnoreCase))
                         throw new ArgumentException("Use la extensión ." + extension + " para este formato.");
 
-                    ArchivoExportado.Guardar(elegir.FileName, generar);
-                    MessageBox.Show(this, "Archivo guardado correctamente.", Text);
+                    string destino = Path.GetFullPath(elegir.FileName);
+                    ArchivoExportado.Guardar(destino, generar);
+                    MessageBox.Show(this, "El archivo se guardó en la siguiente ubicación." +
+                        Environment.NewLine + Environment.NewLine + destino, "Exportación completada",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception error)

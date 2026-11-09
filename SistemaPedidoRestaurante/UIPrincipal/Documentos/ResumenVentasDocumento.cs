@@ -13,8 +13,8 @@ namespace SistemaPedidoRestaurante.UIPrincipal
     internal sealed class ResumenVentasDocumento
     {
         internal static readonly string Notas = string.Join(Environment.NewLine,
-            "El historial usa la fecha de registro. El resumen usa las fechas del pago y de la anulación.",
-            "Recibido y vuelto solo se muestran para efectivo. Una celda vacía indica que no aplica o faltan datos.",
+            "El historial filtra por fecha de registro de la venta. Este resumen cuenta los cobros y las anulaciones en la fecha en que ocurrieron.",
+            "Recibido y vuelto se muestran para pagos en efectivo cuando se registraron esos importes.",
             "El neto es lo cobrado menos las devoluciones por anulación.");
         private const string SinMovimientos = "Sin cobros ni devoluciones registrados en este período.";
         private const string Azul = "#263650";

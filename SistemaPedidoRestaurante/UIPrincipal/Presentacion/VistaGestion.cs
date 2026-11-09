@@ -44,6 +44,11 @@ namespace SistemaPedidoRestaurante.UIPrincipal
                 MessageBoxDefaultButton.Button2) == DialogResult.Yes;
         }
 
+        internal static bool ConfirmarDescarte(Form form, bool hayCambios)
+        {
+            return !hayCambios || Confirmar(form, "Hay cambios sin guardar. ¿Desea descartarlos?");
+        }
+
         internal static string MensajeParaUsuario(Exception error, string aviso)
         {
             if (error is ArgumentException || error is UnauthorizedAccessException)

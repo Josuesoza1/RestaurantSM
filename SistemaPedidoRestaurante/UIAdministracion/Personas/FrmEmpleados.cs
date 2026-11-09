@@ -13,6 +13,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private readonly EmpleadoBLL _empleadoBLL;
         private readonly RolBLL _rolBLL;
         private ModoFormulario modoActual;
+        private (string PrimerNombre, string SegundoNombre, string PrimerApellido, string SegundoApellido,
+            string Telefono, string Cedula, string Cargo, int Genero, int Rol, string Usuario, bool Activo) datosIniciales;
         private Empleado empleadoSeleccionado;
         public FrmEmpleados()
         {
@@ -122,6 +124,25 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             VolverAlMenu();
         }
 
+        private (string PrimerNombre, string SegundoNombre, string PrimerApellido, string SegundoApellido,
+            string Telefono, string Cedula, string Cargo, int Genero, int Rol, string Usuario, bool Activo) DatosIngresados()
+        {
+            return (txtPnombre.Text, txtSnombre.Text, txtPapellido.Text, txtSapellido.Text,
+                txtTelefono.Text, txtCedula.Text, cmbCargo.Text, cmbGenero.SelectedIndex, cmbRol.SelectedIndex,
+                txtUsuario.Text, chkActivo.Checked);
+        }
+
+        private bool HayCambios()
+        {
+            return modoActual == ModoFormulario.Editar && (!datosIniciales.Equals(DatosIngresados()) || txtContrasena.TextLength > 0);
+        }
+
+        private void FrmEmpleados_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!VistaGestion.ConfirmarDescarte(this, HayCambios()))
+                e.Cancel = true;
+        }
+
         private void CambiarModo(ModoFormulario nuevoModo)
         {
             modoActual = nuevoModo;
@@ -145,6 +166,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             txtUsuario.Enabled = txtContrasena.Enabled = chkActivo.Enabled = puedeEditar;
             btnAccion.Enabled = btnCancelar.Enabled = hayOperacion;
             btnLimpiar.Enabled = puedeEditar;
+            if (puedeEditar)
+                datosIniciales = DatosIngresados();
             agregarToolStripMenuItem.Enabled = editarToolStripMenuItem.Enabled = !hayOperacion;
             eliminarToolStripMenuItem.Enabled = desactivarToolStripMenuItem.Enabled = !hayOperacion;
         }
@@ -188,6 +211,9 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
+            if (!VistaGestion.ConfirmarDescarte(this, HayCambios()))
+                return;
+
             LimpiarCampos();
         }
 
@@ -213,6 +239,9 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            if (!VistaGestion.ConfirmarDescarte(this, HayCambios()))
+                return;
+
             empleadoSeleccionado = null;
             LimpiarCampos();
             CambiarModo(ModoFormulario.Neutral);

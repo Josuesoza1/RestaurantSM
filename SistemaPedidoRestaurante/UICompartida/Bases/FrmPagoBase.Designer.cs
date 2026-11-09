@@ -21,6 +21,7 @@
             this.lblTituloFactura = new System.Windows.Forms.Label();
             this.lblMetodoPago = new System.Windows.Forms.Label();
             this.cmbTipoPedido = new System.Windows.Forms.ComboBox();
+            this.lblGuiaPago = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtNotas = new System.Windows.Forms.TextBox();
             this.lblNotas = new System.Windows.Forms.Label();
@@ -81,6 +82,10 @@
             this.cmbTipoPedido.Size = new System.Drawing.Size(362, 21);
             this.cmbTipoPedido.TabIndex = 15;
             this.cmbTipoPedido.SelectedIndexChanged += new System.EventHandler(this.cmbTipoPedido_SelectedIndexChanged);
+            this.lblGuiaPago.AutoSize = true;
+            this.lblGuiaPago.Location = new System.Drawing.Point(131, 134);
+            this.lblGuiaPago.Name = "lblGuiaPago";
+            this.lblGuiaPago.Text = "Elija una forma de pago para habilitar Revisar pago.";
             // 
             // groupBox1
             // 
@@ -196,11 +201,13 @@
             this.Controls.Add(this.btnVolverPagos);
             this.Controls.Add(this.btnRegistrarPago);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.lblGuiaPago);
             this.Controls.Add(this.cmbTipoPedido);
             this.Controls.Add(this.lblMetodoPago);
             this.Controls.Add(this.panel1);
             this.MinimumSize = new System.Drawing.Size(550, 438);
             this.Name = "FrmPagoBase";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "GESTION DE PAGO";
             this.Load += new System.EventHandler(this.FrmPagoBase_Load);
             this.panel1.ResumeLayout(false);
@@ -217,6 +224,7 @@
         protected System.Windows.Forms.Label lblTituloFactura;
         protected System.Windows.Forms.Label lblMetodoPago;
         protected System.Windows.Forms.ComboBox cmbTipoPedido;
+        private System.Windows.Forms.Label lblGuiaPago;
         protected System.Windows.Forms.GroupBox groupBox1;
         protected System.Windows.Forms.TextBox txtNotas;
         protected System.Windows.Forms.Label lblNotas;

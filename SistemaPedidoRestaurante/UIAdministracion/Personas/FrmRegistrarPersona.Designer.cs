@@ -575,6 +575,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Alta de personal";
             this.Load += new System.EventHandler(this.FrmRegistrarPersona_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmRegistrarPersona_FormClosing);
             this.pnlEncabezado.ResumeLayout(false);
             this.pnlTipo.ResumeLayout(false);
             this.pnlTipo.PerformLayout();

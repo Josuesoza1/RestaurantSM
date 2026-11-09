@@ -89,7 +89,7 @@
             this.txtBuscar.Location = new System.Drawing.Point(190, 8);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(319, 20);
-            this.txtBuscar.TabIndex = 0;
+            this.txtBuscar.TabIndex = 1;
             this.txtBuscar.TextChanged += new System.EventHandler(this.filtro_Changed);
             // 
             // btnUltimoComprobante
@@ -172,7 +172,7 @@
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.btnNuevo.Size = new System.Drawing.Size(113, 29);
-            this.btnNuevo.TabIndex = 1;
+            this.btnNuevo.TabIndex = 0;
             this.btnNuevo.Text = "Nueva venta";
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
@@ -403,7 +403,7 @@
             this.listado.AllowUserToDeleteRows = false;
             this.listado.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.listado.BackgroundColor = System.Drawing.Color.White;
-            this.listado.ColumnHeadersHeight = 29;
+            this.listado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.listado.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listado.Location = new System.Drawing.Point(0, 0);
             this.listado.MultiSelect = false;

@@ -82,7 +82,9 @@ namespace SistemaPedidoRestaurante.UICompartida
 
         private void ActualizarBotonPago()
         {
-            btnRegistrarPago.Enabled = total > 0 && cmbTipoPedido.SelectedIndex >= 0 && !pagado;
+            bool formaElegida = cmbTipoPedido.SelectedIndex >= 0;
+            lblGuiaPago.Visible = !formaElegida;
+            btnRegistrarPago.Enabled = total > 0 && formaElegida && !pagado;
         }
 
         private void btnRegistrarPago_Click(object sender, EventArgs e)

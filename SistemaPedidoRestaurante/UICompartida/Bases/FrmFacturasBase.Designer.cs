@@ -195,7 +195,7 @@
             this.lblFechaFactura.Name = "lblFechaFactura";
             this.lblFechaFactura.Size = new System.Drawing.Size(47, 15);
             this.lblFechaFactura.TabIndex = 1;
-            this.lblFechaFactura.Text = " Fecha:";
+            this.lblFechaFactura.Text = "Emisión:";
             // 
             // lblNumeroFactura
             // 
@@ -261,7 +261,7 @@
             this.grpDetalleFactura.Size = new System.Drawing.Size(776, 183);
             this.grpDetalleFactura.TabIndex = 7;
             this.grpDetalleFactura.TabStop = false;
-            this.grpDetalleFactura.Text = "Detalle de la Factura";
+            this.grpDetalleFactura.Text = "Productos de la factura";
             // 
             // dataGridView1
             // 
@@ -282,24 +282,26 @@
             // 
             this.ColProducto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.ColProducto.HeaderText = "Producto";
+            this.ColProducto.FillWeight = 160F;
             this.ColProducto.Name = "ColProducto";
             // 
             // ColCantidad
             // 
             this.ColCantidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.ColCantidad.HeaderText = "Cantidad";
+            this.ColCantidad.FillWeight = 65F;
             this.ColCantidad.Name = "ColCantidad";
             // 
             // ColPrecioUnitario
             // 
             this.ColPrecioUnitario.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColPrecioUnitario.HeaderText = "Precio Unitario";
+            this.ColPrecioUnitario.HeaderText = "Precio unitario";
             this.ColPrecioUnitario.Name = "ColPrecioUnitario";
             // 
             // ColSubtotal
             // 
             this.ColSubtotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColSubtotal.HeaderText = "Subtotal";
+            this.ColSubtotal.HeaderText = "Importe";
             this.ColSubtotal.Name = "ColSubtotal";
             // 
             // grpInformacionAdicional
@@ -320,35 +322,35 @@
             this.grpInformacionAdicional.Size = new System.Drawing.Size(248, 202);
             this.grpInformacionAdicional.TabIndex = 8;
             this.grpInformacionAdicional.TabStop = false;
-            this.grpInformacionAdicional.Text = "Información Adicional";
+            this.grpInformacionAdicional.Text = "Total y forma de pago";
             // 
             // lblMetodoPagoFactura
             // 
             this.lblMetodoPagoFactura.AutoSize = true;
             this.lblMetodoPagoFactura.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMetodoPagoFactura.Location = new System.Drawing.Point(12, 140);
+            this.lblMetodoPagoFactura.Location = new System.Drawing.Point(12, 69);
             this.lblMetodoPagoFactura.Name = "lblMetodoPagoFactura";
             this.lblMetodoPagoFactura.Size = new System.Drawing.Size(101, 15);
             this.lblMetodoPagoFactura.TabIndex = 13;
-            this.lblMetodoPagoFactura.Text = "Metodo de Pago:";
+            this.lblMetodoPagoFactura.Text = "Forma de pago:";
             // 
             // txtMetodoPago
             // 
-            this.txtMetodoPago.Location = new System.Drawing.Point(119, 136);
+            this.txtMetodoPago.Location = new System.Drawing.Point(119, 65);
             this.txtMetodoPago.Name = "txtMetodoPago";
             this.txtMetodoPago.Size = new System.Drawing.Size(100, 24);
             this.txtMetodoPago.TabIndex = 12;
             // 
             // txtTotalFactura
             // 
-            this.txtTotalFactura.Location = new System.Drawing.Point(119, 169);
+            this.txtTotalFactura.Location = new System.Drawing.Point(119, 29);
             this.txtTotalFactura.Name = "txtTotalFactura";
-            this.txtTotalFactura.Size = new System.Drawing.Size(100, 24);
+            this.txtTotalFactura.Size = new System.Drawing.Size(116, 24);
             this.txtTotalFactura.TabIndex = 11;
             // 
             // txtSubtotalFactura
             // 
-            this.txtSubtotalFactura.Location = new System.Drawing.Point(119, 29);
+            this.txtSubtotalFactura.Location = new System.Drawing.Point(119, 103);
             this.txtSubtotalFactura.Name = "txtSubtotalFactura";
             this.txtSubtotalFactura.Size = new System.Drawing.Size(100, 24);
             this.txtSubtotalFactura.TabIndex = 10;
@@ -357,7 +359,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(12, 173);
+            this.label4.Location = new System.Drawing.Point(12, 33);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(47, 15);
             this.label4.TabIndex = 9;
@@ -367,7 +369,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 107);
+            this.label3.Location = new System.Drawing.Point(12, 173);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 15);
             this.label3.TabIndex = 8;
@@ -375,14 +377,14 @@
             // 
             // txtDescuentoFactura
             // 
-            this.txtDescuentoFactura.Location = new System.Drawing.Point(119, 103);
+            this.txtDescuentoFactura.Location = new System.Drawing.Point(119, 169);
             this.txtDescuentoFactura.Name = "txtDescuentoFactura";
             this.txtDescuentoFactura.Size = new System.Drawing.Size(100, 24);
             this.txtDescuentoFactura.TabIndex = 7;
             // 
             // txtImpuestoFactura
             // 
-            this.txtImpuestoFactura.Location = new System.Drawing.Point(119, 65);
+            this.txtImpuestoFactura.Location = new System.Drawing.Point(119, 136);
             this.txtImpuestoFactura.Name = "txtImpuestoFactura";
             this.txtImpuestoFactura.Size = new System.Drawing.Size(100, 24);
             this.txtImpuestoFactura.TabIndex = 8;
@@ -391,7 +393,7 @@
             // 
             this.lblImpuestos.AutoSize = true;
             this.lblImpuestos.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblImpuestos.Location = new System.Drawing.Point(12, 73);
+            this.lblImpuestos.Location = new System.Drawing.Point(12, 140);
             this.lblImpuestos.Name = "lblImpuestos";
             this.lblImpuestos.Size = new System.Drawing.Size(63, 15);
             this.lblImpuestos.TabIndex = 7;
@@ -401,7 +403,7 @@
             // 
             this.lblSubtotal.AutoSize = true;
             this.lblSubtotal.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSubtotal.Location = new System.Drawing.Point(12, 33);
+            this.lblSubtotal.Location = new System.Drawing.Point(12, 107);
             this.lblSubtotal.Name = "lblSubtotal";
             this.lblSubtotal.Size = new System.Drawing.Size(57, 15);
             this.lblSubtotal.TabIndex = 6;

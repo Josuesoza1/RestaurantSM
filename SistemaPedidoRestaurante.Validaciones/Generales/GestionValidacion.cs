@@ -52,15 +52,32 @@ namespace SistemaPedidoRestaurante.Validaciones
 
         public static string MovimientoInventario(InventarioProducto producto, int cantidad, string tipo, string motivo)
         {
-            if (producto == null || producto.IdProducto <= 0 || producto.Revision <= 0)
+            if (producto == null || producto.IdProducto <= 0 || producto.Revision <= 0 || !producto.Activo)
             {
-                throw new ArgumentException("Seleccione un producto de inventario actualizado.");
+                throw new ArgumentException("Seleccione un producto con inventario activo.");
             }
-            if (cantidad <= 0 || (tipo != "Entrada" && tipo != "Salida"))
+
+            int maximo = MaximoMovimientoInventario(producto.StockActual, tipo);
+            if (maximo == 0)
             {
-                throw new ArgumentException("Seleccione entrada o salida y una cantidad positiva.");
+                throw new ArgumentException(tipo == "Salida"
+                    ? "Este producto tiene 0 unidades para retirar."
+                    : "Este producto ya alcanzó el máximo de " + int.MaxValue + " unidades.");
             }
+            if (cantidad < 1 || cantidad > maximo)
+                throw new ArgumentException("Ingrese una cantidad entera de 1 a " + maximo + " unidades.");
+
             return CamposValidacion.Texto(motivo, 200, "motivo", true);
+        }
+
+        public static int MaximoMovimientoInventario(int stockActual, string tipo)
+        {
+            if (tipo == "Entrada")
+                return int.MaxValue - stockActual;
+            if (tipo == "Salida")
+                return stockActual;
+
+            throw new ArgumentException("Seleccione Entrada o Salida.");
         }
     }
 }

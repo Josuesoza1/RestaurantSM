@@ -64,17 +64,26 @@ namespace SistemaPedidoRestaurante.UICompartida
             txtNumeroFactura.Text = documento.Numero;
             txtClienteFactura.Text = documento.Cliente;
             txtEmpleadoFactura.Text = documento.CobradoPor;
-            txtMesaFactura.Text = string.IsNullOrEmpty(documento.Mesa) ? "Sin mesa" : documento.Mesa;
+            lblEmpleadoFactura.Visible = txtEmpleadoFactura.Visible = DocumentoVentaExportacion.TieneDatoHistorico(documento.CobradoPor);
+            txtMesaFactura.Text = documento.Mesa;
+            lblMesaFactura.Visible = txtMesaFactura.Visible = DocumentoVentaExportacion.TieneDatoHistorico(documento.Mesa);
             dtpFechaFactura.Value = documento.Fecha;
-            dtpFechaFactura.CustomFormat = "dd/MM/yy";
+            dtpFechaFactura.CustomFormat = "dd/MM/yyyy";
             cmbTipoPedido.Items.Clear();
-            cmbTipoPedido.Items.Add(documento.TipoPedido);
-            cmbTipoPedido.SelectedIndex = 0;
+            bool tieneEntrega = DocumentoVentaExportacion.TieneDatoHistorico(documento.TipoPedido);
+            if (tieneEntrega)
+            {
+                cmbTipoPedido.Items.Add(documento.TipoPedido);
+                cmbTipoPedido.SelectedIndex = 0;
+            }
+            lblTipoPedido.Visible = cmbTipoPedido.Visible = tieneEntrega;
             txtSubtotalFactura.Text = documento.Subtotal.ToString("N2");
             txtImpuestoFactura.Text = documento.Impuestos.ToString("N2");
             txtDescuentoFactura.Text = documento.Descuento.ToString("N2");
-            txtTotalFactura.Text = documento.Total.ToString("N2");
+            label3.Visible = txtDescuentoFactura.Visible = documento.Descuento != 0;
+            txtTotalFactura.Text = (documento.Moneda + " " + documento.Total.ToString("N2")).Trim();
             txtMetodoPago.Text = documento.Metodo;
+            lblMetodoPagoFactura.Visible = txtMetodoPago.Visible = DocumentoVentaExportacion.TieneDatoHistorico(documento.Metodo);
             VistaGestion.Vincular(dataGridView1, documento.Detalle);
             btnGuardarProducto.Enabled = true;
             btnAnular.Enabled = Permisos.PuedeVerHistorial && documento.Estado == "Pagada"

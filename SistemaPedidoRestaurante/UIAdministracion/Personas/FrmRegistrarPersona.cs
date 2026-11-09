@@ -230,6 +230,9 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
+            if (!VistaGestion.ConfirmarDescarte(this, HayCambios()))
+                return;
+
             chkPersonaExistente.Checked = false;
             personaSeleccionada = null;
             LimpiarPersona();
@@ -246,6 +249,23 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private bool HayCambios()
+        {
+            return personaSeleccionada != null || txtPrimerNombre.TextLength > 0 || txtSegundoNombre.TextLength > 0
+                || txtPrimerApellido.TextLength > 0 || txtSegundoApellido.TextLength > 0 || txtCedula.TextLength > 0
+                || txtTelefono.TextLength > 0 || cmbGenero.SelectedIndex >= 0 || txtUsuario.TextLength > 0
+                || txtContrasena.TextLength > 0 || txtConfirmar.TextLength > 0;
+        }
+
+        private void FrmRegistrarPersona_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (DialogResult != DialogResult.OK && !VistaGestion.ConfirmarDescarte(this, HayCambios()))
+            {
+                e.Cancel = true;
+                DialogResult = DialogResult.None;
+            }
         }
     }
 }

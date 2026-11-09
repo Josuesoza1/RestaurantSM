@@ -581,6 +581,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(773, 454);
             this.Name = "FrmInventario";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmInventario_FormClosing);
             this.Text = "GESTION DE INVENTARIO";
             this.Load += new System.EventHandler(this.FrmInventario_CargarDatos);
             this.menuStrip1.ResumeLayout(false);

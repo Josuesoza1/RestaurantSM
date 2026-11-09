@@ -698,6 +698,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MinimumSize = new System.Drawing.Size(705, 572);
             this.Name = "FrmEmpleados";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmEmpleados_FormClosing);
             this.Text = "Gestión de Empleados";
             this.Load += new System.EventHandler(this.FrmEmpleados_Load);
             this.pnlEncabezado.ResumeLayout(false);
