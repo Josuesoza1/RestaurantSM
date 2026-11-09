@@ -53,6 +53,11 @@
     <PackageReference Include="ClosedXML" Version="0.105.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="UIAdministracion\Personas\FrmRegistrarPersona.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -279,13 +284,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
+    <EmbeddedResource Include="UIPrincipal\Documentos\FrmVistaPrevia.resx">
+      <DependentUpon>FrmVistaPrevia.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -298,8 +302,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SistemaPedidoRestaurante.Validaciones\SistemaPedidoRestaurante.Validaciones.csproj">
@@ -315,18 +317,7 @@
       <Name>SistemaPedidoRestaurante.Entities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="UIAdministracion\Operaciones\FrmAjusteInventario.resx">
       <DependentUpon>FrmAjusteInventario.cs</DependentUpon>
@@ -379,6 +370,9 @@
     <EmbeddedResource Include="UIAdministracion\Catalogos\FrmRoles.resx">
       <DependentUpon>FrmRoles.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UIEmpleado\FrmMenuEmpleado.resx">
+      <DependentUpon>FrmMenuEmpleado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UIEmpleado\FrmMesasEmpleado.resx">
       <DependentUpon>FrmMesasEmpleado.cs</DependentUpon>
     </EmbeddedResource>
@@ -411,6 +405,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Agregar.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UIAdministracion\Operaciones\FrmConsultaFacturasAdministracion.resx">

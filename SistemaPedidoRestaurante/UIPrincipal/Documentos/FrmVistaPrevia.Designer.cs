@@ -14,6 +14,7 @@ namespace SistemaPedidoRestaurante.UIPrincipal
 
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.panelDatos = new System.Windows.Forms.TableLayoutPanel();
             this.txtDatos = new System.Windows.Forms.TextBox();
@@ -23,74 +24,146 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             this.btnPdf = new System.Windows.Forms.Button();
             this.btnExcel = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
+            this.panelDatos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tablaDetalle)).BeginInit();
+            this.acciones.SuspendLayout();
             this.SuspendLayout();
-            this.lblTitulo.BackColor = System.Drawing.Color.FromArgb(38, 54, 80);
+            // 
+            // lblTitulo
+            // 
+            this.lblTitulo.BackColor = System.Drawing.Color.Red;
             this.lblTitulo.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
+            this.lblTitulo.Location = new System.Drawing.Point(0, 0);
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Padding = new System.Windows.Forms.Padding(12, 0, 12, 0);
             this.lblTitulo.Size = new System.Drawing.Size(820, 48);
+            this.lblTitulo.TabIndex = 2;
             this.lblTitulo.Text = "Vista previa";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panelDatos
+            // 
+            this.panelDatos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.panelDatos.ColumnCount = 2;
             this.panelDatos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 63F));
             this.panelDatos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37F));
             this.panelDatos.Controls.Add(this.txtDatos, 0, 0);
             this.panelDatos.Controls.Add(this.txtImportes, 1, 0);
             this.panelDatos.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelDatos.Location = new System.Drawing.Point(0, 48);
             this.panelDatos.Name = "panelDatos";
             this.panelDatos.Padding = new System.Windows.Forms.Padding(8);
             this.panelDatos.RowCount = 1;
             this.panelDatos.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.panelDatos.Size = new System.Drawing.Size(820, 190);
+            this.panelDatos.TabIndex = 1;
+            // 
+            // txtDatos
+            // 
             this.txtDatos.AccessibleName = "Datos del documento";
             this.txtDatos.BackColor = System.Drawing.Color.White;
             this.txtDatos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtDatos.Location = new System.Drawing.Point(11, 11);
             this.txtDatos.Multiline = true;
             this.txtDatos.Name = "txtDatos";
             this.txtDatos.ReadOnly = true;
             this.txtDatos.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtDatos.Size = new System.Drawing.Size(500, 168);
+            this.txtDatos.TabIndex = 0;
+            // 
+            // txtImportes
+            // 
             this.txtImportes.AccessibleName = "Importes del documento";
             this.txtImportes.BackColor = System.Drawing.Color.White;
             this.txtImportes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtImportes.Location = new System.Drawing.Point(517, 11);
             this.txtImportes.Multiline = true;
             this.txtImportes.Name = "txtImportes";
             this.txtImportes.ReadOnly = true;
             this.txtImportes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtImportes.Size = new System.Drawing.Size(292, 168);
+            this.txtImportes.TabIndex = 1;
+            // 
+            // tablaDetalle
+            // 
             this.tablaDetalle.AccessibleName = "Detalle del documento";
             this.tablaDetalle.AllowUserToAddRows = false;
             this.tablaDetalle.AllowUserToDeleteRows = false;
             this.tablaDetalle.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.tablaDetalle.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.tablaDetalle.BackgroundColor = System.Drawing.Color.White;
-            this.tablaDetalle.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tablaDetalle.DefaultCellStyle = dataGridViewCellStyle4;
             this.tablaDetalle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tablaDetalle.Location = new System.Drawing.Point(0, 238);
             this.tablaDetalle.Name = "tablaDetalle";
             this.tablaDetalle.ReadOnly = true;
             this.tablaDetalle.RowHeadersVisible = false;
+            this.tablaDetalle.Size = new System.Drawing.Size(820, 327);
+            this.tablaDetalle.TabIndex = 0;
             this.tablaDetalle.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.tablaDetalle_DataBindingComplete);
+            // 
+            // acciones
+            // 
             this.acciones.AutoSize = true;
+            this.acciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.acciones.Controls.Add(this.btnPdf);
+            this.acciones.Controls.Add(this.btnExcel);
+            this.acciones.Controls.Add(this.btnCerrar);
             this.acciones.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.acciones.Location = new System.Drawing.Point(0, 565);
             this.acciones.Name = "acciones";
             this.acciones.Padding = new System.Windows.Forms.Padding(8);
-            this.acciones.Controls.AddRange(new System.Windows.Forms.Control[] { this.btnPdf, this.btnExcel, this.btnCerrar });
+            this.acciones.Size = new System.Drawing.Size(820, 45);
+            this.acciones.TabIndex = 3;
+            // 
+            // btnPdf
+            // 
             this.btnPdf.AutoSize = true;
+            this.btnPdf.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnPdf.Location = new System.Drawing.Point(11, 11);
             this.btnPdf.Name = "btnPdf";
+            this.btnPdf.Size = new System.Drawing.Size(79, 23);
             this.btnPdf.TabIndex = 0;
             this.btnPdf.Text = "Guardar PDF";
+            this.btnPdf.UseVisualStyleBackColor = false;
             this.btnPdf.Click += new System.EventHandler(this.btnPdf_Click);
+            // 
+            // btnExcel
+            // 
             this.btnExcel.AutoSize = true;
+            this.btnExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnExcel.Location = new System.Drawing.Point(96, 11);
             this.btnExcel.Name = "btnExcel";
+            this.btnExcel.Size = new System.Drawing.Size(84, 23);
             this.btnExcel.TabIndex = 1;
             this.btnExcel.Text = "Guardar Excel";
+            this.btnExcel.UseVisualStyleBackColor = false;
             this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
+            // 
+            // btnCerrar
+            // 
             this.btnCerrar.AutoSize = true;
+            this.btnCerrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnCerrar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCerrar.Location = new System.Drawing.Point(186, 11);
             this.btnCerrar.Name = "btnCerrar";
+            this.btnCerrar.Size = new System.Drawing.Size(75, 23);
             this.btnCerrar.TabIndex = 2;
             this.btnCerrar.Text = "Cerrar";
+            this.btnCerrar.UseVisualStyleBackColor = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
+            // 
+            // FrmVistaPrevia
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCerrar;
@@ -104,9 +177,14 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Vista previa";
+            this.panelDatos.ResumeLayout(false);
+            this.panelDatos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tablaDetalle)).EndInit();
+            this.acciones.ResumeLayout(false);
+            this.acciones.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
     }
 }

@@ -116,5 +116,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             Close();
         }
+
+        private void grpAdmin_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
