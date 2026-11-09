@@ -13,6 +13,7 @@
         #region Codigo generado por el disenador de Windows Forms
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmConfiguracionRestaurante));
             this.panel = new System.Windows.Forms.TableLayoutPanel();
             this.lblNombre = new System.Windows.Forms.Label();
             this.nombre = new System.Windows.Forms.TextBox();
@@ -27,8 +28,9 @@
             // panel
             // 
             this.panel.AutoScroll = true;
+            this.panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.panel.ColumnCount = 1;
-            this.panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 480F));
             this.panel.Controls.Add(this.lblNombre, 0, 0);
             this.panel.Controls.Add(this.nombre, 0, 1);
             this.panel.Controls.Add(this.lblImpuesto, 0, 2);
@@ -40,12 +42,12 @@
             this.panel.Name = "panel";
             this.panel.Padding = new System.Windows.Forms.Padding(20);
             this.panel.RowCount = 6;
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panel.Size = new System.Drawing.Size(520, 400);
             this.panel.TabIndex = 0;
             // 
@@ -61,7 +63,7 @@
             // nombre
             // 
             this.nombre.Dock = System.Windows.Forms.DockStyle.Top;
-            this.nombre.Location = new System.Drawing.Point(23, 43);
+            this.nombre.Location = new System.Drawing.Point(23, 36);
             this.nombre.MaxLength = 120;
             this.nombre.Name = "nombre";
             this.nombre.Size = new System.Drawing.Size(474, 20);
@@ -70,7 +72,7 @@
             // lblImpuesto
             // 
             this.lblImpuesto.AutoSize = true;
-            this.lblImpuesto.Location = new System.Drawing.Point(23, 60);
+            this.lblImpuesto.Location = new System.Drawing.Point(23, 59);
             this.lblImpuesto.Name = "lblImpuesto";
             this.lblImpuesto.Size = new System.Drawing.Size(106, 13);
             this.lblImpuesto.TabIndex = 2;
@@ -79,7 +81,7 @@
             // tasa
             // 
             this.tasa.DecimalPlaces = 2;
-            this.tasa.Location = new System.Drawing.Point(23, 83);
+            this.tasa.Location = new System.Drawing.Point(23, 75);
             this.tasa.Name = "tasa";
             this.tasa.Size = new System.Drawing.Size(120, 20);
             this.tasa.TabIndex = 3;
@@ -87,10 +89,10 @@
             // explicacion
             // 
             this.explicacion.AutoSize = true;
-            this.explicacion.Location = new System.Drawing.Point(23, 100);
+            this.explicacion.Location = new System.Drawing.Point(23, 98);
             this.explicacion.MaximumSize = new System.Drawing.Size(460, 0);
             this.explicacion.Name = "explicacion";
-            this.explicacion.Size = new System.Drawing.Size(447, 20);
+            this.explicacion.Size = new System.Drawing.Size(447, 26);
             this.explicacion.TabIndex = 4;
             this.explicacion.Text = "Los precios del menu son finales. La tasa se desglosa dentro de ese precio y se a" +
     "plica solo a nuevas facturas.";
@@ -98,7 +100,7 @@
             // guardar
             // 
             this.guardar.AutoSize = true;
-            this.guardar.Location = new System.Drawing.Point(23, 123);
+            this.guardar.Location = new System.Drawing.Point(23, 127);
             this.guardar.Name = "guardar";
             this.guardar.Size = new System.Drawing.Size(122, 23);
             this.guardar.TabIndex = 5;
@@ -111,6 +113,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(520, 400);
             this.Controls.Add(this.panel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(536, 439);
             this.Name = "FrmConfiguracionRestaurante";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

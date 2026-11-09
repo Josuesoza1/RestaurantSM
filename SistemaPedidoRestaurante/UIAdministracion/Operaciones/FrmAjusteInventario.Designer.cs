@@ -29,8 +29,9 @@
             // 
             // panel
             // 
+            this.panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.panel.ColumnCount = 1;
-            this.panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 580F));
             this.panel.Controls.Add(this.lblProducto, 0, 0);
             this.panel.Controls.Add(this.productos, 0, 1);
             this.panel.Controls.Add(this.existencias, 0, 2);
@@ -45,15 +46,15 @@
             this.panel.Name = "panel";
             this.panel.Padding = new System.Windows.Forms.Padding(20);
             this.panel.RowCount = 9;
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panel.Size = new System.Drawing.Size(620, 340);
             this.panel.TabIndex = 0;
             // 
@@ -71,7 +72,7 @@
             this.productos.DisplayMember = "Producto";
             this.productos.Dock = System.Windows.Forms.DockStyle.Top;
             this.productos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.productos.Location = new System.Drawing.Point(23, 43);
+            this.productos.Location = new System.Drawing.Point(23, 36);
             this.productos.Name = "productos";
             this.productos.Size = new System.Drawing.Size(574, 21);
             this.productos.TabIndex = 1;
@@ -93,7 +94,7 @@
             this.tipo.Items.AddRange(new object[] {
             "Entrada",
             "Salida"});
-            this.tipo.Location = new System.Drawing.Point(23, 83);
+            this.tipo.Location = new System.Drawing.Point(23, 76);
             this.tipo.Name = "tipo";
             this.tipo.Size = new System.Drawing.Size(574, 21);
             this.tipo.TabIndex = 3;
@@ -109,7 +110,7 @@
             // 
             // cantidad
             // 
-            this.cantidad.Location = new System.Drawing.Point(23, 123);
+            this.cantidad.Location = new System.Drawing.Point(23, 116);
             this.cantidad.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -132,7 +133,7 @@
             // lblMotivo
             // 
             this.lblMotivo.AutoSize = true;
-            this.lblMotivo.Location = new System.Drawing.Point(23, 140);
+            this.lblMotivo.Location = new System.Drawing.Point(23, 139);
             this.lblMotivo.Name = "lblMotivo";
             this.lblMotivo.Size = new System.Drawing.Size(132, 13);
             this.lblMotivo.TabIndex = 6;
@@ -141,7 +142,7 @@
             // motivo
             // 
             this.motivo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.motivo.Location = new System.Drawing.Point(23, 163);
+            this.motivo.Location = new System.Drawing.Point(23, 155);
             this.motivo.MaxLength = 200;
             this.motivo.Name = "motivo";
             this.motivo.Size = new System.Drawing.Size(574, 20);
@@ -150,7 +151,7 @@
             // guardar
             // 
             this.guardar.AutoSize = true;
-            this.guardar.Location = new System.Drawing.Point(23, 183);
+            this.guardar.Location = new System.Drawing.Point(23, 181);
             this.guardar.Name = "guardar";
             this.guardar.Size = new System.Drawing.Size(111, 23);
             this.guardar.TabIndex = 8;

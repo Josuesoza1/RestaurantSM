@@ -34,7 +34,7 @@
             this.pnlEncabezado.Controls.Add(this.lblTitulo);
             this.pnlEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlEncabezado.Location = new System.Drawing.Point(0, 0);
-            this.pnlEncabezado.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pnlEncabezado.Margin = new System.Windows.Forms.Padding(2);
             this.pnlEncabezado.Name = "pnlEncabezado";
             this.pnlEncabezado.Size = new System.Drawing.Size(504, 70);
             this.pnlEncabezado.TabIndex = 1;
@@ -67,17 +67,23 @@
             this.menuStrip1.Size = new System.Drawing.Size(504, 24);
             this.menuStrip1.TabIndex = 0;
             // 
+            // nuevaVentaToolStripMenuItem
+            // 
+            this.nuevaVentaToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("nuevaVentaToolStripMenuItem.Image")));
+            this.nuevaVentaToolStripMenuItem.Name = "nuevaVentaToolStripMenuItem";
+            this.nuevaVentaToolStripMenuItem.Size = new System.Drawing.Size(101, 20);
+            this.nuevaVentaToolStripMenuItem.Text = "Nueva venta";
+            this.nuevaVentaToolStripMenuItem.Click += new System.EventHandler(this.nuevaVentaToolStripMenuItem_Click);
+            // 
             // operacionesToolStripMenuItem
             // 
             this.operacionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.pedidosToolStripMenuItem,
             this.mesasToolStripMenuItem});
+            this.operacionesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("operacionesToolStripMenuItem.Image")));
             this.operacionesToolStripMenuItem.Name = "operacionesToolStripMenuItem";
-            this.operacionesToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
+            this.operacionesToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
             this.operacionesToolStripMenuItem.Text = "Consultar";
-            this.nuevaVentaToolStripMenuItem.Name = "nuevaVentaToolStripMenuItem";
-            this.nuevaVentaToolStripMenuItem.Text = "Nueva venta";
-            this.nuevaVentaToolStripMenuItem.Click += new System.EventHandler(this.nuevaVentaToolStripMenuItem_Click);
             // 
             // pedidosToolStripMenuItem
             // 
@@ -89,6 +95,7 @@
             // 
             // mesasToolStripMenuItem
             // 
+            this.mesasToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("mesasToolStripMenuItem.Image")));
             this.mesasToolStripMenuItem.Name = "mesasToolStripMenuItem";
             this.mesasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.mesasToolStripMenuItem.Text = "Estado de mesas";
@@ -96,15 +103,17 @@
             // 
             // cerrarSesionToolStripMenuItem
             // 
+            this.cerrarSesionToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("cerrarSesionToolStripMenuItem.Image")));
             this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
-            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
+            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
             this.cerrarSesionToolStripMenuItem.Text = "Cerrar sesión";
             this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem
             // 
+            this.salirToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("salirToolStripMenuItem.Image")));
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(122, 20);
             this.salirToolStripMenuItem.Text = "Cerrar programa";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
@@ -132,7 +141,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.pnlEncabezado);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(454, 292);
             this.Name = "FrmMenuEmpleado";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

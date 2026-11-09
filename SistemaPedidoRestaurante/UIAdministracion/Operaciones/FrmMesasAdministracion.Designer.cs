@@ -10,6 +10,7 @@
         }
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMesasAdministracion));
             this.buscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.paneles)).BeginInit();
             this.paneles.SuspendLayout();
@@ -17,17 +18,19 @@
             // 
             // titulo
             // 
+            this.titulo.BackColor = System.Drawing.Color.Red;
             this.titulo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.titulo.Size = new System.Drawing.Size(1028, 53);
             this.titulo.Text = "MESAS — ADMINISTRACIÓN";
             // 
             // buscar
             // 
+            this.buscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.buscar.Location = new System.Drawing.Point(0, 53);
             // 
             // txtBuscar
             // 
-            this.txtBuscar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBuscar.Margin = new System.Windows.Forms.Padding(2);
             this.txtBuscar.Size = new System.Drawing.Size(319, 20);
             // 
             // paneles
@@ -41,7 +44,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(1028, 609);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(528, 372);
             this.Name = "FrmMesasAdministracion";
             this.Text = "Mesas — Administración";

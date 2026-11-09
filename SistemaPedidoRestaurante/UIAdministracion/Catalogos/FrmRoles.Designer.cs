@@ -330,7 +330,7 @@
             this.panel1.Controls.Add(this.lblOperacion);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 102);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(600, 41);
             this.panel1.TabIndex = 17;
@@ -359,7 +359,8 @@
             this.Controls.Add(this.grpDatosClientes);
             this.Controls.Add(this.pnlEncabezado);
             this.Controls.Add(this.menuStrip1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmRoles";
             this.Text = "Gestión de Roles";
             this.Load += new System.EventHandler(this.FrmRoles_Load);

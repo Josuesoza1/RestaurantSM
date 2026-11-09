@@ -17,7 +17,12 @@
             // 
             // titulo
             // 
+            this.titulo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.titulo.Text = "PEDIDOS — ADMINISTRACIÓN";
+            // 
+            // buscar
+            // 
+            this.buscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             // 
             // txtBuscar
             // 
@@ -31,6 +36,7 @@
             // FrmPedidosAdministracion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.ClientSize = new System.Drawing.Size(1028, 609);
             this.Name = "FrmPedidosAdministracion";
             this.Text = "Pedidos — Administración";

@@ -126,8 +126,8 @@
             // 
             // txtTextoBuscar
             // 
-            this.txtTextoBuscar.Location = new System.Drawing.Point(58, 15);
             this.txtTextoBuscar.AccessibleName = "Texto de búsqueda";
+            this.txtTextoBuscar.Location = new System.Drawing.Point(58, 15);
             this.txtTextoBuscar.Name = "txtTextoBuscar";
             this.txtTextoBuscar.Size = new System.Drawing.Size(153, 20);
             this.txtTextoBuscar.TabIndex = 0;
@@ -156,11 +156,19 @@
             this.lblBuscar.Size = new System.Drawing.Size(48, 14);
             this.lblBuscar.TabIndex = 5;
             this.lblBuscar.Text = "Buscar:";
+            // 
+            // lblGuiaBusqueda
+            // 
             this.lblGuiaBusqueda.AutoSize = true;
             this.lblGuiaBusqueda.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblGuiaBusqueda.Location = new System.Drawing.Point(6, 44);
             this.lblGuiaBusqueda.Name = "lblGuiaBusqueda";
+            this.lblGuiaBusqueda.Size = new System.Drawing.Size(143, 13);
+            this.lblGuiaBusqueda.TabIndex = 6;
             this.lblGuiaBusqueda.Text = "ID 12, nombre o descripción.";
+            // 
+            // btnQuitarFiltro
+            // 
             this.btnQuitarFiltro.Enabled = false;
             this.btnQuitarFiltro.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnQuitarFiltro.Location = new System.Drawing.Point(6, 74);
@@ -415,6 +423,7 @@
             this.Controls.Add(this.grpDatosClientes);
             this.Controls.Add(this.pnlEncabezado);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(613, 497);

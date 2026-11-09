@@ -20,8 +20,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmInventario));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.registro = new System.Windows.Forms.ToolStripMenuItem();
             this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registro = new System.Windows.Forms.ToolStripMenuItem();
             this.desactivarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.movimientos = new System.Windows.Forms.ToolStripMenuItem();
@@ -95,36 +95,39 @@
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // editarToolStripMenuItem
+            // 
+            this.editarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("editarToolStripMenuItem.Image")));
+            this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
+            this.editarToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
+            this.editarToolStripMenuItem.Text = "Registrar o editar existencias";
+            this.editarToolStripMenuItem.Click += new System.EventHandler(this.editarToolStripMenuItem_Click);
+            // 
             // registro
             // 
             this.registro.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.desactivarToolStripMenuItem,
             this.eliminarToolStripMenuItem});
+            this.registro.Image = ((System.Drawing.Image)(resources.GetObject("registro.Image")));
             this.registro.Name = "registro";
-            this.registro.Size = new System.Drawing.Size(131, 24);
+            this.registro.Size = new System.Drawing.Size(112, 24);
             this.registro.Text = "Más opciones";
-            // 
-            // editarToolStripMenuItem
-            // 
-            this.editarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("editarToolStripMenuItem.Image")));
-            this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
-            this.editarToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.editarToolStripMenuItem.Text = "Registrar o editar existencias";
-            this.editarToolStripMenuItem.Click += new System.EventHandler(this.editarToolStripMenuItem_Click);
             // 
             // desactivarToolStripMenuItem
             // 
+            this.desactivarToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.desactivarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("desactivarToolStripMenuItem.Image")));
             this.desactivarToolStripMenuItem.Name = "desactivarToolStripMenuItem";
-            this.desactivarToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.desactivarToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.desactivarToolStripMenuItem.Text = "Desactivar inventario";
             this.desactivarToolStripMenuItem.Click += new System.EventHandler(this.desactivarToolStripMenuItem_Click);
             // 
             // eliminarToolStripMenuItem
             // 
+            this.eliminarToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.eliminarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("eliminarToolStripMenuItem.Image")));
             this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
-            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.eliminarToolStripMenuItem.Text = "Eliminar registro";
             this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
             // 
@@ -133,12 +136,15 @@
             this.movimientos.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.entradaSalida,
             this.historial});
+            this.movimientos.Image = ((System.Drawing.Image)(resources.GetObject("movimientos.Image")));
             this.movimientos.Name = "movimientos";
-            this.movimientos.Size = new System.Drawing.Size(89, 24);
+            this.movimientos.Size = new System.Drawing.Size(109, 24);
             this.movimientos.Text = "Movimientos";
             // 
             // entradaSalida
             // 
+            this.entradaSalida.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.entradaSalida.Image = ((System.Drawing.Image)(resources.GetObject("entradaSalida.Image")));
             this.entradaSalida.Name = "entradaSalida";
             this.entradaSalida.Size = new System.Drawing.Size(157, 22);
             this.entradaSalida.Text = "Entrada o salida";
@@ -146,6 +152,8 @@
             // 
             // historial
             // 
+            this.historial.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.historial.Image = ((System.Drawing.Image)(resources.GetObject("historial.Image")));
             this.historial.Name = "historial";
             this.historial.Size = new System.Drawing.Size(157, 22);
             this.historial.Text = "Historial";
@@ -154,22 +162,25 @@
             // bajos
             // 
             this.bajos.CheckOnClick = true;
+            this.bajos.Image = ((System.Drawing.Image)(resources.GetObject("bajos.Image")));
             this.bajos.Name = "bajos";
-            this.bajos.Size = new System.Drawing.Size(132, 24);
+            this.bajos.Size = new System.Drawing.Size(152, 24);
             this.bajos.Text = "Solo existencias bajas";
             this.bajos.CheckedChanged += new System.EventHandler(this.bajos_CheckedChanged);
             // 
             // actualizar
             // 
+            this.actualizar.Image = ((System.Drawing.Image)(resources.GetObject("actualizar.Image")));
             this.actualizar.Name = "actualizar";
-            this.actualizar.Size = new System.Drawing.Size(65, 24);
+            this.actualizar.Size = new System.Drawing.Size(85, 24);
             this.actualizar.Text = "Recargar";
             this.actualizar.Click += new System.EventHandler(this.actualizar_Click);
             // 
             // ayudaToolStripMenuItem
             // 
+            this.ayudaToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("ayudaToolStripMenuItem.Image")));
             this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
-            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
+            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
             this.ayudaToolStripMenuItem.Text = "Ayuda";
             this.ayudaToolStripMenuItem.Click += new System.EventHandler(this.ayudaToolStripMenuItem_Click);
             // 
@@ -485,11 +496,11 @@
             // cmbProductoInventario
             // 
             this.cmbProductoInventario.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbProductoInventario.Enabled = false;
             this.cmbProductoInventario.Location = new System.Drawing.Point(116, 35);
             this.cmbProductoInventario.Name = "cmbProductoInventario";
             this.cmbProductoInventario.Size = new System.Drawing.Size(117, 23);
             this.cmbProductoInventario.TabIndex = 4;
-            this.cmbProductoInventario.Enabled = false;
             // 
             // lblProducto
             // 
@@ -566,6 +577,7 @@
             this.Controls.Add(this.grpAgregarProducto);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(773, 454);
             this.Name = "FrmInventario";

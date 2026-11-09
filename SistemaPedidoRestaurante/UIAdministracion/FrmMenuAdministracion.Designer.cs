@@ -120,7 +120,13 @@
             this.operacionesToolStripMenuItem.Name = "operacionesToolStripMenuItem";
             this.operacionesToolStripMenuItem.Size = new System.Drawing.Size(77, 28);
             this.operacionesToolStripMenuItem.Text = "Ventas";
+            // 
+            // nuevaVentaToolStripMenuItem
+            // 
+            this.nuevaVentaToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.nuevaVentaToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("nuevaVentaToolStripMenuItem.Image")));
             this.nuevaVentaToolStripMenuItem.Name = "nuevaVentaToolStripMenuItem";
+            this.nuevaVentaToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
             this.nuevaVentaToolStripMenuItem.Text = "Nueva venta";
             this.nuevaVentaToolStripMenuItem.Click += new System.EventHandler(this.nuevaVentaToolStripMenuItem_Click);
             // 
@@ -276,7 +282,7 @@
             // 
             this.salirToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("salirToolStripMenuItem.Image")));
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(65, 28);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(130, 28);
             this.salirToolStripMenuItem.Text = "Cerrar programa";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 

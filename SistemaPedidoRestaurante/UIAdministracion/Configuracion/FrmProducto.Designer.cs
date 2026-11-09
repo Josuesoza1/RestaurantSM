@@ -374,21 +374,31 @@
             this.editarToolStripMenuItem.Text = "Editar";
             this.editarToolStripMenuItem.Click += new System.EventHandler(this.editarToolStripMenuItem_Click);
             // 
-            // desactivarToolStripMenuItem
+            // activarToolStripMenuItem
             // 
-            this.desactivarToolStripMenuItem.Name = "desactivarToolStripMenuItem";
-            this.desactivarToolStripMenuItem.Size = new System.Drawing.Size(131, 28);
-            this.desactivarToolStripMenuItem.Text = "Marcar no disponible";
-            this.desactivarToolStripMenuItem.Click += new System.EventHandler(this.desactivarToolStripMenuItem_Click);
             this.activarToolStripMenuItem.Enabled = false;
+            this.activarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("activarToolStripMenuItem.Image")));
             this.activarToolStripMenuItem.Name = "activarToolStripMenuItem";
-            this.activarToolStripMenuItem.Size = new System.Drawing.Size(116, 28);
+            this.activarToolStripMenuItem.Size = new System.Drawing.Size(124, 28);
             this.activarToolStripMenuItem.Text = "Volver a ofrecer";
             this.activarToolStripMenuItem.Click += new System.EventHandler(this.activarToolStripMenuItem_Click);
-            this.existenciasToolStripMenuItem.Name = "existenciasToolStripMenuItem";
-            this.existenciasToolStripMenuItem.Text = "Registrar o editar existencias";
+            // 
+            // existenciasToolStripMenuItem
+            // 
             this.existenciasToolStripMenuItem.Enabled = false;
+            this.existenciasToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("existenciasToolStripMenuItem.Image")));
+            this.existenciasToolStripMenuItem.Name = "existenciasToolStripMenuItem";
+            this.existenciasToolStripMenuItem.Size = new System.Drawing.Size(192, 28);
+            this.existenciasToolStripMenuItem.Text = "Registrar o editar existencias";
             this.existenciasToolStripMenuItem.Click += new System.EventHandler(this.existenciasToolStripMenuItem_Click);
+            // 
+            // desactivarToolStripMenuItem
+            // 
+            this.desactivarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("desactivarToolStripMenuItem.Image")));
+            this.desactivarToolStripMenuItem.Name = "desactivarToolStripMenuItem";
+            this.desactivarToolStripMenuItem.Size = new System.Drawing.Size(155, 28);
+            this.desactivarToolStripMenuItem.Text = "Marcar no disponible";
+            this.desactivarToolStripMenuItem.Click += new System.EventHandler(this.desactivarToolStripMenuItem_Click);
             // 
             // eliminarToolStripMenuItem
             // 
@@ -477,8 +487,8 @@
             // 
             // txtTextoBuscar
             // 
-            this.txtTextoBuscar.Location = new System.Drawing.Point(58, 15);
             this.txtTextoBuscar.AccessibleName = "Texto de búsqueda";
+            this.txtTextoBuscar.Location = new System.Drawing.Point(58, 15);
             this.txtTextoBuscar.Name = "txtTextoBuscar";
             this.txtTextoBuscar.Size = new System.Drawing.Size(153, 20);
             this.txtTextoBuscar.TabIndex = 0;
@@ -507,11 +517,19 @@
             this.lblBuscar.Size = new System.Drawing.Size(48, 14);
             this.lblBuscar.TabIndex = 5;
             this.lblBuscar.Text = "Buscar:";
+            // 
+            // lblGuiaBusqueda
+            // 
             this.lblGuiaBusqueda.AutoSize = true;
             this.lblGuiaBusqueda.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblGuiaBusqueda.Location = new System.Drawing.Point(6, 44);
             this.lblGuiaBusqueda.Name = "lblGuiaBusqueda";
+            this.lblGuiaBusqueda.Size = new System.Drawing.Size(202, 26);
+            this.lblGuiaBusqueda.TabIndex = 6;
             this.lblGuiaBusqueda.Text = "ID 12, nombre, código, categoría, estado\r\no descripción.";
+            // 
+            // btnQuitarFiltro
+            // 
             this.btnQuitarFiltro.Enabled = false;
             this.btnQuitarFiltro.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnQuitarFiltro.Location = new System.Drawing.Point(6, 74);
@@ -557,13 +575,14 @@
             this.Controls.Add(this.grpDatosClientes);
             this.Controls.Add(this.pnlEncabezado);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(714, 625);
             this.Name = "FrmProducto";
             this.Text = "Gestión de Productos";
-            this.Load += new System.EventHandler(this.FrmProducto_Load_1);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmProducto_FormClosing);
+            this.Load += new System.EventHandler(this.FrmProducto_Load_1);
             this.pnlEncabezado.ResumeLayout(false);
             this.pnlEncabezado.PerformLayout();
             this.grpListadoCliente.ResumeLayout(false);

@@ -20,9 +20,6 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.grpListado = new System.Windows.Forms.GroupBox();
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
-            this.colIdUsuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNombreUsuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNombreRol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlAcciones = new System.Windows.Forms.Panel();
             this.lblCantidad = new System.Windows.Forms.Label();
             this.btnRecargar = new System.Windows.Forms.Button();
@@ -33,90 +30,146 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
             this.pnlAcciones.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // pnlEncabezado
+            // 
             this.pnlEncabezado.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.pnlEncabezado.Controls.Add(this.lblTitulo);
             this.pnlEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlEncabezado.Height = 86;
+            this.pnlEncabezado.Location = new System.Drawing.Point(0, 0);
             this.pnlEncabezado.Name = "pnlEncabezado";
+            this.pnlEncabezado.Size = new System.Drawing.Size(900, 86);
+            this.pnlEncabezado.TabIndex = 3;
+            // 
+            // lblTitulo
+            // 
+            this.lblTitulo.BackColor = System.Drawing.Color.DarkRed;
             this.lblTitulo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTitulo.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
+            this.lblTitulo.Location = new System.Drawing.Point(0, 0);
             this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(900, 86);
+            this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "USUARIOS REGISTRADOS";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.pnlBusqueda.Size = new System.Drawing.Size(900, 64);
+            // 
+            // pnlBusqueda
+            // 
+            this.pnlBusqueda.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.pnlBusqueda.Controls.Add(this.lblBuscar);
             this.pnlBusqueda.Controls.Add(this.txtBuscar);
             this.pnlBusqueda.Controls.Add(this.btnBuscar);
             this.pnlBusqueda.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlBusqueda.Location = new System.Drawing.Point(0, 86);
+            this.pnlBusqueda.Name = "pnlBusqueda";
+            this.pnlBusqueda.Size = new System.Drawing.Size(900, 64);
+            this.pnlBusqueda.TabIndex = 2;
+            // 
+            // lblBuscar
+            // 
             this.lblBuscar.AutoSize = true;
             this.lblBuscar.Location = new System.Drawing.Point(18, 24);
+            this.lblBuscar.Name = "lblBuscar";
+            this.lblBuscar.Size = new System.Drawing.Size(43, 13);
+            this.lblBuscar.TabIndex = 0;
             this.lblBuscar.Text = "Buscar:";
+            // 
+            // txtBuscar
+            // 
+            this.txtBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBuscar.Location = new System.Drawing.Point(80, 21);
-            this.txtBuscar.Size = new System.Drawing.Size(680, 22);
-            this.txtBuscar.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             this.txtBuscar.MaxLength = 50;
             this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(680, 20);
             this.txtBuscar.TabIndex = 0;
-            this.btnBuscar.Location = new System.Drawing.Point(780, 14);
-            this.btnBuscar.Size = new System.Drawing.Size(100, 36);
-            this.btnBuscar.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBuscar.BackColor = System.Drawing.Color.Turquoise;
+            this.btnBuscar.Location = new System.Drawing.Point(780, 14);
             this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(100, 36);
             this.btnBuscar.TabIndex = 1;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // grpListado
+            // 
+            this.grpListado.BackColor = System.Drawing.Color.Chocolate;
             this.grpListado.Controls.Add(this.dgvUsuarios);
             this.grpListado.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpListado.Location = new System.Drawing.Point(0, 150);
             this.grpListado.Name = "grpListado";
             this.grpListado.Padding = new System.Windows.Forms.Padding(12);
+            this.grpListado.Size = new System.Drawing.Size(900, 352);
+            this.grpListado.TabIndex = 0;
+            this.grpListado.TabStop = false;
             this.grpListado.Text = "Cuentas registradas y sus roles";
+            // 
+            // dgvUsuarios
+            // 
             this.dgvUsuarios.AllowUserToAddRows = false;
             this.dgvUsuarios.AllowUserToDeleteRows = false;
-            this.dgvUsuarios.AutoGenerateColumns = false;
             this.dgvUsuarios.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvUsuarios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-                this.colIdUsuario, this.colNombreUsuario, this.colNombreRol });
             this.dgvUsuarios.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvUsuarios.Location = new System.Drawing.Point(12, 25);
             this.dgvUsuarios.Name = "dgvUsuarios";
             this.dgvUsuarios.ReadOnly = true;
+            this.dgvUsuarios.Size = new System.Drawing.Size(876, 315);
             this.dgvUsuarios.TabIndex = 2;
-            this.colIdUsuario.DataPropertyName = "IdUsuario";
-            this.colIdUsuario.FillWeight = 25F;
-            this.colIdUsuario.HeaderText = "ID";
-            this.colIdUsuario.Name = "colIdUsuario";
-            this.colNombreUsuario.DataPropertyName = "NombreUsuario";
-            this.colNombreUsuario.HeaderText = "Usuario";
-            this.colNombreUsuario.Name = "colNombreUsuario";
-            this.colNombreRol.DataPropertyName = "EstadoAcceso";
-            this.colNombreRol.FillWeight = 70F;
-            this.colNombreRol.HeaderText = "Acceso";
-            this.colNombreRol.Name = "colNombreRol";
-            this.pnlAcciones.Size = new System.Drawing.Size(900, 58);
+            // 
+            // pnlAcciones
+            // 
+            this.pnlAcciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.pnlAcciones.Controls.Add(this.lblCantidad);
             this.pnlAcciones.Controls.Add(this.btnRecargar);
             this.pnlAcciones.Controls.Add(this.btnVolver);
             this.pnlAcciones.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlAcciones.Location = new System.Drawing.Point(0, 502);
+            this.pnlAcciones.Name = "pnlAcciones";
+            this.pnlAcciones.Size = new System.Drawing.Size(900, 58);
+            this.pnlAcciones.TabIndex = 1;
+            // 
+            // lblCantidad
+            // 
             this.lblCantidad.AutoSize = true;
             this.lblCantidad.Location = new System.Drawing.Point(18, 22);
             this.lblCantidad.Name = "lblCantidad";
+            this.lblCantidad.Size = new System.Drawing.Size(111, 13);
+            this.lblCantidad.TabIndex = 0;
             this.lblCantidad.Text = "Usuarios mostrados: 0";
+            // 
+            // btnRecargar
+            // 
+            this.btnRecargar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRecargar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btnRecargar.Location = new System.Drawing.Point(640, 12);
-            this.btnRecargar.Size = new System.Drawing.Size(110, 36);
-            this.btnRecargar.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             this.btnRecargar.Name = "btnRecargar";
+            this.btnRecargar.Size = new System.Drawing.Size(110, 36);
             this.btnRecargar.TabIndex = 4;
             this.btnRecargar.Text = "Recargar";
+            this.btnRecargar.UseVisualStyleBackColor = false;
             this.btnRecargar.Click += new System.EventHandler(this.btnRecargar_Click);
+            // 
+            // btnVolver
+            // 
+            this.btnVolver.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnVolver.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.btnVolver.Location = new System.Drawing.Point(770, 12);
-            this.btnVolver.Size = new System.Drawing.Size(110, 36);
-            this.btnVolver.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(110, 36);
             this.btnVolver.TabIndex = 5;
             this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = false;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            // 
+            // FrmUsuarios
+            // 
             this.AcceptButton = this.btnBuscar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -139,6 +192,7 @@
             this.pnlAcciones.ResumeLayout(false);
             this.pnlAcciones.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         private System.Windows.Forms.Panel pnlEncabezado;

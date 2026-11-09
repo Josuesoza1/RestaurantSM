@@ -71,8 +71,9 @@
             // 
             // agregarToolStripMenuItem
             // 
+            this.agregarToolStripMenuItem.Image = global::SistemaPedidoRestaurante.Properties.Resources.Agregar;
             this.agregarToolStripMenuItem.Name = "agregarToolStripMenuItem";
-            this.agregarToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.agregarToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
             this.agregarToolStripMenuItem.Text = "Agregar";
             this.agregarToolStripMenuItem.Click += new System.EventHandler(this.agregarToolStripMenuItem_Click);
             // 
@@ -84,7 +85,6 @@
             this.editarToolStripMenuItem.Text = "Editar";
             this.editarToolStripMenuItem.Click += new System.EventHandler(this.editarToolStripMenuItem_Click);
             // 
-            // 
             // eliminarToolStripMenuItem
             // 
             this.eliminarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("eliminarToolStripMenuItem.Image")));
@@ -95,8 +95,9 @@
             // 
             // ayudaToolStripMenuItem
             // 
+            this.ayudaToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("ayudaToolStripMenuItem.Image")));
             this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
-            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.ayudaToolStripMenuItem.Text = "Ayuda";
             this.ayudaToolStripMenuItem.Click += new System.EventHandler(this.ayudaToolStripMenuItem_Click);
             // 
@@ -171,7 +172,9 @@
             // 
             this.cmbEstadoMesas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbEstadoMesas.FormattingEnabled = true;
-            this.cmbEstadoMesas.Items.AddRange(new object[] { "Disponible", "No disponible" });
+            this.cmbEstadoMesas.Items.AddRange(new object[] {
+            "Disponible",
+            "No disponible"});
             this.cmbEstadoMesas.Location = new System.Drawing.Point(138, 144);
             this.cmbEstadoMesas.Name = "cmbEstadoMesas";
             this.cmbEstadoMesas.Size = new System.Drawing.Size(134, 25);
@@ -223,7 +226,6 @@
             this.label3.Size = new System.Drawing.Size(70, 15);
             this.label3.TabIndex = 11;
             this.label3.Text = "Capacidad:";
-            // 
             // 
             // btnGuardarMesas
             // 
@@ -347,7 +349,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Orange;
-            this.ClientSize = new System.Drawing.Size(751, 476);
+            this.ClientSize = new System.Drawing.Size(751, 486);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.lblBuscarMesas);
             this.Controls.Add(this.btnBuscarMesas);
@@ -358,6 +360,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(700, 525);
             this.Name = "FrmMesas";
             this.Text = "GESTION DE MESAS";

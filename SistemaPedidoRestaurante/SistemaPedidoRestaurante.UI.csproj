@@ -158,10 +158,10 @@
     <Compile Include="UIAdministracion\Operaciones\FrmPedidosAdministracion.Designer.cs">
       <DependentUpon>FrmPedidosAdministracion.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIAdministracion\Catalogos\FrmProducto.cs">
+    <Compile Include="UIAdministracion\Configuracion\FrmProducto.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIAdministracion\Catalogos\FrmProducto.Designer.cs">
+    <Compile Include="UIAdministracion\Configuracion\FrmProducto.Designer.cs">
       <DependentUpon>FrmProducto.cs</DependentUpon>
     </Compile>
     <Compile Include="UIAdministracion\Operaciones\FrmReservasAdministracion.cs">
@@ -287,6 +287,15 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="UIAdministracion\Personas\FrmRegistrarPersona.resx">
+      <DependentUpon>FrmRegistrarPersona.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIAdministracion\Personas\FrmUsuarios.resx">
+      <DependentUpon>FrmUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UICompartida\FrmAnularVenta.resx">
+      <DependentUpon>FrmAnularVenta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UIPrincipal\Documentos\FrmVistaPrevia.resx">
       <DependentUpon>FrmVistaPrevia.cs</DependentUpon>
     </EmbeddedResource>
@@ -361,7 +370,7 @@
     <EmbeddedResource Include="UIAdministracion\Operaciones\FrmPedidosAdministracion.resx">
       <DependentUpon>FrmPedidosAdministracion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIAdministracion\Catalogos\FrmProducto.resx">
+    <EmbeddedResource Include="UIAdministracion\Configuracion\FrmProducto.resx">
       <DependentUpon>FrmProducto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UIAdministracion\Operaciones\FrmReservasAdministracion.resx">
