@@ -32,6 +32,7 @@ namespace SistemaPedidoRestaurante.BLL
         private readonly CatalogoValidacion _validacion = new CatalogoValidacion();
         public List<Subcategoria> ObtenerSubcategorias()
         {
+            Permisos.ExigirRol(RolesSistema.Administrador);
             return _productoDAL.ListarSubcategorias();
         }
 
@@ -46,6 +47,22 @@ namespace SistemaPedidoRestaurante.BLL
             catch (SqlException error)
             {
                 throw OperacionDatos.Traducir(error, "El nombre o el código del producto ya están registrados.");
+            }
+        }
+
+        public Producto ActivarProducto(int idProducto)
+        {
+            Permisos.ExigirRol(RolesSistema.Administrador);
+            if (idProducto <= 0)
+                throw new ArgumentException("Seleccione un producto.");
+
+            try
+            {
+                return _productoDAL.Activar(idProducto, SesionActual.IdUsuario);
+            }
+            catch (SqlException error)
+            {
+                throw OperacionDatos.Traducir(error, "No se pudo habilitar el producto.");
             }
         }
 
@@ -69,6 +86,7 @@ namespace SistemaPedidoRestaurante.BLL
 
         public Productos ObtenerProductos()
         {
+            Permisos.ExigirRol(RolesSistema.Administrador);
             return _productoDAL.Listar();
         }
 
@@ -87,6 +105,7 @@ namespace SistemaPedidoRestaurante.BLL
 
         public Productos BuscarProductos(string filtro)
         {
+            Permisos.ExigirRol(RolesSistema.Administrador);
             Productos productos = _productoDAL.Listar();
             if (string.IsNullOrWhiteSpace(filtro))
             {
@@ -94,13 +113,15 @@ namespace SistemaPedidoRestaurante.BLL
             }
 
             filtro = filtro.Trim();
+            bool soloId = BusquedaLINQ.LeerFiltroId(filtro, out int id);
             Productos resultado = new Productos();
             var coincidencias = productos.Where(producto =>
-                BusquedaLINQ.Contiene(producto.Nombre, filtro) ||
-                BusquedaLINQ.Contiene(producto.CategoriaNombre, filtro) ||
-                BusquedaLINQ.Contiene(producto.Codigo, filtro) ||
-                BusquedaLINQ.Contiene(producto.EstadoVenta, filtro) ||
-                BusquedaLINQ.Contiene(producto.Descripcion, filtro));
+                producto.IdProducto == id || (!soloId &&
+                    (BusquedaLINQ.Contiene(producto.Nombre, filtro) ||
+                     BusquedaLINQ.Contiene(producto.CategoriaNombre, filtro) ||
+                     BusquedaLINQ.Contiene(producto.Codigo, filtro) ||
+                     BusquedaLINQ.Contiene(producto.EstadoVenta, filtro) ||
+                     BusquedaLINQ.Contiene(producto.Descripcion, filtro))));
             resultado.AddRange(coincidencias);
             return resultado;
         }

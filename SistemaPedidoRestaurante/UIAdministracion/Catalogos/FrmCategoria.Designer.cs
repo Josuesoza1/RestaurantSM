@@ -26,6 +26,8 @@
             this.txtTextoBuscar = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.lblBuscar = new System.Windows.Forms.Label();
+            this.lblGuiaBusqueda = new System.Windows.Forms.Label();
+            this.btnQuitarFiltro = new System.Windows.Forms.Button();
             this.grpListadoCliente = new System.Windows.Forms.GroupBox();
             this.dgvCategorias = new System.Windows.Forms.DataGridView();
             this.ColID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -113,19 +115,23 @@
             this.groupBox2.Controls.Add(this.txtTextoBuscar);
             this.groupBox2.Controls.Add(this.btnBuscar);
             this.groupBox2.Controls.Add(this.lblBuscar);
+            this.groupBox2.Controls.Add(this.lblGuiaBusqueda);
+            this.groupBox2.Controls.Add(this.btnQuitarFiltro);
             this.groupBox2.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.groupBox2.Location = new System.Drawing.Point(302, 252);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(274, 46);
+            this.groupBox2.Size = new System.Drawing.Size(274, 105);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             // 
             // txtTextoBuscar
             // 
             this.txtTextoBuscar.Location = new System.Drawing.Point(58, 15);
+            this.txtTextoBuscar.AccessibleName = "Texto de búsqueda";
             this.txtTextoBuscar.Name = "txtTextoBuscar";
             this.txtTextoBuscar.Size = new System.Drawing.Size(153, 20);
-            this.txtTextoBuscar.TabIndex = 9;
+            this.txtTextoBuscar.TabIndex = 0;
+            this.txtTextoBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTextoBuscar_KeyDown);
             // 
             // btnBuscar
             // 
@@ -135,7 +141,7 @@
             this.btnBuscar.Location = new System.Drawing.Point(215, 8);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(53, 31);
-            this.btnBuscar.TabIndex = 8;
+            this.btnBuscar.TabIndex = 1;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -150,6 +156,20 @@
             this.lblBuscar.Size = new System.Drawing.Size(48, 14);
             this.lblBuscar.TabIndex = 5;
             this.lblBuscar.Text = "Buscar:";
+            this.lblGuiaBusqueda.AutoSize = true;
+            this.lblGuiaBusqueda.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblGuiaBusqueda.Location = new System.Drawing.Point(6, 44);
+            this.lblGuiaBusqueda.Name = "lblGuiaBusqueda";
+            this.lblGuiaBusqueda.Text = "ID 12, nombre o descripción.";
+            this.btnQuitarFiltro.Enabled = false;
+            this.btnQuitarFiltro.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnQuitarFiltro.Location = new System.Drawing.Point(6, 74);
+            this.btnQuitarFiltro.Name = "btnQuitarFiltro";
+            this.btnQuitarFiltro.Size = new System.Drawing.Size(100, 25);
+            this.btnQuitarFiltro.TabIndex = 2;
+            this.btnQuitarFiltro.Text = "Quitar filtro";
+            this.btnQuitarFiltro.UseVisualStyleBackColor = true;
+            this.btnQuitarFiltro.Click += new System.EventHandler(this.btnQuitarFiltro_Click);
             // 
             // grpListadoCliente
             // 
@@ -431,6 +451,8 @@
         private System.Windows.Forms.TextBox txtTextoBuscar;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label lblBuscar;
+        private System.Windows.Forms.Label lblGuiaBusqueda;
+        private System.Windows.Forms.Button btnQuitarFiltro;
         private System.Windows.Forms.GroupBox grpListadoCliente;
         private System.Windows.Forms.DataGridView dgvCategorias;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColID;

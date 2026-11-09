@@ -5,6 +5,8 @@ namespace SistemaPedidoRestaurante.Validaciones
 {
     public static class PagoValidacion
     {
+        public const decimal VueltoMaximo = 1000m;
+
         public static string NombreParaComprobante(string nombre)
         {
             nombre = CamposValidacion.Texto(nombre, 120, "nombre para el comprobante");
@@ -26,6 +28,13 @@ namespace SistemaPedidoRestaurante.Validaciones
                 && (separador < 0 || texto.Length - separador - 1 <= 2);
         }
 
+        public static string AvisoRangoEfectivo(decimal total)
+        {
+            decimal maximo = Math.Min(total + VueltoMaximo, CamposValidacion.ImporteMaximo);
+            return "Ingrese entre C$ " + total.ToString("N2") + " y C$ " + maximo.ToString("N2") +
+                " (hasta dos decimales).";
+        }
+
         public static string Validar(int pedido, string metodo, decimal recibido, decimal total, Guid solicitud, string notas)
         {
             if (pedido <= 0 || solicitud == Guid.Empty)
@@ -36,7 +45,9 @@ namespace SistemaPedidoRestaurante.Validaciones
             CamposValidacion.Importe(recibido, "monto recibido", true);
             if (recibido < total)
             {
-                throw new ArgumentException("El monto recibido debe cubrir el total.");
+                throw new ArgumentException(metodo == "Efectivo"
+                    ? AvisoRangoEfectivo(total)
+                    : "El monto recibido debe cubrir el total de C$ " + total.ToString("N2") + ".");
             }
             if (metodo != "Efectivo" && metodo != "Tarjeta" && metodo != "Transferencia")
             {
@@ -45,6 +56,11 @@ namespace SistemaPedidoRestaurante.Validaciones
             if (metodo != "Efectivo" && recibido != total)
             {
                 throw new ArgumentException("El pago electrónico debe coincidir con el total.");
+            }
+            if (metodo == "Efectivo" && recibido - total > VueltoMaximo)
+            {
+                throw new ArgumentException("El vuelto máximo en efectivo es C$ " + VueltoMaximo.ToString("N2") +
+                    ". " + AvisoRangoEfectivo(total));
             }
             return CamposValidacion.Texto(notas, 200, "notas");
         }

@@ -17,6 +17,9 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private List<Subcategoria> subcategorias = new List<Subcategoria>();
         private ModoFormulario modoActual;
         private Producto productoSeleccionado;
+        private string filtroAplicado = "";
+        private (object Categoria, object Subcategoria, string Nombre, string Precio, string Codigo,
+            string Descripcion, bool Disponible) datosIniciales;
         public FrmProducto()
         {
             InitializeComponent();
@@ -30,8 +33,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             TemaUI.Aplicar(this);
         }
 
-        private void CargarDatos()
+        private void CargarDatos(int idSeleccionado = 0, string nuevoFiltro = null)
         {
+            string filtro = nuevoFiltro ?? filtroAplicado;
+            Productos resultados = _productoBLL.BuscarProductos(filtro);
             dgvProductos.AutoGenerateColumns = false;
             string[] campos =
 
@@ -50,7 +55,24 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             }
 
             dgvProductos.Columns[3].DefaultCellStyle.Format = "N2";
-            VistaGestion.Vincular(dgvProductos, _productoBLL.ObtenerProductos());
+            VistaGestion.VincularGestion(dgvProductos, resultados);
+            filtroAplicado = filtro;
+            grpListadoCliente.Text = VistaGestion.TituloListado("productos", resultados.Count, filtro);
+            btnQuitarFiltro.Enabled = filtro.Length > 0;
+            if (modoActual == ModoFormulario.Neutral)
+                RestaurarSeleccion(idSeleccionado);
+        }
+
+        private void RestaurarSeleccion(int id)
+        {
+            dgvProductos.ClearSelection();
+            productoSeleccionado = id > 0
+                ? VistaGestion.SeleccionarRegistro<Producto>(dgvProductos, producto => producto.IdProducto == id)
+                : null;
+            if (productoSeleccionado == null)
+                LimpiarCampos();
+            else
+                CargarProductoEnFormulario(productoSeleccionado);
         }
 
         private void CargarListas()
@@ -94,6 +116,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 return;
             }
 
+            ActiveControl = txtTextoBuscar;
+
             try
             {
                 CargarListas();
@@ -109,18 +133,22 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             modoActual = nuevoModo;
             bool editar = nuevoModo == ModoFormulario.Nuevo || nuevoModo == ModoFormulario.Editar;
+            if (editar)
+                datosIniciales = DatosIngresados();
             bool operacion = nuevoModo != ModoFormulario.Neutral;
             switch (nuevoModo)
             {
                 case ModoFormulario.Neutral: lblOperacion.Text = "Operación actual: Seleccione una operación"; btnAccion.Text = "Guardar"; panel1.BackColor = Color.Gainsboro; break;
-                case ModoFormulario.Nuevo: lblOperacion.Text = "Operación actual: Nuevo producto"; btnAccion.Text = "Guardar"; panel1.BackColor = Color.LightGreen; break;
-                case ModoFormulario.Editar: lblOperacion.Text = "Operación actual: Editar producto"; btnAccion.Text = "Guardar cambios"; panel1.BackColor = Color.LightSkyBlue; break;
-                case ModoFormulario.Eliminar: lblOperacion.Text = "Operación actual: Eliminar producto"; btnAccion.Text = "Eliminar"; panel1.BackColor = Color.LightCoral; break;
+                case ModoFormulario.Nuevo: lblOperacion.Text = "Operación actual: Nuevo producto. El código se genera al guardar."; btnAccion.Text = "Guardar"; panel1.BackColor = Color.LightGreen; break;
+                case ModoFormulario.Editar: lblOperacion.Text = "Operación actual: Editar producto «" + productoSeleccionado.Nombre + "»"; btnAccion.Text = "Guardar cambios"; panel1.BackColor = Color.LightSkyBlue; break;
+                case ModoFormulario.Eliminar: lblOperacion.Text = "Operación actual: Eliminar producto «" + productoSeleccionado.Nombre + "»"; btnAccion.Text = "Eliminar"; panel1.BackColor = Color.LightCoral; break;
             }
             cmbCategoria.Enabled = cmbSubcategoria.Enabled = txtDescripcion.Enabled = editar;
             txtNombre.Enabled = txtPrecio.Enabled = txtCodigo.Enabled = chkDisponible.Enabled = btnLimpiar.Enabled = editar;
+            txtCodigo.ReadOnly = nuevoModo == ModoFormulario.Nuevo;
             btnAccion.Enabled = btnCancelar.Enabled = operacion;
-            dgvProductos.Enabled = txtTextoBuscar.Enabled = btnBuscar.Enabled = !operacion;
+            agregarToolStripMenuItem.Enabled = editarToolStripMenuItem.Enabled = eliminarToolStripMenuItem.Enabled = !operacion;
+            ActualizarAccionesDisponibilidad();
         }
 
         private void editarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -151,6 +179,25 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             Close();
         }
 
+        private (object Categoria, object Subcategoria, string Nombre, string Precio, string Codigo,
+            string Descripcion, bool Disponible) DatosIngresados()
+        {
+            return (cmbCategoria.SelectedValue, cmbSubcategoria.SelectedValue, txtNombre.Text, txtPrecio.Text,
+                txtCodigo.Text, txtDescripcion.Text, chkDisponible.Checked);
+        }
+
+        private bool HayCambios()
+        {
+            return (modoActual == ModoFormulario.Nuevo || modoActual == ModoFormulario.Editar)
+                && !datosIniciales.Equals(DatosIngresados());
+        }
+
+        private void FrmProducto_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (HayCambios())
+                e.Cancel = !VistaGestion.Confirmar(this, "¿Volver sin guardar los cambios del producto?");
+        }
+
         private void volverAlMenúPríncipalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             VolverAlMenu();
@@ -169,14 +216,18 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
+            if (!VistaGestion.Confirmar(this, "¿Borrar los datos de los campos de este formulario?"))
+                return;
             LimpiarCampos();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            productoSeleccionado = null;
-            LimpiarCampos();
+            if (HayCambios() && !VistaGestion.Confirmar(this, "¿Descartar los cambios del producto?"))
+                return;
+            int id = productoSeleccionado?.IdProducto ?? 0;
             CambiarModo(ModoFormulario.Neutral);
+            RestaurarSeleccion(id);
         }
 
         private Producto ObtenerProductoDesdeFormulario()
@@ -190,7 +241,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 IdSubcategoria = subcategoria == 0 ? (int? )null : subcategoria,
                 Nombre = txtNombre.Text.Trim(),
                 Precio = precio,
-                Codigo = txtCodigo.Text.Trim(),
+                Codigo = modoActual == ModoFormulario.Nuevo ? null : txtCodigo.Text.Trim(),
                 Descripcion = txtDescripcion.Text.Trim(),
                 Disponible = chkDisponible.Checked
             };
@@ -198,10 +249,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private bool SeleccionarProducto()
         {
-            productoSeleccionado = dgvProductos.CurrentRow?.DataBoundItem as Producto;
+            productoSeleccionado = VistaGestion.RegistroSeleccionado<Producto>(dgvProductos);
             if (productoSeleccionado == null)
             {
-                MessageBox.Show("Seleccione un producto del listado.", "Productos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                lblOperacion.Text = "Seleccione un producto del listado.";
                 return false;
             }
 
@@ -230,6 +281,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                     return;
                 }
 
+                int id = productoSeleccionado?.IdProducto ?? 0;
                 string mensaje = "Operación realizada correctamente.";
                 if (modoActual == ModoFormulario.Eliminar)
                 {
@@ -238,7 +290,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                         return;
                     }
 
-                    if (MessageBox.Show("¿Eliminar permanentemente el producto " + productoSeleccionado.Nombre + "?", "Productos", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                    if (!VistaGestion.Confirmar(this, "¿Eliminar permanentemente el producto " + productoSeleccionado.Nombre + "?"))
                     {
                         return;
                     }
@@ -249,15 +301,18 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 {
                     Producto producto = ObtenerProductoDesdeFormulario();
                     _productoBLL.GuardarProducto(producto);
-                    if (modoActual == ModoFormulario.Nuevo && producto.Disponible)
-                        mensaje = "Producto guardado. Agregue su control y existencias en Inventario para que aparezca en caja.";
+                    if (modoActual == ModoFormulario.Nuevo)
+                    {
+                        mensaje = "Producto guardado con el código " + producto.Codigo + ".";
+                        if (producto.Disponible)
+                            mensaje += " En Inventario, seleccione el producto y use Registrar o editar existencias para que pueda venderse en Caja.";
+                    }
                 }
 
                 productoSeleccionado = null;
-                txtTextoBuscar.Clear();
                 LimpiarCampos();
                 CambiarModo(ModoFormulario.Neutral);
-                CargarDatos();
+                CargarDatos(id);
                 MessageBox.Show(mensaje, "Productos", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -270,7 +325,30 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             try
             {
-                VistaGestion.Vincular(dgvProductos, _productoBLL.BuscarProductos(txtTextoBuscar.Text));
+                CargarDatos(nuevoFiltro: txtTextoBuscar.Text.Trim());
+            }
+            catch (Exception ex)
+            {
+                MostrarError(ex);
+            }
+        }
+
+        private void txtTextoBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                btnBuscar.PerformClick();
+            }
+        }
+
+        private void btnQuitarFiltro_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CargarDatos(nuevoFiltro: "");
+                txtTextoBuscar.Clear();
+                txtTextoBuscar.Focus();
             }
             catch (Exception ex)
             {
@@ -283,6 +361,61 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             MessageBox.Show(ex.Message, "Productos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
+        private void ActualizarAccionesDisponibilidad()
+        {
+            var producto = VistaGestion.RegistroSeleccionado<Producto>(dgvProductos);
+            bool puedeCambiar = modoActual == ModoFormulario.Neutral && producto != null;
+            activarToolStripMenuItem.Enabled = puedeCambiar && !producto.Disponible;
+            desactivarToolStripMenuItem.Enabled = puedeCambiar && producto.Disponible;
+            existenciasToolStripMenuItem.Enabled = puedeCambiar;
+        }
+
+        private void existenciasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var producto = VistaGestion.RegistroSeleccionado<Producto>(dgvProductos);
+            if (producto == null)
+                return;
+            try
+            {
+                using (var formulario = new FrmInventario(producto.IdProducto))
+                    formulario.ShowDialog(this);
+                CargarDatos(producto.IdProducto);
+            }
+            catch (Exception error)
+            {
+                MostrarError(error);
+            }
+        }
+
+        private void dgvProductos_SelectionChanged(object sender, EventArgs e)
+        {
+            ActualizarAccionesDisponibilidad();
+        }
+
+        private void activarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!SeleccionarProducto())
+                    return;
+
+                if (!VistaGestion.Confirmar(this, "¿Volver a ofrecer «" + productoSeleccionado.Nombre + "» en Caja?"))
+                    return;
+
+                Producto producto = _productoBLL.ActivarProducto(productoSeleccionado.IdProducto);
+                CargarDatos(producto.IdProducto);
+
+                string mensaje = producto.PuedeVenderse
+                    ? "Producto habilitado y disponible en Caja."
+                    : "Producto habilitado. Motivo por el que sigue fuera de Caja: " + producto.EstadoVenta + ". Revise Inventario.";
+                MessageBox.Show(this, mensaje, "Productos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MostrarError(ex);
+            }
+        }
+
         private void desactivarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -292,16 +425,18 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                     return;
                 }
 
-                if (MessageBox.Show("¿Marcar el producto como no disponible conservando su historial?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                if (!VistaGestion.Confirmar(this, "¿Dejar de ofrecer «" + productoSeleccionado.Nombre +
+                    "» en Caja? Se conservará su historial."))
                 {
                     return;
                 }
 
-                _productoBLL.DesactivarProducto(productoSeleccionado.IdProducto);
+                int id = productoSeleccionado.IdProducto;
+                _productoBLL.DesactivarProducto(id);
                 productoSeleccionado = null;
                 LimpiarCampos();
                 CambiarModo(ModoFormulario.Neutral);
-                CargarDatos();
+                CargarDatos(id);
             }
             catch (Exception ex)
             {

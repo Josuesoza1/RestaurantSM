@@ -64,7 +64,7 @@ namespace SistemaPedidoRestaurante.BLL
         public Usuarios ObtenerTodosLosUsuarios()
         {
             Permisos.ExigirRol(1);
-            return _usuarioDAL.Listar();
+            return _usuarioDAL.Listar(SesionActual.IdUsuario);
         }
 
         public Usuarios BuscarUsuarios(string filtro)

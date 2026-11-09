@@ -19,7 +19,7 @@ namespace SistemaPedidoRestaurante.UICompartida
         {
             this.pedido = pedido;
             InitializeComponent();
-            if (pedido > 0) Text = "Asignar mesa al pedido " + pedido;
+            if (pedido > 0) Text = "Asignar mesa a la venta " + pedido;
         }
 
         private void cargar(object sender, EventArgs e)
@@ -29,10 +29,16 @@ namespace SistemaPedidoRestaurante.UICompartida
             if (!AccesoFormulario.PermitirAtencion(this)) return;
             try
             {
-                mesas.DataSource = servicio.ListarMesas();
+                DataView disponibles = servicio.ListarMesas().DefaultView;
+                disponibles.RowFilter = "Estado = 'Disponible'";
+                mesas.DataSource = disponibles;
+                asignar.Enabled = disponibles.Count > 0;
+                if (disponibles.Count == 0)
+                    lblMesa.Text = "No hay mesas disponibles.";
             }
             catch (Exception error)
             {
+                asignar.Enabled = false;
                 MessageBox.Show(this, error.Message);
             }
         }

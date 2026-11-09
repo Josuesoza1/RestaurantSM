@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
+using SistemaPedidoRestaurante.UICompartida;
 using SistemaPedidoRestaurante.UIPrincipal;
 
 namespace SistemaPedidoRestaurante.UIEmpleado
@@ -20,8 +21,15 @@ namespace SistemaPedidoRestaurante.UIEmpleado
                 return;
 
             operacionesToolStripMenuItem.Available = Permisos.PuedeAtender;
-            lblTitulo.Text = "DESPACHO LOCAL";
-            lblEstado.Text = "Registre, despache y cobre las ventas pendientes del local.";
+            nuevaVentaToolStripMenuItem.Available = Permisos.PuedeAtender;
+            lblTitulo.Text = "CAJA";
+            lblEstado.Text = "Pulse Nueva venta para atender a un cliente. En Ventas abiertas puede retomar una venta guardada.";
+        }
+
+        private void nuevaVentaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var formulario = PantallasPersonal.CrearPedido())
+                formulario.ShowDialog(this);
         }
 
         private void pedidosToolStripMenuItem_Click(object sender, EventArgs e)

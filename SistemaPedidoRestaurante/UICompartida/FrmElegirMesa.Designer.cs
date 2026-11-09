@@ -34,8 +34,8 @@
             this.panel.Padding = new System.Windows.Forms.Padding(20);
             this.panel.RowCount = 3;
             this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.panel.Size = new System.Drawing.Size(520, 180);
             this.panel.TabIndex = 0;
             // 
@@ -46,7 +46,7 @@
             this.lblMesa.Name = "lblMesa";
             this.lblMesa.Size = new System.Drawing.Size(65, 13);
             this.lblMesa.TabIndex = 0;
-            this.lblMesa.Text = "Mesa activa";
+            this.lblMesa.Text = "Mesa disponible";
             // 
             // mesas
             // 

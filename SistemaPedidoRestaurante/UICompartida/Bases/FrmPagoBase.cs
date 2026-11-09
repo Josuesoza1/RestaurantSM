@@ -61,18 +61,33 @@ namespace SistemaPedidoRestaurante.UICompartida
                 bool nombreOpcional = Convert.ToBoolean(cotizacion["PuedeNombrarComprobante"]);
                 lblNombreComprobante.Visible = txtNombreComprobante.Visible = nombreOpcional;
                 txtNombreComprobante.Enabled = nombreOpcional;
-                Text = "Cobro de pedido " + pedido + " — " + Convert.ToString(cotizacion["Cliente"]);
+                Text = "Cobro de venta " + pedido + " — " + Convert.ToString(cotizacion["Cliente"]);
+                ActualizarBotonPago();
+                ActiveControl = cmbTipoPedido;
             }
             catch (Exception error)
             {
-                MessageBox.Show(this, error.Message);
-                btnRegistrarPago.Enabled = false;
+                total = 0;
+                ActualizarBotonPago();
+                MessageBox.Show(this, VistaGestion.MensajeParaUsuario(error,
+                    "No se pudo consultar el importe. Vuelva a Ventas abiertas y abra el cobro de nuevo."),
+                    Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void cmbTipoPedido_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ActualizarBotonPago();
+        }
+
+        private void ActualizarBotonPago()
+        {
+            btnRegistrarPago.Enabled = total > 0 && cmbTipoPedido.SelectedIndex >= 0 && !pagado;
         }
 
         private void btnRegistrarPago_Click(object sender, EventArgs e)
         {
-            if (pagado)
+            if (!btnRegistrarPago.Enabled)
                 return;
             try
             {
@@ -86,7 +101,11 @@ namespace SistemaPedidoRestaurante.UICompartida
                     DataRow resultado = servicio.Cobrar(pedido, metodo, confirmar.Recibido, total, solicitud, txtNotas.Text,
                         desdeMostrador, nombreComprobante);
                     pagado = true;
-                    DialogResult verFactura = MessageBox.Show(this, "Pago registrado. Factura " + resultado["IdFactura"] + ". Cambio: C$ " + Convert.ToDecimal(resultado["Cambio"]).ToString("N2") + ". ¿Ver la factura de esta venta?",
+                    string mensaje = "Pago registrado para la venta " + pedido + ".";
+                    if (metodo == "Efectivo")
+                        mensaje += " Vuelto: C$ " + Convert.ToDecimal(resultado["Cambio"]).ToString("N2") + ".";
+                    DialogResult verFactura = MessageBox.Show(this, mensaje + Environment.NewLine +
+                        "¿Ver la factura de esta venta?",
                         "Cobro confirmado", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (verFactura == DialogResult.Yes)
                     {
@@ -97,7 +116,9 @@ namespace SistemaPedidoRestaurante.UICompartida
                         }
                         catch (Exception error)
                         {
-                            MessageBox.Show(this, "El cobro se guardó. No se pudo mostrar la factura: " + error.Message);
+                            MessageBox.Show(this, "El pago se guardó. " + VistaGestion.MensajeParaUsuario(error,
+                                "Puede volver a abrir el documento desde Último comprobante."),
+                                Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
                     DialogResult = DialogResult.OK;
@@ -106,12 +127,14 @@ namespace SistemaPedidoRestaurante.UICompartida
             }
             catch (Exception error)
             {
-                MessageBox.Show(this, error.Message, Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, VistaGestion.MensajeParaUsuario(error,
+                    "No se pudo confirmar el pago. Revise el estado de la venta antes de volver a cobrar."),
+                    Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             finally
             {
                 if (!IsDisposed)
-                    btnRegistrarPago.Enabled = !pagado;
+                    ActualizarBotonPago();
             }
         }
 

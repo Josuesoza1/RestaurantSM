@@ -117,10 +117,52 @@ namespace SistemaPedidoRestaurante.DAL
                     precio.Scale = 2;
                     precio.Value = producto.Precio;
                     command.Parameters.Add("@Descripcion", SqlDbType.VarChar, 250).Value = (object)producto.Descripcion ?? DBNull.Value;
-                    command.Parameters.Add("@Codigo", SqlDbType.VarChar, 20).Value = producto.Codigo;
+                    command.Parameters.Add("@Codigo", SqlDbType.VarChar, 20).Value = (object)producto.Codigo ?? DBNull.Value;
                     command.Parameters.Add("@Disponible", SqlDbType.Bit).Value = producto.Disponible;
                     connection.Open();
-                    command.ExecuteNonQuery();
+                    var codigo = command.ExecuteScalar() as string;
+                    if (codigo != null)
+                        producto.Codigo = codigo;
+                }
+            }
+        }
+
+        public Producto Activar(int idProducto, int idAdministrador)
+        {
+            const string consulta = @"
+                EXEC dbo.sp_Catalogo_ExigirAdministrador @IdAdministrador;
+
+                UPDATE p SET disponible = 1
+                FROM dbo.producto p
+                JOIN dbo.categoria c ON c.idCategoria = p.idCategoria
+                WHERE p.idProducto = @IdProducto AND c.activa = 1;
+
+                IF @@ROWCOUNT = 0
+                BEGIN
+                    IF NOT EXISTS (SELECT 1 FROM dbo.producto WHERE idProducto = @IdProducto)
+                        THROW 50027, N'El producto seleccionado ya no existe.', 1;
+                    THROW 50025, N'Active la categoría antes de ofrecer este producto.', 1;
+                END;
+                " + ConsultaCatalogo + " WHERE p.idProducto = @IdProducto;";
+
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+                conexion.Open();
+                using (SqlTransaction transaccion = conexion.BeginTransaction(IsolationLevel.Serializable))
+                using (SqlCommand comando = new SqlCommand(consulta, conexion, transaccion))
+                {
+                    comando.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
+                    comando.Parameters.Add("@IdAdministrador", SqlDbType.Int).Value = idAdministrador;
+
+                    Producto producto;
+                    using (SqlDataReader lector = comando.ExecuteReader())
+                    {
+                        lector.Read();
+                        producto = LeerProducto(lector);
+                    }
+
+                    transaccion.Commit();
+                    return producto;
                 }
             }
         }

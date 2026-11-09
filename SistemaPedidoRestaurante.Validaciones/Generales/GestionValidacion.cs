@@ -5,6 +5,9 @@ namespace SistemaPedidoRestaurante.Validaciones
 {
     public static class GestionValidacion
     {
+        public const int NumeroMesaMaximo = 999;
+        public const int CapacidadMesaMaxima = 20;
+
         public static string Texto(string valor, int maximo, string campo, bool requerido = false)
         {
             return CamposValidacion.Texto(valor, maximo, campo, requerido);
@@ -17,16 +20,15 @@ namespace SistemaPedidoRestaurante.Validaciones
 
         public static void Mesa(int numero, int capacidad, string estado)
         {
-            if (numero < 1)
+            if (numero < 1 || numero > NumeroMesaMaximo)
             {
-                throw new ArgumentException("El número de mesa debe ser mayor que cero.");
+                throw new ArgumentException("El número de mesa debe estar entre 1 y " + NumeroMesaMaximo + ".");
             }
-            if (capacidad < 1 || capacidad > 20)
+            if (capacidad < 1 || capacidad > CapacidadMesaMaxima)
             {
-                throw new ArgumentException("La capacidad debe estar entre 1 y 20 personas.");
+                throw new ArgumentException("La capacidad debe estar entre 1 y " + CapacidadMesaMaxima + " personas.");
             }
-            if (estado != "Disponible" && estado != "Ocupada" &&
-                estado != "Reservada" && estado != "En limpieza")
+            if (estado != "Disponible" && estado != "No disponible")
             {
                 throw new ArgumentException("Seleccione un estado válido para la mesa.");
             }

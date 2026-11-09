@@ -47,7 +47,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private void Recargar()
         {
             clientes = servicio.Listar();
-            dgvClientes.DataSource = clientes;
+            VistaGestion.MostrarListadoGestion(dgvClientes, servicio.Buscar(clientes, txtTextoBuscar.Text));
         }
 
         private Cliente Leer()
@@ -99,7 +99,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             txtEmail.Clear();
             cmbGenero.SelectedIndex = -1;
             chkActivo.Checked = true;
-            dgvClientes.ClearSelection();
 
         }
 
@@ -157,8 +156,9 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             try
             {
-                dgvClientes.DataSource = servicio.Buscar(clientes, txtTextoBuscar.Text);
-                Nuevo();
+                VistaGestion.MostrarListadoGestion(dgvClientes, servicio.Buscar(clientes, txtTextoBuscar.Text));
+                if (modoActual == ModoFormulario.Neutral)
+                    Nuevo();
             }
             catch (Exception error)
             {
@@ -210,6 +210,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 return;
             }
 
+            ActiveControl = txtTextoBuscar;
+
             try
             {
                 Recargar();
@@ -227,7 +229,11 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         }
         private void IniciarSeleccion(ModoFormulario modo)
         {
-            if (VistaGestion.Fila(dgvClientes) == null) { MessageBox.Show(this, "Seleccione un cliente del listado."); return; }
+            if (VistaGestion.Fila(dgvClientes) == null)
+            {
+                lblOperacion.Text = "Seleccione un cliente del listado.";
+                return;
+            }
             Mostrar();
             CambiarModo(modo);
         }
@@ -236,9 +242,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             modoActual = modo;
             bool edicion = modo == ModoFormulario.Nuevo || modo == ModoFormulario.Editar;
             bool operacion = modo != ModoFormulario.Neutral;
-            VistaGestion.Modo(lblOperacion, pnlOperacion, btnGuardar, modo, "cliente");
+            string cliente = modo == ModoFormulario.Editar || modo == ModoFormulario.Eliminar
+                ? "cliente «" + txtPnombre.Text + " " + txtPapellido.Text + "»" : "cliente";
+            VistaGestion.Modo(lblOperacion, pnlOperacion, btnGuardar, modo, cliente);
             grpDatosClientes.Enabled = edicion;
-            dgvClientes.Enabled = txtTextoBuscar.Enabled = btnBuscar.Enabled = !operacion;
             btnGuardar.Enabled = operacion;
             btnLimpiar.Enabled = edicion;
             btnCancelar.Enabled = operacion;

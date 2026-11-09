@@ -35,6 +35,10 @@
             this.lblProducto = new System.Windows.Forms.Label();
             this.nudCantidad = new System.Windows.Forms.NumericUpDown();
             this.dgvDetalle = new System.Windows.Forms.DataGridView();
+            this.colProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colPrecio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSubtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.estadoPerfil = new System.Windows.Forms.Label();
             this.lblEstadoCatalogo = new System.Windows.Forms.Label();
             this.btnRecargarCatalogo = new System.Windows.Forms.Button();
@@ -73,7 +77,7 @@
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(271, 29);
             this.lblTitulo.TabIndex = 0;
-            this.lblTitulo.Text = "PEDIDO EN EL LOCAL";
+            this.lblTitulo.Text = "NUEVA VENTA";
             // 
             // grpDatosCliente
             // 
@@ -136,18 +140,19 @@
             this.grpProducto.Location = new System.Drawing.Point(342, 109);
             this.grpProducto.Name = "grpProducto";
             this.grpProducto.Size = new System.Drawing.Size(435, 175);
-            this.grpProducto.TabIndex = 3;
+            this.grpProducto.TabIndex = 0;
             this.grpProducto.TabStop = false;
             this.grpProducto.Text = "Producto";
             // 
             // cmbCategoria
             // 
             this.cmbCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCategoria.AccessibleName = "Categoría";
             this.cmbCategoria.FormattingEnabled = true;
             this.cmbCategoria.Location = new System.Drawing.Point(95, 20);
             this.cmbCategoria.Name = "cmbCategoria";
             this.cmbCategoria.Size = new System.Drawing.Size(320, 22);
-            this.cmbCategoria.TabIndex = 23;
+            this.cmbCategoria.TabIndex = 0;
             this.cmbCategoria.SelectedValueChanged += new System.EventHandler(this.cmbCategoria_SelectedValueChanged);
             // 
             // cmbPrecio
@@ -158,16 +163,17 @@
             this.cmbPrecio.Location = new System.Drawing.Point(255, 90);
             this.cmbPrecio.Name = "cmbPrecio";
             this.cmbPrecio.Size = new System.Drawing.Size(160, 22);
-            this.cmbPrecio.TabIndex = 22;
+            this.cmbPrecio.TabStop = false;
             // 
             // cmbProducto
             // 
             this.cmbProducto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbProducto.AccessibleName = "Producto";
             this.cmbProducto.FormattingEnabled = true;
             this.cmbProducto.Location = new System.Drawing.Point(95, 55);
             this.cmbProducto.Name = "cmbProducto";
             this.cmbProducto.Size = new System.Drawing.Size(320, 22);
-            this.cmbProducto.TabIndex = 20;
+            this.cmbProducto.TabIndex = 1;
             this.cmbProducto.SelectedValueChanged += new System.EventHandler(this.cmbProducto_SelectedValueChanged);
             // 
             // btnCancelar
@@ -179,7 +185,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(265, 130);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(150, 31);
-            this.btnCancelar.TabIndex = 19;
+            this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Volver";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -193,8 +199,8 @@
             this.btnAceptar.Location = new System.Drawing.Point(95, 130);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(155, 31);
-            this.btnAceptar.TabIndex = 18;
-            this.btnAceptar.Text = "Agregar al pedido";
+            this.btnAceptar.TabIndex = 3;
+            this.btnAceptar.Text = "Agregar a la venta";
             this.btnAceptar.UseVisualStyleBackColor = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
@@ -241,6 +247,7 @@
             // nudCantidad
             // 
             this.nudCantidad.Location = new System.Drawing.Point(95, 90);
+            this.nudCantidad.AccessibleName = "Cantidad para agregar";
             this.nudCantidad.Maximum = new decimal(new int[] {
             999,
             0,
@@ -253,7 +260,7 @@
             0});
             this.nudCantidad.Name = "nudCantidad";
             this.nudCantidad.Size = new System.Drawing.Size(80, 20);
-            this.nudCantidad.TabIndex = 26;
+            this.nudCantidad.TabIndex = 2;
             this.nudCantidad.Value = new decimal(new int[] {
             1,
             0,
@@ -264,12 +271,16 @@
             // dgvDetalle
             // 
             this.dgvDetalle.AllowUserToAddRows = false;
+            this.dgvDetalle.AccessibleName = "Productos agregados a la venta";
             this.dgvDetalle.AllowUserToDeleteRows = false;
             this.dgvDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvDetalle.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvDetalle.AutoGenerateColumns = false;
             this.dgvDetalle.ColumnHeadersHeight = 29;
+            this.dgvDetalle.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colProducto, this.colCantidad, this.colPrecio, this.colSubtotal });
             this.dgvDetalle.Location = new System.Drawing.Point(12, 330);
             this.dgvDetalle.MultiSelect = false;
             this.dgvDetalle.Name = "dgvDetalle";
@@ -277,8 +288,24 @@
             this.dgvDetalle.RowHeadersWidth = 51;
             this.dgvDetalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDetalle.Size = new System.Drawing.Size(760, 160);
-            this.dgvDetalle.TabIndex = 0;
+            this.dgvDetalle.StandardTab = true;
+            this.dgvDetalle.TabIndex = 2;
             this.dgvDetalle.SelectionChanged += new System.EventHandler(this.dgvDetalle_SelectionChanged);
+            this.colProducto.Name = "colProducto";
+            this.colProducto.DataPropertyName = "Producto";
+            this.colProducto.HeaderText = "Producto";
+            this.colProducto.FillWeight = 175;
+            this.colCantidad.Name = "colCantidad";
+            this.colCantidad.DataPropertyName = "Cantidad";
+            this.colCantidad.HeaderText = "Cantidad";
+            this.colPrecio.Name = "colPrecio";
+            this.colPrecio.DataPropertyName = "PrecioUnitario";
+            this.colPrecio.HeaderText = "Precio unitario";
+            this.colPrecio.DefaultCellStyle.Format = "N2";
+            this.colSubtotal.Name = "colSubtotal";
+            this.colSubtotal.DataPropertyName = "Subtotal";
+            this.colSubtotal.HeaderText = "Subtotal";
+            this.colSubtotal.DefaultCellStyle.Format = "N2";
             // 
             // estadoPerfil
             // 
@@ -289,11 +316,13 @@
             this.estadoPerfil.Name = "estadoPerfil";
             this.estadoPerfil.Size = new System.Drawing.Size(760, 26);
             this.estadoPerfil.TabIndex = 0;
-            this.estadoPerfil.Text = "Selecciona productos para preparar tu pedido. Todavía no se ha enviado.";
+            this.estadoPerfil.BackColor = System.Drawing.SystemColors.Window;
+            this.estadoPerfil.Text = "Elija un producto y una cantidad para agregarlos a la venta.";
             // 
             // lblEstadoCatalogo
             // 
             this.lblEstadoCatalogo.AutoEllipsis = true;
+            this.lblEstadoCatalogo.BackColor = System.Drawing.SystemColors.Window;
             this.lblEstadoCatalogo.Location = new System.Drawing.Point(12, 75);
             this.lblEstadoCatalogo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblEstadoCatalogo.Name = "lblEstadoCatalogo";
@@ -309,7 +338,7 @@
             this.btnRecargarCatalogo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnRecargarCatalogo.Name = "btnRecargarCatalogo";
             this.btnRecargarCatalogo.Size = new System.Drawing.Size(150, 28);
-            this.btnRecargarCatalogo.TabIndex = 9;
+            this.btnRecargarCatalogo.TabIndex = 1;
             this.btnRecargarCatalogo.Text = "Recargar catálogo";
             this.btnRecargarCatalogo.UseVisualStyleBackColor = false;
             this.btnRecargarCatalogo.Click += new System.EventHandler(this.btnRecargarCatalogo_Click);
@@ -318,10 +347,10 @@
             // 
             this.btnQuitar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnQuitar.BackColor = System.Drawing.Color.LightPink;
-            this.btnQuitar.Location = new System.Drawing.Point(12, 510);
+            this.btnQuitar.Location = new System.Drawing.Point(202, 496);
             this.btnQuitar.Name = "btnQuitar";
             this.btnQuitar.Size = new System.Drawing.Size(132, 32);
-            this.btnQuitar.TabIndex = 1;
+            this.btnQuitar.TabIndex = 5;
             this.btnQuitar.Text = "Quitar seleccionado";
             this.btnQuitar.UseVisualStyleBackColor = false;
             this.btnQuitar.Click += new System.EventHandler(this.btnQuitar_Click);
@@ -330,11 +359,11 @@
             // 
             this.btnVaciar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnVaciar.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.btnVaciar.Location = new System.Drawing.Point(150, 510);
+            this.btnVaciar.Location = new System.Drawing.Point(12, 530);
             this.btnVaciar.Name = "btnVaciar";
             this.btnVaciar.Size = new System.Drawing.Size(112, 32);
-            this.btnVaciar.TabIndex = 2;
-            this.btnVaciar.Text = "Vaciar pedido";
+            this.btnVaciar.TabIndex = 6;
+            this.btnVaciar.Text = "Vaciar venta";
             this.btnVaciar.UseVisualStyleBackColor = false;
             this.btnVaciar.Click += new System.EventHandler(this.btnVaciar_Click);
             // 
@@ -343,10 +372,10 @@
             this.btnEnviar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnEnviar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btnEnviar.Enabled = false;
-            this.btnEnviar.Location = new System.Drawing.Point(268, 510);
+            this.btnEnviar.Location = new System.Drawing.Point(130, 530);
             this.btnEnviar.Name = "btnEnviar";
-            this.btnEnviar.Size = new System.Drawing.Size(117, 32);
-            this.btnEnviar.TabIndex = 3;
+            this.btnEnviar.Size = new System.Drawing.Size(132, 32);
+            this.btnEnviar.TabIndex = 7;
             this.btnEnviar.Text = "Guardar pendiente";
             this.btnEnviar.UseVisualStyleBackColor = false;
             this.btnEnviar.Click += new System.EventHandler(this.btnEnviar_Click);
@@ -356,11 +385,11 @@
             this.btnCobrarAhora.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnCobrarAhora.BackColor = System.Drawing.Color.Olive;
             this.btnCobrarAhora.Enabled = false;
-            this.btnCobrarAhora.Location = new System.Drawing.Point(391, 510);
+            this.btnCobrarAhora.Location = new System.Drawing.Point(268, 530);
             this.btnCobrarAhora.Name = "btnCobrarAhora";
-            this.btnCobrarAhora.Size = new System.Drawing.Size(111, 32);
-            this.btnCobrarAhora.TabIndex = 4;
-            this.btnCobrarAhora.Text = "Cobrar ahora";
+            this.btnCobrarAhora.Size = new System.Drawing.Size(132, 32);
+            this.btnCobrarAhora.TabIndex = 8;
+            this.btnCobrarAhora.Text = "Guardar y cobrar";
             this.btnCobrarAhora.UseVisualStyleBackColor = false;
             this.btnCobrarAhora.Click += new System.EventHandler(this.btnCobrarAhora_Click);
             // 
@@ -368,7 +397,7 @@
             // 
             this.nudCantidadDetalle.AccessibleName = "Cantidad de la línea seleccionada";
             this.nudCantidadDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudCantidadDetalle.Location = new System.Drawing.Point(165, 517);
+            this.nudCantidadDetalle.Location = new System.Drawing.Point(12, 502);
             this.nudCantidadDetalle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.nudCantidadDetalle.Maximum = new decimal(new int[] {
             999,
@@ -382,26 +411,26 @@
             0});
             this.nudCantidadDetalle.Name = "nudCantidadDetalle";
             this.nudCantidadDetalle.Size = new System.Drawing.Size(48, 20);
-            this.nudCantidadDetalle.TabIndex = 6;
+            this.nudCantidadDetalle.TabIndex = 3;
             this.nudCantidadDetalle.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.nudCantidadDetalle.Visible = false;
+            this.nudCantidadDetalle.Enabled = false;
             // 
             // btnCambiarCantidad
             // 
             this.btnCambiarCantidad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnCambiarCantidad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.btnCambiarCantidad.Location = new System.Drawing.Point(516, 531);
+            this.btnCambiarCantidad.Location = new System.Drawing.Point(66, 496);
             this.btnCambiarCantidad.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCambiarCantidad.Name = "btnCambiarCantidad";
             this.btnCambiarCantidad.Size = new System.Drawing.Size(128, 32);
-            this.btnCambiarCantidad.TabIndex = 7;
+            this.btnCambiarCantidad.TabIndex = 4;
             this.btnCambiarCantidad.Text = "Cambiar cantidad";
             this.btnCambiarCantidad.UseVisualStyleBackColor = false;
-            this.btnCambiarCantidad.Visible = false;
+            this.btnCambiarCantidad.Enabled = false;
             this.btnCambiarCantidad.Click += new System.EventHandler(this.btnCambiarCantidad_Click);
             // 
             // btnGuardarCambios
@@ -409,11 +438,11 @@
             this.btnGuardarCambios.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnGuardarCambios.BackColor = System.Drawing.Color.Lime;
             this.btnGuardarCambios.Enabled = false;
-            this.btnGuardarCambios.Location = new System.Drawing.Point(649, 531);
+            this.btnGuardarCambios.Location = new System.Drawing.Point(12, 530);
             this.btnGuardarCambios.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnGuardarCambios.Name = "btnGuardarCambios";
             this.btnGuardarCambios.Size = new System.Drawing.Size(124, 32);
-            this.btnGuardarCambios.TabIndex = 8;
+            this.btnGuardarCambios.TabIndex = 9;
             this.btnGuardarCambios.Text = "Guardar cambios";
             this.btnGuardarCambios.UseVisualStyleBackColor = false;
             this.btnGuardarCambios.Visible = false;
@@ -451,7 +480,8 @@
             this.Controls.Add(this.pnlEncabezado);
             this.MinimumSize = new System.Drawing.Size(800, 597);
             this.Name = "FrmPedidoLocalBase";
-            this.Text = "MI PEDIDO";
+            this.CancelButton = this.btnCancelar;
+            this.Text = "Nueva venta local";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmPedidoLocalBase_FormClosing);
             this.Load += new System.EventHandler(this.CargarPantalla);
             this.pnlEncabezado.ResumeLayout(false);

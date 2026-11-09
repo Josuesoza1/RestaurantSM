@@ -22,12 +22,19 @@ namespace SistemaPedidoRestaurante.UICompartida
             InitializeComponent();
             resumen.Text = metodo + " — Total: C$ " + total.ToString("N2");
             monto.ReadOnly = !esEfectivo;
+            monto.TabStop = esEfectivo;
             pagoExacto.Visible = esEfectivo;
-            cambio.Visible = esEfectivo;
             if (!esEfectivo)
             {
-                lblRecibido.Text = "Importe a cobrar";
+                lblRecibido.Text = "Monto por verificar";
+                monto.AccessibleName = "Monto por verificar";
                 monto.Text = total.ToString("F2");
+                cambio.Text = metodo == "Tarjeta"
+                    ? "Cobre con el datáfono. Registre el pago cuando el datáfono lo apruebe."
+                    : "Verifique en su banco que recibió la transferencia antes de registrar el pago.";
+                confirmar.Text = "Registrar pago recibido";
+                AcceptButton = null;
+                ActiveControl = cancelar;
                 Recibido = total;
                 confirmar.Enabled = true;
             }
@@ -56,18 +63,27 @@ namespace SistemaPedidoRestaurante.UICompartida
 
             if (!PagoValidacion.IntentarLeerRecibido(monto.Text, out decimal recibido))
             {
-                cambio.Text = "Ingrese un monto válido, con hasta dos decimales.";
+                cambio.Text = PagoValidacion.AvisoRangoEfectivo(total);
                 return;
             }
 
             if (recibido < total)
             {
-                cambio.Text = "Faltan C$ " + (total - recibido).ToString("N2");
+                cambio.Text = "Faltan C$ " + (total - recibido).ToString("N2") + "." + Environment.NewLine +
+                    PagoValidacion.AvisoRangoEfectivo(total);
+                return;
+            }
+
+            decimal vuelto = recibido - total;
+            if (vuelto > PagoValidacion.VueltoMaximo)
+            {
+                cambio.Text = "El vuelto máximo es C$ " + PagoValidacion.VueltoMaximo.ToString("N2") + "." +
+                    Environment.NewLine + PagoValidacion.AvisoRangoEfectivo(total);
                 return;
             }
 
             Recibido = recibido;
-            cambio.Text = "Cambio: C$ " + (recibido - total).ToString("N2");
+            cambio.Text = "Vuelto: C$ " + vuelto.ToString("N2");
             confirmar.Enabled = true;
         }
 

@@ -46,5 +46,15 @@ namespace SistemaPedidoRestaurante.BLL
         {
             return !string.IsNullOrEmpty(valor) && valor.IndexOf(filtro, StringComparison.CurrentCultureIgnoreCase) >= 0;
         }
+
+        internal static bool LeerFiltroId(string filtro, out int id)
+        {
+            if (filtro.StartsWith("ID ", StringComparison.OrdinalIgnoreCase) &&
+                int.TryParse(filtro.Substring(3), out id))
+                return true;
+
+            int.TryParse(filtro, out id);
+            return false;
+        }
     }
 }

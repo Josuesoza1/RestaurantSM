@@ -23,6 +23,7 @@
             this.grpAdmin = new System.Windows.Forms.GroupBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.operacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nuevaVentaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historialVentasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -109,6 +110,7 @@
             // operacionesToolStripMenuItem
             // 
             this.operacionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nuevaVentaToolStripMenuItem,
             this.pedidosToolStripMenuItem,
             this.historialVentasToolStripMenuItem,
             this.facturasToolStripMenuItem,
@@ -118,6 +120,9 @@
             this.operacionesToolStripMenuItem.Name = "operacionesToolStripMenuItem";
             this.operacionesToolStripMenuItem.Size = new System.Drawing.Size(77, 28);
             this.operacionesToolStripMenuItem.Text = "Ventas";
+            this.nuevaVentaToolStripMenuItem.Name = "nuevaVentaToolStripMenuItem";
+            this.nuevaVentaToolStripMenuItem.Text = "Nueva venta";
+            this.nuevaVentaToolStripMenuItem.Click += new System.EventHandler(this.nuevaVentaToolStripMenuItem_Click);
             // 
             // pedidosToolStripMenuItem
             // 
@@ -272,7 +277,7 @@
             this.salirToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("salirToolStripMenuItem.Image")));
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             this.salirToolStripMenuItem.Size = new System.Drawing.Size(65, 28);
-            this.salirToolStripMenuItem.Text = "Salir";
+            this.salirToolStripMenuItem.Text = "Cerrar programa";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
             // FrmMenuAdministracion
@@ -320,6 +325,7 @@
         private System.Windows.Forms.ToolStripMenuItem configuracionRestauranteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reservasPersonalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem operacionesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nuevaVentaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pedidosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem facturasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cerrarSesionToolStripMenuItem;

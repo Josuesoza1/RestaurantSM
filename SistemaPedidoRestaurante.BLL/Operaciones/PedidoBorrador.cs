@@ -34,7 +34,8 @@ namespace SistemaPedidoRestaurante.BLL
 
             if (producto.Precio <= 0 || producto.Precio > ImporteMaximo || decimal.Round(producto.Precio, 2) != producto.Precio)
             {
-                throw new ArgumentException("El producto no tiene un precio válido.");
+                throw new ArgumentException("El precio del producto debe estar entre " + 0.01m.ToString("N2") +
+                    " y " + ImporteMaximo.ToString("N2") + ", con hasta dos decimales.");
             }
 
             LineaPedidoBorrador anterior = lineas.FirstOrDefault(linea =>
@@ -84,7 +85,7 @@ namespace SistemaPedidoRestaurante.BLL
             return true;
         }
 
-        public void CambiarCantidad(LineaPedidoBorrador linea, int cantidad)
+        public LineaPedidoBorrador CambiarCantidad(LineaPedidoBorrador linea, int cantidad)
         {
             if (!lineas.Contains(linea))
                 throw new ArgumentException("Seleccione una línea del pedido.");
@@ -93,6 +94,7 @@ namespace SistemaPedidoRestaurante.BLL
 
             var nueva = new LineaPedidoBorrador(linea.IdProducto, linea.Producto, linea.PrecioUnitario, cantidad);
             GuardarLinea(nueva, linea);
+            return nueva;
         }
 
         private void GuardarLinea(LineaPedidoBorrador nueva, LineaPedidoBorrador anterior)
@@ -100,15 +102,13 @@ namespace SistemaPedidoRestaurante.BLL
             decimal nuevoTotal = Total - (anterior?.Subtotal ?? 0m) + nueva.Subtotal;
             if (nuevoTotal > ImporteMaximo)
             {
-                throw new ArgumentException("El total supera el importe permitido para un pedido.");
+                throw new ArgumentException("El total del pedido no puede superar " + ImporteMaximo.ToString("N2") + ".");
             }
 
-            if (anterior != null)
-            {
-                lineas.Remove(anterior);
-            }
-
-            lineas.Add(nueva);
+            if (anterior == null)
+                lineas.Add(nueva);
+            else
+                lineas[lineas.IndexOf(anterior)] = nueva;
         }
 
         public void Quitar(int idProducto)

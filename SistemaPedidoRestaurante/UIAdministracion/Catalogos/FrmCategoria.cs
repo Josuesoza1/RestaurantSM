@@ -12,6 +12,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private readonly CategoriaBLL _categoriaBLL = new CategoriaBLL();
         private ModoFormulario modoActual;
         private Categoria categoriaSeleccionada;
+        private string filtroAplicado = "";
 
         public FrmCategoria()
         {
@@ -24,14 +25,33 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             CambiarModo(ModoFormulario.Neutral);
             TemaUI.Aplicar(this);
         }
-        private void CargarDatos()
+        private void CargarDatos(int idSeleccionado = 0, string nuevoFiltro = null)
         {
+            string filtro = nuevoFiltro ?? filtroAplicado;
+            Categorias resultados = _categoriaBLL.BuscarCategorias(filtro);
             dgvCategorias.AutoGenerateColumns = false;
             dgvCategorias.Columns[0].DataPropertyName = "IdCategoria";
             dgvCategorias.Columns[1].DataPropertyName = "Nombre";
             dgvCategorias.Columns[2].DataPropertyName = "Descripcion";
             dgvCategorias.Columns[3].DataPropertyName = "Activa";
-            VistaGestion.Vincular(dgvCategorias, _categoriaBLL.ObtenerCategorias());
+            VistaGestion.VincularGestion(dgvCategorias, resultados);
+            filtroAplicado = filtro;
+            grpListadoCliente.Text = VistaGestion.TituloListado("categorías", resultados.Count, filtro);
+            btnQuitarFiltro.Enabled = filtro.Length > 0;
+            if (modoActual == ModoFormulario.Neutral)
+                RestaurarSeleccion(idSeleccionado);
+        }
+
+        private void RestaurarSeleccion(int id)
+        {
+            dgvCategorias.ClearSelection();
+            categoriaSeleccionada = id > 0
+                ? VistaGestion.SeleccionarRegistro<Categoria>(dgvCategorias, categoria => categoria.IdCategoria == id)
+                : null;
+            if (categoriaSeleccionada == null)
+                LimpiarCampos();
+            else
+                CargarCategoriaEnFormulario(categoriaSeleccionada);
         }
         private void FrmCategoria_Load(object sender, EventArgs e)
         {
@@ -45,6 +65,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 Close();
                 return;
             }
+
+            ActiveControl = txtTextoBuscar;
 
             try
             {
@@ -87,12 +109,12 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                     panel1.BackColor = Color.LightGreen;
                     break;
                 case ModoFormulario.Editar:
-                    lblOperacion.Text = "Operación actual: Editar categoría";
+                    lblOperacion.Text = "Operación actual: Editar categoría «" + categoriaSeleccionada.Nombre + "»";
                     btnAccion.Text = "Guardar cambios";
                     panel1.BackColor = Color.LightSkyBlue;
                     break;
                 case ModoFormulario.Eliminar:
-                    lblOperacion.Text = "Operación actual: Eliminar categoría";
+                    lblOperacion.Text = "Operación actual: Eliminar categoría «" + categoriaSeleccionada.Nombre + "»";
                     btnAccion.Text = "Eliminar";
                     panel1.BackColor = Color.LightCoral;
                     break;
@@ -104,9 +126,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             btnLimpiar.Enabled = puedeEditar;
             btnAccion.Enabled = hayOperacion;
             btnCancelar.Enabled = hayOperacion;
-            dgvCategorias.Enabled = !hayOperacion;
-            txtTextoBuscar.Enabled = !hayOperacion;
-            btnBuscar.Enabled = !hayOperacion;
+            nuevoToolStripMenuItem.Enabled = editarToolStripMenuItem.Enabled = !hayOperacion;
+            eliminarToolStripMenuItem.Enabled = desactivarToolStripMenuItem.Enabled = !hayOperacion;
         }
 
         private void editarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -132,9 +153,9 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            categoriaSeleccionada = null;
-            LimpiarCampos();
+            int id = categoriaSeleccionada?.IdCategoria ?? 0;
             CambiarModo(ModoFormulario.Neutral);
+            RestaurarSeleccion(id);
         }
 
         private void LimpiarCampos()
@@ -166,14 +187,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         }
         private bool SeleccionarCategoria()
         {
-            categoriaSeleccionada = null;
-            if (dgvCategorias.CurrentRow != null)
-            {
-                categoriaSeleccionada = dgvCategorias.CurrentRow.DataBoundItem as Categoria;
-            }
+            categoriaSeleccionada = VistaGestion.RegistroSeleccionado<Categoria>(dgvCategorias);
             if (categoriaSeleccionada == null)
             {
-                MessageBox.Show("Seleccione una categoría del listado.", "Categorías", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                lblOperacion.Text = "Seleccione una categoría del listado.";
                 return false;
             }
             CargarCategoriaEnFormulario(categoriaSeleccionada);
@@ -194,6 +211,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                     return;
                 }
 
+                int id = categoriaSeleccionada?.IdCategoria ?? 0;
                 if (modoActual == ModoFormulario.Eliminar)
                 {
                     if (categoriaSeleccionada == null)
@@ -219,10 +237,9 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 }
 
                 categoriaSeleccionada = null;
-                txtTextoBuscar.Clear();
                 LimpiarCampos();
                 CambiarModo(ModoFormulario.Neutral);
-                CargarDatos();
+                CargarDatos(id);
                 MessageBox.Show("Operación realizada correctamente.", "Categorías", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -234,9 +251,30 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             try
             {
-                string filtro = txtTextoBuscar.Text;
-                Categorias resultado = _categoriaBLL.BuscarCategorias(filtro);
-                VistaGestion.Vincular(dgvCategorias, resultado);
+                CargarDatos(nuevoFiltro: txtTextoBuscar.Text.Trim());
+            }
+            catch (Exception ex)
+            {
+                MostrarError(ex);
+            }
+        }
+
+        private void txtTextoBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                btnBuscar.PerformClick();
+            }
+        }
+
+        private void btnQuitarFiltro_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CargarDatos(nuevoFiltro: "");
+                txtTextoBuscar.Clear();
+                txtTextoBuscar.Focus();
             }
             catch (Exception ex)
             {
@@ -267,11 +305,12 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                     return;
                 }
 
-                _categoriaBLL.DesactivarCategoria(categoriaSeleccionada.IdCategoria);
+                int id = categoriaSeleccionada.IdCategoria;
+                _categoriaBLL.DesactivarCategoria(id);
                 categoriaSeleccionada = null;
                 LimpiarCampos();
                 CambiarModo(ModoFormulario.Neutral);
-                CargarDatos();
+                CargarDatos(id);
             }
             catch (Exception ex)
             {

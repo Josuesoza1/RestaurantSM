@@ -23,7 +23,7 @@ namespace SistemaPedidoRestaurante.DAL
             }
         }
 
-        public Empleados Listar()
+        public Empleados Listar(int administrador)
         {
             Empleados lista = new Empleados();
             using (SqlConnection connection = ConexionBD.ObtenerConexion())
@@ -31,6 +31,7 @@ namespace SistemaPedidoRestaurante.DAL
                 using (SqlCommand command = new SqlCommand("sp_Empleado_Listar", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Actor", SqlDbType.Int).Value = administrador;
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -87,7 +88,9 @@ namespace SistemaPedidoRestaurante.DAL
                     Texto(command, "@Cedula", 30, empleado.Cedula);
                     Texto(command, "@Telefono", 20, empleado.Telefono);
                     Texto(command, "@Usuario", 50, usuario.NombreUsuario);
-                    Texto(command, "@Contrasena", 255, usuario.Contrasena);
+                    string claveProtegida = string.IsNullOrWhiteSpace(usuario.Contrasena)
+                        ? null : ContrasenaProtegida.Generar(usuario.Contrasena);
+                    Texto(command, "@Contrasena", 255, claveProtegida);
                     command.Parameters.Add("@IdRol", SqlDbType.Int).Value = usuario.IdRol;
                     command.Parameters.Add("@Activo", SqlDbType.Bit).Value = empleado.Activo;
                     connection.Open();

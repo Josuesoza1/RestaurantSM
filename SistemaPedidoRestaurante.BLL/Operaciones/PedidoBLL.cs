@@ -36,6 +36,36 @@ namespace SistemaPedidoRestaurante.BLL
             }
         }
 
+        public DataTable ListarHistorial()
+        {
+            Permisos.ExigirRol(RolesSistema.Administrador);
+            try
+            {
+                DataSet historial = pedidoDAL.ListarHistorial(SesionActual.IdUsuario);
+                var nombres = new Dictionary<int, string>();
+                foreach (DataRow factura in historial.Tables[1].Rows)
+                {
+                    string nombre = factura.Field<string>("Cliente")?.Trim();
+                    if (!string.IsNullOrEmpty(nombre) &&
+                        !string.Equals(nombre, "Consumidor final", StringComparison.OrdinalIgnoreCase))
+                        nombres.Add(factura.Field<int>("IdPedido"), nombre);
+                }
+
+                DataTable ventas = historial.Tables[0];
+                foreach (DataRow venta in ventas.Rows)
+                {
+                    if (nombres.TryGetValue(venta.Field<int>("IdPedido"), out string nombre))
+                        venta["Cliente"] = nombre;
+                }
+
+                return ventas;
+            }
+            catch (SqlException error)
+            {
+                throw OperacionDatos.Traducir(error, "No se pudo consultar el historial de ventas.");
+            }
+        }
+
         public DataTable Detalle(int pedido)
         {
             Permisos.ExigirPersonal();

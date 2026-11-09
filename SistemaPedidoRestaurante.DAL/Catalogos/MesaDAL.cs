@@ -27,51 +27,18 @@ namespace SistemaPedidoRestaurante.DAL
 
         public int Guardar(int id, int numero, int capacidad, string estado, bool activa, int idAdministrador)
         {
-            const string consulta = @"
-                EXEC dbo.sp_Catalogo_ExigirAdministrador @Actor;
-                IF @Numero < 1 OR @Capacidad NOT BETWEEN 1 AND 20 OR @Estado IS NULL
-                    OR @Estado NOT IN ('Disponible', 'Ocupada', 'Reservada', 'En limpieza')
-                    THROW 50209, N'Número, capacidad o estado de mesa no válido.', 1;
-
-                IF @Id = 0
-                BEGIN
-                    INSERT dbo.mesa (numero, capacidad, estado, activa)
-                    VALUES (@Numero, @Capacidad, @Estado, @Activa);
-                    SELECT CONVERT(int, SCOPE_IDENTITY());
-                    RETURN;
-                END;
-
-                IF (@Activa = 0 OR @Estado = 'Disponible') AND EXISTS (
-                    SELECT 1 FROM dbo.pedido WHERE idMesa = @Id AND estado NOT IN ('Cancelado', 'Pagado'))
-                    THROW 50210, N'La mesa tiene ventas abiertas.', 1;
-
-                UPDATE dbo.mesa SET numero = @Numero, capacidad = @Capacidad, estado = @Estado, activa = @Activa
-                WHERE idMesa = @Id;
-                IF @@ROWCOUNT = 0
-                    THROW 50212, N'La mesa ya no existe. Recargue el listado.', 1;
-                SELECT @Id;";
-
             using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            using (SqlCommand comando = new SqlCommand("sp_Mesa_Guardar", conexion))
             {
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@Actor", SqlDbType.Int).Value = idAdministrador;
+                comando.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+                comando.Parameters.Add("@Numero", SqlDbType.Int).Value = numero;
+                comando.Parameters.Add("@Capacidad", SqlDbType.Int).Value = capacidad;
+                comando.Parameters.Add("@Estado", SqlDbType.VarChar, 20).Value = (object)estado ?? DBNull.Value;
+                comando.Parameters.Add("@Activa", SqlDbType.Bit).Value = activa;
                 conexion.Open();
-                using (SqlTransaction transaccion = conexion.BeginTransaction(IsolationLevel.Serializable))
-                using (SqlCommand comando = new SqlCommand(consulta, conexion, transaccion))
-                {
-                    comando.Parameters.Add("@Actor", SqlDbType.Int).Value = idAdministrador;
-                    comando.Parameters.Add("@Id", SqlDbType.Int).Value = id;
-                    comando.Parameters.Add("@Numero", SqlDbType.Int).Value = numero;
-                    comando.Parameters.Add("@Capacidad", SqlDbType.Int).Value = capacidad;
-                    comando.Parameters.Add("@Estado", SqlDbType.VarChar, 20).Value = (object)(estado) ?? DBNull.Value;
-                    comando.Parameters.Add("@Activa", SqlDbType.Bit).Value = activa;
-                    object resultado = comando.ExecuteScalar();
-                    transaccion.Commit();
-                    if (resultado == null || resultado == DBNull.Value)
-                    {
-                        return 0;
-                    }
-
-                    return Convert.ToInt32(resultado);
-                }
+                return Convert.ToInt32(comando.ExecuteScalar());
             }
         }
 
@@ -140,20 +107,6 @@ namespace SistemaPedidoRestaurante.DAL
             }
         }
 
-        public void CambiarMesa(int actor, int mesa, string anterior)
-        {
-            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
-            using (SqlCommand comando = new SqlCommand("sp_Operacion_CambiarMesa", conexion))
-            {
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
-                comando.Parameters.Add("@IdMesa", SqlDbType.Int).Value = mesa;
-                comando.Parameters.Add("@Anterior", SqlDbType.VarChar, 20).Value = anterior;
-                conexion.Open();
-                comando.ExecuteNonQuery();
-            }
-        }
-
         public void AsignarMesa(int actor, int pedido, int mesa)
         {
             const string consulta = @"
@@ -169,13 +122,13 @@ namespace SistemaPedidoRestaurante.DAL
 
                 DECLARE @EstadoMesa varchar(20);
                 SELECT @EstadoMesa = estado FROM dbo.mesa WITH (UPDLOCK) WHERE idMesa = @IdMesa AND activa = 1;
-                IF @EstadoMesa IS NULL OR @EstadoMesa NOT IN ('Disponible', 'Reservada', 'Ocupada')
-                    THROW 50532, N'La mesa está inactiva o en limpieza.', 1;
+                IF @EstadoMesa IS NULL
+                    THROW 50532, N'La mesa no está disponible. Seleccione otra mesa.', 1;
 
-                IF @EstadoMesa = 'Ocupada' AND NOT EXISTS (
+                IF @EstadoMesa = 'No disponible' AND NOT EXISTS (
                     SELECT 1 FROM dbo.pedido WHERE idMesa = @IdMesa
                         AND (idPedido = @IdPedido OR idCliente = @Cliente) AND estado NOT IN ('Pagado', 'Cancelado'))
-                    THROW 50533, N'La mesa está ocupada. Libérela y confirme la limpieza antes de reutilizarla.', 1;
+                    THROW 50533, N'La mesa no está disponible. Seleccione otra mesa.', 1;
 
                 IF EXISTS (SELECT 1 FROM dbo.pedido WHERE idMesa = @IdMesa AND idPedido <> @IdPedido
                     AND (@Cliente IS NULL OR ISNULL(idCliente, 0) <> @Cliente) AND estado NOT IN ('Pagado', 'Cancelado'))
@@ -185,11 +138,11 @@ namespace SistemaPedidoRestaurante.DAL
                 SET idMesa = @IdMesa, idTipoEntrega = 1,
                     idEmpleado = COALESCE(idEmpleado, (SELECT idEmpleado FROM dbo.vw_Empleado WHERE idUsuario = @Actor AND activo = 1))
                 WHERE idPedido = @IdPedido;
-                UPDATE dbo.mesa SET estado = 'Ocupada' WHERE idMesa = @IdMesa;
+                UPDATE dbo.mesa SET estado = 'No disponible' WHERE idMesa = @IdMesa;
 
                 IF @Anterior IS NOT NULL AND @Anterior <> @IdMesa AND NOT EXISTS (
                     SELECT 1 FROM dbo.pedido WHERE idMesa = @Anterior AND estado NOT IN ('Pagado', 'Cancelado'))
-                    UPDATE dbo.mesa SET estado = 'En limpieza' WHERE idMesa = @Anterior;";
+                    UPDATE dbo.mesa SET estado = 'Disponible' WHERE idMesa = @Anterior AND activa = 1;";
 
             using (SqlConnection conexion = ConexionBD.ObtenerConexion())
             {

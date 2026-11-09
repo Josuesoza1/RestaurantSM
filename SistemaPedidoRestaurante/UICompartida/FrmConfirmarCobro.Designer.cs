@@ -41,11 +41,11 @@
             this.panel.Name = "panel";
             this.panel.Padding = new System.Windows.Forms.Padding(20);
             this.panel.RowCount = 5;
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
             this.panel.Size = new System.Drawing.Size(420, 250);
             this.panel.TabIndex = 0;
             // 
@@ -70,6 +70,7 @@
             // monto
             // 
             this.monto.Dock = System.Windows.Forms.DockStyle.Top;
+            this.monto.AccessibleName = "Monto recibido en efectivo";
             this.monto.Location = new System.Drawing.Point(23, 63);
             this.monto.Name = "monto";
             this.monto.Size = new System.Drawing.Size(374, 20);
@@ -79,6 +80,7 @@
             // cambio
             // 
             this.cambio.AutoSize = true;
+            this.cambio.Dock = System.Windows.Forms.DockStyle.Top;
             this.cambio.Location = new System.Drawing.Point(23, 80);
             this.cambio.Name = "cambio";
             this.cambio.Size = new System.Drawing.Size(221, 13);

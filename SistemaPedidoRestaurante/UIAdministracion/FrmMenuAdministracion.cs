@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.UIAdministracion;
 using SistemaPedidoRestaurante.BLL;
+using SistemaPedidoRestaurante.UICompartida;
 using SistemaPedidoRestaurante.UIPrincipal;
 
 namespace SistemaPedidoRestaurante.UIAdministracion
@@ -82,6 +83,12 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             {
                 formulario.ShowDialog(this);
             }
+        }
+
+        private void nuevaVentaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var formulario = PantallasPersonal.CrearPedido())
+                formulario.ShowDialog(this);
         }
 
         private void pedidosToolStripMenuItem_Click(object sender, EventArgs e)

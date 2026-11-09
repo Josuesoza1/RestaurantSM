@@ -47,6 +47,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.agregarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.activarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.existenciasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.desactivarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.volverAlMenúPríncipalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,6 +60,8 @@
             this.txtTextoBuscar = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.lblBuscar = new System.Windows.Forms.Label();
+            this.lblGuiaBusqueda = new System.Windows.Forms.Label();
+            this.btnQuitarFiltro = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblOperacion = new System.Windows.Forms.Label();
             this.pnlEncabezado.SuspendLayout();
@@ -107,7 +111,7 @@
             this.grpListadoCliente.ForeColor = System.Drawing.Color.DarkOrchid;
             this.grpListadoCliente.Location = new System.Drawing.Point(20, 480);
             this.grpListadoCliente.Name = "grpListadoCliente";
-            this.grpListadoCliente.Size = new System.Drawing.Size(696, 136);
+            this.grpListadoCliente.Size = new System.Drawing.Size(696, 119);
             this.grpListadoCliente.TabIndex = 7;
             this.grpListadoCliente.TabStop = false;
             this.grpListadoCliente.Text = "Listado de Productos";
@@ -133,6 +137,7 @@
             this.dgvProductos.Size = new System.Drawing.Size(643, 97);
             this.dgvProductos.TabIndex = 0;
             this.dgvProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductos_CellClick);
+            this.dgvProductos.SelectionChanged += new System.EventHandler(this.dgvProductos_SelectionChanged);
             // 
             // ColID
             // 
@@ -339,6 +344,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.agregarToolStripMenuItem,
             this.editarToolStripMenuItem,
+            this.activarToolStripMenuItem,
+            this.existenciasToolStripMenuItem,
             this.desactivarToolStripMenuItem,
             this.eliminarToolStripMenuItem,
             this.volverAlMenúPríncipalToolStripMenuItem});
@@ -373,6 +380,15 @@
             this.desactivarToolStripMenuItem.Size = new System.Drawing.Size(131, 28);
             this.desactivarToolStripMenuItem.Text = "Marcar no disponible";
             this.desactivarToolStripMenuItem.Click += new System.EventHandler(this.desactivarToolStripMenuItem_Click);
+            this.activarToolStripMenuItem.Enabled = false;
+            this.activarToolStripMenuItem.Name = "activarToolStripMenuItem";
+            this.activarToolStripMenuItem.Size = new System.Drawing.Size(116, 28);
+            this.activarToolStripMenuItem.Text = "Volver a ofrecer";
+            this.activarToolStripMenuItem.Click += new System.EventHandler(this.activarToolStripMenuItem_Click);
+            this.existenciasToolStripMenuItem.Name = "existenciasToolStripMenuItem";
+            this.existenciasToolStripMenuItem.Text = "Registrar o editar existencias";
+            this.existenciasToolStripMenuItem.Enabled = false;
+            this.existenciasToolStripMenuItem.Click += new System.EventHandler(this.existenciasToolStripMenuItem_Click);
             // 
             // eliminarToolStripMenuItem
             // 
@@ -450,19 +466,23 @@
             this.groupBox2.Controls.Add(this.txtTextoBuscar);
             this.groupBox2.Controls.Add(this.btnBuscar);
             this.groupBox2.Controls.Add(this.lblBuscar);
+            this.groupBox2.Controls.Add(this.lblGuiaBusqueda);
+            this.groupBox2.Controls.Add(this.btnQuitarFiltro);
             this.groupBox2.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.groupBox2.Location = new System.Drawing.Point(366, 251);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(274, 46);
+            this.groupBox2.Size = new System.Drawing.Size(274, 105);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             // 
             // txtTextoBuscar
             // 
             this.txtTextoBuscar.Location = new System.Drawing.Point(58, 15);
+            this.txtTextoBuscar.AccessibleName = "Texto de búsqueda";
             this.txtTextoBuscar.Name = "txtTextoBuscar";
             this.txtTextoBuscar.Size = new System.Drawing.Size(153, 20);
-            this.txtTextoBuscar.TabIndex = 9;
+            this.txtTextoBuscar.TabIndex = 0;
+            this.txtTextoBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTextoBuscar_KeyDown);
             // 
             // btnBuscar
             // 
@@ -472,7 +492,7 @@
             this.btnBuscar.Location = new System.Drawing.Point(215, 8);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(53, 31);
-            this.btnBuscar.TabIndex = 8;
+            this.btnBuscar.TabIndex = 1;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -487,6 +507,20 @@
             this.lblBuscar.Size = new System.Drawing.Size(48, 14);
             this.lblBuscar.TabIndex = 5;
             this.lblBuscar.Text = "Buscar:";
+            this.lblGuiaBusqueda.AutoSize = true;
+            this.lblGuiaBusqueda.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblGuiaBusqueda.Location = new System.Drawing.Point(6, 44);
+            this.lblGuiaBusqueda.Name = "lblGuiaBusqueda";
+            this.lblGuiaBusqueda.Text = "ID 12, nombre, código, categoría, estado\r\no descripción.";
+            this.btnQuitarFiltro.Enabled = false;
+            this.btnQuitarFiltro.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnQuitarFiltro.Location = new System.Drawing.Point(6, 74);
+            this.btnQuitarFiltro.Name = "btnQuitarFiltro";
+            this.btnQuitarFiltro.Size = new System.Drawing.Size(100, 25);
+            this.btnQuitarFiltro.TabIndex = 2;
+            this.btnQuitarFiltro.Text = "Quitar filtro";
+            this.btnQuitarFiltro.UseVisualStyleBackColor = true;
+            this.btnQuitarFiltro.Click += new System.EventHandler(this.btnQuitarFiltro_Click);
             // 
             // panel1
             // 
@@ -525,10 +559,11 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.MinimumSize = new System.Drawing.Size(714, 592);
+            this.MinimumSize = new System.Drawing.Size(714, 625);
             this.Name = "FrmProducto";
             this.Text = "Gestión de Productos";
             this.Load += new System.EventHandler(this.FrmProducto_Load_1);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmProducto_FormClosing);
             this.pnlEncabezado.ResumeLayout(false);
             this.pnlEncabezado.PerformLayout();
             this.grpListadoCliente.ResumeLayout(false);
@@ -584,10 +619,14 @@
         private System.Windows.Forms.TextBox txtTextoBuscar;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label lblBuscar;
+        private System.Windows.Forms.Label lblGuiaBusqueda;
+        private System.Windows.Forms.Button btnQuitarFiltro;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblOperacion;
         private System.Windows.Forms.ToolStripMenuItem editarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem activarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem existenciasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem desactivarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem agregarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem volverAlMenúPríncipalToolStripMenuItem;

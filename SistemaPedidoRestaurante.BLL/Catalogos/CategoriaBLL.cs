@@ -53,7 +53,11 @@ namespace SistemaPedidoRestaurante.BLL
             }
 
             filtro = filtro.Trim();
-            var coincidencias = categorias.Where(categoria => BusquedaLINQ.Contiene(categoria.Nombre, filtro) || BusquedaLINQ.Contiene(categoria.Descripcion, filtro)).ToList();
+            bool soloId = BusquedaLINQ.LeerFiltroId(filtro, out int id);
+            var coincidencias = categorias.Where(categoria =>
+                categoria.IdCategoria == id || (!soloId &&
+                    (BusquedaLINQ.Contiene(categoria.Nombre, filtro) ||
+                     BusquedaLINQ.Contiene(categoria.Descripcion, filtro))));
             Categorias resultado = new Categorias();
             resultado.AddRange(coincidencias);
             return resultado;

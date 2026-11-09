@@ -193,26 +193,19 @@ namespace SistemaPedidoRestaurante.Validaciones
 
         public static int Entero(string valor, string campo, int minimo, int maximo = int.MaxValue)
         {
-            if (valor == null)
-            {
-                valor = "";
-            }
-            valor = valor.Trim();
+            valor = (valor ?? "").Trim();
+            string aviso = "En " + campo + ", ingrese un número entero entre " + minimo + " y " + maximo + ".";
             foreach (char c in valor)
             {
                 if (c < '0' || c > '9')
                 {
-                    throw new ArgumentException("El campo " + campo + " solo admite números enteros.");
+                    throw new ArgumentException(aviso);
                 }
             }
             int numero;
-            if (!int.TryParse(valor, out numero))
+            if (!int.TryParse(valor, out numero) || numero < minimo || numero > maximo)
             {
-                throw new ArgumentException("Ingrese un número entero válido en " + campo + ".");
-            }
-            if (numero < minimo || numero > maximo)
-            {
-                throw new ArgumentException("El campo " + campo + " debe estar entre " + minimo + " y " + maximo + ".");
+                throw new ArgumentException(aviso);
             }
             return numero;
         }
@@ -227,7 +220,7 @@ namespace SistemaPedidoRestaurante.Validaciones
             decimal numero;
             if (!decimal.TryParse(valor, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out numero))
             {
-                throw new ArgumentException("Ingrese un precio válido, por ejemplo 150.50.");
+                throw new ArgumentException(AvisoImporte("precio", 0.01m));
             }
             Importe(numero, "precio", false);
             return numero;
@@ -235,22 +228,17 @@ namespace SistemaPedidoRestaurante.Validaciones
 
         public static void Importe(decimal numero, string campo, bool permiteCero)
         {
-            if (numero < 0)
+            decimal minimo = permiteCero ? 0m : 0.01m;
+            if (numero < minimo || numero > ImporteMaximo || decimal.Round(numero, 2) != numero)
             {
-                throw new ArgumentException("El campo " + campo + " no puede ser negativo.");
+                throw new ArgumentException(AvisoImporte(campo, minimo));
             }
-            if (!permiteCero && numero == 0)
-            {
-                throw new ArgumentException("El campo " + campo + " debe ser mayor que cero.");
-            }
-            if (numero > ImporteMaximo)
-            {
-                throw new ArgumentException("El campo " + campo + " no puede superar 99999999.99.");
-            }
-            if (decimal.Round(numero, 2) != numero)
-            {
-                throw new ArgumentException("El campo " + campo + " admite hasta dos decimales.");
-            }
+        }
+
+        private static string AvisoImporte(string campo, decimal minimo)
+        {
+            return "En " + campo + ", ingrese entre " + minimo.ToString("N2") + " y " +
+                ImporteMaximo.ToString("N2") + ", con hasta dos decimales.";
         }
     }
 }

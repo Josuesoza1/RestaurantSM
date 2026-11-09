@@ -3,6 +3,7 @@ using System.Data;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.UIPrincipal;
+using SistemaPedidoRestaurante.Validaciones;
 
 namespace SistemaPedidoRestaurante.UIAdministracion
 {
@@ -11,6 +12,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private readonly MesaBLL servicio = new MesaBLL();
         private DataTable mesas;
         private int id;
+        private bool activa;
         private ModoFormulario modoActual;
         public FrmMesas()
         {
@@ -20,16 +22,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             dgvMesas.Columns[0].DataPropertyName = "Numero";
             dgvMesas.Columns[1].DataPropertyName = "Capacidad";
             dgvMesas.Columns[2].DataPropertyName = "Estado";
-            VistaGestion.Columna(dgvMesas, "Activa", "Activa");
-            cmbEstadoMesas.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbEstadoMesas.Items.Clear();
-            cmbEstadoMesas.Items.AddRange(new object[]
-            {
-                "Disponible",
-                "Ocupada",
-                "Reservada",
-                "En limpieza"
-            });
             dgvMesas.CellClick += dgvMesas_CellClick;
             CambiarModo(ModoFormulario.Neutral);
             TemaUI.Aplicar(this);
@@ -39,14 +31,15 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private void Recargar()
         {
             mesas = servicio.Listar();
-            dgvMesas.DataSource = mesas;
+            VistaGestion.MostrarListadoGestion(dgvMesas, servicio.Buscar(mesas, txtBuscarMesas.Text));
         }
 
-        private void Guardar(bool activa)
+        private void Guardar()
         {
-            int numero = SistemaPedidoRestaurante.Validaciones.CamposValidacion.Entero(txtNumeroMesas.Text, "número de mesa", 1);
-            int capacidad = SistemaPedidoRestaurante.Validaciones.CamposValidacion.Entero(txtCapacidadMesas.Text, "capacidad", 1, 20);
-            servicio.Guardar(id, numero, capacidad, cmbEstadoMesas.SelectedItem as string, activa);
+            int numero = CamposValidacion.Entero(txtNumeroMesas.Text, "número de mesa", 1, GestionValidacion.NumeroMesaMaximo);
+            int capacidad = CamposValidacion.Entero(txtCapacidadMesas.Text, "capacidad", 1, GestionValidacion.CapacidadMesaMaxima);
+            string estado = cmbEstadoMesas.SelectedItem as string;
+            servicio.Guardar(id, numero, capacidad, estado, activa || estado == "Disponible");
         }
 
         private void Seleccionar()
@@ -61,7 +54,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             txtNumeroMesas.Text = f["Numero"].ToString();
             txtCapacidadMesas.Text = f["Capacidad"].ToString();
             cmbEstadoMesas.SelectedItem = f["Estado"].ToString();
-            chkActiva.Checked = (bool)f["Activa"];
+            activa = (bool)f["Activa"];
         }
 
         private void Nuevo()
@@ -70,8 +63,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             txtNumeroMesas.Clear();
             txtCapacidadMesas.Clear();
             cmbEstadoMesas.SelectedItem = "Disponible";
-            chkActiva.Checked = true;
-            dgvMesas.ClearSelection();
+            activa = true;
         }
 
         private void volverToolStripMenuItem_Click(object sender, EventArgs e)
@@ -89,7 +81,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                     if (!VistaGestion.Confirmar(this, "¿Eliminar permanentemente la mesa? Debe carecer de pedidos y reservas.")) return;
                     servicio.Eliminar(id);
                 }
-                else Guardar(chkActiva.Checked);
+                else Guardar();
                 Recargar(); Nuevo(); CambiarModo(ModoFormulario.Neutral);
             }
             catch (Exception error) { MessageBox.Show(this, error.Message, Text, MessageBoxButtons.OK, MessageBoxIcon.Information); }
@@ -98,8 +90,15 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private void btnLimpiar_Click(object s, EventArgs e)
         {
             int anterior = id;
+            bool estabaActiva = activa;
+            object estado = cmbEstadoMesas.SelectedItem;
             Nuevo();
-            if (modoActual == ModoFormulario.Editar) id = anterior;
+            if (modoActual == ModoFormulario.Editar)
+            {
+                id = anterior;
+                activa = estabaActiva;
+                cmbEstadoMesas.SelectedItem = estado;
+            }
         }
 
         private void btnCancelarMesas_Click(object s, EventArgs e)
@@ -111,7 +110,9 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             try
             {
-                dgvMesas.DataSource = servicio.Buscar(mesas, txtBuscarMesas.Text);
+                VistaGestion.MostrarListadoGestion(dgvMesas, servicio.Buscar(mesas, txtBuscarMesas.Text));
+                if (modoActual == ModoFormulario.Neutral)
+                    Nuevo();
             }
             catch (Exception error)
             {
@@ -122,29 +123,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             IniciarSeleccion(ModoFormulario.Eliminar);
-        }
-
-        private void desactivarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (VistaGestion.Fila(dgvMesas) == null)
-                {
-                    throw new ArgumentException("Seleccione una mesa del listado.");
-                }
-
-                Seleccionar();
-                if (VistaGestion.Confirmar(this, "¿Desactivar esta mesa conservando su historial?"))
-                {
-                    Guardar(false);
-                    Recargar();
-                    Nuevo();
-                }
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show(this, error.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
         }
 
         private void agregarToolStripMenuItem_Click(object s, EventArgs e)
@@ -164,7 +142,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void ayudaToolStripMenuItem_Click(object s, EventArgs e)
         {
-            MessageBox.Show(this, "Agregue o seleccione una mesa. Para reactivarla, marque Activa y guarde. Capacidad: 1 a 20 personas.", "Mesas");
+            MessageBox.Show(this, "Use un número de mesa del 1 al " + GestionValidacion.NumeroMesaMaximo +
+                " y una capacidad de 1 a " + GestionValidacion.CapacidadMesaMaxima +
+                " personas. Para impedir nuevas ventas en una mesa, elija No disponible. " +
+                "Una mesa con una venta abierta se libera automáticamente al cobrar o cancelar la última venta.", "Mesas");
         }
 
         private void dgvMesas_CellClick(object s, DataGridViewCellEventArgs e)
@@ -188,6 +169,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 return;
             }
 
+            ActiveControl = txtBuscarMesas;
+
             try
             {
                 Recargar();
@@ -201,20 +184,26 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void IniciarSeleccion(ModoFormulario modo)
         {
-            if (VistaGestion.Fila(dgvMesas) == null) { MessageBox.Show(this, "Seleccione una mesa del listado."); return; }
-            Seleccionar(); CambiarModo(modo);
+            if (VistaGestion.Fila(dgvMesas) == null)
+            {
+                lblOperacion.Text = "Seleccione una mesa del listado.";
+                return;
+            }
+            Seleccionar();
+            CambiarModo(modo);
         }
         private void CambiarModo(ModoFormulario modo)
         {
             modoActual = modo;
             bool edicion = modo == ModoFormulario.Nuevo || modo == ModoFormulario.Editar;
             bool operacion = modo != ModoFormulario.Neutral;
-            VistaGestion.Modo(lblOperacion, pnlOperacion, btnGuardarMesas, modo, "mesa");
+            string mesa = modo == ModoFormulario.Editar || modo == ModoFormulario.Eliminar
+                ? "mesa " + txtNumeroMesas.Text : "mesa";
+            VistaGestion.Modo(lblOperacion, pnlOperacion, btnGuardarMesas, modo, mesa);
             groupBox1.Enabled = edicion;
-            dgvMesas.Enabled = txtBuscarMesas.Enabled = btnBuscarMesas.Enabled = !operacion;
             btnGuardarMesas.Enabled = btnCancelarMesas.Enabled = operacion;
             btnLimpiar.Enabled = edicion;
-            agregarToolStripMenuItem.Enabled = editarToolStripMenuItem.Enabled = eliminarToolStripMenuItem.Enabled = desactivarToolStripMenuItem.Enabled = !operacion;
+            agregarToolStripMenuItem.Enabled = editarToolStripMenuItem.Enabled = eliminarToolStripMenuItem.Enabled = !operacion;
         }
     }
 }

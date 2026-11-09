@@ -48,11 +48,16 @@ namespace SistemaPedidoRestaurante.DAL
                 SELECT @Moneda = moneda FROM dbo.configuracionRestaurante WHERE id = 1;
 
                 SELECT Moneda, MedioPago, SUM(Cobrado) AS Cobrado, SUM(Devuelto) AS Devuelto,
-                       SUM(Cobrado - Devuelto) AS Neto
+                       SUM(Cobrado - Devuelto) AS Neto,
+                       CASE WHEN MedioPago = 'Efectivo' AND COUNT(Recibido) = SUM(EsCobro)
+                            THEN SUM(Recibido) END AS EfectivoRecibido,
+                       CASE WHEN MedioPago = 'Efectivo' AND COUNT(Cambio) = SUM(EsCobro)
+                            THEN SUM(Cambio) END AS Vuelto
                 FROM (
                     SELECT COALESCE(f.moneda, @Moneda) AS Moneda,
                            COALESCE(NULLIF(LTRIM(RTRIM(p.metodoDePago)), ''), 'Sin medio identificado') AS MedioPago,
-                           p.monto AS Cobrado, 0 AS Devuelto
+                           p.monto AS Cobrado, 0 AS Devuelto, p.recibido AS Recibido,
+                           p.cambio AS Cambio, 1 AS EsCobro
                     FROM dbo.pago p
                     INNER JOIN dbo.factura f ON f.idFactura = p.idFactura
                     WHERE p.fechaPago >= @Inicio AND p.fechaPago < @Fin
@@ -60,7 +65,7 @@ namespace SistemaPedidoRestaurante.DAL
                     UNION ALL
 
                     SELECT COALESCE(f.moneda, @Moneda),
-                           COALESCE(p.MedioPago, 'Sin medio identificado'), 0, f.total
+                           COALESCE(p.MedioPago, 'Sin medio identificado'), 0, f.total, NULL, NULL, 0
                     FROM dbo.anulacionVenta a
                     INNER JOIN dbo.factura f ON f.idFactura = a.idFactura
                     LEFT JOIN (

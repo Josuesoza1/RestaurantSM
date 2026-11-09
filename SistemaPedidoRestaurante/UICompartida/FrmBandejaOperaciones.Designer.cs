@@ -32,12 +32,12 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnPedidoPdf = new System.Windows.Forms.Button();
             this.btnFacturaPdf = new System.Windows.Forms.Button();
-            this.btnLimpiarMesa = new System.Windows.Forms.Button();
             this.panelResumenDiario = new System.Windows.Forms.Panel();
             this.diaCaja = new System.Windows.Forms.DateTimePicker();
             this.btnResumenDiario = new System.Windows.Forms.Button();
             this.btnRecargar = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
+            this.lblGuia = new System.Windows.Forms.Label();
             this.paneles = new System.Windows.Forms.SplitContainer();
             this.listado = new System.Windows.Forms.DataGridView();
             this.detalle = new System.Windows.Forms.DataGridView();
@@ -80,11 +80,12 @@
             this.buscar.Name = "buscar";
             this.buscar.Padding = new System.Windows.Forms.Padding(12, 8, 12, 8);
             this.buscar.Size = new System.Drawing.Size(1028, 45);
-            this.buscar.TabIndex = 2;
+            this.buscar.TabIndex = 0;
             // 
             // txtBuscar
             // 
             this.txtBuscar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtBuscar.AccessibleName = "Buscar en el listado";
             this.txtBuscar.Location = new System.Drawing.Point(190, 8);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(319, 20);
@@ -169,7 +170,7 @@
             this.btnNuevo.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnNuevo.Location = new System.Drawing.Point(12, 8);
             this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnNuevo.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.btnNuevo.Size = new System.Drawing.Size(113, 29);
             this.btnNuevo.TabIndex = 1;
             this.btnNuevo.Text = "Nueva venta";
@@ -180,14 +181,13 @@
             this.acciones.AutoSize = true;
             this.acciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.acciones.Controls.Add(this.btnSeleccionar);
-            this.acciones.Controls.Add(this.btnCobrar);
             this.acciones.Controls.Add(this.btnEditarVenta);
             this.acciones.Controls.Add(this.btnMesa);
             this.acciones.Controls.Add(this.btnAvanzar);
+            this.acciones.Controls.Add(this.btnCobrar);
             this.acciones.Controls.Add(this.btnCancelar);
             this.acciones.Controls.Add(this.btnPedidoPdf);
             this.acciones.Controls.Add(this.btnFacturaPdf);
-            this.acciones.Controls.Add(this.btnLimpiarMesa);
             this.acciones.Controls.Add(this.panelResumenDiario);
             this.acciones.Controls.Add(this.btnRecargar);
             this.acciones.Controls.Add(this.btnVolver);
@@ -196,7 +196,7 @@
             this.acciones.Name = "acciones";
             this.acciones.Padding = new System.Windows.Forms.Padding(8, 8, 8, 8);
             this.acciones.Size = new System.Drawing.Size(1028, 100);
-            this.acciones.TabIndex = 1;
+            this.acciones.TabIndex = 2;
             // 
             // btnSeleccionar
             // 
@@ -220,7 +220,8 @@
             this.btnCobrar.Name = "btnCobrar";
             this.btnCobrar.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.btnCobrar.Size = new System.Drawing.Size(75, 36);
-            this.btnCobrar.TabIndex = 1;
+            this.btnCobrar.MinimumSize = new System.Drawing.Size(100, 0);
+            this.btnCobrar.TabIndex = 4;
             this.btnCobrar.Text = "Cobrar";
             this.btnCobrar.UseVisualStyleBackColor = false;
             this.btnCobrar.Click += new System.EventHandler(this.btnCobrar_Click);
@@ -234,7 +235,7 @@
             this.btnEditarVenta.Name = "btnEditarVenta";
             this.btnEditarVenta.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.btnEditarVenta.Size = new System.Drawing.Size(88, 36);
-            this.btnEditarVenta.TabIndex = 2;
+            this.btnEditarVenta.TabIndex = 1;
             this.btnEditarVenta.Text = "Editar venta";
             this.btnEditarVenta.UseVisualStyleBackColor = false;
             this.btnEditarVenta.Visible = false;
@@ -248,7 +249,7 @@
             this.btnMesa.Name = "btnMesa";
             this.btnMesa.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.btnMesa.Size = new System.Drawing.Size(110, 36);
-            this.btnMesa.TabIndex = 3;
+            this.btnMesa.TabIndex = 2;
             this.btnMesa.Text = "Asignar mesa";
             this.btnMesa.UseVisualStyleBackColor = false;
             this.btnMesa.Click += new System.EventHandler(this.btnMesa_Click);
@@ -261,7 +262,8 @@
             this.btnAvanzar.Name = "btnAvanzar";
             this.btnAvanzar.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.btnAvanzar.Size = new System.Drawing.Size(121, 36);
-            this.btnAvanzar.TabIndex = 4;
+            this.btnAvanzar.MinimumSize = new System.Drawing.Size(150, 0);
+            this.btnAvanzar.TabIndex = 3;
             this.btnAvanzar.Text = "Avanzar estado";
             this.btnAvanzar.UseVisualStyleBackColor = false;
             this.btnAvanzar.Click += new System.EventHandler(this.btnAvanzar_Click);
@@ -275,7 +277,7 @@
             this.btnCancelar.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.btnCancelar.Size = new System.Drawing.Size(144, 36);
             this.btnCancelar.TabIndex = 8;
-            this.btnCancelar.Text = "Cancelar pendiente";
+            this.btnCancelar.Text = "Cancelar venta";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
@@ -305,19 +307,6 @@
             this.btnFacturaPdf.UseVisualStyleBackColor = false;
             this.btnFacturaPdf.Click += new System.EventHandler(this.btnFacturaPdf_Click);
             // 
-            // btnLimpiarMesa
-            // 
-            this.btnLimpiarMesa.AutoSize = true;
-            this.btnLimpiarMesa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnLimpiarMesa.Location = new System.Drawing.Point(11, 53);
-            this.btnLimpiarMesa.Name = "btnLimpiarMesa";
-            this.btnLimpiarMesa.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.btnLimpiarMesa.Size = new System.Drawing.Size(129, 36);
-            this.btnLimpiarMesa.TabIndex = 11;
-            this.btnLimpiarMesa.Text = "Avanzar limpieza";
-            this.btnLimpiarMesa.UseVisualStyleBackColor = false;
-            this.btnLimpiarMesa.Visible = false;
-            this.btnLimpiarMesa.Click += new System.EventHandler(this.btnLimpiarMesa_Click);
             // 
             // panelResumenDiario
             // 
@@ -392,11 +381,13 @@
             this.paneles.Panel2.Controls.Add(this.detalle);
             this.paneles.Size = new System.Drawing.Size(1028, 399);
             this.paneles.SplitterDistance = 239;
-            this.paneles.TabIndex = 0;
+            this.paneles.TabIndex = 1;
+            this.paneles.TabStop = false;
             // 
             // listado
             // 
             this.listado.AllowUserToAddRows = false;
+            this.listado.AccessibleName = "Listado de registros";
             this.listado.AllowUserToDeleteRows = false;
             this.listado.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.listado.BackgroundColor = System.Drawing.Color.White;
@@ -410,11 +401,14 @@
             this.listado.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.listado.Size = new System.Drawing.Size(1028, 239);
             this.listado.TabIndex = 0;
+            this.listado.StandardTab = true;
             this.listado.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.listado_CellClick);
+            this.listado.Enter += new System.EventHandler(this.listado_Enter);
             // 
             // detalle
             // 
             this.detalle.AllowUserToAddRows = false;
+            this.detalle.AccessibleName = "Productos de la venta seleccionada";
             this.detalle.AllowUserToDeleteRows = false;
             this.detalle.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.detalle.BackgroundColor = System.Drawing.Color.White;
@@ -428,6 +422,7 @@
             this.detalle.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.detalle.Size = new System.Drawing.Size(1028, 156);
             this.detalle.TabIndex = 0;
+            this.detalle.StandardTab = true;
             // 
             // FrmBandejaOperaciones
             // 
@@ -435,7 +430,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.IndianRed;
             this.ClientSize = new System.Drawing.Size(1028, 609);
+            this.lblGuia.BackColor = System.Drawing.SystemColors.Control;
+            this.lblGuia.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblGuia.Name = "lblGuia";
+            this.lblGuia.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.lblGuia.Height = 28;
+            this.lblGuia.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblGuia.Visible = false;
+            this.CancelButton = this.btnVolver;
             this.Controls.Add(this.paneles);
+            this.Controls.Add(this.lblGuia);
             this.Controls.Add(this.acciones);
             this.Controls.Add(this.buscar);
             this.Controls.Add(this.titulo);
@@ -483,12 +487,12 @@
         protected System.Windows.Forms.Button btnCancelar;
         protected System.Windows.Forms.Button btnPedidoPdf;
         protected System.Windows.Forms.Button btnFacturaPdf;
-        protected System.Windows.Forms.Button btnLimpiarMesa;
         private System.Windows.Forms.Button btnResumenMensual;
         private System.Windows.Forms.Panel panelResumenDiario;
         private System.Windows.Forms.DateTimePicker diaCaja;
         private System.Windows.Forms.Button btnResumenDiario;
         protected System.Windows.Forms.Button btnRecargar;
         protected System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.Label lblGuia;
     }
 }

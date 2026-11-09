@@ -21,7 +21,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.agregarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.desactivarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.volverToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -36,7 +35,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.chkActiva = new System.Windows.Forms.CheckBox();
             this.btnGuardarMesas = new System.Windows.Forms.Button();
             this.btnCancelarMesas = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -62,7 +60,6 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.agregarToolStripMenuItem,
             this.editarToolStripMenuItem,
-            this.desactivarToolStripMenuItem,
             this.eliminarToolStripMenuItem,
             this.ayudaToolStripMenuItem,
             this.volverToolStripMenuItem1});
@@ -87,13 +84,6 @@
             this.editarToolStripMenuItem.Text = "Editar";
             this.editarToolStripMenuItem.Click += new System.EventHandler(this.editarToolStripMenuItem_Click);
             // 
-            // desactivarToolStripMenuItem
-            // 
-            this.desactivarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("desactivarToolStripMenuItem.Image")));
-            this.desactivarToolStripMenuItem.Name = "desactivarToolStripMenuItem";
-            this.desactivarToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
-            this.desactivarToolStripMenuItem.Text = "Desactivar";
-            this.desactivarToolStripMenuItem.Click += new System.EventHandler(this.desactivarToolStripMenuItem_Click);
             // 
             // eliminarToolStripMenuItem
             // 
@@ -169,7 +159,6 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.chkActiva);
             this.groupBox1.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(26, 168);
             this.groupBox1.Name = "groupBox1";
@@ -180,7 +169,9 @@
             // 
             // cmbEstadoMesas
             // 
+            this.cmbEstadoMesas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbEstadoMesas.FormattingEnabled = true;
+            this.cmbEstadoMesas.Items.AddRange(new object[] { "Disponible", "No disponible" });
             this.cmbEstadoMesas.Location = new System.Drawing.Point(138, 144);
             this.cmbEstadoMesas.Name = "cmbEstadoMesas";
             this.cmbEstadoMesas.Size = new System.Drawing.Size(134, 25);
@@ -233,15 +224,6 @@
             this.label3.TabIndex = 11;
             this.label3.Text = "Capacidad:";
             // 
-            // chkActiva
-            // 
-            this.chkActiva.Checked = true;
-            this.chkActiva.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkActiva.Location = new System.Drawing.Point(138, 181);
-            this.chkActiva.Name = "chkActiva";
-            this.chkActiva.Size = new System.Drawing.Size(120, 22);
-            this.chkActiva.TabIndex = 17;
-            this.chkActiva.Text = "Activa";
             // 
             // btnGuardarMesas
             // 
@@ -376,7 +358,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
-            this.MinimumSize = new System.Drawing.Size(700, 510);
+            this.MinimumSize = new System.Drawing.Size(700, 525);
             this.Name = "FrmMesas";
             this.Text = "GESTION DE MESAS";
             this.menuStrip1.ResumeLayout(false);
@@ -395,11 +377,9 @@
 
         #endregion
 
-        private System.Windows.Forms.CheckBox chkActiva;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem agregarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem desactivarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editarToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;

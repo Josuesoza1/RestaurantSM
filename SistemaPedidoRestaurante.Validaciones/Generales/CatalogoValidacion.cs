@@ -28,7 +28,7 @@ namespace SistemaPedidoRestaurante.Validaciones
             }
 
             Texto(producto.Nombre, "nombre", 100, true);
-            Texto(producto.Codigo, "código", 20, true);
+            Texto(producto.Codigo, "código", 20, producto.IdProducto > 0);
             Texto(producto.Descripcion, "descripción", 250, false);
             if (producto.IdProducto < 0 || producto.IdCategoria <= 0)
             {

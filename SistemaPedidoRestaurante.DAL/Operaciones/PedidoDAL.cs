@@ -243,6 +243,29 @@ namespace SistemaPedidoRestaurante.DAL
             }
         }
 
+        public DataSet ListarHistorial(int actor)
+        {
+            const string consulta = @"
+                EXEC dbo.sp_Catalogo_ExigirAdministrador @Actor;
+                EXEC dbo.sp_Operacion_Pedidos @Actor;
+                EXEC dbo.sp_Facturas_Listar @Actor;";
+
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+                conexion.Open();
+                using (SqlTransaction transaccion = conexion.BeginTransaction(IsolationLevel.Serializable))
+                using (SqlCommand comando = new SqlCommand(consulta, conexion, transaccion))
+                using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                {
+                    comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
+                    var historial = new DataSet();
+                    adaptador.Fill(historial);
+                    transaccion.Commit();
+                    return historial;
+                }
+            }
+        }
+
         public DataTable Detalle(int actor, int pedido)
         {
             using (SqlConnection conexion = ConexionBD.ObtenerConexion())

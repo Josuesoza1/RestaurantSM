@@ -31,7 +31,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 dgvRoles.Columns[0].DataPropertyName = "IdRol";
                 dgvRoles.Columns[1].DataPropertyName = "Nombre";
                 dgvRoles.Columns[2].DataPropertyName = "Descripcion";
-                VistaGestion.Vincular(dgvRoles, _rolBLL.ObtenerRoles());
+                VistaGestion.VincularGestion(dgvRoles, _rolBLL.BuscarRoles(txtTextoBuscar.Text));
             }
             catch (Exception ex)
             {
@@ -51,6 +51,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 Close();
                 return;
             }
+
+            ActiveControl = txtTextoBuscar;
 
             CargarDatos();
         }
@@ -79,13 +81,13 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                     break;
 
                 case ModoFormulario.Editar:
-                    lblOperacion.Text = "Operación actual: Editar rol";
+                    lblOperacion.Text = "Operación actual: Editar rol «" + txtNombre.Text + "»";
                     btnAccion.Text = "Guardar cambios";
                     panel1.BackColor = Color.LightSkyBlue;
                     break;
 
                 case ModoFormulario.Eliminar:
-                    lblOperacion.Text = "Operación actual: Eliminar rol";
+                    lblOperacion.Text = "Operación actual: Eliminar rol «" + txtNombre.Text + "»";
                     btnAccion.Text = "Eliminar";
                     panel1.BackColor = Color.LightCoral;
                     break;
@@ -97,6 +99,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             btnAccion.Enabled = hayOperacion;
             btnLimpiar.Enabled = puedeEditar;
             btnCancelar.Enabled = hayOperacion;
+            agregarToolStripMenuItem.Enabled = editarToolStripMenuItem.Enabled = eliminarToolStripMenuItem.Enabled = !hayOperacion;
         }
 
         private void editarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -165,9 +168,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private bool Seleccionar()
         {
-            var rol = dgvRoles.CurrentRow?.DataBoundItem as Rol;
+            var rol = VistaGestion.RegistroSeleccionado<Rol>(dgvRoles);
             if (rol == null)
             {
+                lblOperacion.Text = "Seleccione un rol del listado.";
                 return false;
             }
 
@@ -192,7 +196,13 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             try
             {
-                VistaGestion.Vincular(dgvRoles, _rolBLL.BuscarRoles(txtTextoBuscar.Text));
+                VistaGestion.VincularGestion(dgvRoles, _rolBLL.BuscarRoles(txtTextoBuscar.Text));
+                if (modoActual == ModoFormulario.Neutral)
+                {
+                    idSeleccionado = 0;
+                    txtNombre.Clear();
+                    txtDescripcion.Clear();
+                }
             }
             catch (Exception ex)
             {
@@ -202,7 +212,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void dgvRoles_CellClick(object s, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex >= 0 && modoActual == ModoFormulario.Neutral)
             {
                 Seleccionar();
             }

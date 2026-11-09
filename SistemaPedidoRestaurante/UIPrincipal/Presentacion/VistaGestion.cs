@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
 
@@ -39,7 +40,17 @@ namespace SistemaPedidoRestaurante.UIPrincipal
 
         internal static bool Confirmar(Form form, string texto)
         {
-            return MessageBox.Show(form, texto, form.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+            return MessageBox.Show(form, texto, form.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button2) == DialogResult.Yes;
+        }
+
+        internal static string MensajeParaUsuario(Exception error, string aviso)
+        {
+            if (error is ArgumentException || error is UnauthorizedAccessException)
+                return error.Message;
+
+            Trace.TraceError(error.ToString());
+            return aviso;
         }
 
         internal static void Listado(DataGridView grid)
@@ -75,8 +86,13 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             if (e.Button != MouseButtons.Left || columna.SortMode != DataGridViewColumnSortMode.Programmatic || grid.Rows.Count == 0)
                 return;
 
-            object seleccionado = grid.SelectedRows.Count == 0 ? null : grid.SelectedRows[0].DataBoundItem;
             bool descendente = grid.SortedColumn == columna && grid.SortOrder == SortOrder.Ascending;
+            Ordenar(grid, columna, descendente);
+        }
+
+        internal static void Ordenar(DataGridView grid, DataGridViewColumn columna, bool descendente)
+        {
+            object seleccionado = grid.SelectedRows.Count == 0 ? null : grid.SelectedRows[0].DataBoundItem;
             grid.Sort(columna, descendente ? ListSortDirection.Descending : ListSortDirection.Ascending);
             columna.HeaderCell.SortGlyphDirection = descendente ? SortOrder.Descending : SortOrder.Ascending;
 
@@ -100,9 +116,56 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             grid.DataSource = new ListaOrdenable<T>(datos);
         }
 
+        internal static void VincularGestion<T>(DataGridView grid, IEnumerable<T> datos)
+        {
+            MostrarListadoGestion(grid, new ListaOrdenable<T>(datos));
+        }
+
+        internal static void MostrarListadoGestion(DataGridView grid, object datos)
+        {
+            int primeraFila = grid.FirstDisplayedScrollingRowIndex;
+            grid.DataSource = datos;
+            grid.CurrentCell = null;
+            grid.ClearSelection();
+
+            if (primeraFila >= 0 && grid.Rows.Count > 0)
+                grid.FirstDisplayedScrollingRowIndex = Math.Min(primeraFila, grid.Rows.Count - 1);
+        }
+
+        internal static T RegistroSeleccionado<T>(DataGridView grid) where T : class
+        {
+            return grid.SelectedRows.Count == 0 ? null : grid.SelectedRows[0].DataBoundItem as T;
+        }
+
+        internal static T SeleccionarRegistro<T>(DataGridView grid, Predicate<T> coincide) where T : class
+        {
+            foreach (DataGridViewRow fila in grid.Rows)
+            {
+                if (fila.DataBoundItem is T registro && coincide(registro))
+                {
+                    grid.CurrentCell = fila.Cells[0];
+                    fila.Selected = true;
+                    return registro;
+                }
+            }
+
+            return null;
+        }
+
+        internal static string TituloListado(string registros, int cantidad, string filtro)
+        {
+            if (cantidad == 0)
+                return filtro.Length == 0
+                    ? "Aún no hay " + registros + "."
+                    : "Sin coincidencias. Use Quitar filtro para ver el listado completo.";
+
+            return "Listado de " + registros + " (" + cantidad + ")" +
+                (filtro.Length == 0 ? "" : " — Filtro aplicado");
+        }
+
         internal static DataRow Fila(DataGridView grid)
         {
-            return grid.SelectedRows.Count == 0 ? null : (grid.SelectedRows[0].DataBoundItem as DataRowView)?.Row;
+            return RegistroSeleccionado<DataRowView>(grid)?.Row;
         }
 
         internal static void Columna(DataGridView grid, string propiedad, string titulo)

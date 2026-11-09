@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Windows.Forms;
 using SistemaPedidoRestaurante.BLL;
 using SistemaPedidoRestaurante.Entities;
@@ -13,8 +15,7 @@ namespace SistemaPedidoRestaurante.Loggin
         public FrmLogin()
         {
             InitializeComponent();
-            txtUsuario.MaxLength = 50;
-            txtContrasena.MaxLength = 255;
+            ActiveControl = txtUsuario;
         }
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)
@@ -22,24 +23,36 @@ namespace SistemaPedidoRestaurante.Loggin
             try
             {
                 string usuario = txtUsuario.Text.Trim();
-                string contrasena = txtContrasena.Text.Trim();
+                string contrasena = txtContrasena.Text;
                 Usuario usuarioLogueado = _usuarioBLL.IniciarSesion(usuario, contrasena);
                 AbrirSesion(usuarioLogueado);
             }
             catch (ArgumentException ex)
             {
-                MessageBox.Show(ex.Message, "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtUsuario.Focus();
+                MessageBox.Show(this, ex.Message, "Revise los datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (!string.IsNullOrWhiteSpace(txtUsuario.Text) && string.IsNullOrWhiteSpace(txtContrasena.Text))
+                    txtContrasena.Focus();
+                else
+                    txtUsuario.Focus();
             }
-            catch (UnauthorizedAccessException ex)
+            catch (UnauthorizedAccessException)
             {
-                MessageBox.Show(ex.Message, "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, "Revise el usuario y la contraseña. Si sigue sin poder entrar, avise al encargado.",
+                    "No se pudo iniciar sesión", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtContrasena.Clear();
                 txtContrasena.Focus();
             }
+            catch (SqlException ex)
+            {
+                Trace.TraceError(ex.ToString());
+                MessageBox.Show(this, "No se pudo acceder a los datos del restaurante. Intente de nuevo. Si el problema continúa, avise al encargado.",
+                    "No se pudo iniciar sesión", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Trace.TraceError(ex.ToString());
+                MessageBox.Show(this, "No se pudo abrir el sistema. Cierre el programa y vuelva a abrirlo. Si el problema continúa, avise al encargado.",
+                    "No se pudo iniciar sesión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -37,10 +37,7 @@ namespace SistemaPedidoRestaurante.Validaciones
                 CamposValidacion.Importe(linea.PrecioUnitario, "precio del producto", false);
                 total += linea.Subtotal;
             }
-            if (total > 99999999.99m)
-            {
-                throw new ArgumentException("El total supera el importe permitido para un pedido.");
-            }
+            CamposValidacion.Importe(total, "total del pedido", false);
         }
     }
 }

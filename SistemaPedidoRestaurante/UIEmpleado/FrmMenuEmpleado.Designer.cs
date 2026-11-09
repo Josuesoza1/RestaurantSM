@@ -17,6 +17,7 @@
             this.pnlEncabezado = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.nuevaVentaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.operacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pedidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mesasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,6 +57,7 @@
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.Tomato;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nuevaVentaToolStripMenuItem,
             this.operacionesToolStripMenuItem,
             this.cerrarSesionToolStripMenuItem,
             this.salirToolStripMenuItem});
@@ -72,7 +74,10 @@
             this.mesasToolStripMenuItem});
             this.operacionesToolStripMenuItem.Name = "operacionesToolStripMenuItem";
             this.operacionesToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
-            this.operacionesToolStripMenuItem.Text = "Operaciones";
+            this.operacionesToolStripMenuItem.Text = "Consultar";
+            this.nuevaVentaToolStripMenuItem.Name = "nuevaVentaToolStripMenuItem";
+            this.nuevaVentaToolStripMenuItem.Text = "Nueva venta";
+            this.nuevaVentaToolStripMenuItem.Click += new System.EventHandler(this.nuevaVentaToolStripMenuItem_Click);
             // 
             // pedidosToolStripMenuItem
             // 
@@ -86,7 +91,7 @@
             // 
             this.mesasToolStripMenuItem.Name = "mesasToolStripMenuItem";
             this.mesasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.mesasToolStripMenuItem.Text = "Mesas y limpieza";
+            this.mesasToolStripMenuItem.Text = "Estado de mesas";
             this.mesasToolStripMenuItem.Click += new System.EventHandler(this.mesas_Click);
             // 
             // cerrarSesionToolStripMenuItem
@@ -100,7 +105,7 @@
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             this.salirToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.salirToolStripMenuItem.Text = "Salir";
+            this.salirToolStripMenuItem.Text = "Cerrar programa";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
             // lblEstado
@@ -144,6 +149,7 @@
         private System.Windows.Forms.Panel pnlEncabezado;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem nuevaVentaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pedidosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem operacionesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;

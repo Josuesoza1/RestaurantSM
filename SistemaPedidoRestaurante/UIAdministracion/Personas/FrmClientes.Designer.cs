@@ -316,14 +316,6 @@
             this.Text = "Gestion de clientes";
 
             this.Load += new System.EventHandler(this.FrmClientes_CargarDatos);
-            this.pnlEncabezado.ResumeLayout(false);
-            this.pnlEncabezado.PerformLayout();
-            this.grpDatosClientes.ResumeLayout(false);
-            this.grpDatosClientes.PerformLayout();
-            this.grpListadoCliente.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
-            this.grpAccionesClientes.ResumeLayout(false);
-            this.grpAccionesClientes.PerformLayout();
             this.cmbGenero.Name = "cmbGenero";
             this.cmbGenero.Location = new System.Drawing.Point(131, 235);
             this.cmbGenero.Size = new System.Drawing.Size(149, 22);
@@ -332,7 +324,7 @@
             this.lblGenero.Name = "lblGenero";
             this.lblGenero.Text = "Género:";
             this.lblGenero.Location = new System.Drawing.Point(19, 240);
-            this.lblGenero.Size = new System.Drawing.Size(95, 18);
+            this.lblGenero.AutoSize = true;
             this.chkActivo.Name = "chkActivo";
             this.chkActivo.Text = "Activo";
             this.chkActivo.Checked = true;
@@ -379,6 +371,14 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.agregarMenu, this.editarMenu, this.desactivarMenu, this.eliminarMenu, this.volverMenu });
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.pnlEncabezado.ResumeLayout(false);
+            this.pnlEncabezado.PerformLayout();
+            this.grpDatosClientes.ResumeLayout(false);
+            this.grpDatosClientes.PerformLayout();
+            this.grpListadoCliente.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
+            this.grpAccionesClientes.ResumeLayout(false);
+            this.grpAccionesClientes.PerformLayout();
             this.ResumeLayout(false);
 
         }

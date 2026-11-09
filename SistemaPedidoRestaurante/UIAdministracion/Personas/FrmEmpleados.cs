@@ -58,7 +58,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 dgvEmpleados.Columns[i].DataPropertyName = propiedades[i];
             }
 
-            VistaGestion.Vincular(dgvEmpleados, _empleadoBLL.ObtenerEmpleados());
+            VistaGestion.VincularGestion(dgvEmpleados, _empleadoBLL.BuscarEmpleados(txtTextoBuscar.Text));
         }
 
         private void CargarRoles()
@@ -81,6 +81,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 this.Close();
                 return;
             }
+
+            ActiveControl = txtTextoBuscar;
 
             try
             {
@@ -131,10 +133,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                     lblOperacion.Text = "Operación actual: Seleccione una operación";
                     btnAccion.Text = "Guardar"; panel1.BackColor = Color.Gainsboro; break;
                 case ModoFormulario.Editar:
-                    lblOperacion.Text = "Operación actual: Editar empleado";
+                    lblOperacion.Text = "Operación actual: Editar empleado «" + empleadoSeleccionado.NombreCompleto + "»";
                     btnAccion.Text = "Guardar cambios"; panel1.BackColor = Color.LightSkyBlue; break;
                 case ModoFormulario.Eliminar:
-                    lblOperacion.Text = "Operación actual: Eliminar empleado";
+                    lblOperacion.Text = "Operación actual: Eliminar empleado «" + empleadoSeleccionado.NombreCompleto + "»";
                     btnAccion.Text = "Eliminar"; panel1.BackColor = Color.LightCoral; break;
             }
             txtPnombre.Enabled = txtSnombre.Enabled = txtPapellido.Enabled = txtSapellido.Enabled = puedeEditar;
@@ -143,8 +145,8 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             txtUsuario.Enabled = txtContrasena.Enabled = chkActivo.Enabled = puedeEditar;
             btnAccion.Enabled = btnCancelar.Enabled = hayOperacion;
             btnLimpiar.Enabled = puedeEditar;
-            dgvEmpleados.Enabled = btnBuscar.Enabled = txtTextoBuscar.Enabled = !hayOperacion;
-            agregarToolStripMenuItem.Enabled = !hayOperacion;
+            agregarToolStripMenuItem.Enabled = editarToolStripMenuItem.Enabled = !hayOperacion;
+            eliminarToolStripMenuItem.Enabled = desactivarToolStripMenuItem.Enabled = !hayOperacion;
         }
 
         private void editarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -262,7 +264,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
                 MessageBox.Show("Operación realizada correctamente.", "Empleados", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 empleadoSeleccionado = null;
-                txtTextoBuscar.Clear();
                 LimpiarCampos();
                 CambiarModo(ModoFormulario.Neutral);
                 CargarDatos();
@@ -299,10 +300,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private bool SeleccionarEmpleado()
         {
-            empleadoSeleccionado = dgvEmpleados.CurrentRow?.DataBoundItem as Empleado;
+            empleadoSeleccionado = VistaGestion.RegistroSeleccionado<Empleado>(dgvEmpleados);
             if (empleadoSeleccionado == null)
             {
-                MessageBox.Show("Seleccione un empleado del listado.", "Empleados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                lblOperacion.Text = "Seleccione un empleado del listado.";
                 return false;
             }
 
@@ -343,7 +344,9 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         {
             try
             {
-                VistaGestion.Vincular(dgvEmpleados, _empleadoBLL.BuscarEmpleados(txtTextoBuscar.Text));
+                VistaGestion.VincularGestion(dgvEmpleados, _empleadoBLL.BuscarEmpleados(txtTextoBuscar.Text));
+                if (modoActual == ModoFormulario.Neutral)
+                    LimpiarCampos();
             }
             catch (Exception ex)
             {

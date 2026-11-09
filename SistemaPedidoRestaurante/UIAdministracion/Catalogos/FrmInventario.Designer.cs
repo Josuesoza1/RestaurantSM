@@ -21,7 +21,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmInventario));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.registro = new System.Windows.Forms.ToolStripMenuItem();
-            this.agregarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.desactivarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,6 +81,7 @@
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editarToolStripMenuItem,
             this.registro,
             this.movimientos,
             this.bajos,
@@ -98,28 +98,18 @@
             // registro
             // 
             this.registro.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.agregarToolStripMenuItem,
-            this.editarToolStripMenuItem,
             this.desactivarToolStripMenuItem,
             this.eliminarToolStripMenuItem});
             this.registro.Name = "registro";
             this.registro.Size = new System.Drawing.Size(131, 24);
-            this.registro.Text = "Control de inventario";
-            // 
-            // agregarToolStripMenuItem
-            // 
-            this.agregarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("agregarToolStripMenuItem.Image")));
-            this.agregarToolStripMenuItem.Name = "agregarToolStripMenuItem";
-            this.agregarToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.agregarToolStripMenuItem.Text = "Agregar control";
-            this.agregarToolStripMenuItem.Click += new System.EventHandler(this.agregarToolStripMenuItem_Click);
+            this.registro.Text = "Más opciones";
             // 
             // editarToolStripMenuItem
             // 
             this.editarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("editarToolStripMenuItem.Image")));
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
             this.editarToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.editarToolStripMenuItem.Text = "Editar control";
+            this.editarToolStripMenuItem.Text = "Registrar o editar existencias";
             this.editarToolStripMenuItem.Click += new System.EventHandler(this.editarToolStripMenuItem_Click);
             // 
             // desactivarToolStripMenuItem
@@ -127,7 +117,7 @@
             this.desactivarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("desactivarToolStripMenuItem.Image")));
             this.desactivarToolStripMenuItem.Name = "desactivarToolStripMenuItem";
             this.desactivarToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.desactivarToolStripMenuItem.Text = "Retirar control";
+            this.desactivarToolStripMenuItem.Text = "Desactivar inventario";
             this.desactivarToolStripMenuItem.Click += new System.EventHandler(this.desactivarToolStripMenuItem_Click);
             // 
             // eliminarToolStripMenuItem
@@ -317,7 +307,7 @@
             this.dgvProductoInventario.RowHeadersWidth = 51;
             this.dgvProductoInventario.Size = new System.Drawing.Size(708, 72);
             this.dgvProductoInventario.TabIndex = 0;
-            this.dgvProductoInventario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductoInventario_CellClick);
+            this.dgvProductoInventario.SelectionChanged += new System.EventHandler(this.dgvProductoInventario_SelectionChanged);
             // 
             // ColProducto
             // 
@@ -499,7 +489,7 @@
             this.cmbProductoInventario.Name = "cmbProductoInventario";
             this.cmbProductoInventario.Size = new System.Drawing.Size(117, 23);
             this.cmbProductoInventario.TabIndex = 4;
-            this.cmbProductoInventario.SelectedValueChanged += new System.EventHandler(this.cmbProductoInventario_SelectedValueChanged);
+            this.cmbProductoInventario.Enabled = false;
             // 
             // lblProducto
             // 
@@ -514,14 +504,12 @@
             // 
             // chkControlActivo
             // 
-            this.chkControlActivo.Checked = true;
-            this.chkControlActivo.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkControlActivo.Location = new System.Drawing.Point(262, 110);
             this.chkControlActivo.Margin = new System.Windows.Forms.Padding(2);
             this.chkControlActivo.Name = "chkControlActivo";
             this.chkControlActivo.Size = new System.Drawing.Size(165, 20);
             this.chkControlActivo.TabIndex = 15;
-            this.chkControlActivo.Text = "Control activo";
+            this.chkControlActivo.Text = "Inventario activo";
             // 
             // panel1
             // 
@@ -603,7 +591,6 @@
 
         private System.Windows.Forms.CheckBox chkControlActivo;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem agregarToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.GroupBox grpAcciones;
         private System.Windows.Forms.Button btnBuscar;

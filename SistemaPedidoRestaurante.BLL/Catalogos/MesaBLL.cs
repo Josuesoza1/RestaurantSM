@@ -75,21 +75,6 @@ namespace SistemaPedidoRestaurante.BLL
             }
         }
 
-        public void CambiarMesa(int mesa, string anterior)
-        {
-            Permisos.ExigirAtencion();
-            if (mesa <= 0 || (anterior != "Ocupada" && anterior != "En limpieza"))
-                throw new ArgumentException("Seleccione una mesa ocupada o en limpieza.");
-            try
-            {
-                mesaDAL.CambiarMesa(SesionActual.IdUsuario, mesa, anterior);
-            }
-            catch (SqlException error)
-            {
-                throw OperacionDatos.Traducir(error, "No se pudo cambiar el estado de la mesa.");
-            }
-        }
-
         public void AsignarMesa(int pedido, int mesa)
         {
             Permisos.ExigirAtencion();

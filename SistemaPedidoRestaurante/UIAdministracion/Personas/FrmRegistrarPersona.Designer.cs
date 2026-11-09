@@ -330,7 +330,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(840, 620);
-            this.MinimumSize = new System.Drawing.Size(820, 660);
+            this.MinimumSize = new System.Drawing.Size(820, 680);
             this.Controls.Add(this.tblContenido);
             this.Controls.Add(this.pnlAcciones);
             this.Controls.Add(this.pnlTipo);
