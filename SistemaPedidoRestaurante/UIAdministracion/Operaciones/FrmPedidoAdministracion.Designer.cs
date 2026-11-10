@@ -10,6 +10,7 @@
         }
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPedidoAdministracion));
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
             this.pnlEncabezado.SuspendLayout();
             this.grpDatosCliente.SuspendLayout();
@@ -77,6 +78,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.ClientSize = new System.Drawing.Size(784, 565);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmPedidoAdministracion";
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).EndInit();
             this.pnlEncabezado.ResumeLayout(false);

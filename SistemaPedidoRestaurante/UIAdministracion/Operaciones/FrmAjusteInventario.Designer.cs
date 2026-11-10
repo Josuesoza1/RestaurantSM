@@ -13,15 +13,16 @@
         #region Codigo generado por el disenador de Windows Forms
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAjusteInventario));
             this.panel = new System.Windows.Forms.TableLayoutPanel();
             this.lblProducto = new System.Windows.Forms.Label();
             this.productos = new System.Windows.Forms.ComboBox();
             this.existencias = new System.Windows.Forms.Label();
             this.lblTipo = new System.Windows.Forms.Label();
             this.tipo = new System.Windows.Forms.ComboBox();
-            this.lblRango = new System.Windows.Forms.Label();
             this.lblUnidades = new System.Windows.Forms.Label();
             this.cantidad = new System.Windows.Forms.TextBox();
+            this.lblRango = new System.Windows.Forms.Label();
             this.lblMotivo = new System.Windows.Forms.Label();
             this.motivo = new System.Windows.Forms.TextBox();
             this.guardar = new System.Windows.Forms.Button();
@@ -74,8 +75,8 @@
             // 
             // productos
             // 
-            this.productos.DisplayMember = "Producto";
             this.productos.AccessibleName = "Producto con inventario activo";
+            this.productos.DisplayMember = "Producto";
             this.productos.Dock = System.Windows.Forms.DockStyle.Top;
             this.productos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.productos.Location = new System.Drawing.Point(23, 36);
@@ -89,22 +90,28 @@
             this.existencias.AutoSize = true;
             this.existencias.Location = new System.Drawing.Point(23, 60);
             this.existencias.Name = "existencias";
-            this.existencias.Size = new System.Drawing.Size(91, 13);
+            this.existencias.Size = new System.Drawing.Size(239, 13);
             this.existencias.TabIndex = 2;
             this.existencias.Text = "Seleccione un producto para ver sus existencias.";
+            // 
+            // lblTipo
+            // 
             this.lblTipo.AutoSize = true;
+            this.lblTipo.Location = new System.Drawing.Point(23, 73);
             this.lblTipo.Name = "lblTipo";
+            this.lblTipo.Size = new System.Drawing.Size(99, 13);
+            this.lblTipo.TabIndex = 3;
             this.lblTipo.Text = "Tipo de movimiento";
             // 
             // tipo
             // 
-            this.tipo.Dock = System.Windows.Forms.DockStyle.Top;
             this.tipo.AccessibleName = "Tipo de movimiento";
+            this.tipo.Dock = System.Windows.Forms.DockStyle.Top;
             this.tipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tipo.Items.AddRange(new object[] {
             "Entrada",
             "Salida"});
-            this.tipo.Location = new System.Drawing.Point(23, 76);
+            this.tipo.Location = new System.Drawing.Point(23, 89);
             this.tipo.Name = "tipo";
             this.tipo.Size = new System.Drawing.Size(574, 21);
             this.tipo.TabIndex = 4;
@@ -113,40 +120,46 @@
             // lblUnidades
             // 
             this.lblUnidades.AutoSize = true;
-            this.lblUnidades.Location = new System.Drawing.Point(23, 100);
+            this.lblUnidades.Location = new System.Drawing.Point(23, 113);
             this.lblUnidades.Name = "lblUnidades";
-            this.lblUnidades.Size = new System.Drawing.Size(52, 13);
+            this.lblUnidades.Size = new System.Drawing.Size(110, 13);
             this.lblUnidades.TabIndex = 4;
             this.lblUnidades.Text = "Cantidad en unidades";
             // 
             // cantidad
             // 
-            this.cantidad.Location = new System.Drawing.Point(23, 116);
             this.cantidad.AccessibleName = "Cantidad en unidades";
             this.cantidad.Enabled = false;
+            this.cantidad.Location = new System.Drawing.Point(23, 129);
             this.cantidad.Name = "cantidad";
             this.cantidad.Size = new System.Drawing.Size(120, 20);
             this.cantidad.TabIndex = 6;
             this.cantidad.TextChanged += new System.EventHandler(this.datosMovimiento_Cambiados);
+            // 
+            // lblRango
+            // 
             this.lblRango.AutoSize = true;
             this.lblRango.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblRango.Location = new System.Drawing.Point(23, 152);
             this.lblRango.Name = "lblRango";
+            this.lblRango.Size = new System.Drawing.Size(574, 13);
+            this.lblRango.TabIndex = 7;
             this.lblRango.Text = "Elija Entrada para sumar unidades o Salida para retirarlas.";
             // 
             // lblMotivo
             // 
             this.lblMotivo.AutoSize = true;
-            this.lblMotivo.Location = new System.Drawing.Point(23, 139);
+            this.lblMotivo.Location = new System.Drawing.Point(23, 165);
             this.lblMotivo.Name = "lblMotivo";
-            this.lblMotivo.Size = new System.Drawing.Size(132, 13);
+            this.lblMotivo.Size = new System.Drawing.Size(96, 13);
             this.lblMotivo.TabIndex = 6;
             this.lblMotivo.Text = "Motivo (obligatorio)";
             // 
             // motivo
             // 
-            this.motivo.Dock = System.Windows.Forms.DockStyle.Top;
             this.motivo.AccessibleName = "Motivo del movimiento";
-            this.motivo.Location = new System.Drawing.Point(23, 155);
+            this.motivo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.motivo.Location = new System.Drawing.Point(23, 181);
             this.motivo.MaxLength = 200;
             this.motivo.Name = "motivo";
             this.motivo.Size = new System.Drawing.Size(574, 20);
@@ -157,7 +170,7 @@
             // 
             this.guardar.AutoSize = true;
             this.guardar.Enabled = false;
-            this.guardar.Location = new System.Drawing.Point(23, 181);
+            this.guardar.Location = new System.Drawing.Point(23, 207);
             this.guardar.Name = "guardar";
             this.guardar.Size = new System.Drawing.Size(111, 23);
             this.guardar.TabIndex = 10;
@@ -170,12 +183,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(620, 340);
             this.Controls.Add(this.panel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(636, 379);
             this.Name = "FrmAjusteInventario";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Entrada o salida de inventario";
-            this.Load += new System.EventHandler(this.cargar);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmAjusteInventario_FormClosing);
+            this.Load += new System.EventHandler(this.cargar);
             this.panel.ResumeLayout(false);
             this.panel.PerformLayout();
             this.ResumeLayout(false);

@@ -17,6 +17,7 @@
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPedidoLocalBase));
             this.pnlEncabezado = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.grpDatosCliente = new System.Windows.Forms.GroupBox();
@@ -35,10 +36,6 @@
             this.lblProducto = new System.Windows.Forms.Label();
             this.nudCantidad = new System.Windows.Forms.NumericUpDown();
             this.dgvDetalle = new System.Windows.Forms.DataGridView();
-            this.colProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colPrecio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSubtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.estadoPerfil = new System.Windows.Forms.Label();
             this.lblEstadoCatalogo = new System.Windows.Forms.Label();
             this.btnRecargarCatalogo = new System.Windows.Forms.Button();
@@ -75,7 +72,7 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
             this.lblTitulo.Location = new System.Drawing.Point(48, 20);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(271, 29);
+            this.lblTitulo.Size = new System.Drawing.Size(179, 29);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "NUEVA VENTA";
             // 
@@ -146,8 +143,8 @@
             // 
             // cmbCategoria
             // 
-            this.cmbCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCategoria.AccessibleName = "Categoría";
+            this.cmbCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCategoria.FormattingEnabled = true;
             this.cmbCategoria.Location = new System.Drawing.Point(95, 20);
             this.cmbCategoria.Name = "cmbCategoria";
@@ -163,12 +160,13 @@
             this.cmbPrecio.Location = new System.Drawing.Point(255, 90);
             this.cmbPrecio.Name = "cmbPrecio";
             this.cmbPrecio.Size = new System.Drawing.Size(160, 22);
+            this.cmbPrecio.TabIndex = 1;
             this.cmbPrecio.TabStop = false;
             // 
             // cmbProducto
             // 
-            this.cmbProducto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbProducto.AccessibleName = "Producto";
+            this.cmbProducto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbProducto.FormattingEnabled = true;
             this.cmbProducto.Location = new System.Drawing.Point(95, 55);
             this.cmbProducto.Name = "cmbProducto";
@@ -179,6 +177,7 @@
             // btnCancelar
             // 
             this.btnCancelar.BackColor = System.Drawing.Color.Red;
+            this.btnCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.Black;
@@ -246,8 +245,8 @@
             // 
             // nudCantidad
             // 
-            this.nudCantidad.Location = new System.Drawing.Point(95, 90);
             this.nudCantidad.AccessibleName = "Cantidad para agregar";
+            this.nudCantidad.Location = new System.Drawing.Point(95, 90);
             this.nudCantidad.Maximum = new decimal(new int[] {
             999,
             0,
@@ -270,17 +269,14 @@
             // 
             // dgvDetalle
             // 
-            this.dgvDetalle.AllowUserToAddRows = false;
             this.dgvDetalle.AccessibleName = "Productos agregados a la venta";
+            this.dgvDetalle.AllowUserToAddRows = false;
             this.dgvDetalle.AllowUserToDeleteRows = false;
             this.dgvDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvDetalle.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvDetalle.AutoGenerateColumns = false;
             this.dgvDetalle.ColumnHeadersHeight = 29;
-            this.dgvDetalle.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colProducto, this.colCantidad, this.colPrecio, this.colSubtotal });
             this.dgvDetalle.Location = new System.Drawing.Point(12, 330);
             this.dgvDetalle.MultiSelect = false;
             this.dgvDetalle.Name = "dgvDetalle";
@@ -291,32 +287,17 @@
             this.dgvDetalle.StandardTab = true;
             this.dgvDetalle.TabIndex = 2;
             this.dgvDetalle.SelectionChanged += new System.EventHandler(this.dgvDetalle_SelectionChanged);
-            this.colProducto.Name = "colProducto";
-            this.colProducto.DataPropertyName = "Producto";
-            this.colProducto.HeaderText = "Producto";
-            this.colProducto.FillWeight = 175;
-            this.colCantidad.Name = "colCantidad";
-            this.colCantidad.DataPropertyName = "Cantidad";
-            this.colCantidad.HeaderText = "Cantidad";
-            this.colPrecio.Name = "colPrecio";
-            this.colPrecio.DataPropertyName = "PrecioUnitario";
-            this.colPrecio.HeaderText = "Precio unitario";
-            this.colPrecio.DefaultCellStyle.Format = "N2";
-            this.colSubtotal.Name = "colSubtotal";
-            this.colSubtotal.DataPropertyName = "Subtotal";
-            this.colSubtotal.HeaderText = "Subtotal";
-            this.colSubtotal.DefaultCellStyle.Format = "N2";
             // 
             // estadoPerfil
             // 
             this.estadoPerfil.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.estadoPerfil.BackColor = System.Drawing.SystemColors.Window;
             this.estadoPerfil.Location = new System.Drawing.Point(12, 297);
             this.estadoPerfil.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.estadoPerfil.Name = "estadoPerfil";
             this.estadoPerfil.Size = new System.Drawing.Size(760, 26);
             this.estadoPerfil.TabIndex = 0;
-            this.estadoPerfil.BackColor = System.Drawing.SystemColors.Window;
             this.estadoPerfil.Text = "Elija un producto y una cantidad para agregarlos a la venta.";
             // 
             // lblEstadoCatalogo
@@ -335,7 +316,7 @@
             this.btnRecargarCatalogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btnRecargarCatalogo.Enabled = false;
             this.btnRecargarCatalogo.Location = new System.Drawing.Point(627, 75);
-            this.btnRecargarCatalogo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRecargarCatalogo.Margin = new System.Windows.Forms.Padding(2);
             this.btnRecargarCatalogo.Name = "btnRecargarCatalogo";
             this.btnRecargarCatalogo.Size = new System.Drawing.Size(150, 28);
             this.btnRecargarCatalogo.TabIndex = 1;
@@ -397,8 +378,9 @@
             // 
             this.nudCantidadDetalle.AccessibleName = "Cantidad de la línea seleccionada";
             this.nudCantidadDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.nudCantidadDetalle.Enabled = false;
             this.nudCantidadDetalle.Location = new System.Drawing.Point(12, 502);
-            this.nudCantidadDetalle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudCantidadDetalle.Margin = new System.Windows.Forms.Padding(2);
             this.nudCantidadDetalle.Maximum = new decimal(new int[] {
             999,
             0,
@@ -417,20 +399,19 @@
             0,
             0,
             0});
-            this.nudCantidadDetalle.Enabled = false;
             // 
             // btnCambiarCantidad
             // 
             this.btnCambiarCantidad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnCambiarCantidad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btnCambiarCantidad.Enabled = false;
             this.btnCambiarCantidad.Location = new System.Drawing.Point(66, 496);
-            this.btnCambiarCantidad.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCambiarCantidad.Margin = new System.Windows.Forms.Padding(2);
             this.btnCambiarCantidad.Name = "btnCambiarCantidad";
             this.btnCambiarCantidad.Size = new System.Drawing.Size(128, 32);
             this.btnCambiarCantidad.TabIndex = 4;
             this.btnCambiarCantidad.Text = "Cambiar cantidad";
             this.btnCambiarCantidad.UseVisualStyleBackColor = false;
-            this.btnCambiarCantidad.Enabled = false;
             this.btnCambiarCantidad.Click += new System.EventHandler(this.btnCambiarCantidad_Click);
             // 
             // btnGuardarCambios
@@ -439,7 +420,7 @@
             this.btnGuardarCambios.BackColor = System.Drawing.Color.Lime;
             this.btnGuardarCambios.Enabled = false;
             this.btnGuardarCambios.Location = new System.Drawing.Point(12, 530);
-            this.btnGuardarCambios.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnGuardarCambios.Margin = new System.Windows.Forms.Padding(2);
             this.btnGuardarCambios.Name = "btnGuardarCambios";
             this.btnGuardarCambios.Size = new System.Drawing.Size(124, 32);
             this.btnGuardarCambios.TabIndex = 9;
@@ -462,6 +443,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.IndianRed;
+            this.CancelButton = this.btnCancelar;
             this.ClientSize = new System.Drawing.Size(784, 565);
             this.Controls.Add(this.estadoPerfil);
             this.Controls.Add(this.lblEstadoCatalogo);
@@ -478,9 +460,9 @@
             this.Controls.Add(this.grpProducto);
             this.Controls.Add(this.grpDatosCliente);
             this.Controls.Add(this.pnlEncabezado);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 597);
             this.Name = "FrmPedidoLocalBase";
-            this.CancelButton = this.btnCancelar;
             this.Text = "Nueva venta local";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmPedidoLocalBase_FormClosing);
             this.Load += new System.EventHandler(this.CargarPantalla);

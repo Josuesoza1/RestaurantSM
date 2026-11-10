@@ -89,7 +89,7 @@
             // 
             this.pedidosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("pedidosToolStripMenuItem.Image")));
             this.pedidosToolStripMenuItem.Name = "pedidosToolStripMenuItem";
-            this.pedidosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pedidosToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.pedidosToolStripMenuItem.Text = "Ventas abiertas";
             this.pedidosToolStripMenuItem.Click += new System.EventHandler(this.pedidosToolStripMenuItem_Click);
             // 
@@ -97,7 +97,7 @@
             // 
             this.mesasToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("mesasToolStripMenuItem.Image")));
             this.mesasToolStripMenuItem.Name = "mesasToolStripMenuItem";
-            this.mesasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mesasToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.mesasToolStripMenuItem.Text = "Estado de mesas";
             this.mesasToolStripMenuItem.Click += new System.EventHandler(this.mesas_Click);
             // 
@@ -140,6 +140,7 @@
             this.Controls.Add(this.lblEstado);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.pnlEncabezado);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(454, 292);

@@ -17,6 +17,7 @@
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPagoBase));
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblTituloFactura = new System.Windows.Forms.Label();
             this.lblMetodoPago = new System.Windows.Forms.Label();
@@ -64,14 +65,14 @@
             this.lblMetodoPago.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMetodoPago.Location = new System.Drawing.Point(24, 110);
             this.lblMetodoPago.Name = "lblMetodoPago";
-            this.lblMetodoPago.Size = new System.Drawing.Size(92, 15);
+            this.lblMetodoPago.Size = new System.Drawing.Size(94, 15);
             this.lblMetodoPago.TabIndex = 14;
             this.lblMetodoPago.Text = "Forma de pago:";
             // 
             // cmbTipoPedido
             // 
-            this.cmbTipoPedido.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTipoPedido.AccessibleName = "Forma de pago";
+            this.cmbTipoPedido.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTipoPedido.FormattingEnabled = true;
             this.cmbTipoPedido.Items.AddRange(new object[] {
             "Efectivo",
@@ -82,9 +83,14 @@
             this.cmbTipoPedido.Size = new System.Drawing.Size(362, 21);
             this.cmbTipoPedido.TabIndex = 15;
             this.cmbTipoPedido.SelectedIndexChanged += new System.EventHandler(this.cmbTipoPedido_SelectedIndexChanged);
+            // 
+            // lblGuiaPago
+            // 
             this.lblGuiaPago.AutoSize = true;
             this.lblGuiaPago.Location = new System.Drawing.Point(131, 134);
             this.lblGuiaPago.Name = "lblGuiaPago";
+            this.lblGuiaPago.Size = new System.Drawing.Size(250, 13);
+            this.lblGuiaPago.TabIndex = 19;
             this.lblGuiaPago.Text = "Elija una forma de pago para habilitar Revisar pago.";
             // 
             // groupBox1
@@ -105,8 +111,8 @@
             // 
             // txtNotas
             // 
-            this.txtNotas.Location = new System.Drawing.Point(86, 134);
             this.txtNotas.AccessibleName = "Notas del cobro";
+            this.txtNotas.Location = new System.Drawing.Point(86, 134);
             this.txtNotas.MaxLength = 200;
             this.txtNotas.Multiline = true;
             this.txtNotas.Name = "txtNotas";
@@ -125,13 +131,13 @@
             // 
             // txtMontoTotal
             // 
+            this.txtMontoTotal.AccessibleName = "Total de la venta";
             this.txtMontoTotal.Location = new System.Drawing.Point(106, 41);
             this.txtMontoTotal.Name = "txtMontoTotal";
             this.txtMontoTotal.ReadOnly = true;
-            this.txtMontoTotal.AccessibleName = "Total de la venta";
-            this.txtMontoTotal.TabStop = false;
             this.txtMontoTotal.Size = new System.Drawing.Size(221, 21);
             this.txtMontoTotal.TabIndex = 16;
+            this.txtMontoTotal.TabStop = false;
             // 
             // lblMontoTotal
             // 
@@ -180,6 +186,7 @@
             // btnVolverPagos
             // 
             this.btnVolverPagos.BackColor = System.Drawing.Color.Gainsboro;
+            this.btnVolverPagos.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnVolverPagos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVolverPagos.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVolverPagos.ForeColor = System.Drawing.Color.Black;
@@ -196,8 +203,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.ClientSize = new System.Drawing.Size(534, 399);
             this.CancelButton = this.btnVolverPagos;
+            this.ClientSize = new System.Drawing.Size(534, 399);
             this.Controls.Add(this.btnVolverPagos);
             this.Controls.Add(this.btnRegistrarPago);
             this.Controls.Add(this.groupBox1);
@@ -205,6 +212,7 @@
             this.Controls.Add(this.cmbTipoPedido);
             this.Controls.Add(this.lblMetodoPago);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(550, 438);
             this.Name = "FrmPagoBase";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

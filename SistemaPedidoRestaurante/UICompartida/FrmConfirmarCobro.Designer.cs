@@ -13,6 +13,7 @@
         #region Codigo generado por el disenador de Windows Forms
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmConfirmarCobro));
             this.panel = new System.Windows.Forms.TableLayoutPanel();
             this.resumen = new System.Windows.Forms.Label();
             this.lblRecibido = new System.Windows.Forms.Label();
@@ -30,7 +31,7 @@
             // 
             this.panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.panel.ColumnCount = 1;
-            this.panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 380F));
             this.panel.Controls.Add(this.resumen, 0, 0);
             this.panel.Controls.Add(this.lblRecibido, 0, 1);
             this.panel.Controls.Add(this.monto, 0, 2);
@@ -41,11 +42,11 @@
             this.panel.Name = "panel";
             this.panel.Padding = new System.Windows.Forms.Padding(20);
             this.panel.RowCount = 5;
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panel.Size = new System.Drawing.Size(420, 250);
             this.panel.TabIndex = 0;
             // 
@@ -61,7 +62,7 @@
             // lblRecibido
             // 
             this.lblRecibido.AutoSize = true;
-            this.lblRecibido.Location = new System.Drawing.Point(23, 40);
+            this.lblRecibido.Location = new System.Drawing.Point(23, 33);
             this.lblRecibido.Name = "lblRecibido";
             this.lblRecibido.Size = new System.Drawing.Size(77, 13);
             this.lblRecibido.TabIndex = 1;
@@ -69,9 +70,9 @@
             // 
             // monto
             // 
-            this.monto.Dock = System.Windows.Forms.DockStyle.Top;
             this.monto.AccessibleName = "Monto recibido en efectivo";
-            this.monto.Location = new System.Drawing.Point(23, 63);
+            this.monto.Dock = System.Windows.Forms.DockStyle.Top;
+            this.monto.Location = new System.Drawing.Point(23, 49);
             this.monto.Name = "monto";
             this.monto.Size = new System.Drawing.Size(374, 20);
             this.monto.TabIndex = 0;
@@ -81,9 +82,9 @@
             // 
             this.cambio.AutoSize = true;
             this.cambio.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cambio.Location = new System.Drawing.Point(23, 80);
+            this.cambio.Location = new System.Drawing.Point(23, 72);
             this.cambio.Name = "cambio";
-            this.cambio.Size = new System.Drawing.Size(221, 13);
+            this.cambio.Size = new System.Drawing.Size(374, 13);
             this.cambio.TabIndex = 2;
             this.cambio.Text = "Ingrese el monto recibido o elija Pago exacto.";
             // 
@@ -93,7 +94,7 @@
             this.botones.Controls.Add(this.pagoExacto);
             this.botones.Controls.Add(this.confirmar);
             this.botones.Controls.Add(this.cancelar);
-            this.botones.Location = new System.Drawing.Point(23, 103);
+            this.botones.Location = new System.Drawing.Point(23, 88);
             this.botones.Name = "botones";
             this.botones.Size = new System.Drawing.Size(261, 29);
             this.botones.TabIndex = 1;
@@ -143,6 +144,7 @@
             this.CancelButton = this.cancelar;
             this.ClientSize = new System.Drawing.Size(420, 250);
             this.Controls.Add(this.panel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(436, 289);
             this.Name = "FrmConfirmarCobro";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

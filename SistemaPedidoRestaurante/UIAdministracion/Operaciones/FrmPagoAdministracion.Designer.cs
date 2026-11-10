@@ -10,6 +10,7 @@
         }
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPagoAdministracion));
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -23,6 +24,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.BackColor = System.Drawing.Color.Orange;
             this.ClientSize = new System.Drawing.Size(534, 399);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmPagoAdministracion";
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);

@@ -251,5 +251,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             btnCancelar.Enabled = operacion;
             editarMenu.Enabled = eliminarMenu.Enabled = desactivarMenu.Enabled = agregarMenu.Enabled = !operacion;
         }
+
+        private void grpAccionesClientes_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

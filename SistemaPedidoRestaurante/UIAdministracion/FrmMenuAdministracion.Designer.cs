@@ -126,7 +126,7 @@
             this.nuevaVentaToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.nuevaVentaToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("nuevaVentaToolStripMenuItem.Image")));
             this.nuevaVentaToolStripMenuItem.Name = "nuevaVentaToolStripMenuItem";
-            this.nuevaVentaToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.nuevaVentaToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.nuevaVentaToolStripMenuItem.Text = "Nueva venta";
             this.nuevaVentaToolStripMenuItem.Click += new System.EventHandler(this.nuevaVentaToolStripMenuItem_Click);
             // 
@@ -135,7 +135,7 @@
             this.pedidosToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.pedidosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("pedidosToolStripMenuItem.Image")));
             this.pedidosToolStripMenuItem.Name = "pedidosToolStripMenuItem";
-            this.pedidosToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.pedidosToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.pedidosToolStripMenuItem.Text = "Ventas abiertas";
             this.pedidosToolStripMenuItem.Click += new System.EventHandler(this.pedidosToolStripMenuItem_Click);
             // 
@@ -144,7 +144,7 @@
             this.historialVentasToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.historialVentasToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("historialVentasToolStripMenuItem.Image")));
             this.historialVentasToolStripMenuItem.Name = "historialVentasToolStripMenuItem";
-            this.historialVentasToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.historialVentasToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.historialVentasToolStripMenuItem.Text = "Historial de ventas";
             this.historialVentasToolStripMenuItem.Click += new System.EventHandler(this.historialVentasToolStripMenuItem_Click);
             // 
@@ -153,7 +153,7 @@
             this.facturasToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.facturasToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("facturasToolStripMenuItem.Image")));
             this.facturasToolStripMenuItem.Name = "facturasToolStripMenuItem";
-            this.facturasToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.facturasToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.facturasToolStripMenuItem.Text = "Facturas";
             this.facturasToolStripMenuItem.Click += new System.EventHandler(this.facturasToolStripMenuItem_Click);
             // 
@@ -162,7 +162,7 @@
             this.estadoMesasToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.estadoMesasToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("estadoMesasToolStripMenuItem.Image")));
             this.estadoMesasToolStripMenuItem.Name = "estadoMesasToolStripMenuItem";
-            this.estadoMesasToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.estadoMesasToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.estadoMesasToolStripMenuItem.Text = "Estado de mesas";
             this.estadoMesasToolStripMenuItem.Click += new System.EventHandler(this.estadoMesasToolStripMenuItem_Click);
             // 
@@ -184,7 +184,7 @@
             this.productosToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.productosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("productosToolStripMenuItem.Image")));
             this.productosToolStripMenuItem.Name = "productosToolStripMenuItem";
-            this.productosToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.productosToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.productosToolStripMenuItem.Text = "Productos";
             this.productosToolStripMenuItem.Click += new System.EventHandler(this.productosToolStripMenuItem_Click);
             // 
@@ -193,7 +193,7 @@
             this.categoríasToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.categoríasToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("categoríasToolStripMenuItem.Image")));
             this.categoríasToolStripMenuItem.Name = "categoríasToolStripMenuItem";
-            this.categoríasToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.categoríasToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.categoríasToolStripMenuItem.Text = "Categorías";
             this.categoríasToolStripMenuItem.Click += new System.EventHandler(this.categoríasToolStripMenuItem_Click);
             // 
@@ -202,7 +202,7 @@
             this.inventarioToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.inventarioToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("inventarioToolStripMenuItem.Image")));
             this.inventarioToolStripMenuItem.Name = "inventarioToolStripMenuItem";
-            this.inventarioToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.inventarioToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.inventarioToolStripMenuItem.Text = "Inventario";
             this.inventarioToolStripMenuItem.Click += new System.EventHandler(this.inventarioToolStripMenuItem_Click);
             // 
@@ -211,7 +211,7 @@
             this.mesasToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.mesasToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("mesasToolStripMenuItem.Image")));
             this.mesasToolStripMenuItem.Name = "mesasToolStripMenuItem";
-            this.mesasToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.mesasToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.mesasToolStripMenuItem.Text = "Configurar mesas";
             this.mesasToolStripMenuItem.Click += new System.EventHandler(this.mesasToolStripMenuItem_Click);
             // 
@@ -220,7 +220,7 @@
             this.configuracionRestauranteToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.configuracionRestauranteToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("configuracionRestauranteToolStripMenuItem.Image")));
             this.configuracionRestauranteToolStripMenuItem.Name = "configuracionRestauranteToolStripMenuItem";
-            this.configuracionRestauranteToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.configuracionRestauranteToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.configuracionRestauranteToolStripMenuItem.Text = "Configuración";
             this.configuracionRestauranteToolStripMenuItem.Click += new System.EventHandler(this.configuracionRestauranteToolStripMenuItem_Click);
             // 
@@ -239,7 +239,7 @@
             this.empleadosToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.empleadosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("empleadosToolStripMenuItem.Image")));
             this.empleadosToolStripMenuItem.Name = "empleadosToolStripMenuItem";
-            this.empleadosToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.empleadosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.empleadosToolStripMenuItem.Text = "Empleados y acceso";
             this.empleadosToolStripMenuItem.Click += new System.EventHandler(this.empleadosToolStripMenuItem_Click);
             // 
@@ -248,7 +248,7 @@
             this.usuariosToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.usuariosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("usuariosToolStripMenuItem.Image")));
             this.usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.usuariosToolStripMenuItem.Text = "Consultar usuarios";
             this.usuariosToolStripMenuItem.Click += new System.EventHandler(this.usuariosToolStripMenuItem_Click);
             // 
@@ -266,7 +266,7 @@
             this.reservasPersonalToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.reservasPersonalToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("reservasPersonalToolStripMenuItem.Image")));
             this.reservasPersonalToolStripMenuItem.Name = "reservasPersonalToolStripMenuItem";
-            this.reservasPersonalToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.reservasPersonalToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.reservasPersonalToolStripMenuItem.Text = "Reservas anteriores";
             this.reservasPersonalToolStripMenuItem.Click += new System.EventHandler(this.reservasPersonalToolStripMenuItem_Click);
             // 

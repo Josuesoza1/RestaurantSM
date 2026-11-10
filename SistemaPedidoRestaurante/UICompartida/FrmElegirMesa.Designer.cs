@@ -13,6 +13,7 @@
         #region Codigo generado por el disenador de Windows Forms
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmElegirMesa));
             this.panel = new System.Windows.Forms.TableLayoutPanel();
             this.lblMesa = new System.Windows.Forms.Label();
             this.mesas = new System.Windows.Forms.ComboBox();
@@ -44,7 +45,7 @@
             this.lblMesa.AutoSize = true;
             this.lblMesa.Location = new System.Drawing.Point(23, 20);
             this.lblMesa.Name = "lblMesa";
-            this.lblMesa.Size = new System.Drawing.Size(65, 13);
+            this.lblMesa.Size = new System.Drawing.Size(83, 13);
             this.lblMesa.TabIndex = 0;
             this.lblMesa.Text = "Mesa disponible";
             // 
@@ -63,7 +64,7 @@
             // 
             this.asignar.AutoSize = true;
             this.asignar.BackColor = System.Drawing.Color.Pink;
-            this.asignar.Location = new System.Drawing.Point(23, 63);
+            this.asignar.Location = new System.Drawing.Point(23, 73);
             this.asignar.Name = "asignar";
             this.asignar.Size = new System.Drawing.Size(80, 23);
             this.asignar.TabIndex = 2;
@@ -77,6 +78,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(520, 180);
             this.Controls.Add(this.panel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(536, 219);
             this.Name = "FrmElegirMesa";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

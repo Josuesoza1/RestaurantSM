@@ -11,6 +11,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmRegistrarPersona));
             this.pnlEncabezado = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pnlTipo = new System.Windows.Forms.Panel();
@@ -570,12 +571,13 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.Controls.Add(this.pnlAcciones);
             this.Controls.Add(this.pnlTipo);
             this.Controls.Add(this.pnlEncabezado);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(820, 680);
             this.Name = "FrmRegistrarPersona";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Alta de personal";
-            this.Load += new System.EventHandler(this.FrmRegistrarPersona_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmRegistrarPersona_FormClosing);
+            this.Load += new System.EventHandler(this.FrmRegistrarPersona_Load);
             this.pnlEncabezado.ResumeLayout(false);
             this.pnlTipo.ResumeLayout(false);
             this.pnlTipo.PerformLayout();

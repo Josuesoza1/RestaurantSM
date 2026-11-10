@@ -17,6 +17,7 @@
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmFacturasBase));
             this.pnlEncabezado = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.grpDatosFactura = new System.Windows.Forms.GroupBox();
@@ -193,7 +194,7 @@
             this.lblFechaFactura.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFechaFactura.Location = new System.Drawing.Point(20, 69);
             this.lblFechaFactura.Name = "lblFechaFactura";
-            this.lblFechaFactura.Size = new System.Drawing.Size(47, 15);
+            this.lblFechaFactura.Size = new System.Drawing.Size(55, 15);
             this.lblFechaFactura.TabIndex = 1;
             this.lblFechaFactura.Text = "Emisión:";
             // 
@@ -281,15 +282,15 @@
             // ColProducto
             // 
             this.ColProducto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColProducto.HeaderText = "Producto";
             this.ColProducto.FillWeight = 160F;
+            this.ColProducto.HeaderText = "Producto";
             this.ColProducto.Name = "ColProducto";
             // 
             // ColCantidad
             // 
             this.ColCantidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColCantidad.HeaderText = "Cantidad";
             this.ColCantidad.FillWeight = 65F;
+            this.ColCantidad.HeaderText = "Cantidad";
             this.ColCantidad.Name = "ColCantidad";
             // 
             // ColPrecioUnitario
@@ -330,7 +331,7 @@
             this.lblMetodoPagoFactura.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMetodoPagoFactura.Location = new System.Drawing.Point(12, 69);
             this.lblMetodoPagoFactura.Name = "lblMetodoPagoFactura";
-            this.lblMetodoPagoFactura.Size = new System.Drawing.Size(101, 15);
+            this.lblMetodoPagoFactura.Size = new System.Drawing.Size(94, 15);
             this.lblMetodoPagoFactura.TabIndex = 13;
             this.lblMetodoPagoFactura.Text = "Forma de pago:";
             // 
@@ -422,6 +423,7 @@
             this.Controls.Add(this.btnAnular);
             this.Controls.Add(this.grpDatosFactura);
             this.Controls.Add(this.pnlEncabezado);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(720, 550);
             this.Name = "FrmFacturasBase";
             this.Text = "Detalle de factura";

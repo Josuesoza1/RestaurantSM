@@ -13,6 +13,7 @@
         #region Codigo generado por el disenador de Windows Forms
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmBandejaOperaciones));
             this.titulo = new System.Windows.Forms.Label();
             this.buscar = new System.Windows.Forms.Panel();
             this.txtBuscar = new System.Windows.Forms.TextBox();
@@ -448,6 +449,7 @@
             this.Controls.Add(this.acciones);
             this.Controls.Add(this.buscar);
             this.Controls.Add(this.titulo);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(699, 449);
             this.Name = "FrmBandejaOperaciones";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

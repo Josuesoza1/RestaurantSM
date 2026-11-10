@@ -462,6 +462,7 @@
             this.grpAccionesClientes.TabIndex = 10;
             this.grpAccionesClientes.TabStop = false;
             this.grpAccionesClientes.Text = "Acciones";
+            this.grpAccionesClientes.Enter += new System.EventHandler(this.grpAccionesClientes_Enter);
             // 
             // btnCancelar
             // 
@@ -540,6 +541,7 @@
             this.Controls.Add(this.grpDatosClientes);
             this.Controls.Add(this.pnlEncabezado);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(720, 540);
             this.Name = "FrmClientes";

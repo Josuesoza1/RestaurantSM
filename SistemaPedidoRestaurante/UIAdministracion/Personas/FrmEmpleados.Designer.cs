@@ -60,6 +60,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.agregarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.desactivarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,7 +75,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnAccion = new System.Windows.Forms.Button();
-            this.agregarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlEncabezado.SuspendLayout();
             this.grpListadoCliente.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmpleados)).BeginInit();
@@ -249,7 +249,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             // 
             this.cmbCargo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCargo.Location = new System.Drawing.Point(130, 162);
-            this.cmbCargo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbCargo.Margin = new System.Windows.Forms.Padding(2);
             this.cmbCargo.Name = "cmbCargo";
             this.cmbCargo.Size = new System.Drawing.Size(150, 22);
             this.cmbCargo.TabIndex = 15;
@@ -257,7 +257,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             // txtCedula
             // 
             this.txtCedula.Location = new System.Drawing.Point(130, 224);
-            this.txtCedula.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtCedula.Margin = new System.Windows.Forms.Padding(2);
             this.txtCedula.MaxLength = 30;
             this.txtCedula.Name = "txtCedula";
             this.txtCedula.Size = new System.Drawing.Size(150, 20);
@@ -271,7 +271,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             "Femenino",
             "Otro"});
             this.cmbGenero.Location = new System.Drawing.Point(130, 193);
-            this.cmbGenero.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbGenero.Margin = new System.Windows.Forms.Padding(2);
             this.cmbGenero.Name = "cmbGenero";
             this.cmbGenero.Size = new System.Drawing.Size(150, 22);
             this.cmbGenero.TabIndex = 16;
@@ -428,7 +428,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             // 
             this.chkActivo.AutoSize = true;
             this.chkActivo.Location = new System.Drawing.Point(105, 125);
-            this.chkActivo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkActivo.Margin = new System.Windows.Forms.Padding(2);
             this.chkActivo.Name = "chkActivo";
             this.chkActivo.Size = new System.Drawing.Size(15, 14);
             this.chkActivo.TabIndex = 14;
@@ -518,6 +518,15 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.menuStrip1.TabIndex = 12;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // agregarToolStripMenuItem
+            // 
+            this.agregarToolStripMenuItem.ForeColor = System.Drawing.Color.SeaGreen;
+            this.agregarToolStripMenuItem.Image = global::SistemaPedidoRestaurante.Properties.Resources.Agregar;
+            this.agregarToolStripMenuItem.Name = "agregarToolStripMenuItem";
+            this.agregarToolStripMenuItem.Size = new System.Drawing.Size(133, 28);
+            this.agregarToolStripMenuItem.Text = "Agregar personal";
+            this.agregarToolStripMenuItem.Click += new System.EventHandler(this.agregarToolStripMenuItem_Click);
+            // 
             // editarToolStripMenuItem
             // 
             this.editarToolStripMenuItem.ForeColor = System.Drawing.Color.DarkSlateBlue;
@@ -558,7 +567,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.panel1.Controls.Add(this.lblOperacion);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 102);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(780, 39);
             this.panel1.TabIndex = 17;
@@ -671,15 +680,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.btnAccion.UseVisualStyleBackColor = false;
             this.btnAccion.Click += new System.EventHandler(this.btnAccion_Click);
             // 
-            // agregarToolStripMenuItem
-            // 
-            this.agregarToolStripMenuItem.ForeColor = System.Drawing.Color.SeaGreen;
-            this.agregarToolStripMenuItem.Image = global::SistemaPedidoRestaurante.Properties.Resources.Agregar;
-            this.agregarToolStripMenuItem.Name = "agregarToolStripMenuItem";
-            this.agregarToolStripMenuItem.Size = new System.Drawing.Size(133, 28);
-            this.agregarToolStripMenuItem.Text = "Agregar personal";
-            this.agregarToolStripMenuItem.Click += new System.EventHandler(this.agregarToolStripMenuItem_Click);
-            // 
             // FrmEmpleados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -694,12 +694,13 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.Controls.Add(this.grpDatosClientes);
             this.Controls.Add(this.pnlEncabezado);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(705, 572);
             this.Name = "FrmEmpleados";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmEmpleados_FormClosing);
             this.Text = "Gestión de Empleados";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmEmpleados_FormClosing);
             this.Load += new System.EventHandler(this.FrmEmpleados_Load);
             this.pnlEncabezado.ResumeLayout(false);
             this.grpListadoCliente.ResumeLayout(false);

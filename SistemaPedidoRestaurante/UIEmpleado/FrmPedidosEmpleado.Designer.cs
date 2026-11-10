@@ -10,6 +10,7 @@
         }
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPedidosEmpleado));
             this.buscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.paneles)).BeginInit();
             this.paneles.SuspendLayout();
@@ -42,6 +43,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(1028, 609);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(528, 372);
             this.Name = "FrmPedidosEmpleado";
