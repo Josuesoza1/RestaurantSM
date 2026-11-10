@@ -7,8 +7,29 @@ using SistemaPedidoRestaurante.UIPrincipal;
 
 namespace SistemaPedidoRestaurante.UICompartida
 {
-    public partial class FrmFacturasBase : Form
+    public class FrmFacturasBase : Form
     {
+        protected virtual Label LblTitulo => null;
+        protected virtual Button BtnGuardarProducto => null;
+        protected virtual Button BtnAnular => null;
+        protected virtual DataGridView DataGridView1 => null;
+        protected virtual Label LblTipoPedido => null;
+        protected virtual Label LblEmpleadoFactura => null;
+        protected virtual Label LblMesaFactura => null;
+        protected virtual Label Label3 => null;
+        protected virtual TextBox TxtClienteFactura => null;
+        protected virtual TextBox TxtEmpleadoFactura => null;
+        protected virtual TextBox TxtMesaFactura => null;
+        protected virtual TextBox TxtImpuestoFactura => null;
+        protected virtual TextBox TxtDescuentoFactura => null;
+        protected virtual TextBox TxtNumeroFactura => null;
+        protected virtual Label LblMetodoPagoFactura => null;
+        protected virtual TextBox TxtMetodoPago => null;
+        protected virtual TextBox TxtTotalFactura => null;
+        protected virtual TextBox TxtSubtotalFactura => null;
+        protected virtual ComboBox CmbTipoPedido => null;
+        protected virtual DateTimePicker DtpFechaFactura => null;
+
         private readonly int rolPermitido;
         private readonly FacturaBLL servicio = new FacturaBLL();
         private DocumentoVenta documento;
@@ -22,19 +43,23 @@ namespace SistemaPedidoRestaurante.UICompartida
         {
             pedidoInicial = pedido;
             rolPermitido = rol;
-            InitializeComponent();
-            txtClienteFactura.ReadOnly = txtEmpleadoFactura.ReadOnly = txtMesaFactura.ReadOnly = true;
-            txtNumeroFactura.ReadOnly = txtSubtotalFactura.ReadOnly = txtTotalFactura.ReadOnly = true;
-            txtImpuestoFactura.ReadOnly = txtDescuentoFactura.ReadOnly = txtMetodoPago.ReadOnly = true;
-            cmbTipoPedido.Enabled = dtpFechaFactura.Enabled = false;
-            VistaGestion.Listado(dataGridView1);
-            dataGridView1.Columns[0].DataPropertyName = "Producto";
-            dataGridView1.Columns[1].DataPropertyName = "Cantidad";
-            dataGridView1.Columns[2].DataPropertyName = "PrecioUnitario";
-            dataGridView1.Columns[3].DataPropertyName = "Subtotal";
+
         }
 
-        private void FrmFacturasBase_Load(object sender, EventArgs e)
+        protected void PrepararVista()
+        {
+            TxtClienteFactura.ReadOnly = TxtEmpleadoFactura.ReadOnly = TxtMesaFactura.ReadOnly = true;
+            TxtNumeroFactura.ReadOnly = TxtSubtotalFactura.ReadOnly = TxtTotalFactura.ReadOnly = true;
+            TxtImpuestoFactura.ReadOnly = TxtDescuentoFactura.ReadOnly = TxtMetodoPago.ReadOnly = true;
+            CmbTipoPedido.Enabled = DtpFechaFactura.Enabled = false;
+            VistaGestion.Listado(DataGridView1);
+            DataGridView1.Columns[0].DataPropertyName = "Producto";
+            DataGridView1.Columns[1].DataPropertyName = "Cantidad";
+            DataGridView1.Columns[2].DataPropertyName = "PrecioUnitario";
+            DataGridView1.Columns[3].DataPropertyName = "Subtotal";
+        }
+
+        protected void Procesar_FrmFacturasBase_Load(object sender, EventArgs e)
         {
             if (DesignMode || LicenseManager.UsageMode == LicenseUsageMode.Designtime)
                 return;
@@ -60,52 +85,53 @@ namespace SistemaPedidoRestaurante.UICompartida
             documento = servicio.ObtenerDocumento(pedido, true);
             pedidoConsultado = pedido;
             Text = "Factura " + documento.Numero + " — " + documento.Estado;
-            lblTitulo.Text = Text;
-            txtNumeroFactura.Text = documento.Numero;
-            txtClienteFactura.Text = documento.Cliente;
-            txtEmpleadoFactura.Text = documento.CobradoPor;
-            lblEmpleadoFactura.Visible = txtEmpleadoFactura.Visible = DocumentoVentaExportacion.TieneDatoHistorico(documento.CobradoPor);
-            txtMesaFactura.Text = documento.Mesa;
-            lblMesaFactura.Visible = txtMesaFactura.Visible = DocumentoVentaExportacion.TieneDatoHistorico(documento.Mesa);
-            dtpFechaFactura.Value = documento.Fecha;
-            dtpFechaFactura.CustomFormat = "dd/MM/yyyy";
-            cmbTipoPedido.Items.Clear();
+            LblTitulo.Text = Text;
+            TxtNumeroFactura.Text = documento.Numero;
+            TxtClienteFactura.Text = documento.Cliente;
+            TxtEmpleadoFactura.Text = documento.CobradoPor;
+            LblEmpleadoFactura.Visible = TxtEmpleadoFactura.Visible = DocumentoVentaExportacion.TieneDatoHistorico(documento.CobradoPor);
+            TxtMesaFactura.Text = documento.Mesa;
+            LblMesaFactura.Visible = TxtMesaFactura.Visible = DocumentoVentaExportacion.TieneDatoHistorico(documento.Mesa);
+            DtpFechaFactura.Value = documento.Fecha;
+            DtpFechaFactura.CustomFormat = "dd/MM/yyyy";
+            CmbTipoPedido.Items.Clear();
             bool tieneEntrega = DocumentoVentaExportacion.TieneDatoHistorico(documento.TipoPedido);
             if (tieneEntrega)
             {
-                cmbTipoPedido.Items.Add(documento.TipoPedido);
-                cmbTipoPedido.SelectedIndex = 0;
+                CmbTipoPedido.Items.Add(documento.TipoPedido);
+                CmbTipoPedido.SelectedIndex = 0;
             }
-            lblTipoPedido.Visible = cmbTipoPedido.Visible = tieneEntrega;
-            txtSubtotalFactura.Text = documento.Subtotal.ToString("N2");
-            txtImpuestoFactura.Text = documento.Impuestos.ToString("N2");
-            txtDescuentoFactura.Text = documento.Descuento.ToString("N2");
-            label3.Visible = txtDescuentoFactura.Visible = documento.Descuento != 0;
-            txtTotalFactura.Text = (documento.Moneda + " " + documento.Total.ToString("N2")).Trim();
-            txtMetodoPago.Text = documento.Metodo;
-            lblMetodoPagoFactura.Visible = txtMetodoPago.Visible = DocumentoVentaExportacion.TieneDatoHistorico(documento.Metodo);
-            VistaGestion.Vincular(dataGridView1, documento.Detalle);
-            btnGuardarProducto.Enabled = true;
-            btnAnular.Enabled = Permisos.PuedeVerHistorial && documento.Estado == "Pagada"
+            LblTipoPedido.Visible = CmbTipoPedido.Visible = tieneEntrega;
+            TxtSubtotalFactura.Text = documento.Subtotal.ToString("N2");
+            TxtImpuestoFactura.Text = documento.Impuestos.ToString("N2");
+            TxtDescuentoFactura.Text = documento.Descuento.ToString("N2");
+            Label3.Visible = TxtDescuentoFactura.Visible = documento.Descuento != 0;
+            TxtTotalFactura.Text = (documento.Moneda + " " + documento.Total.ToString("N2")).Trim();
+            TxtMetodoPago.Text = documento.Metodo;
+            LblMetodoPagoFactura.Visible = TxtMetodoPago.Visible = DocumentoVentaExportacion.TieneDatoHistorico(documento.Metodo);
+            VistaGestion.Vincular(DataGridView1, documento.Detalle);
+            BtnGuardarProducto.Enabled = true;
+            BtnAnular.Enabled = Permisos.PuedeVerHistorial && documento.Estado == "Pagada"
                 && documento.OrigenPedido == "En el local";
-            btnAnular.Visible = btnAnular.Enabled;
+            BtnAnular.Visible = BtnAnular.Enabled;
         }
 
-        private void btnAnular_Click(object sender, EventArgs e)
+        protected void Procesar_btnAnular_Click(object sender, EventArgs e)
         {
-            if (!btnAnular.Enabled || documento == null)
+            if (!BtnAnular.Enabled || documento == null)
                 return;
 
             try
             {
-                using (var confirmar = new FrmAnularVenta(documento))
+                int venta = pedidoConsultado;
+                using (var confirmar = new FrmAnularVenta(documento,
+                    (motivo, reponer) => RegistrarDevolucion(venta, motivo, reponer)))
                 {
                     if (confirmar.ShowDialog(this) != DialogResult.OK)
                         return;
-                    servicio.AnularVenta(pedidoConsultado, confirmar.Motivo, confirmar.ReponerInventario);
                 }
-                btnAnular.Enabled = false;
-                btnAnular.Visible = false;
+                BtnAnular.Enabled = false;
+                BtnAnular.Visible = false;
                 MessageBox.Show(this, "La venta quedó anulada y se conservó su comprobante.", Text);
                 CargarDocumento(pedidoConsultado);
             }
@@ -115,7 +141,14 @@ namespace SistemaPedidoRestaurante.UICompartida
             }
         }
 
-        private void guardarPdf_Click(object sender, EventArgs e)
+        private void RegistrarDevolucion(int venta, string motivo, bool reponer)
+        {
+            var vigente = servicio.ObtenerDocumento(venta, true);
+            if (!string.Equals(vigente.Estado, "Anulada", StringComparison.OrdinalIgnoreCase))
+                servicio.AnularVenta(venta, motivo, reponer);
+        }
+
+        protected void Procesar_guardarPdf_Click(object sender, EventArgs e)
         {
             try
             {
@@ -131,7 +164,7 @@ namespace SistemaPedidoRestaurante.UICompartida
             }
         }
 
-        private void volver_Click(object sender, EventArgs e)
+        protected void Procesar_volver_Click(object sender, EventArgs e)
         {
             Close();
         }

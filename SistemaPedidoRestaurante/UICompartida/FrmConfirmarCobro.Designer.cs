@@ -19,6 +19,7 @@
             this.lblRecibido = new System.Windows.Forms.Label();
             this.monto = new System.Windows.Forms.TextBox();
             this.cambio = new System.Windows.Forms.Label();
+            this.lblVuelto = new System.Windows.Forms.Label();
             this.botones = new System.Windows.Forms.FlowLayoutPanel();
             this.pagoExacto = new System.Windows.Forms.Button();
             this.confirmar = new System.Windows.Forms.Button();
@@ -36,18 +37,20 @@
             this.panel.Controls.Add(this.lblRecibido, 0, 1);
             this.panel.Controls.Add(this.monto, 0, 2);
             this.panel.Controls.Add(this.cambio, 0, 3);
-            this.panel.Controls.Add(this.botones, 0, 4);
+            this.panel.Controls.Add(this.lblVuelto, 0, 4);
+            this.panel.Controls.Add(this.botones, 0, 5);
             this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel.Location = new System.Drawing.Point(0, 0);
             this.panel.Name = "panel";
             this.panel.Padding = new System.Windows.Forms.Padding(20);
-            this.panel.RowCount = 5;
+            this.panel.RowCount = 6;
             this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panel.Size = new System.Drawing.Size(420, 250);
+            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panel.TabIndex = 0;
             // 
             // resumen
@@ -87,6 +90,15 @@
             this.cambio.Size = new System.Drawing.Size(374, 13);
             this.cambio.TabIndex = 2;
             this.cambio.Text = "Ingrese el monto recibido o elija Pago exacto.";
+            this.lblVuelto.BackColor = System.Drawing.Color.Honeydew;
+            this.lblVuelto.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblVuelto.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
+            this.lblVuelto.ForeColor = System.Drawing.Color.DarkGreen;
+            this.lblVuelto.Margin = new System.Windows.Forms.Padding(3, 8, 3, 6);
+            this.lblVuelto.Name = "lblVuelto";
+            this.lblVuelto.Size = new System.Drawing.Size(374, 36);
+            this.lblVuelto.Text = "Vuelto: —";
+            this.lblVuelto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // botones
             // 
@@ -163,6 +175,7 @@
         private System.Windows.Forms.Label lblRecibido;
         private System.Windows.Forms.TextBox monto;
         private System.Windows.Forms.Label cambio;
+        private System.Windows.Forms.Label lblVuelto;
         private System.Windows.Forms.FlowLayoutPanel botones;
         private System.Windows.Forms.Button confirmar;
         private System.Windows.Forms.Button pagoExacto;

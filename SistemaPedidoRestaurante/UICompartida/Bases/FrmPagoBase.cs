@@ -8,8 +8,16 @@ using SistemaPedidoRestaurante.Validaciones;
 
 namespace SistemaPedidoRestaurante.UICompartida
 {
-    public partial class FrmPagoBase : Form
+    public class FrmPagoBase : Form
     {
+        protected virtual ComboBox CmbTipoPedido => null;
+        protected virtual Label LblGuiaPago => null;
+        protected virtual TextBox TxtNotas => null;
+        protected virtual Label LblNombreComprobante => null;
+        protected virtual TextBox TxtNombreComprobante => null;
+        protected virtual TextBox TxtMontoTotal => null;
+        protected virtual Button BtnRegistrarPago => null;
+
         private readonly int rolPermitido;
         private readonly bool desdeMostrador;
         private readonly PagoBLL servicio = new PagoBLL();
@@ -26,10 +34,10 @@ namespace SistemaPedidoRestaurante.UICompartida
             this.pedido = pedido;
             this.desdeMostrador = desdeMostrador;
             rolPermitido = rol;
-            InitializeComponent();
+
         }
 
-        private void FrmPagoBase_Load(object sender, EventArgs e)
+        protected void Procesar_FrmPagoBase_Load(object sender, EventArgs e)
         {
             if (DesignMode || LicenseManager.UsageMode == LicenseUsageMode.Designtime)
                 return;
@@ -57,13 +65,13 @@ namespace SistemaPedidoRestaurante.UICompartida
 
                 DataRow cotizacion = servicio.Cotizar(pedido, desdeMostrador);
                 total = Convert.ToDecimal(cotizacion["Total"]);
-                txtMontoTotal.Text = total.ToString("N2");
+                TxtMontoTotal.Text = total.ToString("N2");
                 bool nombreOpcional = Convert.ToBoolean(cotizacion["PuedeNombrarComprobante"]);
-                lblNombreComprobante.Visible = txtNombreComprobante.Visible = nombreOpcional;
-                txtNombreComprobante.Enabled = nombreOpcional;
+                LblNombreComprobante.Visible = TxtNombreComprobante.Visible = nombreOpcional;
+                TxtNombreComprobante.Enabled = nombreOpcional;
                 Text = "Cobro de venta " + pedido + " — " + Convert.ToString(cotizacion["Cliente"]);
                 ActualizarBotonPago();
-                ActiveControl = cmbTipoPedido;
+                ActiveControl = CmbTipoPedido;
             }
             catch (Exception error)
             {
@@ -75,32 +83,32 @@ namespace SistemaPedidoRestaurante.UICompartida
             }
         }
 
-        private void cmbTipoPedido_SelectedIndexChanged(object sender, EventArgs e)
+        protected void Procesar_cmbTipoPedido_SelectedIndexChanged(object sender, EventArgs e)
         {
             ActualizarBotonPago();
         }
 
         private void ActualizarBotonPago()
         {
-            bool formaElegida = cmbTipoPedido.SelectedIndex >= 0;
-            lblGuiaPago.Visible = !formaElegida;
-            btnRegistrarPago.Enabled = total > 0 && formaElegida && !pagado;
+            bool formaElegida = CmbTipoPedido.SelectedIndex >= 0;
+            LblGuiaPago.Visible = !formaElegida;
+            BtnRegistrarPago.Enabled = total > 0 && formaElegida && !pagado;
         }
 
-        private void btnRegistrarPago_Click(object sender, EventArgs e)
+        protected void Procesar_btnRegistrarPago_Click(object sender, EventArgs e)
         {
-            if (!btnRegistrarPago.Enabled)
+            if (!BtnRegistrarPago.Enabled)
                 return;
             try
             {
-                string metodo = Convert.ToString(cmbTipoPedido.SelectedItem);
-                string nombreComprobante = PagoValidacion.NombreParaComprobante(txtNombreComprobante.Text);
+                string metodo = Convert.ToString(CmbTipoPedido.SelectedItem);
+                string nombreComprobante = PagoValidacion.NombreParaComprobante(TxtNombreComprobante.Text);
                 using (FrmConfirmarCobro confirmar = new FrmConfirmarCobro(total, metodo))
                 {
                     if (confirmar.ShowDialog(this) != DialogResult.OK)
                         return;
-                    btnRegistrarPago.Enabled = false;
-                    DataRow resultado = servicio.Cobrar(pedido, metodo, confirmar.Recibido, total, solicitud, txtNotas.Text,
+                    BtnRegistrarPago.Enabled = false;
+                    DataRow resultado = servicio.Cobrar(pedido, metodo, confirmar.Recibido, total, solicitud, TxtNotas.Text,
                         desdeMostrador, nombreComprobante);
                     pagado = true;
                     string mensaje = "Pago registrado para la venta " + pedido + ".";
@@ -119,7 +127,7 @@ namespace SistemaPedidoRestaurante.UICompartida
                         catch (Exception error)
                         {
                             MessageBox.Show(this, "El pago se guardó. " + VistaGestion.MensajeParaUsuario(error,
-                                "Puede volver a abrir el documento desde Último comprobante."),
+                                "Puede volver a abrir el documento desde Último comprobante vigente."),
                                 Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
@@ -140,7 +148,7 @@ namespace SistemaPedidoRestaurante.UICompartida
             }
         }
 
-        private void btnVolver_Click(object sender, EventArgs e)
+        protected void Procesar_btnVolver_Click(object sender, EventArgs e)
         {
             Close();
         }

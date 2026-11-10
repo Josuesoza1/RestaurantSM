@@ -31,7 +31,7 @@ namespace SistemaPedidoRestaurante.UIPrincipal
 
         internal ResumenVentasDocumento(DateTime fecha, DataTable resumen, bool diario)
         {
-            titulo = diario ? "Resumen diario de caja" : "Resumen mensual de ventas";
+            titulo = diario ? "Resumen diario de caja" : "Resumen mensual de caja";
             periodo = fecha.ToString(diario ? "dd/MM/yyyy" : "MMMM yyyy", Cultura);
             string formatoArchivo = diario ? "yyyy-MM-dd" : "yyyy-MM";
             NombreArchivo = "Resumen-ventas-" + fecha.ToString(formatoArchivo, CultureInfo.InvariantCulture);

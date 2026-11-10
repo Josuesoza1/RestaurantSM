@@ -79,7 +79,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             {
                 lblRango.Text = movimiento == "Salida"
                     ? "Hay 0 unidades disponibles para retirar."
-                    : "El producto ya tiene el máximo de " + int.MaxValue.ToString("N0") + " unidades.";
+                    : "El producto tiene " + GestionValidacion.StockMaximoManual + " unidades o más. Solo puede registrar salidas.";
                 return;
             }
 

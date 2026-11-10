@@ -7,6 +7,7 @@ namespace SistemaPedidoRestaurante.Validaciones
     {
         public const int NumeroMesaMaximo = 999;
         public const int CapacidadMesaMaxima = 20;
+        public const int StockMaximoManual = 10000;
 
         public static string Texto(string valor, int maximo, string campo, bool requerido = false)
         {
@@ -36,10 +37,11 @@ namespace SistemaPedidoRestaurante.Validaciones
 
         public static void Inventario(int producto, int stock, int minimo)
         {
-            if (producto <= 0 || stock < 0 || minimo < 0)
-            {
-                throw new ArgumentException("Seleccione un producto y cantidades enteras no negativas.");
-            }
+            if (producto <= 0)
+                throw new ArgumentException("Seleccione un producto para el inventario.");
+            if (stock < 0 || stock > StockMaximoManual || minimo < 0 || minimo > StockMaximoManual)
+                throw new ArgumentException("El stock actual y el mínimo deben ser números enteros entre 0 y " +
+                    StockMaximoManual + " unidades.");
         }
 
         public static void Reserva(int mesa, DateTime fecha, int personas)
@@ -62,7 +64,7 @@ namespace SistemaPedidoRestaurante.Validaciones
             {
                 throw new ArgumentException(tipo == "Salida"
                     ? "Este producto tiene 0 unidades para retirar."
-                    : "Este producto ya alcanzó el máximo de " + int.MaxValue + " unidades.");
+                    : "El producto tiene " + StockMaximoManual + " unidades o más. Solo puede registrar salidas.");
             }
             if (cantidad < 1 || cantidad > maximo)
                 throw new ArgumentException("Ingrese una cantidad entera de 1 a " + maximo + " unidades.");
@@ -73,7 +75,7 @@ namespace SistemaPedidoRestaurante.Validaciones
         public static int MaximoMovimientoInventario(int stockActual, string tipo)
         {
             if (tipo == "Entrada")
-                return int.MaxValue - stockActual;
+                return Math.Max(0, StockMaximoManual - stockActual);
             if (tipo == "Salida")
                 return stockActual;
 

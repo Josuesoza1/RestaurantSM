@@ -24,6 +24,7 @@ namespace SistemaPedidoRestaurante.UICompartida
             monto.ReadOnly = !esEfectivo;
             monto.TabStop = esEfectivo;
             pagoExacto.Visible = esEfectivo;
+            lblVuelto.Visible = esEfectivo;
             if (!esEfectivo)
             {
                 lblRecibido.Text = "Monto por verificar";
@@ -48,16 +49,17 @@ namespace SistemaPedidoRestaurante.UICompartida
 
         private void pagoExacto_Click(object sender, EventArgs e)
         {
-            monto.Text = total.ToString("F2");
+            monto.Text = total.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
         }
 
         private void ActualizarCambio()
         {
             Recibido = 0;
             confirmar.Enabled = false;
+            lblVuelto.Text = "Vuelto: —";
             if (string.IsNullOrWhiteSpace(monto.Text))
             {
-                cambio.Text = "Ingrese el monto recibido o elija Pago exacto.";
+                cambio.Text = "Ingrese el monto recibido o elija Pago exacto. " + CamposValidacion.GuiaImporte;
                 return;
             }
 
@@ -83,7 +85,8 @@ namespace SistemaPedidoRestaurante.UICompartida
             }
 
             Recibido = recibido;
-            cambio.Text = "Vuelto: C$ " + vuelto.ToString("N2");
+            cambio.Text = "Revise el vuelto antes de confirmar.";
+            lblVuelto.Text = "Vuelto: C$ " + vuelto.ToString("N2");
             confirmar.Enabled = true;
         }
 

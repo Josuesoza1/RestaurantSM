@@ -205,9 +205,6 @@
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.GroupBox grpListado;
         private System.Windows.Forms.DataGridView dgvUsuarios;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colIdUsuario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colNombreUsuario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colNombreRol;
         private System.Windows.Forms.Panel pnlAcciones;
         private System.Windows.Forms.Label lblCantidad;
         private System.Windows.Forms.Button btnRecargar;

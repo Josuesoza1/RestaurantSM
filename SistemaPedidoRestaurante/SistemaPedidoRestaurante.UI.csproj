@@ -215,9 +215,6 @@
     <Compile Include="UICompartida\FrmBandejaOperaciones.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UICompartida\FrmBandejaOperaciones.Designer.cs">
-      <DependentUpon>FrmBandejaOperaciones.cs</DependentUpon>
-    </Compile>
     <Compile Include="UICompartida\FrmAnularVenta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -239,20 +236,11 @@
     <Compile Include="UICompartida\Bases\FrmFacturasBase.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UICompartida\Bases\FrmFacturasBase.Designer.cs">
-      <DependentUpon>FrmFacturasBase.cs</DependentUpon>
-    </Compile>
     <Compile Include="UICompartida\Bases\FrmPagoBase.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UICompartida\Bases\FrmPagoBase.Designer.cs">
-      <DependentUpon>FrmPagoBase.cs</DependentUpon>
-    </Compile>
     <Compile Include="UICompartida\Bases\FrmPedidoLocalBase.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UICompartida\Bases\FrmPedidoLocalBase.Designer.cs">
-      <DependentUpon>FrmPedidoLocalBase.cs</DependentUpon>
     </Compile>
     <Compile Include="UIPrincipal\Documentos\DocumentoPdf.cs" />
     <Compile Include="UIPrincipal\Documentos\DocumentoVentaExportacion.cs" />
@@ -394,23 +382,11 @@
     <EmbeddedResource Include="UIEmpleado\FrmPedidosEmpleado.resx">
       <DependentUpon>FrmPedidosEmpleado.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UICompartida\FrmBandejaOperaciones.resx">
-      <DependentUpon>FrmBandejaOperaciones.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UICompartida\FrmConfirmarCobro.resx">
       <DependentUpon>FrmConfirmarCobro.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UICompartida\FrmElegirMesa.resx">
       <DependentUpon>FrmElegirMesa.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UICompartida\Bases\FrmFacturasBase.resx">
-      <DependentUpon>FrmFacturasBase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UICompartida\Bases\FrmPagoBase.resx">
-      <DependentUpon>FrmPagoBase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UICompartida\Bases\FrmPedidoLocalBase.resx">
-      <DependentUpon>FrmPedidoLocalBase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -60,6 +60,7 @@
             this.lblUnidad = new System.Windows.Forms.Label();
             this.lblStockActual = new System.Windows.Forms.Label();
             this.txtStockActual = new System.Windows.Forms.TextBox();
+            this.lblRangoStock = new System.Windows.Forms.Label();
             this.cmbProductoInventario = new System.Windows.Forms.ComboBox();
             this.lblProducto = new System.Windows.Forms.Label();
             this.chkControlActivo = new System.Windows.Forms.CheckBox();
@@ -389,6 +390,7 @@
             this.grpAgregarProducto.Controls.Add(this.lblUnidad);
             this.grpAgregarProducto.Controls.Add(this.lblStockActual);
             this.grpAgregarProducto.Controls.Add(this.txtStockActual);
+            this.grpAgregarProducto.Controls.Add(this.lblRangoStock);
             this.grpAgregarProducto.Controls.Add(this.cmbProductoInventario);
             this.grpAgregarProducto.Controls.Add(this.lblProducto);
             this.grpAgregarProducto.Controls.Add(this.chkControlActivo);
@@ -485,6 +487,10 @@
             this.lblStockActual.Size = new System.Drawing.Size(82, 15);
             this.lblStockActual.TabIndex = 6;
             this.lblStockActual.Text = "Stock Actual:";
+            this.lblRangoStock.AutoSize = true;
+            this.lblRangoStock.Location = new System.Drawing.Point(250, 148);
+            this.lblRangoStock.Name = "lblRangoStock";
+            this.lblRangoStock.Text = "Actual y mínimo: 0 a " + SistemaPedidoRestaurante.Validaciones.GestionValidacion.StockMaximoManual + " unidades";
             // 
             // txtStockActual
             // 
@@ -603,6 +609,7 @@
         #endregion
 
         private System.Windows.Forms.CheckBox chkControlActivo;
+        private System.Windows.Forms.Label lblRangoStock;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.GroupBox grpAcciones;

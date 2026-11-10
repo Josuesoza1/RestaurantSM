@@ -155,8 +155,9 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void Guardar(bool activo)
         {
-            int stock = SistemaPedidoRestaurante.Validaciones.CamposValidacion.Entero(txtStockActual.Text, "stock actual", 0);
-            int minimo = SistemaPedidoRestaurante.Validaciones.CamposValidacion.Entero(textBox1.Text, "stock mínimo", 0);
+            int maximo = SistemaPedidoRestaurante.Validaciones.GestionValidacion.StockMaximoManual;
+            int stock = SistemaPedidoRestaurante.Validaciones.CamposValidacion.Entero(txtStockActual.Text, "stock actual", 0, maximo);
+            int minimo = SistemaPedidoRestaurante.Validaciones.CamposValidacion.Entero(textBox1.Text, "stock mínimo", 0, maximo);
             servicio.Guardar(new InventarioProducto
             {
                 IdProducto = seleccionado,

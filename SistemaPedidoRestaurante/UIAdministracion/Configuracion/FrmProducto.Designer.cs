@@ -40,6 +40,7 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.txtPrecio = new System.Windows.Forms.TextBox();
+            this.lblFormatoPrecio = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblSnombre = new System.Windows.Forms.Label();
@@ -200,6 +201,7 @@
             this.grpDatosClientes.Controls.Add(this.cmbCategoria);
             this.grpDatosClientes.Controls.Add(this.txtCodigo);
             this.grpDatosClientes.Controls.Add(this.txtPrecio);
+            this.grpDatosClientes.Controls.Add(this.lblFormatoPrecio);
             this.grpDatosClientes.Controls.Add(this.label4);
             this.grpDatosClientes.Controls.Add(this.label3);
             this.grpDatosClientes.Controls.Add(this.lblSnombre);
@@ -284,7 +286,7 @@
             // 
             // txtCodigo
             // 
-            this.txtCodigo.Location = new System.Drawing.Point(101, 128);
+            this.txtCodigo.Location = new System.Drawing.Point(101, 137);
             this.txtCodigo.MaxLength = 20;
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.Size = new System.Drawing.Size(140, 20);
@@ -296,12 +298,17 @@
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.Size = new System.Drawing.Size(140, 20);
             this.txtPrecio.TabIndex = 9;
+            this.lblFormatoPrecio.AutoSize = true;
+            this.lblFormatoPrecio.Font = new System.Drawing.Font("Arial", 7.5F);
+            this.lblFormatoPrecio.Location = new System.Drawing.Point(101, 117);
+            this.lblFormatoPrecio.Name = "lblFormatoPrecio";
+            this.lblFormatoPrecio.Text = "Ej.: 1250.50 o 1250,50";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label4.Location = new System.Drawing.Point(32, 132);
+            this.label4.Location = new System.Drawing.Point(32, 141);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 14);
             this.label4.TabIndex = 3;
@@ -617,6 +624,7 @@
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.TextBox txtCodigo;
         private System.Windows.Forms.TextBox txtPrecio;
+        private System.Windows.Forms.Label lblFormatoPrecio;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblSnombre;

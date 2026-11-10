@@ -21,18 +21,14 @@ namespace SistemaPedidoRestaurante.Validaciones
 
         public static bool IntentarLeerRecibido(string texto, out decimal recibido)
         {
-            texto = (texto ?? "").Trim().Replace(',', '.');
-            int separador = texto.IndexOf('.');
-            return decimal.TryParse(texto, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out recibido)
-                && recibido <= CamposValidacion.ImporteMaximo
-                && (separador < 0 || texto.Length - separador - 1 <= 2);
+            return CamposValidacion.IntentarLeerImporte(texto, out recibido);
         }
 
         public static string AvisoRangoEfectivo(decimal total)
         {
             decimal maximo = Math.Min(total + VueltoMaximo, CamposValidacion.ImporteMaximo);
-            return "Ingrese entre C$ " + total.ToString("N2") + " y C$ " + maximo.ToString("N2") +
-                " (hasta dos decimales).";
+            return "Ingrese entre C$ " + total.ToString("F2", CultureInfo.InvariantCulture) + " y C$ " +
+                maximo.ToString("F2", CultureInfo.InvariantCulture) + ". " + CamposValidacion.GuiaImporte;
         }
 
         public static string Validar(int pedido, string metodo, decimal recibido, decimal total, Guid solicitud, string notas)

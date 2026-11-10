@@ -13,6 +13,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private readonly UsuarioBLL servicio = new UsuarioBLL();
         private bool guardando;
         private bool restaurandoModoPersona;
+        private bool restaurandoSeleccionPersona;
         private Persona personaSeleccionada;
         private Usuario cuentaExistente;
 
@@ -70,8 +71,17 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void cmbPersona_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!chkPersonaExistente.Checked || !cmbPersona.Enabled) return;
-            personaSeleccionada = cmbPersona.SelectedItem as Persona;
+            if (restaurandoSeleccionPersona || !chkPersonaExistente.Checked || !cmbPersona.Enabled) return;
+            Persona nuevaPersona = cmbPersona.SelectedItem as Persona;
+            if (nuevaPersona == personaSeleccionada) return;
+            if (personaSeleccionada != null && !VistaGestion.ConfirmarDescarte(this, HayDatosParaDescartar()))
+            {
+                restaurandoSeleccionPersona = true;
+                cmbPersona.SelectedItem = personaSeleccionada;
+                restaurandoSeleccionPersona = false;
+                return;
+            }
+            personaSeleccionada = nuevaPersona;
             LimpiarCuenta();
             if (personaSeleccionada == null)
             {
@@ -268,6 +278,19 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 || txtPrimerApellido.TextLength > 0 || txtSegundoApellido.TextLength > 0 || txtCedula.TextLength > 0
                 || txtTelefono.TextLength > 0 || cmbGenero.SelectedIndex >= 0 || txtUsuario.TextLength > 0
                 || txtContrasena.TextLength > 0 || txtConfirmar.TextLength > 0;
+        }
+
+        private bool HayDatosParaDescartar()
+        {
+            return (!txtUsuario.ReadOnly && txtUsuario.TextLength > 0) ||
+                txtContrasena.TextLength > 0 || txtConfirmar.TextLength > 0 ||
+                (!txtPrimerNombre.ReadOnly && txtPrimerNombre.TextLength > 0) ||
+                (!txtSegundoNombre.ReadOnly && txtSegundoNombre.TextLength > 0) ||
+                (!txtPrimerApellido.ReadOnly && txtPrimerApellido.TextLength > 0) ||
+                (!txtSegundoApellido.ReadOnly && txtSegundoApellido.TextLength > 0) ||
+                (!txtCedula.ReadOnly && txtCedula.TextLength > 0) ||
+                (!txtTelefono.ReadOnly && txtTelefono.TextLength > 0) ||
+                (cmbGenero.Enabled && cmbGenero.SelectedIndex >= 0);
         }
 
         private void FrmRegistrarPersona_FormClosing(object sender, FormClosingEventArgs e)

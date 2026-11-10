@@ -30,7 +30,6 @@ namespace SistemaPedidoRestaurante.UICompartida
                 switch (tipo)
                 {
                     case "Pedidos": return new FrmPedidosEmpleado(seleccionar, filtro);
-                    case "Mesas": return new FrmMesasEmpleado(seleccionar, filtro);
                 }
             }
             throw new UnauthorizedAccessException("La sesión no tiene acceso a esta pantalla.");

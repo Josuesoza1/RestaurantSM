@@ -212,18 +212,26 @@ namespace SistemaPedidoRestaurante.Validaciones
 
         public static decimal Precio(string valor)
         {
-            if (valor == null)
-            {
-                valor = "";
-            }
-            valor = valor.Trim().Replace(',', '.');
-            decimal numero;
-            if (!decimal.TryParse(valor, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out numero))
+            if (!IntentarLeerImporte(valor, out decimal numero) || numero == 0)
             {
                 throw new ArgumentException(AvisoImporte("precio", 0.01m));
             }
-            Importe(numero, "precio", false);
             return numero;
+        }
+
+        public const string GuiaImporte = "Sin separador de miles. Ejemplo: 1250.50 o 1250,50.";
+
+        public static bool IntentarLeerImporte(string texto, out decimal importe)
+        {
+            importe = 0;
+            string valor = (texto ?? "").Trim().Replace(',', '.');
+            int separador = valor.IndexOf('.');
+            if (valor.Length == 0 || separador == 0 ||
+                (separador > 0 && (valor.Length - separador - 1 < 1 || valor.Length - separador - 1 > 2)))
+                return false;
+
+            return decimal.TryParse(valor, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out importe)
+                && importe <= ImporteMaximo;
         }
 
         public static void Importe(decimal numero, string campo, bool permiteCero)
@@ -237,8 +245,8 @@ namespace SistemaPedidoRestaurante.Validaciones
 
         private static string AvisoImporte(string campo, decimal minimo)
         {
-            return "En " + campo + ", ingrese entre " + minimo.ToString("N2") + " y " +
-                ImporteMaximo.ToString("N2") + ", con hasta dos decimales.";
+            return "En " + campo + ", ingrese entre " + minimo.ToString("F2", CultureInfo.InvariantCulture) + " y " +
+                ImporteMaximo.ToString("F2", CultureInfo.InvariantCulture) + ", con hasta dos decimales. " + GuiaImporte;
         }
     }
 }
