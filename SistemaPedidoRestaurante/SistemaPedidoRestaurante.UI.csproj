@@ -212,9 +212,6 @@
     <Compile Include="UIEmpleado\FrmPedidosEmpleado.Designer.cs">
       <DependentUpon>FrmPedidosEmpleado.cs</DependentUpon>
     </Compile>
-    <Compile Include="UICompartida\FrmBandejaOperaciones.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="UICompartida\FrmAnularVenta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -232,15 +229,6 @@
     </Compile>
     <Compile Include="UICompartida\FrmElegirMesa.Designer.cs">
       <DependentUpon>FrmElegirMesa.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UICompartida\Bases\FrmFacturasBase.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UICompartida\Bases\FrmPagoBase.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UICompartida\Bases\FrmPedidoLocalBase.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="UIPrincipal\Documentos\DocumentoPdf.cs" />
     <Compile Include="UIPrincipal\Documentos\DocumentoVentaExportacion.cs" />
@@ -271,7 +259,7 @@
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>

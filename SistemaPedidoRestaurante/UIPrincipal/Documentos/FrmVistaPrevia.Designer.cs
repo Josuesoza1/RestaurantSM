@@ -37,9 +37,10 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
             this.lblTitulo.Location = new System.Drawing.Point(0, 0);
+            this.lblTitulo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Padding = new System.Windows.Forms.Padding(12, 0, 12, 0);
-            this.lblTitulo.Size = new System.Drawing.Size(820, 48);
+            this.lblTitulo.Padding = new System.Windows.Forms.Padding(16, 0, 16, 0);
+            this.lblTitulo.Size = new System.Drawing.Size(1093, 59);
             this.lblTitulo.TabIndex = 2;
             this.lblTitulo.Text = "Vista previa";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -53,12 +54,13 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             this.panelDatos.Controls.Add(this.txtDatos, 0, 0);
             this.panelDatos.Controls.Add(this.txtImportes, 1, 0);
             this.panelDatos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelDatos.Location = new System.Drawing.Point(0, 48);
+            this.panelDatos.Location = new System.Drawing.Point(0, 59);
+            this.panelDatos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelDatos.Name = "panelDatos";
-            this.panelDatos.Padding = new System.Windows.Forms.Padding(8);
+            this.panelDatos.Padding = new System.Windows.Forms.Padding(11, 10, 11, 10);
             this.panelDatos.RowCount = 1;
             this.panelDatos.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.panelDatos.Size = new System.Drawing.Size(820, 190);
+            this.panelDatos.Size = new System.Drawing.Size(1093, 234);
             this.panelDatos.TabIndex = 1;
             // 
             // txtDatos
@@ -66,12 +68,13 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             this.txtDatos.AccessibleName = "Datos del documento";
             this.txtDatos.BackColor = System.Drawing.Color.White;
             this.txtDatos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtDatos.Location = new System.Drawing.Point(11, 11);
+            this.txtDatos.Location = new System.Drawing.Point(15, 14);
+            this.txtDatos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtDatos.Multiline = true;
             this.txtDatos.Name = "txtDatos";
             this.txtDatos.ReadOnly = true;
             this.txtDatos.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDatos.Size = new System.Drawing.Size(500, 168);
+            this.txtDatos.Size = new System.Drawing.Size(666, 206);
             this.txtDatos.TabIndex = 0;
             // 
             // txtImportes
@@ -79,12 +82,13 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             this.txtImportes.AccessibleName = "Importes del documento";
             this.txtImportes.BackColor = System.Drawing.Color.White;
             this.txtImportes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtImportes.Location = new System.Drawing.Point(517, 11);
+            this.txtImportes.Location = new System.Drawing.Point(689, 14);
+            this.txtImportes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtImportes.Multiline = true;
             this.txtImportes.Name = "txtImportes";
             this.txtImportes.ReadOnly = true;
             this.txtImportes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtImportes.Size = new System.Drawing.Size(292, 168);
+            this.txtImportes.Size = new System.Drawing.Size(389, 206);
             this.txtImportes.TabIndex = 1;
             // 
             // tablaDetalle
@@ -105,11 +109,13 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.tablaDetalle.DefaultCellStyle = dataGridViewCellStyle1;
             this.tablaDetalle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tablaDetalle.Location = new System.Drawing.Point(0, 238);
+            this.tablaDetalle.Location = new System.Drawing.Point(0, 293);
+            this.tablaDetalle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tablaDetalle.Name = "tablaDetalle";
             this.tablaDetalle.ReadOnly = true;
             this.tablaDetalle.RowHeadersVisible = false;
-            this.tablaDetalle.Size = new System.Drawing.Size(820, 327);
+            this.tablaDetalle.RowHeadersWidth = 51;
+            this.tablaDetalle.Size = new System.Drawing.Size(1093, 398);
             this.tablaDetalle.TabIndex = 0;
             this.tablaDetalle.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.tablaDetalle_DataBindingComplete);
             // 
@@ -121,19 +127,21 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             this.acciones.Controls.Add(this.btnExcel);
             this.acciones.Controls.Add(this.btnCerrar);
             this.acciones.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.acciones.Location = new System.Drawing.Point(0, 565);
+            this.acciones.Location = new System.Drawing.Point(0, 691);
+            this.acciones.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.acciones.Name = "acciones";
-            this.acciones.Padding = new System.Windows.Forms.Padding(8);
-            this.acciones.Size = new System.Drawing.Size(820, 45);
+            this.acciones.Padding = new System.Windows.Forms.Padding(11, 10, 11, 10);
+            this.acciones.Size = new System.Drawing.Size(1093, 60);
             this.acciones.TabIndex = 3;
             // 
             // btnPdf
             // 
             this.btnPdf.AutoSize = true;
             this.btnPdf.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnPdf.Location = new System.Drawing.Point(11, 11);
+            this.btnPdf.Location = new System.Drawing.Point(15, 14);
+            this.btnPdf.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnPdf.Name = "btnPdf";
-            this.btnPdf.Size = new System.Drawing.Size(79, 23);
+            this.btnPdf.Size = new System.Drawing.Size(128, 32);
             this.btnPdf.TabIndex = 0;
             this.btnPdf.Text = "Guardar PDF";
             this.btnPdf.UseVisualStyleBackColor = false;
@@ -143,9 +151,10 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             // 
             this.btnExcel.AutoSize = true;
             this.btnExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.btnExcel.Location = new System.Drawing.Point(96, 11);
+            this.btnExcel.Location = new System.Drawing.Point(151, 14);
+            this.btnExcel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnExcel.Name = "btnExcel";
-            this.btnExcel.Size = new System.Drawing.Size(84, 23);
+            this.btnExcel.Size = new System.Drawing.Size(136, 32);
             this.btnExcel.TabIndex = 1;
             this.btnExcel.Text = "Guardar Excel";
             this.btnExcel.UseVisualStyleBackColor = false;
@@ -156,9 +165,10 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             this.btnCerrar.AutoSize = true;
             this.btnCerrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnCerrar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCerrar.Location = new System.Drawing.Point(186, 11);
+            this.btnCerrar.Location = new System.Drawing.Point(295, 14);
+            this.btnCerrar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(75, 23);
+            this.btnCerrar.Size = new System.Drawing.Size(100, 32);
             this.btnCerrar.TabIndex = 2;
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.UseVisualStyleBackColor = false;
@@ -166,16 +176,17 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             // 
             // FrmVistaPrevia
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCerrar;
-            this.ClientSize = new System.Drawing.Size(820, 610);
+            this.ClientSize = new System.Drawing.Size(1093, 751);
             this.Controls.Add(this.tablaDetalle);
             this.Controls.Add(this.panelDatos);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.acciones);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(620, 470);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MinimumSize = new System.Drawing.Size(821, 568);
             this.Name = "FrmVistaPrevia";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

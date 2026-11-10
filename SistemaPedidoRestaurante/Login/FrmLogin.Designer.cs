@@ -30,9 +30,6 @@
             this.pnlEncabezado.SuspendLayout();
             this.grpAcciones.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pnlEncabezado
-            // 
             this.pnlEncabezado.AutoSize = true;
             this.pnlEncabezado.BackColor = System.Drawing.Color.Maroon;
             this.pnlEncabezado.Controls.Add(this.lblTitulo);
@@ -40,9 +37,6 @@
             this.pnlEncabezado.Name = "pnlEncabezado";
             this.pnlEncabezado.Size = new System.Drawing.Size(533, 70);
             this.pnlEncabezado.TabIndex = 2;
-            // 
-            // lblTitulo
-            // 
             this.lblTitulo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -53,9 +47,6 @@
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "SISTEMA RESTAURANTE";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // lblSubtitulo
-            // 
             this.lblSubtitulo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblSubtitulo.AutoSize = true;
             this.lblSubtitulo.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -65,9 +56,6 @@
             this.lblSubtitulo.Size = new System.Drawing.Size(133, 19);
             this.lblSubtitulo.TabIndex = 1;
             this.lblSubtitulo.Text = "INICIAR SESIÓN";
-            // 
-            // grpAcciones
-            // 
             this.grpAcciones.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.grpAcciones.Controls.Add(this.btnIniciarSesion);
             this.grpAcciones.Controls.Add(this.txtUsuario);
@@ -81,9 +69,6 @@
             this.grpAcciones.Size = new System.Drawing.Size(267, 251);
             this.grpAcciones.TabIndex = 7;
             this.grpAcciones.TabStop = false;
-            // 
-            // btnIniciarSesion
-            // 
             this.btnIniciarSesion.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnIniciarSesion.BackColor = System.Drawing.Color.Khaki;
             this.btnIniciarSesion.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -95,9 +80,6 @@
             this.btnIniciarSesion.Text = "INICIAR SESIÓN";
             this.btnIniciarSesion.UseVisualStyleBackColor = false;
             this.btnIniciarSesion.Click += new System.EventHandler(this.btnIniciarSesion_Click);
-            // 
-            // txtUsuario
-            // 
             this.txtUsuario.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtUsuario.AccessibleName = "Usuario";
             this.txtUsuario.Location = new System.Drawing.Point(56, 54);
@@ -105,9 +87,6 @@
             this.txtUsuario.Size = new System.Drawing.Size(157, 20);
             this.txtUsuario.TabIndex = 1;
             this.txtUsuario.MaxLength = 50;
-            // 
-            // txtContrasena
-            // 
             this.txtContrasena.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtContrasena.AccessibleName = "Contraseña";
             this.txtContrasena.Location = new System.Drawing.Point(56, 102);
@@ -116,9 +95,6 @@
             this.txtContrasena.TabIndex = 3;
             this.txtContrasena.MaxLength = 255;
             this.txtContrasena.UseSystemPasswordChar = true;
-            // 
-            // label3
-            // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold);
@@ -128,9 +104,6 @@
             this.label3.Size = new System.Drawing.Size(74, 14);
             this.label3.TabIndex = 2;
             this.label3.Text = "Contraseña:";
-            // 
-            // lblSnombre
-            // 
             this.lblSnombre.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblSnombre.AutoSize = true;
             this.lblSnombre.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold);
@@ -140,9 +113,6 @@
             this.lblSnombre.Size = new System.Drawing.Size(52, 14);
             this.lblSnombre.TabIndex = 0;
             this.lblSnombre.Text = "Usuario:";
-            // 
-            // btnSalir
-            // 
             this.btnSalir.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnSalir.BackColor = System.Drawing.Color.Khaki;
             this.btnSalir.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -154,9 +124,6 @@
             this.btnSalir.Text = "Cerrar programa";
             this.btnSalir.UseVisualStyleBackColor = false;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
-            // 
-            // FrmLogin
-            // 
             this.AcceptButton = this.btnIniciarSesion;
             this.CancelButton = this.btnSalir;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

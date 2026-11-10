@@ -59,9 +59,6 @@
             this.grpAcciones.SuspendLayout();
             this.grpDatosClientes.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pnlEncabezado
-            // 
             this.pnlEncabezado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.pnlEncabezado.Controls.Add(this.lblTitulo);
             this.pnlEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
@@ -69,9 +66,6 @@
             this.pnlEncabezado.Name = "pnlEncabezado";
             this.pnlEncabezado.Size = new System.Drawing.Size(605, 78);
             this.pnlEncabezado.TabIndex = 2;
-            // 
-            // lblTitulo
-            // 
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
@@ -80,9 +74,6 @@
             this.lblTitulo.Size = new System.Drawing.Size(325, 29);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "GESTIÓN DE CATEGORÍAS";
-            // 
-            // btnLimpiar
-            // 
             this.btnLimpiar.BackColor = System.Drawing.Color.DarkTurquoise;
             this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLimpiar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -94,9 +85,6 @@
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = false;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            // 
-            // btnAccion
-            // 
             this.btnAccion.BackColor = System.Drawing.Color.LimeGreen;
             this.btnAccion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAccion.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -108,9 +96,6 @@
             this.btnAccion.Text = "Guardar";
             this.btnAccion.UseVisualStyleBackColor = false;
             this.btnAccion.Click += new System.EventHandler(this.btnAccion_Click);
-            // 
-            // groupBox2
-            // 
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.groupBox2.Controls.Add(this.txtTextoBuscar);
             this.groupBox2.Controls.Add(this.btnBuscar);
@@ -123,18 +108,12 @@
             this.groupBox2.Size = new System.Drawing.Size(274, 105);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
-            // 
-            // txtTextoBuscar
-            // 
             this.txtTextoBuscar.AccessibleName = "Texto de búsqueda";
             this.txtTextoBuscar.Location = new System.Drawing.Point(58, 15);
             this.txtTextoBuscar.Name = "txtTextoBuscar";
             this.txtTextoBuscar.Size = new System.Drawing.Size(145, 20);
             this.txtTextoBuscar.TabIndex = 0;
             this.txtTextoBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTextoBuscar_KeyDown);
-            // 
-            // btnBuscar
-            // 
             this.btnBuscar.BackColor = System.Drawing.Color.SlateGray;
             this.btnBuscar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.ForeColor = System.Drawing.Color.Black;
@@ -145,9 +124,6 @@
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-            // 
-            // lblBuscar
-            // 
             this.lblBuscar.AutoSize = true;
             this.lblBuscar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBuscar.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -156,9 +132,6 @@
             this.lblBuscar.Size = new System.Drawing.Size(48, 14);
             this.lblBuscar.TabIndex = 5;
             this.lblBuscar.Text = "Buscar:";
-            // 
-            // lblGuiaBusqueda
-            // 
             this.lblGuiaBusqueda.AutoSize = true;
             this.lblGuiaBusqueda.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblGuiaBusqueda.Location = new System.Drawing.Point(6, 44);
@@ -166,9 +139,6 @@
             this.lblGuiaBusqueda.Size = new System.Drawing.Size(143, 13);
             this.lblGuiaBusqueda.TabIndex = 6;
             this.lblGuiaBusqueda.Text = "Busque por ID, nombre o descripción.";
-            // 
-            // btnQuitarFiltro
-            // 
             this.btnQuitarFiltro.Enabled = false;
             this.btnQuitarFiltro.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnQuitarFiltro.Location = new System.Drawing.Point(6, 74);
@@ -178,9 +148,6 @@
             this.btnQuitarFiltro.Text = "Quitar filtro";
             this.btnQuitarFiltro.UseVisualStyleBackColor = true;
             this.btnQuitarFiltro.Click += new System.EventHandler(this.btnQuitarFiltro_Click);
-            // 
-            // grpListadoCliente
-            // 
             this.grpListadoCliente.Controls.Add(this.dgvCategorias);
             this.grpListadoCliente.ForeColor = System.Drawing.Color.DarkOrchid;
             this.grpListadoCliente.Location = new System.Drawing.Point(18, 373);
@@ -189,9 +156,6 @@
             this.grpListadoCliente.TabIndex = 13;
             this.grpListadoCliente.TabStop = false;
             this.grpListadoCliente.Text = "Listado de Categorías";
-            // 
-            // dgvCategorias
-            // 
             this.dgvCategorias.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCategorias.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvCategorias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -208,36 +172,21 @@
             this.dgvCategorias.Size = new System.Drawing.Size(520, 97);
             this.dgvCategorias.TabIndex = 0;
             this.dgvCategorias.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCategorias_CellClick);
-            // 
-            // ColID
-            // 
             this.ColID.HeaderText = "ID";
             this.ColID.MinimumWidth = 8;
             this.ColID.Name = "ColID";
             this.ColID.ReadOnly = true;
-            // 
-            // ColPnombre
-            // 
             this.ColPnombre.HeaderText = "Nombre";
             this.ColPnombre.MinimumWidth = 8;
             this.ColPnombre.Name = "ColPnombre";
             this.ColPnombre.ReadOnly = true;
-            // 
-            // ColSnombre
-            // 
             this.ColSnombre.HeaderText = "Descripción";
             this.ColSnombre.MinimumWidth = 8;
             this.ColSnombre.Name = "ColSnombre";
             this.ColSnombre.ReadOnly = true;
-            // 
-            // ColActiva
-            // 
             this.ColActiva.HeaderText = "Activa";
             this.ColActiva.Name = "ColActiva";
             this.ColActiva.ReadOnly = true;
-            // 
-            // menuStrip1
-            // 
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -252,18 +201,12 @@
             this.menuStrip1.Size = new System.Drawing.Size(605, 32);
             this.menuStrip1.TabIndex = 14;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // nuevoToolStripMenuItem
-            // 
             this.nuevoToolStripMenuItem.ForeColor = System.Drawing.Color.SeaGreen;
             this.nuevoToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("nuevoToolStripMenuItem.Image")));
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
             this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(85, 28);
             this.nuevoToolStripMenuItem.Text = "Agregar";
             this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
-            // 
-            // editarToolStripMenuItem
-            // 
             this.editarToolStripMenuItem.BackColor = System.Drawing.Color.Silver;
             this.editarToolStripMenuItem.ForeColor = System.Drawing.Color.DarkSlateBlue;
             this.editarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("editarToolStripMenuItem.Image")));
@@ -271,34 +214,22 @@
             this.editarToolStripMenuItem.Size = new System.Drawing.Size(73, 28);
             this.editarToolStripMenuItem.Text = "Editar";
             this.editarToolStripMenuItem.Click += new System.EventHandler(this.editarToolStripMenuItem_Click);
-            // 
-            // desactivarToolStripMenuItem
-            // 
             this.desactivarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("desactivarToolStripMenuItem.Image")));
             this.desactivarToolStripMenuItem.Name = "desactivarToolStripMenuItem";
             this.desactivarToolStripMenuItem.Size = new System.Drawing.Size(97, 28);
             this.desactivarToolStripMenuItem.Text = "Desactivar";
             this.desactivarToolStripMenuItem.Click += new System.EventHandler(this.desactivarToolStripMenuItem_Click);
-            // 
-            // eliminarToolStripMenuItem
-            // 
             this.eliminarToolStripMenuItem.ForeColor = System.Drawing.Color.Crimson;
             this.eliminarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("eliminarToolStripMenuItem.Image")));
             this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
             this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(86, 28);
             this.eliminarToolStripMenuItem.Text = "Eliminar";
             this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
-            // 
-            // volverToolStripMenuItem
-            // 
             this.volverToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("volverToolStripMenuItem.Image")));
             this.volverToolStripMenuItem.Name = "volverToolStripMenuItem";
             this.volverToolStripMenuItem.Size = new System.Drawing.Size(75, 28);
             this.volverToolStripMenuItem.Text = "Volver";
             this.volverToolStripMenuItem.Click += new System.EventHandler(this.volverToolStripMenuItem_Click);
-            // 
-            // lblOperacion
-            // 
             this.lblOperacion.AutoSize = true;
             this.lblOperacion.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOperacion.Location = new System.Drawing.Point(10, 14);
@@ -307,9 +238,6 @@
             this.lblOperacion.Size = new System.Drawing.Size(257, 15);
             this.lblOperacion.TabIndex = 15;
             this.lblOperacion.Text = "Operación actual: Seleccione una operación";
-            // 
-            // btnCancelar
-            // 
             this.btnCancelar.BackColor = System.Drawing.Color.Crimson;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -321,9 +249,6 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
-            // panel1
-            // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.panel1.Controls.Add(this.lblOperacion);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -332,17 +257,11 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(605, 41);
             this.panel1.TabIndex = 16;
-            // 
-            // txtNombre
-            // 
             this.txtNombre.Location = new System.Drawing.Point(89, 33);
             this.txtNombre.MaxLength = 60;
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(150, 20);
             this.txtNombre.TabIndex = 7;
-            // 
-            // label3
-            // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label3.Location = new System.Drawing.Point(32, 68);
@@ -350,9 +269,6 @@
             this.label3.Size = new System.Drawing.Size(75, 14);
             this.label3.TabIndex = 2;
             this.label3.Text = "Descripción:";
-            // 
-            // lblPnombre
-            // 
             this.lblPnombre.AutoSize = true;
             this.lblPnombre.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblPnombre.Location = new System.Drawing.Point(32, 35);
@@ -360,18 +276,12 @@
             this.lblPnombre.Size = new System.Drawing.Size(54, 14);
             this.lblPnombre.TabIndex = 0;
             this.lblPnombre.Text = "Nombre:";
-            // 
-            // txtDescripcion
-            // 
             this.txtDescripcion.Location = new System.Drawing.Point(34, 95);
             this.txtDescripcion.MaxLength = 200;
             this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(203, 62);
             this.txtDescripcion.TabIndex = 9;
-            // 
-            // grpAcciones
-            // 
             this.grpAcciones.Controls.Add(this.btnCancelar);
             this.grpAcciones.Controls.Add(this.btnLimpiar);
             this.grpAcciones.Controls.Add(this.btnAccion);
@@ -383,9 +293,6 @@
             this.grpAcciones.TabIndex = 11;
             this.grpAcciones.TabStop = false;
             this.grpAcciones.Text = "Acciones";
-            // 
-            // grpDatosClientes
-            // 
             this.grpDatosClientes.Controls.Add(this.chkActiva);
             this.grpDatosClientes.Controls.Add(this.txtDescripcion);
             this.grpDatosClientes.Controls.Add(this.txtNombre);
@@ -399,9 +306,6 @@
             this.grpDatosClientes.TabIndex = 3;
             this.grpDatosClientes.TabStop = false;
             this.grpDatosClientes.Text = "Datos de la Categoría";
-            // 
-            // chkActiva
-            // 
             this.chkActiva.ForeColor = System.Drawing.Color.Black;
             this.chkActiva.Location = new System.Drawing.Point(34, 164);
             this.chkActiva.Margin = new System.Windows.Forms.Padding(2);
@@ -409,9 +313,6 @@
             this.chkActiva.Size = new System.Drawing.Size(105, 20);
             this.chkActiva.TabIndex = 10;
             this.chkActiva.Text = "Activa";
-            // 
-            // FrmCategoria
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Orange;

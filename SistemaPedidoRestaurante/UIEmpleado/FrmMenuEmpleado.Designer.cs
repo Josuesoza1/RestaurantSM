@@ -27,9 +27,6 @@
             this.pnlEncabezado.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pnlEncabezado
-            // 
             this.pnlEncabezado.BackColor = System.Drawing.Color.MidnightBlue;
             this.pnlEncabezado.Controls.Add(this.lblTitulo);
             this.pnlEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
@@ -38,9 +35,6 @@
             this.pnlEncabezado.Name = "pnlEncabezado";
             this.pnlEncabezado.Size = new System.Drawing.Size(504, 70);
             this.pnlEncabezado.TabIndex = 1;
-            // 
-            // lblTitulo
-            // 
             this.lblTitulo.BackColor = System.Drawing.Color.DarkRed;
             this.lblTitulo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTitulo.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold);
@@ -52,9 +46,6 @@
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "EMPLEADOS";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // menuStrip1
-            // 
             this.menuStrip1.BackColor = System.Drawing.Color.Tomato;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nuevaVentaToolStripMenuItem,
@@ -66,17 +57,11 @@
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
             this.menuStrip1.Size = new System.Drawing.Size(504, 24);
             this.menuStrip1.TabIndex = 0;
-            // 
-            // nuevaVentaToolStripMenuItem
-            // 
             this.nuevaVentaToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("nuevaVentaToolStripMenuItem.Image")));
             this.nuevaVentaToolStripMenuItem.Name = "nuevaVentaToolStripMenuItem";
             this.nuevaVentaToolStripMenuItem.Size = new System.Drawing.Size(101, 20);
             this.nuevaVentaToolStripMenuItem.Text = "Nueva venta";
             this.nuevaVentaToolStripMenuItem.Click += new System.EventHandler(this.nuevaVentaToolStripMenuItem_Click);
-            // 
-            // operacionesToolStripMenuItem
-            // 
             this.operacionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.pedidosToolStripMenuItem,
             this.mesasToolStripMenuItem});
@@ -84,41 +69,26 @@
             this.operacionesToolStripMenuItem.Name = "operacionesToolStripMenuItem";
             this.operacionesToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
             this.operacionesToolStripMenuItem.Text = "Consultar";
-            // 
-            // pedidosToolStripMenuItem
-            // 
             this.pedidosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("pedidosToolStripMenuItem.Image")));
             this.pedidosToolStripMenuItem.Name = "pedidosToolStripMenuItem";
             this.pedidosToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.pedidosToolStripMenuItem.Text = "Ventas abiertas";
             this.pedidosToolStripMenuItem.Click += new System.EventHandler(this.pedidosToolStripMenuItem_Click);
-            // 
-            // mesasToolStripMenuItem
-            // 
             this.mesasToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("mesasToolStripMenuItem.Image")));
             this.mesasToolStripMenuItem.Name = "mesasToolStripMenuItem";
             this.mesasToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.mesasToolStripMenuItem.Text = "Estado de mesas";
             this.mesasToolStripMenuItem.Click += new System.EventHandler(this.mesas_Click);
-            // 
-            // cerrarSesionToolStripMenuItem
-            // 
             this.cerrarSesionToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("cerrarSesionToolStripMenuItem.Image")));
             this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
             this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
             this.cerrarSesionToolStripMenuItem.Text = "Cerrar sesión";
             this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem_Click);
-            // 
-            // salirToolStripMenuItem
-            // 
             this.salirToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("salirToolStripMenuItem.Image")));
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             this.salirToolStripMenuItem.Size = new System.Drawing.Size(122, 20);
             this.salirToolStripMenuItem.Text = "Cerrar programa";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
-            // 
-            // lblEstado
-            // 
             this.lblEstado.BackColor = System.Drawing.Color.DarkSalmon;
             this.lblEstado.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblEstado.Font = new System.Drawing.Font("Arial", 11F);
@@ -130,9 +100,6 @@
             this.lblEstado.TabIndex = 0;
             this.lblEstado.Text = "Consulte pedidos, avance su preparacion y registre cobros desde Operaciones.";
             this.lblEstado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // FrmMenuEmpleado
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;

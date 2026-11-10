@@ -31,9 +31,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
             this.pnlAcciones.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pnlEncabezado
-            // 
             this.pnlEncabezado.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.pnlEncabezado.Controls.Add(this.lblTitulo);
             this.pnlEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
@@ -41,9 +38,6 @@
             this.pnlEncabezado.Name = "pnlEncabezado";
             this.pnlEncabezado.Size = new System.Drawing.Size(900, 86);
             this.pnlEncabezado.TabIndex = 3;
-            // 
-            // lblTitulo
-            // 
             this.lblTitulo.BackColor = System.Drawing.Color.DarkRed;
             this.lblTitulo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTitulo.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold);
@@ -54,9 +48,6 @@
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "USUARIOS REGISTRADOS";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pnlBusqueda
-            // 
             this.pnlBusqueda.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.pnlBusqueda.Controls.Add(this.lblBuscar);
             this.pnlBusqueda.Controls.Add(this.txtBuscar);
@@ -66,18 +57,12 @@
             this.pnlBusqueda.Name = "pnlBusqueda";
             this.pnlBusqueda.Size = new System.Drawing.Size(900, 64);
             this.pnlBusqueda.TabIndex = 2;
-            // 
-            // lblBuscar
-            // 
             this.lblBuscar.AutoSize = true;
             this.lblBuscar.Location = new System.Drawing.Point(18, 24);
             this.lblBuscar.Name = "lblBuscar";
             this.lblBuscar.Size = new System.Drawing.Size(43, 13);
             this.lblBuscar.TabIndex = 0;
             this.lblBuscar.Text = "Buscar:";
-            // 
-            // txtBuscar
-            // 
             this.txtBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBuscar.Location = new System.Drawing.Point(80, 21);
@@ -85,9 +70,6 @@
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(680, 20);
             this.txtBuscar.TabIndex = 0;
-            // 
-            // btnBuscar
-            // 
             this.btnBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBuscar.BackColor = System.Drawing.Color.Turquoise;
             this.btnBuscar.Location = new System.Drawing.Point(780, 14);
@@ -97,9 +79,6 @@
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-            // 
-            // grpListado
-            // 
             this.grpListado.BackColor = System.Drawing.Color.Chocolate;
             this.grpListado.Controls.Add(this.dgvUsuarios);
             this.grpListado.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -110,9 +89,6 @@
             this.grpListado.TabIndex = 0;
             this.grpListado.TabStop = false;
             this.grpListado.Text = "Cuentas registradas y sus roles";
-            // 
-            // dgvUsuarios
-            // 
             this.dgvUsuarios.AllowUserToAddRows = false;
             this.dgvUsuarios.AllowUserToDeleteRows = false;
             this.dgvUsuarios.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -123,9 +99,6 @@
             this.dgvUsuarios.ReadOnly = true;
             this.dgvUsuarios.Size = new System.Drawing.Size(876, 315);
             this.dgvUsuarios.TabIndex = 2;
-            // 
-            // pnlAcciones
-            // 
             this.pnlAcciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.pnlAcciones.Controls.Add(this.lblCantidad);
             this.pnlAcciones.Controls.Add(this.btnRecargar);
@@ -135,18 +108,12 @@
             this.pnlAcciones.Name = "pnlAcciones";
             this.pnlAcciones.Size = new System.Drawing.Size(900, 58);
             this.pnlAcciones.TabIndex = 1;
-            // 
-            // lblCantidad
-            // 
             this.lblCantidad.AutoSize = true;
             this.lblCantidad.Location = new System.Drawing.Point(18, 22);
             this.lblCantidad.Name = "lblCantidad";
             this.lblCantidad.Size = new System.Drawing.Size(111, 13);
             this.lblCantidad.TabIndex = 0;
             this.lblCantidad.Text = "Usuarios mostrados: 0";
-            // 
-            // btnRecargar
-            // 
             this.btnRecargar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRecargar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btnRecargar.Location = new System.Drawing.Point(640, 12);
@@ -156,9 +123,6 @@
             this.btnRecargar.Text = "Recargar";
             this.btnRecargar.UseVisualStyleBackColor = false;
             this.btnRecargar.Click += new System.EventHandler(this.btnRecargar_Click);
-            // 
-            // btnVolver
-            // 
             this.btnVolver.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVolver.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.btnVolver.Location = new System.Drawing.Point(770, 12);
@@ -168,9 +132,6 @@
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = false;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
-            // 
-            // FrmUsuarios
-            // 
             this.AcceptButton = this.btnBuscar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

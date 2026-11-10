@@ -20,9 +20,6 @@
             this.asignar = new System.Windows.Forms.Button();
             this.panel.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panel
-            // 
             this.panel.BackColor = System.Drawing.Color.LightCoral;
             this.panel.ColumnCount = 1;
             this.panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 480F));
@@ -39,18 +36,12 @@
             this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.panel.Size = new System.Drawing.Size(520, 180);
             this.panel.TabIndex = 0;
-            // 
-            // lblMesa
-            // 
             this.lblMesa.AutoSize = true;
             this.lblMesa.Location = new System.Drawing.Point(23, 20);
             this.lblMesa.Name = "lblMesa";
             this.lblMesa.Size = new System.Drawing.Size(83, 13);
             this.lblMesa.TabIndex = 0;
             this.lblMesa.Text = "Mesa disponible";
-            // 
-            // mesas
-            // 
             this.mesas.DisplayMember = "Nombre";
             this.mesas.Dock = System.Windows.Forms.DockStyle.Top;
             this.mesas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -59,9 +50,6 @@
             this.mesas.Size = new System.Drawing.Size(474, 21);
             this.mesas.TabIndex = 1;
             this.mesas.ValueMember = "IdMesa";
-            // 
-            // asignar
-            // 
             this.asignar.AutoSize = true;
             this.asignar.BackColor = System.Drawing.Color.Pink;
             this.asignar.Location = new System.Drawing.Point(23, 73);
@@ -71,9 +59,6 @@
             this.asignar.Text = "Asignar mesa";
             this.asignar.UseVisualStyleBackColor = false;
             this.asignar.Click += new System.EventHandler(this.asignar_Click);
-            // 
-            // FrmElegirMesa
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(520, 180);

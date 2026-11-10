@@ -85,9 +85,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pnlEncabezado
-            // 
             this.pnlEncabezado.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.pnlEncabezado.Controls.Add(this.lblTitulo);
             this.pnlEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
@@ -95,9 +92,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.pnlEncabezado.Name = "pnlEncabezado";
             this.pnlEncabezado.Size = new System.Drawing.Size(780, 70);
             this.pnlEncabezado.TabIndex = 3;
-            // 
-            // lblTitulo
-            // 
             this.lblTitulo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblTitulo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTitulo.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -108,9 +102,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "GESTIÓN DE EMPLEADOS";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // grpListadoCliente
-            // 
             this.grpListadoCliente.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -122,9 +113,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.grpListadoCliente.TabIndex = 7;
             this.grpListadoCliente.TabStop = false;
             this.grpListadoCliente.Text = "Listado de Empleados";
-            // 
-            // dgvEmpleados
-            // 
             this.dgvEmpleados.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvEmpleados.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvEmpleados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -148,78 +136,45 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.dgvEmpleados.Size = new System.Drawing.Size(732, 117);
             this.dgvEmpleados.TabIndex = 0;
             this.dgvEmpleados.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmpleados_CellClick);
-            // 
-            // ColID
-            // 
             this.ColID.HeaderText = "ID";
             this.ColID.MinimumWidth = 8;
             this.ColID.Name = "ColID";
             this.ColID.ReadOnly = true;
-            // 
-            // ColPnombre
-            // 
             this.ColPnombre.HeaderText = "Primer Nombre";
             this.ColPnombre.MinimumWidth = 8;
             this.ColPnombre.Name = "ColPnombre";
             this.ColPnombre.ReadOnly = true;
-            // 
-            // ColSnombre
-            // 
             this.ColSnombre.HeaderText = "Segundo Nombre";
             this.ColSnombre.MinimumWidth = 8;
             this.ColSnombre.Name = "ColSnombre";
             this.ColSnombre.ReadOnly = true;
-            // 
-            // ColPapellido
-            // 
             this.ColPapellido.HeaderText = "Primer Apellido";
             this.ColPapellido.MinimumWidth = 8;
             this.ColPapellido.Name = "ColPapellido";
             this.ColPapellido.ReadOnly = true;
-            // 
-            // ColSapellido
-            // 
             this.ColSapellido.HeaderText = "Segundo Apellido";
             this.ColSapellido.MinimumWidth = 8;
             this.ColSapellido.Name = "ColSapellido";
             this.ColSapellido.ReadOnly = true;
-            // 
-            // ColCargo
-            // 
             this.ColCargo.HeaderText = "Cargo";
             this.ColCargo.MinimumWidth = 8;
             this.ColCargo.Name = "ColCargo";
             this.ColCargo.ReadOnly = true;
-            // 
-            // ColGenero
-            // 
             this.ColGenero.HeaderText = "Genero";
             this.ColGenero.MinimumWidth = 8;
             this.ColGenero.Name = "ColGenero";
             this.ColGenero.ReadOnly = true;
-            // 
-            // ColCedula
-            // 
             this.ColCedula.HeaderText = "Cedula";
             this.ColCedula.MinimumWidth = 8;
             this.ColCedula.Name = "ColCedula";
             this.ColCedula.ReadOnly = true;
-            // 
-            // ColTelefono
-            // 
             this.ColTelefono.HeaderText = "Telefono";
             this.ColTelefono.MinimumWidth = 8;
             this.ColTelefono.Name = "ColTelefono";
             this.ColTelefono.ReadOnly = true;
-            // 
-            // ColActivo
-            // 
             this.ColActivo.HeaderText = "Activo";
             this.ColActivo.Name = "ColActivo";
             this.ColActivo.ReadOnly = true;
-            // 
-            // grpDatosClientes
-            // 
             this.grpDatosClientes.Controls.Add(this.cmbCargo);
             this.grpDatosClientes.Controls.Add(this.txtCedula);
             this.grpDatosClientes.Controls.Add(this.cmbGenero);
@@ -244,27 +199,18 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.grpDatosClientes.TabIndex = 5;
             this.grpDatosClientes.TabStop = false;
             this.grpDatosClientes.Text = "Datos del Empleado";
-            // 
-            // cmbCargo
-            // 
             this.cmbCargo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCargo.Location = new System.Drawing.Point(130, 162);
             this.cmbCargo.Margin = new System.Windows.Forms.Padding(2);
             this.cmbCargo.Name = "cmbCargo";
             this.cmbCargo.Size = new System.Drawing.Size(150, 22);
             this.cmbCargo.TabIndex = 15;
-            // 
-            // txtCedula
-            // 
             this.txtCedula.Location = new System.Drawing.Point(130, 224);
             this.txtCedula.Margin = new System.Windows.Forms.Padding(2);
             this.txtCedula.MaxLength = 30;
             this.txtCedula.Name = "txtCedula";
             this.txtCedula.Size = new System.Drawing.Size(150, 20);
             this.txtCedula.TabIndex = 17;
-            // 
-            // cmbGenero
-            // 
             this.cmbGenero.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGenero.Items.AddRange(new object[] {
             "Masculino",
@@ -275,9 +221,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.cmbGenero.Name = "cmbGenero";
             this.cmbGenero.Size = new System.Drawing.Size(150, 22);
             this.cmbGenero.TabIndex = 16;
-            // 
-            // lblCargo
-            // 
             this.lblCargo.AutoSize = true;
             this.lblCargo.ForeColor = System.Drawing.Color.Black;
             this.lblCargo.Location = new System.Drawing.Point(21, 165);
@@ -286,9 +229,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.lblCargo.Size = new System.Drawing.Size(43, 14);
             this.lblCargo.TabIndex = 18;
             this.lblCargo.Text = "Cargo:";
-            // 
-            // lblCedula
-            // 
             this.lblCedula.AutoSize = true;
             this.lblCedula.ForeColor = System.Drawing.Color.Black;
             this.lblCedula.Location = new System.Drawing.Point(21, 227);
@@ -297,9 +237,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.lblCedula.Size = new System.Drawing.Size(48, 14);
             this.lblCedula.TabIndex = 19;
             this.lblCedula.Text = "Cédula:";
-            // 
-            // lblGenero
-            // 
             this.lblGenero.AutoSize = true;
             this.lblGenero.ForeColor = System.Drawing.Color.Black;
             this.lblGenero.Location = new System.Drawing.Point(21, 196);
@@ -308,44 +245,26 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.lblGenero.Size = new System.Drawing.Size(51, 14);
             this.lblGenero.TabIndex = 20;
             this.lblGenero.Text = "Género:";
-            // 
-            // txtSnombre
-            // 
             this.txtSnombre.Location = new System.Drawing.Point(130, 50);
             this.txtSnombre.Name = "txtSnombre";
             this.txtSnombre.Size = new System.Drawing.Size(150, 20);
             this.txtSnombre.TabIndex = 8;
-            // 
-            // txtSapellido
-            // 
             this.txtSapellido.Location = new System.Drawing.Point(130, 102);
             this.txtSapellido.Name = "txtSapellido";
             this.txtSapellido.Size = new System.Drawing.Size(150, 20);
             this.txtSapellido.TabIndex = 10;
-            // 
-            // txtPapellido
-            // 
             this.txtPapellido.Location = new System.Drawing.Point(130, 75);
             this.txtPapellido.Name = "txtPapellido";
             this.txtPapellido.Size = new System.Drawing.Size(150, 20);
             this.txtPapellido.TabIndex = 9;
-            // 
-            // txtTelefono
-            // 
             this.txtTelefono.Location = new System.Drawing.Point(130, 132);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(150, 20);
             this.txtTelefono.TabIndex = 11;
-            // 
-            // txtPnombre
-            // 
             this.txtPnombre.Location = new System.Drawing.Point(130, 21);
             this.txtPnombre.Name = "txtPnombre";
             this.txtPnombre.Size = new System.Drawing.Size(150, 20);
             this.txtPnombre.TabIndex = 7;
-            // 
-            // lblTelefono
-            // 
             this.lblTelefono.AutoSize = true;
             this.lblTelefono.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblTelefono.Location = new System.Drawing.Point(21, 133);
@@ -353,9 +272,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.lblTelefono.Size = new System.Drawing.Size(58, 14);
             this.lblTelefono.TabIndex = 5;
             this.lblTelefono.Text = "Teléfono:";
-            // 
-            // label4
-            // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label4.Location = new System.Drawing.Point(21, 104);
@@ -363,9 +279,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.label4.Size = new System.Drawing.Size(104, 14);
             this.label4.TabIndex = 3;
             this.label4.Text = "Segundo Apelido:";
-            // 
-            // label3
-            // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label3.Location = new System.Drawing.Point(21, 76);
@@ -373,9 +286,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.label3.Size = new System.Drawing.Size(96, 14);
             this.label3.TabIndex = 2;
             this.label3.Text = "Primer Apellido:";
-            // 
-            // lblSnombre
-            // 
             this.lblSnombre.AutoSize = true;
             this.lblSnombre.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblSnombre.Location = new System.Drawing.Point(21, 51);
@@ -383,9 +293,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.lblSnombre.Size = new System.Drawing.Size(106, 14);
             this.lblSnombre.TabIndex = 1;
             this.lblSnombre.Text = "Segundo Nombre:";
-            // 
-            // lblPnombre
-            // 
             this.lblPnombre.AutoSize = true;
             this.lblPnombre.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblPnombre.Location = new System.Drawing.Point(21, 26);
@@ -393,9 +300,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.lblPnombre.Size = new System.Drawing.Size(95, 14);
             this.lblPnombre.TabIndex = 0;
             this.lblPnombre.Text = "Primer Nombre:";
-            // 
-            // lblAyudaContrasena
-            // 
             this.lblAyudaContrasena.ForeColor = System.Drawing.Color.Black;
             this.lblAyudaContrasena.Location = new System.Drawing.Point(28, 160);
             this.lblAyudaContrasena.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -403,9 +307,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.lblAyudaContrasena.Size = new System.Drawing.Size(262, 65);
             this.lblAyudaContrasena.TabIndex = 0;
             this.lblAyudaContrasena.Text = "Al editar, contraseña vacía: conservar la actual.\r\n\r\nInactivo: acceso bloqueado.";
-            // 
-            // groupBox1
-            // 
             this.groupBox1.Controls.Add(this.lblAyudaContrasena);
             this.groupBox1.Controls.Add(this.chkActivo);
             this.groupBox1.Controls.Add(this.label1);
@@ -423,9 +324,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de Acceso";
-            // 
-            // chkActivo
-            // 
             this.chkActivo.AutoSize = true;
             this.chkActivo.Location = new System.Drawing.Point(105, 125);
             this.chkActivo.Margin = new System.Windows.Forms.Padding(2);
@@ -433,9 +331,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.chkActivo.Size = new System.Drawing.Size(15, 14);
             this.chkActivo.TabIndex = 14;
             this.chkActivo.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label1.Location = new System.Drawing.Point(28, 127);
@@ -443,17 +338,11 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.label1.Size = new System.Drawing.Size(44, 14);
             this.label1.TabIndex = 13;
             this.label1.Text = "Activo:";
-            // 
-            // txtUsuario
-            // 
             this.txtUsuario.Location = new System.Drawing.Point(105, 54);
             this.txtUsuario.MaxLength = 50;
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(182, 20);
             this.txtUsuario.TabIndex = 12;
-            // 
-            // cmbRol
-            // 
             this.cmbRol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRol.FormattingEnabled = true;
             this.cmbRol.Location = new System.Drawing.Point(105, 21);
@@ -461,18 +350,12 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.cmbRol.Size = new System.Drawing.Size(184, 22);
             this.cmbRol.TabIndex = 7;
             this.cmbRol.SelectedIndexChanged += new System.EventHandler(this.cmbRol_SelectedIndexChanged);
-            // 
-            // txtContrasena
-            // 
             this.txtContrasena.Location = new System.Drawing.Point(105, 88);
             this.txtContrasena.MaxLength = 255;
             this.txtContrasena.Name = "txtContrasena";
             this.txtContrasena.Size = new System.Drawing.Size(182, 20);
             this.txtContrasena.TabIndex = 9;
             this.txtContrasena.UseSystemPasswordChar = true;
-            // 
-            // label5
-            // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label5.Location = new System.Drawing.Point(28, 89);
@@ -480,9 +363,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.label5.Size = new System.Drawing.Size(74, 14);
             this.label5.TabIndex = 2;
             this.label5.Text = "Contraseña:";
-            // 
-            // label6
-            // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label6.Location = new System.Drawing.Point(28, 57);
@@ -490,9 +370,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.label6.Size = new System.Drawing.Size(52, 14);
             this.label6.TabIndex = 1;
             this.label6.Text = "Usuario:";
-            // 
-            // label7
-            // 
             this.label7.AutoSize = true;
             this.label7.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label7.Location = new System.Drawing.Point(28, 24);
@@ -500,9 +377,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.label7.Size = new System.Drawing.Size(27, 14);
             this.label7.TabIndex = 0;
             this.label7.Text = "Rol:";
-            // 
-            // menuStrip1
-            // 
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -517,52 +391,34 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.menuStrip1.Size = new System.Drawing.Size(780, 32);
             this.menuStrip1.TabIndex = 12;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // agregarToolStripMenuItem
-            // 
             this.agregarToolStripMenuItem.ForeColor = System.Drawing.Color.SeaGreen;
             this.agregarToolStripMenuItem.Image = global::SistemaPedidoRestaurante.Properties.Resources.Agregar;
             this.agregarToolStripMenuItem.Name = "agregarToolStripMenuItem";
             this.agregarToolStripMenuItem.Size = new System.Drawing.Size(133, 28);
             this.agregarToolStripMenuItem.Text = "Agregar personal";
             this.agregarToolStripMenuItem.Click += new System.EventHandler(this.agregarToolStripMenuItem_Click);
-            // 
-            // editarToolStripMenuItem
-            // 
             this.editarToolStripMenuItem.ForeColor = System.Drawing.Color.DarkSlateBlue;
             this.editarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("editarToolStripMenuItem.Image")));
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
             this.editarToolStripMenuItem.Size = new System.Drawing.Size(73, 28);
             this.editarToolStripMenuItem.Text = "Editar";
             this.editarToolStripMenuItem.Click += new System.EventHandler(this.editarToolStripMenuItem_Click);
-            // 
-            // desactivarToolStripMenuItem
-            // 
             this.desactivarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("desactivarToolStripMenuItem.Image")));
             this.desactivarToolStripMenuItem.Name = "desactivarToolStripMenuItem";
             this.desactivarToolStripMenuItem.Size = new System.Drawing.Size(97, 28);
             this.desactivarToolStripMenuItem.Text = "Desactivar";
             this.desactivarToolStripMenuItem.Click += new System.EventHandler(this.desactivarToolStripMenuItem_Click);
-            // 
-            // eliminarToolStripMenuItem
-            // 
             this.eliminarToolStripMenuItem.ForeColor = System.Drawing.Color.Crimson;
             this.eliminarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("eliminarToolStripMenuItem.Image")));
             this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
             this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(86, 28);
             this.eliminarToolStripMenuItem.Text = "Eliminar";
             this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
-            // 
-            // volverAlMenúPríncipalToolStripMenuItem
-            // 
             this.volverAlMenúPríncipalToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("volverAlMenúPríncipalToolStripMenuItem.Image")));
             this.volverAlMenúPríncipalToolStripMenuItem.Name = "volverAlMenúPríncipalToolStripMenuItem";
             this.volverAlMenúPríncipalToolStripMenuItem.Size = new System.Drawing.Size(75, 28);
             this.volverAlMenúPríncipalToolStripMenuItem.Text = "Volver";
             this.volverAlMenúPríncipalToolStripMenuItem.Click += new System.EventHandler(this.volverAlMenúPríncipalToolStripMenuItem_Click);
-            // 
-            // panel1
-            // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.panel1.Controls.Add(this.lblOperacion);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -571,9 +427,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(780, 39);
             this.panel1.TabIndex = 17;
-            // 
-            // lblOperacion
-            // 
             this.lblOperacion.AutoSize = true;
             this.lblOperacion.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOperacion.Location = new System.Drawing.Point(10, 14);
@@ -582,9 +435,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.lblOperacion.Size = new System.Drawing.Size(257, 15);
             this.lblOperacion.TabIndex = 15;
             this.lblOperacion.Text = "Operación actual: Seleccione una operación";
-            // 
-            // groupBox3
-            // 
             this.groupBox3.BackColor = System.Drawing.Color.LightGray;
             this.groupBox3.Controls.Add(this.txtTextoBuscar);
             this.groupBox3.Controls.Add(this.btnBuscar);
@@ -595,16 +445,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.groupBox3.Size = new System.Drawing.Size(274, 42);
             this.groupBox3.TabIndex = 18;
             this.groupBox3.TabStop = false;
-            // 
-            // txtTextoBuscar
-            // 
             this.txtTextoBuscar.Location = new System.Drawing.Point(58, 15);
             this.txtTextoBuscar.Name = "txtTextoBuscar";
             this.txtTextoBuscar.Size = new System.Drawing.Size(145, 20);
             this.txtTextoBuscar.TabIndex = 0;
-            // 
-            // btnBuscar
-            // 
             this.btnBuscar.BackColor = System.Drawing.Color.SlateGray;
             this.btnBuscar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.ForeColor = System.Drawing.Color.Black;
@@ -615,9 +459,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-            // 
-            // label2
-            // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -626,9 +467,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.label2.Size = new System.Drawing.Size(48, 14);
             this.label2.TabIndex = 5;
             this.label2.Text = "Buscar:";
-            // 
-            // groupBox4
-            // 
             this.groupBox4.Controls.Add(this.btnCancelar);
             this.groupBox4.Controls.Add(this.btnLimpiar);
             this.groupBox4.Controls.Add(this.btnAccion);
@@ -640,9 +478,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Acciones";
-            // 
-            // btnCancelar
-            // 
             this.btnCancelar.BackColor = System.Drawing.Color.Crimson;
             this.btnCancelar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.Black;
@@ -653,9 +488,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
-            // btnLimpiar
-            // 
             this.btnLimpiar.BackColor = System.Drawing.Color.MediumSpringGreen;
             this.btnLimpiar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLimpiar.ForeColor = System.Drawing.Color.Black;
@@ -666,9 +498,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = false;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            // 
-            // btnAccion
-            // 
             this.btnAccion.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.btnAccion.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAccion.ForeColor = System.Drawing.Color.Black;
@@ -679,9 +508,6 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.btnAccion.Text = "Guardar";
             this.btnAccion.UseVisualStyleBackColor = false;
             this.btnAccion.Click += new System.EventHandler(this.btnAccion_Click);
-            // 
-            // FrmEmpleados
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Orange;

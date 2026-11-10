@@ -35,9 +35,6 @@
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            //
-            // panel1
-            //
             this.panel1.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.panel1.Controls.Add(this.lblTituloFactura);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -45,9 +42,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(534, 82);
             this.panel1.TabIndex = 0;
-            //
-            // lblTituloFactura
-            //
             this.lblTituloFactura.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblTituloFactura.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTituloFactura.Font = new System.Drawing.Font("Arial Black", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -58,9 +52,6 @@
             this.lblTituloFactura.TabIndex = 1;
             this.lblTituloFactura.Text = "COBRO";
             this.lblTituloFactura.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            //
-            // lblMetodoPago
-            //
             this.lblMetodoPago.AutoSize = true;
             this.lblMetodoPago.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMetodoPago.Location = new System.Drawing.Point(24, 110);
@@ -68,9 +59,6 @@
             this.lblMetodoPago.Size = new System.Drawing.Size(94, 15);
             this.lblMetodoPago.TabIndex = 14;
             this.lblMetodoPago.Text = "Forma de pago:";
-            //
-            // cmbTipoPedido
-            //
             this.cmbTipoPedido.AccessibleName = "Forma de pago";
             this.cmbTipoPedido.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTipoPedido.FormattingEnabled = true;
@@ -83,18 +71,12 @@
             this.cmbTipoPedido.Size = new System.Drawing.Size(362, 21);
             this.cmbTipoPedido.TabIndex = 15;
             this.cmbTipoPedido.SelectedIndexChanged += new System.EventHandler(this.cmbTipoPedido_SelectedIndexChanged);
-            //
-            // lblGuiaPago
-            //
             this.lblGuiaPago.AutoSize = true;
             this.lblGuiaPago.Location = new System.Drawing.Point(131, 134);
             this.lblGuiaPago.Name = "lblGuiaPago";
             this.lblGuiaPago.Size = new System.Drawing.Size(250, 13);
             this.lblGuiaPago.TabIndex = 19;
             this.lblGuiaPago.Text = "Elija una forma de pago para habilitar Revisar pago.";
-            //
-            // groupBox1
-            //
             this.groupBox1.Controls.Add(this.txtNotas);
             this.groupBox1.Controls.Add(this.lblNotas);
             this.groupBox1.Controls.Add(this.txtMontoTotal);
@@ -108,9 +90,6 @@
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Información del cobro";
-            //
-            // txtNotas
-            //
             this.txtNotas.AccessibleName = "Notas del cobro";
             this.txtNotas.Location = new System.Drawing.Point(86, 134);
             this.txtNotas.MaxLength = 200;
@@ -118,9 +97,6 @@
             this.txtNotas.Name = "txtNotas";
             this.txtNotas.Size = new System.Drawing.Size(365, 44);
             this.txtNotas.TabIndex = 18;
-            //
-            // lblNotas
-            //
             this.lblNotas.AutoSize = true;
             this.lblNotas.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNotas.Location = new System.Drawing.Point(12, 137);
@@ -128,9 +104,6 @@
             this.lblNotas.Size = new System.Drawing.Size(43, 15);
             this.lblNotas.TabIndex = 17;
             this.lblNotas.Text = "Notas:";
-            //
-            // txtMontoTotal
-            //
             this.txtMontoTotal.AccessibleName = "Total de la venta";
             this.txtMontoTotal.Location = new System.Drawing.Point(106, 41);
             this.txtMontoTotal.Name = "txtMontoTotal";
@@ -138,9 +111,6 @@
             this.txtMontoTotal.Size = new System.Drawing.Size(221, 21);
             this.txtMontoTotal.TabIndex = 16;
             this.txtMontoTotal.TabStop = false;
-            //
-            // lblMontoTotal
-            //
             this.lblMontoTotal.AutoSize = true;
             this.lblMontoTotal.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMontoTotal.Location = new System.Drawing.Point(12, 44);
@@ -148,18 +118,12 @@
             this.lblMontoTotal.Size = new System.Drawing.Size(75, 15);
             this.lblMontoTotal.TabIndex = 15;
             this.lblMontoTotal.Text = "Monto Total:";
-            //
-            // lblNombreComprobante
-            //
             this.lblNombreComprobante.AutoSize = true;
             this.lblNombreComprobante.Location = new System.Drawing.Point(12, 78);
             this.lblNombreComprobante.Name = "lblNombreComprobante";
             this.lblNombreComprobante.Size = new System.Drawing.Size(232, 15);
             this.lblNombreComprobante.TabIndex = 19;
             this.lblNombreComprobante.Text = "Nombre para el comprobante (opcional)";
-            //
-            // txtNombreComprobante
-            //
             this.txtNombreComprobante.AccessibleName = "Nombre para el comprobante (opcional)";
             this.txtNombreComprobante.Enabled = false;
             this.txtNombreComprobante.Location = new System.Drawing.Point(15, 98);
@@ -167,9 +131,6 @@
             this.txtNombreComprobante.Name = "txtNombreComprobante";
             this.txtNombreComprobante.Size = new System.Drawing.Size(436, 21);
             this.txtNombreComprobante.TabIndex = 17;
-            //
-            // btnRegistrarPago
-            //
             this.btnRegistrarPago.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.btnRegistrarPago.Enabled = false;
             this.btnRegistrarPago.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -182,9 +143,6 @@
             this.btnRegistrarPago.Text = "Revisar pago";
             this.btnRegistrarPago.UseVisualStyleBackColor = false;
             this.btnRegistrarPago.Click += new System.EventHandler(this.btnRegistrarPago_Click);
-            //
-            // btnVolverPagos
-            //
             this.btnVolverPagos.BackColor = System.Drawing.Color.Gainsboro;
             this.btnVolverPagos.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnVolverPagos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -197,9 +155,6 @@
             this.btnVolverPagos.Text = "Volver";
             this.btnVolverPagos.UseVisualStyleBackColor = false;
             this.btnVolverPagos.Click += new System.EventHandler(this.btnVolver_Click);
-            //
-            // FrmPagoAdministracion
-            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));

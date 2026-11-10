@@ -27,9 +27,6 @@
             this.panel.SuspendLayout();
             this.botones.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panel
-            // 
             this.panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.panel.ColumnCount = 1;
             this.panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 380F));
@@ -52,27 +49,18 @@
             this.panel.Size = new System.Drawing.Size(420, 250);
             this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.panel.TabIndex = 0;
-            // 
-            // resumen
-            // 
             this.resumen.AutoSize = true;
             this.resumen.Location = new System.Drawing.Point(23, 20);
             this.resumen.Name = "resumen";
             this.resumen.Size = new System.Drawing.Size(125, 13);
             this.resumen.TabIndex = 0;
             this.resumen.Text = "Efectivo — Total: C$ 0.00";
-            // 
-            // lblRecibido
-            // 
             this.lblRecibido.AutoSize = true;
             this.lblRecibido.Location = new System.Drawing.Point(23, 33);
             this.lblRecibido.Name = "lblRecibido";
             this.lblRecibido.Size = new System.Drawing.Size(77, 13);
             this.lblRecibido.TabIndex = 1;
             this.lblRecibido.Text = "Monto recibido";
-            // 
-            // monto
-            // 
             this.monto.AccessibleName = "Monto recibido en efectivo";
             this.monto.Dock = System.Windows.Forms.DockStyle.Top;
             this.monto.Location = new System.Drawing.Point(23, 49);
@@ -80,9 +68,6 @@
             this.monto.Size = new System.Drawing.Size(374, 20);
             this.monto.TabIndex = 0;
             this.monto.TextChanged += new System.EventHandler(this.monto_TextChanged);
-            // 
-            // cambio
-            // 
             this.cambio.AutoSize = true;
             this.cambio.Dock = System.Windows.Forms.DockStyle.Top;
             this.cambio.Location = new System.Drawing.Point(23, 72);
@@ -99,9 +84,6 @@
             this.lblVuelto.Size = new System.Drawing.Size(374, 36);
             this.lblVuelto.Text = "Vuelto: —";
             this.lblVuelto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // botones
-            // 
             this.botones.AutoSize = true;
             this.botones.Controls.Add(this.pagoExacto);
             this.botones.Controls.Add(this.confirmar);
@@ -110,9 +92,6 @@
             this.botones.Name = "botones";
             this.botones.Size = new System.Drawing.Size(261, 29);
             this.botones.TabIndex = 1;
-            // 
-            // pagoExacto
-            // 
             this.pagoExacto.AutoSize = true;
             this.pagoExacto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.pagoExacto.Location = new System.Drawing.Point(3, 3);
@@ -122,9 +101,6 @@
             this.pagoExacto.Text = "Pago exacto";
             this.pagoExacto.UseVisualStyleBackColor = false;
             this.pagoExacto.Click += new System.EventHandler(this.pagoExacto_Click);
-            // 
-            // confirmar
-            // 
             this.confirmar.AutoSize = true;
             this.confirmar.BackColor = System.Drawing.Color.Lime;
             this.confirmar.Enabled = false;
@@ -135,9 +111,6 @@
             this.confirmar.Text = "Confirmar cobro";
             this.confirmar.UseVisualStyleBackColor = false;
             this.confirmar.Click += new System.EventHandler(this.confirmar_Click);
-            // 
-            // cancelar
-            // 
             this.cancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.cancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelar.Location = new System.Drawing.Point(183, 3);
@@ -147,9 +120,6 @@
             this.cancelar.Text = "Volver";
             this.cancelar.UseVisualStyleBackColor = false;
             this.cancelar.Click += new System.EventHandler(this.cancelar_Click);
-            // 
-            // FrmConfirmarCobro
-            // 
             this.AcceptButton = this.confirmar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
