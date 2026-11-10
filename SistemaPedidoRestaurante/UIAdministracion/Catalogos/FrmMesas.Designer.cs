@@ -130,7 +130,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(280, 33);
             this.label1.TabIndex = 0;
-            this.label1.Text = "GESTION DE MESAS";
+            this.label1.Text = "GESTIÓN DE MESAS";
             // 
             // pnlOperacion
             // 
@@ -176,6 +176,7 @@
             "Disponible",
             "No disponible"});
             this.cmbEstadoMesas.Location = new System.Drawing.Point(138, 144);
+            this.cmbEstadoMesas.AccessibleName = "Estado de la mesa";
             this.cmbEstadoMesas.Name = "cmbEstadoMesas";
             this.cmbEstadoMesas.Size = new System.Drawing.Size(134, 25);
             this.cmbEstadoMesas.TabIndex = 16;
@@ -183,6 +184,7 @@
             // txtCapacidadMesas
             // 
             this.txtCapacidadMesas.Location = new System.Drawing.Point(139, 93);
+            this.txtCapacidadMesas.AccessibleName = "Capacidad de la mesa";
             this.txtCapacidadMesas.Name = "txtCapacidadMesas";
             this.txtCapacidadMesas.Size = new System.Drawing.Size(133, 24);
             this.txtCapacidadMesas.TabIndex = 15;
@@ -190,6 +192,7 @@
             // txtNumeroMesas
             // 
             this.txtNumeroMesas.Location = new System.Drawing.Point(139, 45);
+            this.txtNumeroMesas.AccessibleName = "Número de mesa";
             this.txtNumeroMesas.Name = "txtNumeroMesas";
             this.txtNumeroMesas.Size = new System.Drawing.Size(133, 24);
             this.txtNumeroMesas.TabIndex = 14;
@@ -214,7 +217,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(113, 15);
             this.label2.TabIndex = 12;
-            this.label2.Text = "Número de Mesas:";
+            this.label2.Text = "Número de mesa:";
             // 
             // label3
             // 
@@ -284,7 +287,7 @@
             // ColNumMesas
             // 
             this.ColNumMesas.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColNumMesas.HeaderText = "Número de Mesas";
+            this.ColNumMesas.HeaderText = "Número de mesa";
             this.ColNumMesas.Name = "ColNumMesas";
             // 
             // ColCapacidad
@@ -364,7 +367,7 @@
             this.MinimumSize = new System.Drawing.Size(700, 525);
             this.Name = "FrmMesas";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMesas_FormClosing);
-            this.Text = "GESTION DE MESAS";
+            this.Text = "Gestión de mesas";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);

@@ -462,7 +462,6 @@
             this.grpAccionesClientes.TabIndex = 10;
             this.grpAccionesClientes.TabStop = false;
             this.grpAccionesClientes.Text = "Acciones";
-            this.grpAccionesClientes.Enter += new System.EventHandler(this.grpAccionesClientes_Enter);
             // 
             // btnCancelar
             // 

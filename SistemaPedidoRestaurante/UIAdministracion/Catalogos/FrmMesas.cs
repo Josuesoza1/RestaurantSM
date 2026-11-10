@@ -77,7 +77,9 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             if (modoActual == ModoFormulario.Neutral) return;
             try
             {
-                if (modoActual == ModoFormulario.Eliminar)
+                string numero = txtNumeroMesas.Text.Trim();
+                bool eliminar = modoActual == ModoFormulario.Eliminar;
+                if (eliminar)
                 {
                     if (!VistaGestion.Confirmar(this, "¿Eliminar permanentemente la mesa? Debe carecer de pedidos y reservas.")) return;
                     servicio.Eliminar(id);
@@ -85,6 +87,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 else Guardar();
                 Nuevo();
                 CambiarModo(ModoFormulario.Neutral);
+                lblOperacion.Text = "Mesa " + numero + (eliminar ? " eliminada." : " guardada.");
                 Recargar();
             }
             catch (Exception error) { MessageBox.Show(this, error.Message, Text, MessageBoxButtons.OK, MessageBoxIcon.Information); }
@@ -229,7 +232,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             btnGuardarMesas.Enabled = btnCancelarMesas.Enabled = operacion;
             btnLimpiar.Enabled = edicion;
             if (edicion)
+            {
                 datosIniciales = DatosIngresados();
+                txtNumeroMesas.Focus();
+            }
             agregarToolStripMenuItem.Enabled = editarToolStripMenuItem.Enabled = eliminarToolStripMenuItem.Enabled = !operacion;
         }
     }

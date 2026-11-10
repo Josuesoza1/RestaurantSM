@@ -100,7 +100,7 @@
             this.editarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("editarToolStripMenuItem.Image")));
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
             this.editarToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
-            this.editarToolStripMenuItem.Text = "Registrar o editar existencias";
+            this.editarToolStripMenuItem.Text = "Registrar o editar stock";
             this.editarToolStripMenuItem.Click += new System.EventHandler(this.editarToolStripMenuItem_Click);
             // 
             // registro
@@ -165,7 +165,7 @@
             this.bajos.Image = ((System.Drawing.Image)(resources.GetObject("bajos.Image")));
             this.bajos.Name = "bajos";
             this.bajos.Size = new System.Drawing.Size(152, 24);
-            this.bajos.Text = "Solo existencias bajas";
+            this.bajos.Text = "Stock bajo";
             this.bajos.CheckedChanged += new System.EventHandler(this.bajos_CheckedChanged);
             // 
             // actualizar
@@ -579,7 +579,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(773, 454);
+            this.MinimumSize = new System.Drawing.Size(773, 510);
             this.Name = "FrmInventario";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmInventario_FormClosing);
             this.Text = "GESTION DE INVENTARIO";

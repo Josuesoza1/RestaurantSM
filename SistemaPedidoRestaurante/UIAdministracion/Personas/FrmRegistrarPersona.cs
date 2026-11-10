@@ -12,6 +12,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
     {
         private readonly UsuarioBLL servicio = new UsuarioBLL();
         private bool guardando;
+        private bool restaurandoModoPersona;
         private Persona personaSeleccionada;
         private Usuario cuentaExistente;
 
@@ -35,6 +36,16 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void chkPersonaExistente_CheckedChanged(object sender, EventArgs e)
         {
+            if (restaurandoModoPersona)
+                return;
+            if (!VistaGestion.ConfirmarDescarte(this, HayCambios()))
+            {
+                restaurandoModoPersona = true;
+                chkPersonaExistente.Checked = !chkPersonaExistente.Checked;
+                restaurandoModoPersona = false;
+                return;
+            }
+
             personaSeleccionada = null;
             LimpiarPersona();
             LimpiarCuenta();
@@ -233,10 +244,10 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             if (!VistaGestion.ConfirmarDescarte(this, HayCambios()))
                 return;
 
-            chkPersonaExistente.Checked = false;
             personaSeleccionada = null;
             LimpiarPersona();
             LimpiarCuenta();
+            chkPersonaExistente.Checked = false;
             CambiarTipo();
             txtPrimerNombre.Focus();
         }

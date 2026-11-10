@@ -79,12 +79,12 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             {
                 lblRango.Text = movimiento == "Salida"
                     ? "Hay 0 unidades disponibles para retirar."
-                    : "El producto ya tiene el máximo de " + int.MaxValue + " unidades.";
+                    : "El producto ya tiene el máximo de " + int.MaxValue.ToString("N0") + " unidades.";
                 return;
             }
 
             cantidad.Enabled = true;
-            lblRango.Text = "Ingrese una cantidad entera de 1 a " + maximo + " unidades.";
+            lblRango.Text = "Ingrese una cantidad entera de 1 a " + maximo.ToString("N0") + " unidades.";
             if (int.TryParse(cantidad.Text.Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out int unidades)
                 && unidades >= 1 && unidades <= maximo)
             {
@@ -101,6 +101,11 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             bool hayCambios = DialogResult != DialogResult.OK && (cantidad.TextLength > 0 || motivo.TextLength > 0);
             if (!VistaGestion.ConfirmarDescarte(this, hayCambios))
                 e.Cancel = true;
+        }
+
+        private void volver_Click(object sender, EventArgs e)
+        {
+            Close();
         }
 
         private void guardar_Click(object sender, EventArgs e)

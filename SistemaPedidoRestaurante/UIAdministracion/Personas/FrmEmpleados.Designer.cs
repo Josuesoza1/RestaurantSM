@@ -600,7 +600,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             // 
             this.txtTextoBuscar.Location = new System.Drawing.Point(58, 15);
             this.txtTextoBuscar.Name = "txtTextoBuscar";
-            this.txtTextoBuscar.Size = new System.Drawing.Size(153, 20);
+            this.txtTextoBuscar.Size = new System.Drawing.Size(145, 20);
             this.txtTextoBuscar.TabIndex = 0;
             // 
             // btnBuscar
@@ -608,9 +608,9 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             this.btnBuscar.BackColor = System.Drawing.Color.SlateGray;
             this.btnBuscar.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.ForeColor = System.Drawing.Color.Black;
-            this.btnBuscar.Location = new System.Drawing.Point(215, 8);
+            this.btnBuscar.Location = new System.Drawing.Point(207, 8);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(53, 31);
+            this.btnBuscar.Size = new System.Drawing.Size(61, 31);
             this.btnBuscar.TabIndex = 1;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;

@@ -58,7 +58,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             inventario = servicio.Listar(incluirSinControl: true);
             cmbProductoInventario.DataSource = inventario;
             int cantidadBajos = inventario.Count(item => item.StockBajo);
-            bajos.Text = "Solo existencias bajas (" + cantidadBajos + ")";
+            bajos.Text = "Stock bajo (" + cantidadBajos + ")";
             Text = cantidadBajos > 0 ? "Inventario — " + cantidadBajos + " con stock bajo" : "Inventario";
             Filtrar();
             if (productoGuardado == 0)
@@ -146,7 +146,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             if (producto == null)
                 lblOperacion.Text = "Seleccione un producto para registrar existencias, corregir un conteo o anotar un movimiento.";
             else if (!tieneInventario)
-                lblOperacion.Text = "Sin inventario. Use «Registrar o editar existencias» para ingresar las cantidades iniciales.";
+                lblOperacion.Text = "Sin inventario. Use «Registrar o editar stock» para ingresar las cantidades iniciales.";
             else if (!producto.Activo)
                 lblOperacion.Text = "Inventario inactivo. Puede reactivarlo al editar sus existencias.";
             else
@@ -273,7 +273,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private void ayudaToolStripMenuItem_Click(object s, EventArgs e)
         {
             MessageBox.Show(this,
-                "Registrar o editar existencias sirve para ingresar el conteo inicial, corregirlo o cambiar el mínimo." +
+                "Registrar o editar stock sirve para ingresar el conteo inicial, corregirlo o cambiar el mínimo." +
                 Environment.NewLine + Environment.NewLine +
                 "Movimientos → Entrada o salida sirve para sumar unidades recibidas o retirar unidades por pérdida, devolución u otro motivo." +
                 Environment.NewLine + Environment.NewLine +
