@@ -1,9 +1,10 @@
-using System;
-using System.Data;
+﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
+using SistemaPedidoRestaurante.Entities;
 
 namespace SistemaPedidoRestaurante.UIPrincipal
 {
@@ -18,48 +19,53 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             InitializeComponent();
         }
 
-        internal FrmVistaPrevia(IDocument documento, string nombreArchivo, Action<string> guardarExcel,
-            string titulo, DataTable filas, string datos = "", string importes = "") : this()
+        internal FrmVistaPrevia(IDocument documento, DocumentoVenta venta, Action<string> guardarExcel) : this()
         {
+            if (venta == null) throw new ArgumentException("No se recibió la venta para mostrar.");
             this.documento = documento;
-            this.nombreArchivo = nombreArchivo;
+            nombreArchivo = venta.Numero;
             this.guardarExcel = guardarExcel;
-            Text = "Vista previa - " + nombreArchivo;
-            lblTitulo.Text = titulo;
-            txtDatos.Text = datos;
-            txtImportes.Text = importes;
-            txtImportes.Visible = importes.Length > 0;
-            panelDatos.SetColumnSpan(txtDatos, importes.Length > 0 ? 1 : 2);
-            if (importes.Length == 0)
-                panelDatos.Height = txtDatos.Font.Height * 5 + panelDatos.Padding.Vertical + txtDatos.Margin.Vertical;
-            panelDatos.Visible = datos.Length > 0 || importes.Length > 0;
-            VistaGestion.PermitirOrden(tablaDetalle);
-            tablaDetalle.DataSource = filas;
+            Text = "Vista previa - " + venta.Numero;
+            lblTitulo.Text = (venta.EsFactura ? "Factura " : "Comprobante de venta ") + venta.Numero;
+            txtNumero.Text = venta.Numero;
+            txtFecha.Text = venta.Fecha.ToString("dd/MM/yyyy HH:mm");
+            txtCliente.Text = venta.Cliente;
+            txtMetodo.Text = string.IsNullOrWhiteSpace(venta.Metodo) ? "Sin cobrar" : venta.Metodo;
+            txtMesa.Text = string.IsNullOrWhiteSpace(venta.Mesa) ? "No aplica" : venta.Mesa;
+            txtAtendido.Text = string.IsNullOrWhiteSpace(venta.AtendidoPor) ? "Sin registrar" : venta.AtendidoPor;
+            txtEstado.Text = venta.Estado;
+            txtRestaurante.Text = venta.Restaurante;
+            txtRegistrado.Text = venta.RegistradoPor;
+            decimal subtotal = venta.ImpuestoAgregado ? venta.Subtotal : venta.Detalle.Sum(linea => linea.Subtotal);
+            txtSubtotal.Text = Dinero(venta, subtotal);
+            txtDescuento.Text = Dinero(venta, venta.Descuento);
+            txtBaseImpuesto.Text = Dinero(venta, venta.ImpuestoAgregado ? venta.Subtotal - venta.Descuento : venta.Subtotal);
+            txtImpuesto.Text = Dinero(venta, venta.Impuestos) +
+                (venta.TasaImpuesto >= 0 ? " (" + venta.TasaImpuesto.ToString("0.##") + " %)" : "") +
+                (venta.EsFactura && !venta.ImpuestoAgregado ? " incluido" : "");
+            txtTotal.Text = Dinero(venta, venta.Total);
+            txtRecibido.Text = venta.EsFactura ? Dinero(venta, venta.Recibido) : "Sin cobrar";
+            txtVuelto.Text = venta.EsFactura ? Dinero(venta, venta.Cambio) : "Sin cobrar";
+            VistaGestion.Vincular(tablaDetalle, venta.Detalle);
         }
 
-        private void tablaDetalle_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        private static string Dinero(DocumentoVenta venta, decimal importe)
         {
-            foreach (DataGridViewColumn columna in tablaDetalle.Columns)
-            {
-                if (columna.ValueType == typeof(decimal))
-                {
-                    columna.DefaultCellStyle.Format = "N2";
-                    columna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                }
-                if (columna.Name == "Producto" || columna.Name == "Medio de pago")
-                    columna.FillWeight = 210;
-            }
-            tablaDetalle.ClearSelection();
+            return venta.Moneda + " " + importe.ToString("N2");
         }
 
         private void btnPdf_Click(object sender, EventArgs e)
         {
-            Guardar("pdf", "Documento PDF (*.pdf)|*.pdf", documento.GeneratePdf);
+            if (documento == null) return;
+            dialogoPdf.FileName = nombreArchivo + ".pdf";
+            Guardar(dialogoPdf, "pdf", documento.GeneratePdf);
         }
 
         private void btnExcel_Click(object sender, EventArgs e)
         {
-            Guardar("xlsx", "Libro de Excel (*.xlsx)|*.xlsx", guardarExcel);
+            if (guardarExcel == null) return;
+            dialogoExcel.FileName = nombreArchivo + ".xlsx";
+            Guardar(dialogoExcel, "xlsx", guardarExcel);
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -67,27 +73,23 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             Close();
         }
 
-        private void Guardar(string extension, string filtro, Action<string> generar)
+        private void tablaDetalle_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            tablaDetalle.ClearSelection();
+        }
+
+        private void Guardar(SaveFileDialog elegir, string extension, Action<string> generar)
         {
             try
             {
-                using (var elegir = new SaveFileDialog())
-                {
-                    elegir.Filter = filtro;
-                    elegir.DefaultExt = extension;
-                    elegir.FileName = nombreArchivo + "." + extension;
-                    if (elegir.ShowDialog(this) != DialogResult.OK)
-                        return;
-
-                    if (!string.Equals(Path.GetExtension(elegir.FileName), "." + extension, StringComparison.OrdinalIgnoreCase))
-                        throw new ArgumentException("Use la extensión ." + extension + " para este formato.");
-
-                    string destino = Path.GetFullPath(elegir.FileName);
-                    ArchivoExportado.Guardar(destino, generar);
-                    MessageBox.Show(this, "El archivo se guardó en la siguiente ubicación." +
-                        Environment.NewLine + Environment.NewLine + destino, "Exportación completada",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                if (elegir.ShowDialog(this) != DialogResult.OK) return;
+                if (!string.Equals(Path.GetExtension(elegir.FileName), "." + extension, StringComparison.OrdinalIgnoreCase))
+                    throw new ArgumentException("Use la extensión ." + extension + " para este formato.");
+                string destino = Path.GetFullPath(elegir.FileName);
+                ArchivoExportado.Guardar(destino, generar);
+                MessageBox.Show(this, "El archivo se guardó en la siguiente ubicación." +
+                    Environment.NewLine + Environment.NewLine + destino, "Exportación completada",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception error)
             {

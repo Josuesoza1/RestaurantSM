@@ -234,6 +234,15 @@
     <Compile Include="UIPrincipal\Documentos\DocumentoVentaExportacion.cs" />
     <Compile Include="UIPrincipal\Documentos\ArchivoExportado.cs" />
     <Compile Include="UIPrincipal\Documentos\ResumenVentasDocumento.cs" />
+    <Compile Include="UIPrincipal\Documentos\FrmVistaPreviaResumen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIPrincipal\Documentos\FrmVistaPreviaResumen.Designer.cs">
+      <DependentUpon>FrmVistaPreviaResumen.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UIPrincipal\Documentos\FrmVistaPreviaResumen.resx">
+      <DependentUpon>FrmVistaPreviaResumen.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="UIPrincipal\Documentos\FrmVistaPrevia.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -14,8 +14,7 @@ namespace SistemaPedidoRestaurante.UIPrincipal
         {
             var exportacion = Preparar(documento);
             IDocument pdf = Crear(documento, exportacion);
-            using (var vista = new FrmVistaPrevia(pdf, documento.Numero, exportacion.GuardarExcel,
-                exportacion.Titulo, exportacion.Detalle, exportacion.DatosVista(), exportacion.ImportesVista()))
+            using (var vista = new FrmVistaPrevia(pdf, documento, exportacion.GuardarExcel))
                 vista.ShowDialog(propietario);
         }
 

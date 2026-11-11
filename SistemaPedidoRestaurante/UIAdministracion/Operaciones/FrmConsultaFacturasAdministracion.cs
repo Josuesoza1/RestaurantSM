@@ -506,7 +506,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
 
         private void MostrarResumen(ResumenVentasDocumento reporte)
         {
-            using (var vista = new FrmVistaPrevia(reporte.CrearPdf(), reporte.NombreArchivo, reporte.GuardarExcel,
+            using (var vista = new FrmVistaPreviaResumen(reporte.CrearPdf(), reporte.NombreArchivo, reporte.GuardarExcel,
                 reporte.TituloVista, reporte.DetalleVista(), ResumenVentasDocumento.Notas))
                 vista.ShowDialog(this);
         }
