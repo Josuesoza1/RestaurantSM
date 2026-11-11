@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
 using SistemaPedidoRestaurante.DAL;
@@ -10,23 +10,11 @@ namespace SistemaPedidoRestaurante.DAL
     {
         public Usuario ValidarLogin(string nombreUsuario, string contrasena)
         {
-            for (int intento = 0; intento < 2; intento++)
-            {
-                Usuario usuario = LeerCredencial(nombreUsuario, out string guardada);
-                if (usuario == null)
-                    return null;
+            Usuario usuario = LeerCredencial(nombreUsuario, out string guardada);
+            if (usuario == null)
+                return null;
 
-                if (ContrasenaProtegida.EsProtegida(guardada))
-                    return ContrasenaProtegida.Coincide(contrasena, guardada) ? usuario : null;
-
-                if (!string.Equals(contrasena, guardada, StringComparison.Ordinal))
-                    return null;
-
-                if (ActualizarClaveAnterior(usuario.IdUsuario, guardada, ContrasenaProtegida.Generar(contrasena)))
-                    return usuario;
-            }
-
-            return null;
+            return string.Equals(contrasena, guardada, StringComparison.Ordinal) ? usuario : null;
         }
 
         private Usuario LeerCredencial(string nombreUsuario, out string guardada)
@@ -66,27 +54,6 @@ namespace SistemaPedidoRestaurante.DAL
             }
 
             return usuarioAutenticado;
-        }
-
-        private bool ActualizarClaveAnterior(int usuario, string anterior, string protegida)
-        {
-            const string consulta = @"
-                UPDATE dbo.usuario
-                SET contrasena = @Protegida
-                WHERE idUsuario = @Usuario
-                    AND DATALENGTH(contrasena) = DATALENGTH(@Anterior)
-                    AND CONVERT(varbinary(255), contrasena) = CONVERT(varbinary(255), @Anterior)
-                    AND EXISTS (SELECT 1 FROM dbo.vw_UsuarioAccesos WHERE idUsuario = @Usuario AND AccesoPersonal = 1);";
-
-            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
-            using (SqlCommand comando = new SqlCommand(consulta, conexion))
-            {
-                comando.Parameters.Add("@Usuario", SqlDbType.Int).Value = usuario;
-                comando.Parameters.Add("@Anterior", SqlDbType.VarChar, 255).Value = anterior;
-                comando.Parameters.Add("@Protegida", SqlDbType.VarChar, 255).Value = protegida;
-                conexion.Open();
-                return comando.ExecuteNonQuery() == 1;
-            }
         }
 
         public Usuarios Listar(int administrador)

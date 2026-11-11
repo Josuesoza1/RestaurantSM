@@ -8,16 +8,6 @@ namespace SistemaPedidoRestaurante.DAL
     {
         public DataTable Cotizar(int actor, int pedido, bool desdeMostrador = false)
         {
-            const string cotizarMostrador = @"
-                EXEC dbo.sp_Operacion_ExigirPedidoAbierto @Actor, @IdPedido;
-                SELECT p.total AS Total,
-                       CASE WHEN p.idCliente IS NULL THEN 'Consumidor final'
-                            ELSE CONCAT(c.pNombreCl, ' ', c.pApellidoCl) END AS Cliente
-                FROM dbo.pedido p
-                LEFT JOIN dbo.vw_Cliente c ON c.idCliente = p.idCliente
-                WHERE p.idPedido = @IdPedido AND p.idOrigenPedido = 2
-                  AND p.idTipoEntrega = 2 AND p.idMesa IS NULL
-                  AND p.estado IN ('Pendiente', 'Entregado');";
             const string permisoNombre = @"
                 SELECT CONVERT(bit, CASE WHEN EXISTS (
                     SELECT 1 FROM dbo.pedido WHERE idPedido = @IdPedido AND idCliente IS NULL
@@ -25,11 +15,12 @@ namespace SistemaPedidoRestaurante.DAL
 
             using (SqlConnection conexion = ConexionBD.ObtenerConexion())
             {
-                string consulta = desdeMostrador ? cotizarMostrador : "EXEC dbo.sp_Cobro_Cotizar @Actor, @IdPedido;";
+                string consulta = "EXEC dbo.sp_Cobro_Cotizar @Actor, @IdPedido, @DesdeMostrador;";
                 using (SqlCommand comando = new SqlCommand(consulta + permisoNombre, conexion))
                 {
                     comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
                     comando.Parameters.Add("@IdPedido", SqlDbType.Int).Value = pedido;
+                    comando.Parameters.Add("@DesdeMostrador", SqlDbType.Bit).Value = desdeMostrador;
                     using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
                     {
                         DataSet datos = new DataSet();

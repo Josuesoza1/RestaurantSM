@@ -6,6 +6,7 @@ namespace SistemaPedidoRestaurante.Entities
     public class DocumentoVenta
     {
         public bool EsFactura { get; set; }
+        public bool ImpuestoAgregado { get; set; }
         public string Restaurante { get; set; }
         public string Moneda { get; set; }
         public string Numero { get; set; }

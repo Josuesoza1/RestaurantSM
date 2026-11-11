@@ -23,7 +23,8 @@ namespace SistemaPedidoRestaurante.DAL
             }
         }
 
-        public void GuardarConfiguracion(int actor, string nombre, decimal tasa)
+        public void GuardarConfiguracion(int actor, string nombre, decimal tasa, bool descuentoActivo,
+            decimal porcentajeDescuento, DateTime? fechaDescuento)
         {
             using (SqlConnection conexion = ConexionBD.ObtenerConexion())
             {
@@ -36,6 +37,13 @@ namespace SistemaPedidoRestaurante.DAL
                     impuesto.Precision = 5;
                     impuesto.Scale = 2;
                     impuesto.Value = tasa;
+                    comando.Parameters.Add("@DescuentoActivo", SqlDbType.Bit).Value = descuentoActivo;
+                    SqlParameter descuento = comando.Parameters.Add("@PorcentajeDescuento", SqlDbType.Decimal);
+                    descuento.Precision = 5;
+                    descuento.Scale = 2;
+                    descuento.Value = porcentajeDescuento;
+                    comando.Parameters.Add("@FechaDescuento", SqlDbType.Date).Value =
+                        fechaDescuento.HasValue ? (object)fechaDescuento.Value.Date : DBNull.Value;
                     conexion.Open();
                     comando.ExecuteNonQuery();
                 }

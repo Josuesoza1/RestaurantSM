@@ -86,7 +86,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
             txtSubtotalFactura.Text = documento.Subtotal.ToString("N2");
             txtImpuestoFactura.Text = documento.Impuestos.ToString("N2");
             txtDescuentoFactura.Text = documento.Descuento.ToString("N2");
-            label3.Visible = txtDescuentoFactura.Visible = documento.Descuento != 0;
+            label3.Visible = txtDescuentoFactura.Visible = documento.ImpuestoAgregado || documento.Descuento != 0;
             txtTotalFactura.Text = (documento.Moneda + " " + documento.Total.ToString("N2")).Trim();
             txtMetodoPago.Text = documento.Metodo;
             lblMetodoPagoFactura.Visible = txtMetodoPago.Visible = DocumentoVentaExportacion.TieneDatoHistorico(documento.Metodo);

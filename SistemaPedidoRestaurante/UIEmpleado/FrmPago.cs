@@ -29,6 +29,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
         private int pedido;
         private decimal total;
         private bool pagado;
+        private bool cotizacionCargada;
 
         private void FrmPago_Load(object sender, EventArgs e)
         {
@@ -59,6 +60,10 @@ namespace SistemaPedidoRestaurante.UIEmpleado
                 DataRow cotizacion = servicio.Cotizar(pedido, desdeMostrador);
                 total = Convert.ToDecimal(cotizacion["Total"]);
                 txtMontoTotal.Text = total.ToString("N2");
+                lblDesglose.Text = "Subtotal: C$ " + Convert.ToDecimal(cotizacion["Subtotal"]).ToString("N2") + Environment.NewLine +
+                    "Descuento (" + Convert.ToDecimal(cotizacion["PorcentajeDescuento"]).ToString("0.##") + " %): − C$ " + Convert.ToDecimal(cotizacion["Descuento"]).ToString("N2") + Environment.NewLine +
+                    "Impuesto (" + Convert.ToDecimal(cotizacion["TasaImpuesto"]).ToString("0.##") + " %): + C$ " + Convert.ToDecimal(cotizacion["Impuestos"]).ToString("N2");
+                cotizacionCargada = true;
                 bool nombreOpcional = Convert.ToBoolean(cotizacion["PuedeNombrarComprobante"]);
                 lblNombreComprobante.Visible = txtNombreComprobante.Visible = nombreOpcional;
                 txtNombreComprobante.Enabled = nombreOpcional;
@@ -69,6 +74,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             catch (Exception error)
             {
                 total = 0;
+                cotizacionCargada = false;
                 ActualizarBotonPago();
                 MessageBox.Show(this, VistaGestion.MensajeParaUsuario(error,
                     "No se pudo consultar el importe. Vuelva a Ventas abiertas y abra el cobro de nuevo."),
@@ -85,7 +91,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
         {
             bool formaElegida = cmbTipoPedido.SelectedIndex >= 0;
             lblGuiaPago.Visible = !formaElegida;
-            btnRegistrarPago.Enabled = total > 0 && formaElegida && !pagado;
+            btnRegistrarPago.Enabled = cotizacionCargada && total >= 0 && formaElegida && !pagado;
         }
 
         private void btnRegistrarPago_Click(object sender, EventArgs e)

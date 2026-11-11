@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
 using SistemaPedidoRestaurante.DAL;
@@ -88,9 +88,9 @@ namespace SistemaPedidoRestaurante.DAL
                     Texto(command, "@Cedula", 30, empleado.Cedula);
                     Texto(command, "@Telefono", 20, empleado.Telefono);
                     Texto(command, "@Usuario", 50, usuario.NombreUsuario);
-                    string claveProtegida = string.IsNullOrWhiteSpace(usuario.Contrasena)
-                        ? null : ContrasenaProtegida.Generar(usuario.Contrasena);
-                    Texto(command, "@Contrasena", 255, claveProtegida);
+                    string contrasena = string.IsNullOrWhiteSpace(usuario.Contrasena)
+                        ? null : usuario.Contrasena;
+                    Texto(command, "@Contrasena", 255, contrasena);
                     command.Parameters.Add("@IdRol", SqlDbType.Int).Value = usuario.IdRol;
                     command.Parameters.Add("@Activo", SqlDbType.Bit).Value = empleado.Activo;
                     connection.Open();

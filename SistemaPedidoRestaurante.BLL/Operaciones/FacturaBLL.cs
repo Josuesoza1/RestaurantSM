@@ -107,6 +107,7 @@ namespace SistemaPedidoRestaurante.BLL
             DataRow fila = tablas.Tables[0].Rows[0];
             DocumentoVenta documento = new DocumentoVenta();
             documento.EsFactura = factura;
+            documento.ImpuestoAgregado = Convert.ToBoolean(fila["ImpuestoAgregado"]);
             documento.Restaurante = Convert.ToString(fila["Restaurante"]);
             documento.Moneda = Convert.ToString(fila["Moneda"]);
             documento.Numero = Convert.ToString(fila["Numero"]);

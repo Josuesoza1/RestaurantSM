@@ -23,6 +23,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
         }
 
         private const int CantidadVentaGrande = 50;
+        private int unidadesGrandesConfirmadas;
         private readonly PedidoBorrador borrador = new PedidoBorrador();
         private readonly PedidoBLL pedidos = new PedidoBLL();
         private List<LineaPedidoBorrador> detalleOriginal = new List<LineaPedidoBorrador>();
@@ -31,7 +32,10 @@ namespace SistemaPedidoRestaurante.UIEmpleado
         private int pedidoEnEdicion;
         private bool detalleModificado;
         private readonly int rolPermitido;
-        private readonly Guid solicitud = Guid.NewGuid();
+        private Guid solicitud = Guid.NewGuid();
+        private bool soloAgregarConsumo;
+        private decimal tasaImpuesto;
+        private decimal tasaDescuento;
 
         public int PedidoRegistrado { get; private set; }
 
@@ -57,6 +61,33 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             btnGuardarCambios.Visible = true;
         }
 
+        internal void PrepararConsumo(int pedido, string cliente)
+        {
+            PrepararEdicion(pedido, cliente);
+            soloAgregarConsumo = true;
+            lblTitulo.Text = "AGREGAR CONSUMO A LA VENTA " + pedido;
+            Text = "Agregar consumo a la venta " + pedido;
+            btnGuardarCambios.Text = "Guardar consumo";
+        }
+
+        private void CargarTasas()
+        {
+            if (pedidoEnEdicion > 0)
+            {
+                var importes = pedidos.ObtenerImportes(pedidoEnEdicion);
+                tasaImpuesto = Convert.ToDecimal(importes["TasaImpuesto"]);
+                tasaDescuento = Convert.ToDecimal(importes["PorcentajeDescuento"]);
+            }
+            else
+            {
+                var datos = new ConfiguracionRestauranteBLL().ObtenerConfiguracion().Rows[0];
+                tasaImpuesto = Convert.ToDecimal(datos["TasaImpuesto"]);
+                tasaDescuento = Convert.ToBoolean(datos["DescuentoActivo"]) && !datos.IsNull("FechaDescuento") &&
+                    Convert.ToDateTime(datos["FechaDescuento"]).Date == DateTime.Today
+                    ? Convert.ToDecimal(datos["PorcentajeDescuento"]) : 0m;
+            }
+        }
+
         private void CargarPantalla(object sender, EventArgs e)
         {
             if (DesignMode || LicenseManager.UsageMode == LicenseUsageMode.Designtime)
@@ -74,9 +105,10 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             {
                 if (pedidoEnEdicion > 0)
                 {
-                    detalleOriginal = pedidos.ObtenerDetallePendiente(pedidoEnEdicion);
+                    detalleOriginal = pedidos.ObtenerDetallePendiente(pedidoEnEdicion, soloAgregarConsumo);
                     borrador.CargarDetalle(detalleOriginal);
                 }
+                CargarTasas();
             }
             catch (Exception error)
             {
@@ -237,6 +269,9 @@ namespace SistemaPedidoRestaurante.UIEmpleado
                 int cantidad = (int)nudCantidad.Value;
                 if (producto != null && cantidad > CantidadDisponible(producto))
                     throw new ArgumentException("Disponible para agregar: " + Math.Max(0, CantidadDisponible(producto)) + " unidades.");
+                int unidades = borrador.Lineas.Sum(linea => linea.Cantidad) + cantidad;
+                if (producto != null && !ConfirmarCantidadGrande(unidades))
+                    return;
                 decimal? precioOriginal = producto == null ? null : BuscarLineaOriginal(producto.IdProducto)?.PrecioUnitario;
                 borrador.Agregar(producto, cantidad, precioOriginal);
                 detalleModificado = true;
@@ -267,7 +302,15 @@ namespace SistemaPedidoRestaurante.UIEmpleado
                 ActualizarAccionesDetalle();
             }
 
-            lblTotal.Text = "Total estimado: " + borrador.Total.ToString("N2");
+            if (borrador.Lineas.Sum(linea => linea.Cantidad) < CantidadVentaGrande)
+                unidadesGrandesConfirmadas = 0;
+
+            decimal descuento = decimal.Round(borrador.Total * tasaDescuento / 100m, 2, MidpointRounding.AwayFromZero);
+            decimal impuesto = decimal.Round((borrador.Total - descuento) * tasaImpuesto / 100m, 2, MidpointRounding.AwayFromZero);
+            lblTotal.Text = "Total estimado: " + (borrador.Total - descuento + impuesto).ToString("N2");
+            lblResumenImportes.Text = "Subtotal: C$ " + borrador.Total.ToString("N2") + Environment.NewLine +
+                "Descuento (" + tasaDescuento.ToString("0.##") + " %): − C$ " + descuento.ToString("N2") + Environment.NewLine +
+                "Impuesto (" + tasaImpuesto.ToString("0.##") + " %): + C$ " + impuesto.ToString("N2");
             btnVaciar.Enabled = borrador.Lineas.Count > 0;
             string problema = BuscarProblemaDetalle();
             lblEstadoCatalogo.ForeColor = problema == "" ? SystemColors.ControlText : Color.DarkRed;
@@ -305,7 +348,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             btnEnviar.Enabled = btnCobrarAhora.Enabled = false;
             try
             {
-                PedidoRegistrado = pedidos.GuardarPedido(0, borrador, solicitud);
+                PedidoRegistrado = pedidos.GuardarPedido(0, borrador, solicitud, enMesa: !cobrarAhora);
             }
             catch (Exception error)
             {
@@ -317,13 +360,43 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             }
 
             if (cobrarAhora)
+            {
                 AbrirCobro();
+                ReiniciarVenta();
+                return;
+            }
             else
                 MessageBox.Show(this, "Venta " + PedidoRegistrado +
-                    " guardada. Puede cobrarla desde Ventas abiertas.", "Venta guardada");
+                    " guardada como cuenta de mesa. Pulse Despachar en Ventas abiertas para asignarle una mesa. Puede agregar consumo a esa misma cuenta antes de cobrar.", "Cuenta guardada");
 
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void ReiniciarVenta()
+        {
+            borrador.Vaciar();
+            detalleOriginal.Clear();
+            pedidoEnEdicion = PedidoRegistrado = 0;
+            detalleModificado = soloAgregarConsumo = false;
+            unidadesGrandesConfirmadas = 0;
+            solicitud = Guid.NewGuid();
+            txtCliente.Text = "Consumidor final";
+            txtBuscarProducto.Clear();
+            nudCantidad.Value = 1;
+            try
+            {
+                CargarTasas();
+                perfilValido = true;
+                RecargarCatalogo(inicial: true);
+            }
+            catch (Exception error)
+            {
+                perfilValido = false;
+                MessageBox.Show(this, VistaGestion.MensajeParaUsuario(error, "No se pudo preparar la siguiente venta. Cierre y vuelva a abrir Nueva venta."), Text);
+            }
+            ActualizarDetalle();
+            ActiveControl = txtBuscarProducto;
         }
 
         private void AbrirCobro()
@@ -357,7 +430,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
         {
             var linea = VistaGestion.RegistroSeleccionado<LineaPedidoBorrador>(dgvDetalle);
             bool hayLinea = perfilValido && linea != null;
-            btnQuitar.Enabled = nudCantidadDetalle.Enabled = btnCambiarCantidad.Enabled = hayLinea;
+            btnQuitar.Enabled = nudCantidadDetalle.Enabled = btnCambiarCantidad.Enabled = hayLinea && !soloAgregarConsumo;
             nudCantidadDetalle.Value = hayLinea
                 ? Math.Min(linea.Cantidad, nudCantidadDetalle.Maximum)
                 : nudCantidadDetalle.Minimum;
@@ -377,6 +450,13 @@ namespace SistemaPedidoRestaurante.UIEmpleado
                 if (cantidad > linea.Cantidad && cantidad > maximo)
                     throw new ArgumentException("Puede dejar hasta " + Math.Max(linea.Cantidad, maximo) +
                         " unidades en esta línea con el stock actual.");
+
+                int unidades = borrador.Lineas.Sum(item => item.Cantidad) - linea.Cantidad + cantidad;
+                if (cantidad > linea.Cantidad && !ConfirmarCantidadGrande(unidades))
+                {
+                    ActualizarAccionesDetalle();
+                    return;
+                }
 
                 var lineasMostradas = (IList<LineaPedidoBorrador>)dgvDetalle.DataSource;
                 int indice = lineasMostradas.IndexOf(linea);
@@ -407,7 +487,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
 
             try
             {
-                pedidos.EditarPendiente(pedidoEnEdicion, detalleOriginal, borrador);
+                pedidos.EditarPendiente(pedidoEnEdicion, detalleOriginal, borrador, soloAgregarConsumo);
                 PedidoRegistrado = pedidoEnEdicion;
                 DialogResult = DialogResult.OK;
                 Close();
@@ -446,10 +526,24 @@ namespace SistemaPedidoRestaurante.UIEmpleado
                 RegistrarVenta(true);
         }
 
+        private bool ConfirmarCantidadGrande(int unidades)
+        {
+            if (unidades < CantidadVentaGrande || unidades <= unidadesGrandesConfirmadas)
+                return true;
+
+            if (!VistaGestion.Confirmar(this, "La venta tendrá " + unidades + " unidades en total." +
+                Environment.NewLine + "A partir de " + CantidadVentaGrande + " unidades se solicita confirmación." +
+                Environment.NewLine + Environment.NewLine + "¿La cantidad es correcta?"))
+                return false;
+
+            unidadesGrandesConfirmadas = unidades;
+            return true;
+        }
+
         private string AvisoVentaGrande()
         {
             int unidades = borrador.Lineas.Sum(linea => linea.Cantidad);
-            return unidades >= CantidadVentaGrande
+            return unidades >= CantidadVentaGrande && unidades > unidadesGrandesConfirmadas
                 ? "La venta incluye " + unidades + " unidades. Revise las cantidades antes de confirmar." +
                     Environment.NewLine + Environment.NewLine
                 : "";

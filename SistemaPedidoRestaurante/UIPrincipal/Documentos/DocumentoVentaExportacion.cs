@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
@@ -49,14 +49,19 @@ namespace SistemaPedidoRestaurante.UIPrincipal
             AgregarDatoAdicional("Referencia", venta.ReferenciaEntrega);
             AgregarDatoAdicional("Contacto", venta.TelefonoContacto);
 
-            Agregar(importes, venta.EsFactura ? "Base sin impuesto" : "Productos", venta.Subtotal);
-            if (venta.EsFactura)
+            Agregar(importes, venta.ImpuestoAgregado ? "Subtotal" : (venta.EsFactura ? "Base sin impuesto" : "Productos"), venta.Subtotal);
+            if (venta.ImpuestoAgregado)
+            {
+                Agregar(importes, "Descuento", venta.Descuento);
+                Agregar(importes, "Base para el impuesto", venta.Subtotal - venta.Descuento);
+                Agregar(importes, "Impuesto (" + venta.TasaImpuesto.ToString("0.##", Cultura) + " %)", venta.Impuestos);
+            }
+            else if (venta.EsFactura)
             {
                 string etiquetaImpuesto = venta.TasaImpuesto < 0 ? "Impuesto registrado" :
                     "Impuesto incluido (" + venta.TasaImpuesto.ToString("0.##", Cultura) + " %)";
                 Agregar(importes, etiquetaImpuesto, venta.Impuestos);
-                if (venta.Descuento != 0)
-                    Agregar(importes, "Descuento", venta.Descuento);
+                if (venta.Descuento != 0) Agregar(importes, "Descuento", venta.Descuento);
             }
             if (venta.CostoEnvio != 0)
                 Agregar(importes, "Envío", venta.CostoEnvio);
@@ -87,7 +92,7 @@ namespace SistemaPedidoRestaurante.UIPrincipal
 
         internal string ImportesVista()
         {
-            return string.Join(Environment.NewLine, importes.OrderBy(campo => campo.Key == "Total" ? 0 : 1)
+            return string.Join(Environment.NewLine, importes
                 .Select(campo => campo.Key + ": " + Dinero((decimal)campo.Value)));
         }
 

@@ -37,7 +37,7 @@ namespace SistemaPedidoRestaurante.Validaciones
             {
                 throw new ArgumentException("Seleccione un pedido para cobrar.");
             }
-            CamposValidacion.Importe(total, "total", false);
+            CamposValidacion.Importe(total, "total", true);
             CamposValidacion.Importe(recibido, "monto recibido", true);
             if (recibido < total)
             {

@@ -11,7 +11,7 @@ namespace SistemaPedidoRestaurante.UIAdministracion
     {
 
         private ConfiguracionRestauranteBLL servicio = new ConfiguracionRestauranteBLL();
-        private (string Nombre, decimal Tasa) datosIniciales;
+        private (string Nombre, decimal Tasa, bool Activo, decimal Descuento, DateTime Fecha) datosIniciales;
         private bool configuracionCargada;
         public FrmConfiguracionRestaurante()
         {
@@ -33,7 +33,11 @@ namespace SistemaPedidoRestaurante.UIAdministracion
                 DataRow datos = servicio.ObtenerConfiguracion().Rows[0];
                 nombre.Text = Convert.ToString(datos["Nombre"]);
                 tasa.Value = Convert.ToDecimal(datos["TasaImpuesto"]);
-                datosIniciales = (nombre.Text, tasa.Value);
+                porcentajeDescuento.Value = Convert.ToDecimal(datos["PorcentajeDescuento"]);
+                fechaDescuento.Value = datos.IsNull("FechaDescuento") ? DateTime.Today : Convert.ToDateTime(datos["FechaDescuento"]);
+                descuentoActivo.Checked = Convert.ToBoolean(datos["DescuentoActivo"]);
+                descuentoActivo_CheckedChanged(this, EventArgs.Empty);
+                datosIniciales = (nombre.Text, tasa.Value, descuentoActivo.Checked, porcentajeDescuento.Value, fechaDescuento.Value.Date);
                 configuracionCargada = true;
             }
             catch (Exception error)
@@ -46,16 +50,21 @@ namespace SistemaPedidoRestaurante.UIAdministracion
         private void FrmConfiguracionRestaurante_FormClosing(object sender, FormClosingEventArgs e)
         {
             bool hayCambios = configuracionCargada && DialogResult != DialogResult.OK
-                && !datosIniciales.Equals((nombre.Text, tasa.Value));
+                && !datosIniciales.Equals((nombre.Text, tasa.Value, descuentoActivo.Checked, porcentajeDescuento.Value, fechaDescuento.Value.Date));
             if (!VistaGestion.ConfirmarDescarte(this, hayCambios))
                 e.Cancel = true;
+        }
+
+        private void descuentoActivo_CheckedChanged(object sender, EventArgs e)
+        {
+            porcentajeDescuento.Enabled = fechaDescuento.Enabled = descuentoActivo.Checked;
         }
 
         private void guardar_Click(object sender, EventArgs e)
         {
             try
             {
-                servicio.GuardarConfiguracion(nombre.Text, tasa.Value);
+                servicio.GuardarConfiguracion(nombre.Text, tasa.Value, descuentoActivo.Checked, porcentajeDescuento.Value, fechaDescuento.Value.Date);
                 DialogResult = DialogResult.OK;
                 Close();
             }

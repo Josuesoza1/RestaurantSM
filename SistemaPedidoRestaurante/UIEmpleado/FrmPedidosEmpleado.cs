@@ -256,7 +256,7 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             btnSeleccionar.Enabled = fila != null;
             btnMesa.Enabled = fila != null && puedeAvanzar && (!fila.Table.Columns.Contains("IdTipoEntrega") || Convert.ToInt32(fila["IdTipoEntrega"]) <= 2);
             btnAvanzar.Text = puedeDeshacer ? "Deshacer despacho" : "Despachar";
-            btnAvanzar.Enabled = puedeAvanzar || puedeDeshacer;
+            btnAvanzar.Enabled = fila != null && Convert.ToInt32(fila["IdTipoEntrega"]) == 1 && (puedeAvanzar || puedeDeshacer);
             btnCobrar.Enabled = Permisos.PuedeCobrar && (estado == "Entregado" || cobroMostrador);
             btnCancelar.Enabled = estado == "Pendiente";
             btnPedidoPdf.Enabled = fila != null;
@@ -265,6 +265,9 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             bool ventaActiva = !seleccionar && !historial && tipo == "Pedidos" && Permisos.PuedeAtender;
             btnEditarVenta.Visible = ventaActiva;
             btnEditarVenta.Enabled = ventaActiva && estado == "Pendiente";
+            btnAgregarConsumo.Visible = ventaActiva;
+            btnAgregarConsumo.Enabled = ventaActiva && fila != null && Convert.ToInt32(fila["IdTipoEntrega"]) == 1 &&
+                (estado == "Pendiente" || estado == "Entregado");
             btnMesa.Visible = btnAvanzar.Visible = btnCancelar.Visible = ventaActiva;
             btnCobrar.Visible = ventaActiva && Permisos.PuedeCobrar;
             lblGuia.Visible = ventaActiva || TieneHistorialVentas;
@@ -361,6 +364,25 @@ namespace SistemaPedidoRestaurante.UIEmpleado
             }
         }
 
+        private void btnAgregarConsumo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DataRow fila = Seleccion();
+                int id = Convert.ToInt32(fila["IdPedido"]);
+                using (var formulario = new FrmPedido())
+                {
+                    formulario.PrepararConsumo(id, Convert.ToString(fila["Cliente"]));
+                    if (formulario.ShowDialog(this) == DialogResult.OK)
+                        Recargar(id);
+                }
+            }
+            catch (Exception error)
+            {
+                MostrarError(error);
+            }
+        }
+
         private void btnAvanzar_Click(object sender, EventArgs e)
         {
             try
@@ -380,6 +402,12 @@ namespace SistemaPedidoRestaurante.UIEmpleado
                 {
                     if (!VistaGestion.Confirmar(this, "¿Confirmar el despacho de la venta " + idPedido + "?"))
                         return;
+                    if (fila.IsNull("IdMesa"))
+                    {
+                        using (var elegir = new FrmElegirMesa(idPedido))
+                            if (elegir.ShowDialog(this) != DialogResult.OK)
+                                return;
+                    }
                     pedidos.DespacharPedido(idPedido, estado);
                 }
                 txtBuscar.Clear();
@@ -399,7 +427,12 @@ namespace SistemaPedidoRestaurante.UIEmpleado
                 int pedido = Convert.ToInt32(fila["IdPedido"]);
                 using (Form formulario = PantallasPersonal.CrearCobro(pedido, PuedeCobrarEnMostrador(fila)))
                     if (formulario.ShowDialog(this) == DialogResult.OK)
+                    {
                         Recargar();
+                        using (var siguiente = new FrmPedido())
+                            siguiente.ShowDialog(this);
+                        Recargar();
+                    }
             }
             catch (Exception error)
             {

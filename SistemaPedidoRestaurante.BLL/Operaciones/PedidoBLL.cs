@@ -11,6 +11,18 @@ namespace SistemaPedidoRestaurante.BLL
     public class PedidoBLL
     {
         private readonly PedidoDAL pedidoDAL = new PedidoDAL();
+        public DataRow ObtenerImportes(int pedido)
+        {
+            Permisos.ExigirAtencion();
+            try
+            {
+                return pedidoDAL.ObtenerImportes(SesionActual.IdUsuario, pedido);
+            }
+            catch (SqlException error)
+            {
+                throw OperacionDatos.Traducir(error, "No se pudo consultar el desglose de la cuenta.");
+            }
+        }
 
         public DataTable ListarPedidos(bool soloEntregados = false, bool soloAbiertas = false)
         {
@@ -92,13 +104,13 @@ namespace SistemaPedidoRestaurante.BLL
             return resultado;
         }
 
-        public int GuardarPedido(int cliente, PedidoBorrador pedido, Guid solicitud)
+        public int GuardarPedido(int cliente, PedidoBorrador pedido, Guid solicitud, bool enMesa = false)
         {
             Permisos.ExigirAtencion();
             PedidoValidacion.Contenido(pedido == null ? null : pedido.Lineas, solicitud);
             try
             {
-                return pedidoDAL.Guardar(SesionActual.IdUsuario, cliente, solicitud, pedido.Lineas);
+                return pedidoDAL.Guardar(SesionActual.IdUsuario, cliente, solicitud, pedido.Lineas, enMesa);
             }
             catch (SqlException error)
             {
@@ -106,12 +118,12 @@ namespace SistemaPedidoRestaurante.BLL
             }
         }
 
-        public List<LineaPedidoBorrador> ObtenerDetallePendiente(int pedido)
+        public List<LineaPedidoBorrador> ObtenerDetallePendiente(int pedido, bool soloAgregar = false)
         {
             Permisos.ExigirAtencion();
             try
             {
-                return pedidoDAL.ObtenerDetallePendiente(SesionActual.IdUsuario, pedido);
+                return pedidoDAL.ObtenerDetallePendiente(SesionActual.IdUsuario, pedido, soloAgregar);
             }
             catch (SqlException error)
             {
@@ -119,13 +131,13 @@ namespace SistemaPedidoRestaurante.BLL
             }
         }
 
-        public void EditarPendiente(int pedido, IReadOnlyList<LineaPedidoBorrador> original, PedidoBorrador borrador)
+        public void EditarPendiente(int pedido, IReadOnlyList<LineaPedidoBorrador> original, PedidoBorrador borrador, bool soloAgregar = false)
         {
             Permisos.ExigirAtencion();
             PedidoValidacion.Contenido(borrador?.Lineas);
             try
             {
-                pedidoDAL.EditarPendiente(SesionActual.IdUsuario, pedido, original, borrador.Lineas);
+                pedidoDAL.EditarPendiente(SesionActual.IdUsuario, pedido, original, borrador.Lineas, soloAgregar);
             }
             catch (SqlException error)
             {

@@ -9,8 +9,27 @@ namespace SistemaPedidoRestaurante.DAL
 {
     public class PedidoDAL
     {
+        public DataRow ObtenerImportes(int actor, int pedido)
+        {
+            const string consulta = @"
+                EXEC dbo.sp_Operacion_ExigirPedidoAbierto @Actor,@Pedido;
+                SELECT subtotal AS Subtotal,descuento AS Descuento,impuestos AS Impuestos,total AS Total,
+                    tasaImpuestoAplicada AS TasaImpuesto,porcentajeDescuento AS PorcentajeDescuento
+                FROM dbo.pedido WHERE idPedido=@Pedido;";
+            using (SqlConnection conexion = ConexionBD.ObtenerConexion())
+            using (SqlCommand comando = new SqlCommand(consulta, conexion))
+            using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+            {
+                comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
+                comando.Parameters.Add("@Pedido", SqlDbType.Int).Value = pedido;
+                DataTable tabla = new DataTable();
+                adaptador.Fill(tabla);
+                if (tabla.Rows.Count != 1) throw new ArgumentException("No se encontró la cuenta abierta.");
+                return tabla.Rows[0];
+            }
+        }
 
-        public int Guardar(int actor, int cliente, Guid solicitud, IEnumerable<LineaPedidoBorrador> lineas)
+        public int Guardar(int actor, int cliente, Guid solicitud, IEnumerable<LineaPedidoBorrador> lineas, bool enMesa = false)
         {
             int idPedido;
             List<LineaPedidoBorrador> detalle = new List<LineaPedidoBorrador>(lineas);
@@ -29,6 +48,7 @@ namespace SistemaPedidoRestaurante.DAL
                             comando.Parameters.Add("@IdCliente", SqlDbType.Int).Value = cliente == 0 ? (object)DBNull.Value : cliente;
                             comando.Parameters.Add("@Solicitud", SqlDbType.UniqueIdentifier).Value = solicitud;
                             comando.Parameters.Add("@NumeroLineas", SqlDbType.Int).Value = detalle.Count;
+                            comando.Parameters.Add("@EnMesa", SqlDbType.Bit).Value = enMesa;
                             using (SqlDataReader lector = comando.ExecuteReader())
                             {
                                 if (!lector.Read()) throw new InvalidOperationException("No se pudo iniciar el pedido.");
@@ -76,24 +96,28 @@ namespace SistemaPedidoRestaurante.DAL
             }
         }
 
-        public List<LineaPedidoBorrador> ObtenerDetallePendiente(int actor, int pedido)
+        public List<LineaPedidoBorrador> ObtenerDetallePendiente(int actor, int pedido, bool soloAgregar = false)
         {
             using (SqlConnection conexion = ConexionBD.ObtenerConexion())
             {
                 conexion.Open();
-                return LeerDetallePendiente(conexion, null, actor, pedido);
+                return LeerDetallePendiente(conexion, null, actor, pedido, soloAgregar);
             }
         }
 
         public void EditarPendiente(int actor, int pedido, IReadOnlyList<LineaPedidoBorrador> original,
-            IReadOnlyList<LineaPedidoBorrador> corregido)
+            IReadOnlyList<LineaPedidoBorrador> corregido, bool soloAgregar = false)
         {
             using (SqlConnection conexion = ConexionBD.ObtenerConexion())
             {
                 conexion.Open();
                 using (SqlTransaction transaccion = conexion.BeginTransaction(IsolationLevel.Serializable))
                 {
-                    List<LineaPedidoBorrador> actual = LeerDetallePendiente(conexion, transaccion, actor, pedido);
+                    List<LineaPedidoBorrador> actual = LeerDetallePendiente(conexion, transaccion, actor, pedido, soloAgregar);
+                    if (soloAgregar && actual.Any(linea => !corregido.Any(nueva =>
+                        nueva.IdProducto == linea.IdProducto && nueva.Cantidad >= linea.Cantidad &&
+                        nueva.PrecioUnitario == linea.PrecioUnitario)))
+                        throw new ArgumentException("Agregar consumo conserva los productos anteriores y solo permite aumentar cantidades o agregar productos.");
                     if (CoincideDetalle(actual, corregido))
                     {
                         transaccion.Commit();
@@ -115,14 +139,11 @@ namespace SistemaPedidoRestaurante.DAL
                         ActualizarLinea(conexion, transaccion, actor, pedido, producto, nueva);
                     }
 
-                    const string actualizarTotal = @"
-                        DECLARE @Subtotal decimal(18,2);
-                        SELECT @Subtotal = SUM(total) FROM dbo.detallePedido WHERE idPedido = @Pedido;
-                        UPDATE dbo.pedido SET subtotal = @Subtotal, total = @Subtotal + costoEnvio
-                        WHERE idPedido = @Pedido;";
+                    const string actualizarTotal = "EXEC dbo.sp_Pedido_Recalcular @Actor, @Pedido;";
                     using (SqlCommand comando = new SqlCommand(actualizarTotal, conexion, transaccion))
                     {
                         comando.Parameters.Add("@Pedido", SqlDbType.Int).Value = pedido;
+                        comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
                         comando.ExecuteNonQuery();
                     }
                     transaccion.Commit();
@@ -130,14 +151,15 @@ namespace SistemaPedidoRestaurante.DAL
             }
         }
 
-        private static List<LineaPedidoBorrador> LeerDetallePendiente(SqlConnection conexion, SqlTransaction transaccion, int actor, int pedido)
+        private static List<LineaPedidoBorrador> LeerDetallePendiente(SqlConnection conexion, SqlTransaction transaccion, int actor, int pedido, bool soloAgregar)
         {
             const string consulta = @"
                 EXEC dbo.sp_Operacion_ExigirPersonal @Actor;
                 IF NOT EXISTS (SELECT 1 FROM dbo.pedido WITH (UPDLOCK)
-                    WHERE idPedido = @Pedido AND idOrigenPedido = 2 AND idTipoEntrega IN (1, 2) AND estado = 'Pendiente')
+                    WHERE idPedido = @Pedido AND idOrigenPedido = 2 AND idTipoEntrega IN (1, 2)
+                        AND (estado = 'Pendiente' OR (@SoloAgregar = 1 AND estado = 'Entregado' AND idTipoEntrega = 1 AND idMesa IS NOT NULL)))
                     OR EXISTS (SELECT 1 FROM dbo.factura WHERE idPedido = @Pedido)
-                    THROW 50704, N'Solo puede editar una venta local pendiente y sin factura.', 1;
+                    THROW 50704, N'La cuenta debe estar abierta y sin factura. En cuentas entregadas solo se permite agregar consumo.', 1;
 
                 SELECT d.idProducto, p.nombre, d.precioUnitario, d.cantidad
                 FROM dbo.detallePedido d JOIN dbo.producto p ON p.idProducto = d.idProducto
@@ -147,6 +169,7 @@ namespace SistemaPedidoRestaurante.DAL
             {
                 comando.Parameters.Add("@Actor", SqlDbType.Int).Value = actor;
                 comando.Parameters.Add("@Pedido", SqlDbType.Int).Value = pedido;
+                comando.Parameters.Add("@SoloAgregar", SqlDbType.Bit).Value = soloAgregar;
                 using (SqlDataReader lector = comando.ExecuteReader())
                 {
                     while (lector.Read())
